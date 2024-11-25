@@ -13,6 +13,8 @@ class ApplicationManager(object):
 
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
+        self.__args = args[0][0]
+
         self.__platform = Platform()
         self.__frame_id = None
         self.__filename_ext = None
@@ -88,12 +90,18 @@ class ApplicationManager(object):
 
     def clear_tmp(self):
         """Clear temp configs"""
+        if not '--dev' in self.__args:
+            return
+        
         if os.path.isfile(self.__linux_desktop_file_url):
             os.remove(self.__linux_desktop_file_url)
 
     def __linux_wayland_tmp_desktop_for_icon(self) -> None:
         # BASEDIR=$(dirname $0)
         # echo "Script on ${BASEDIR}"
+
+        if not '--dev' in self.__args:
+            return
         if not self.__icon:
             return
         if self.__linux_icon_has_set:

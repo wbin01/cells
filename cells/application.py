@@ -13,13 +13,13 @@ class Application(object):
     Configures parameters and events external to the application
     """
 
-    def __init__(self, args: list) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
-        self.__application = QtWidgets.QApplication(args)
+        self.__application = QtWidgets.QApplication(args[0])
         self.__frame = None
         self.__icon_path = None
         self.__icon = None
-        self.__devel = ApplicationManager()
+        self.__devel = ApplicationManager(args)
 
     @property
     def frame(self) -> QtWidgets:
@@ -47,8 +47,6 @@ class Application(object):
         if self.__frame:
             self.__icon = QtGui.QIcon(QtGui.QPixmap(path))
             self.__frame.icon = self.__icon
-
-            # if devel
             self.__devel.icon = path
 
     @property
