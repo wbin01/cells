@@ -15,7 +15,8 @@ class Application(object):
 
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
-        self.__application = QtWidgets.QApplication(args[0])
+        self.__args = args[0]
+        self.__application = QtWidgets.QApplication(self.__args)
         self.__frame = None
         self.__icon_path = None
         self.__icon = None
@@ -47,7 +48,9 @@ class Application(object):
         if self.__frame:
             self.__icon = QtGui.QIcon(QtGui.QPixmap(path))
             self.__frame.icon = self.__icon
-            self.__devel.icon = path
+
+            if '--dev' in self.__args:
+                self.__devel.icon = path
 
     @property
     def frame_id(self) -> list:
@@ -82,4 +85,3 @@ class Application(object):
         
         self.__devel.clear_tmp()
         sys.exit(exit_code)
-        
