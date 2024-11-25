@@ -1,0 +1,8 @@
+[Desktop Entry]
+Exec=/usr/share/cells/demo
+Icon=cells
+PrefersNonDefaultGPU=false
+StartupNotify=true
+Terminal=false
+Type=Application
+X-KDE-SubstituteUID=false

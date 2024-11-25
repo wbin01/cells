@@ -1,0 +1,9 @@
+[MainFrame]
+background=rgba(32, 32, 32, 0.99)
+border=1px 1px 1px 1px rgba(50, 50, 50, 0.8)
+border radius=10px 10px 3px 3px
+padding=10px 10px 3px 3px
+
+[MainFrame:Inactive]
+background=#191919
+border=1px 1px 1px 1px rgba(40, 40, 40, 0.8)
