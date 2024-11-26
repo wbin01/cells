@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-import os
 import logging
+import os
+import string
+import sys
 
 from .platform import Platform
 
@@ -53,6 +55,8 @@ class ApplicationManager(object):
         self.__app_name = self.__wm_class if len(frame_id) < 3 else frame_id[2]
         self.__work_dir = os.path.dirname(frame_id[0])
 
+        self.__check__wm_class()
+
         # Linux
         self.__linux_applications_dir = os.path.join(
                 os.environ['HOME'], '.local', 'share', 'applications')
@@ -75,7 +79,8 @@ class ApplicationManager(object):
         Application Icon
         """
         self.__icon = path
-        self.__linux_wayland_tmp_desktop_for_icon()
+        if '--dev' in self.__args:
+            self.__linux_wayland_tmp_desktop_for_icon()
 
     @property
     def wm_class(self) -> str:
@@ -118,7 +123,36 @@ class ApplicationManager(object):
             os.chmod(self.__frame_id[0] , 0o777)
             self.__linux_icon_has_set = True
 
+    def __check__wm_class(self):
+        message = (
+            '\nID name must be 3 characters or more, and can only contain '
+            'lowercase letters, numbers or underscores "_", such as:\n'
+            '    [__file__, "\033[0;34mapp_4_me\033[0m", "App 4 me" ]\n')
+
+        if len(self.__wm_class) < 3:
+            print(message)
+            sys.exit(-1)
+
+        for char in self.__wm_class:
+            if char not in string.ascii_lowercase + string.digits + '_':
+                print(message)
+                sys.exit(-1)
+
     def deploy(self) -> None:
+        if not self.__frame_id or not self.__icon:
+            print(
+                '\n | First set the "\033[0;34mframe_id\033[0m" and '
+                '"\033[0;34micon\033[0m" properties of\n | the '
+                'application. Example:\n |\n'
+                ' |   app = Application(sys.argv)\n'
+                ' |   app.frame = MainFrame()\n'
+                ' |\033[0;34m   app.frame_id = [__file__, "my_app", "My App"]'
+                ' |\033[0m\n'
+                ' |\033[0;34m   app.icon = "/path/to/my/icon.svg"'
+                ' |\033[0m\n'
+                ' |   app.exec()\n')
+            sys.exit(-1)
+
         if self.__platform.operational_system == 'linux' and self.__frame_id:
             static_files_path = self.__deploy_linux_collect_static_files()
             scripts_path = self.__deploy_linux_collect_scripts()
@@ -127,6 +161,9 @@ class ApplicationManager(object):
             applications_path = os.path.join('usr', 'share', 'applications')
             icon_path = os.path.join(
                 'usr', 'share', 'icons', 'hicolor', '48x48', 'apps')
+
+        # TODO: message about application
+        print('deployment completed!')
 
     def __deploy_linux_collect_static_files(self) -> str:
         pass

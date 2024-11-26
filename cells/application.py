@@ -48,9 +48,7 @@ class Application(object):
         if self.__frame:
             self.__icon = QtGui.QIcon(QtGui.QPixmap(path))
             self.__frame.icon = self.__icon
-
-            if '--dev' in self.__args:
-                self.__devel.icon = path
+            self.__devel.icon = path
 
     @property
     def frame_id(self) -> list:
@@ -60,6 +58,10 @@ class Application(object):
         The first item is the main file, __file__, followed by an ID
         Example:
             [__file__, 'app_id', 'App Name']
+
+        ID name must be 3 characters or more, and can only contain lowercase 
+        letters, numbers or underscores '_', such as:
+            [__file__, 'app_4_me', 'App 4 me' ]
 
         When set the list, all items are optional, but the order is mandatory
         """

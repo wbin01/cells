@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Cells
+GenericName=
+Comment=
+Exec=cell s
+Icon=cell s
+Type=Application
+Categories=Utility;
+Terminal=false
+TerminalOptions=
+MimeType=
+StartupNotify=true
+X-KDE-SubstituteUID=false
+PrefersNonDefaultGPU=false
