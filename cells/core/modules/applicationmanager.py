@@ -117,3 +117,54 @@ class ApplicationManager(object):
 
             os.chmod(self.__frame_id[0] , 0o777)
             self.__linux_icon_has_set = True
+
+    def deploy(self) -> None:
+        if self.__platform.operational_system == 'linux' and self.__frame_id:
+            static_files_path = self.__deploy_linux_collect_static_files()
+            scripts_path = self.__deploy_linux_collect_scripts()
+            desktop_file_path = self.__deploy_linux_create_desktop_file()
+
+            applications_path = os.path.join('usr', 'share', 'applications')
+            icon_path = os.path.join(
+                'usr', 'share', 'icons', 'hicolor', '48x48', 'apps')
+
+    def __deploy_linux_collect_static_files(self) -> str:
+        pass
+
+    def __deploy_linux_collect_scripts(self) -> str:
+        pass
+
+    def __deploy_linux_create_desktop_file(self) -> str:
+        # TODOs | Exec and Icon as self.__wm_class
+        generic_name = ''
+        comment = ''
+        app_type = 'Application'
+        categories = 'Utility;'
+        terminal = 'false'
+        terminal_opt = ''
+        mime = ''
+
+        # TODO: Copy and rename icon to self.__wm_class
+
+        desktop_path = os.path.join(
+            self.__work_dir, self.__wm_class + '.desktop')
+
+        with open(desktop_path, 'w') as f:
+            f.write(
+                '[Desktop Entry]\n'
+                f'Name={self.__app_name}\n'
+                f'GenericName={generic_name}\n'
+                f'Comment={comment}\n'
+                f'Exec={self.__wm_class}\n'
+                f'Icon={self.__wm_class}\n'
+                f'Type={app_type}\n'
+                f'Categories={categories}\n'
+                f'Terminal={terminal}\n'
+                f'TerminalOptions={terminal_opt}\n'
+                f'MimeType={mime}\n'
+                f'StartupNotify=true\n'
+                f'X-KDE-SubstituteUID=false\n'
+                f'PrefersNonDefaultGPU=false\n')
+
+        os.chmod(desktop_path , 0o777)
+        return desktop_path

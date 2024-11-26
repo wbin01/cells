@@ -76,6 +76,10 @@ class Application(object):
 
         Starts the main loop and renders frames
         """
+        if '--deploy' in self.__args:
+            self.__devel.deploy()
+            sys.exit(0)
+
         if not self.__frame:
             self.__devel.clear_tmp()
             sys.exit(-1)
