@@ -199,12 +199,13 @@ class CoreMainFrame(ProtoFrame):
     def __set_edge_cursor_position(self, event: QtCore.QEvent) -> None:
         # Saves the position of the window where the mouse cursor is
         shadow_size = self.__shadow_size if self.is_shadow_visible() else 0
-        resize_area = (
-            -3 if not self.__is_csd else shadow_size - 3)
+        resize_area = (-3 if not self.__is_csd else shadow_size - 3)
+
         pos = event.position().to_point()  # QtGui.QHoverEvent(ev.clone())
         window_area = [
             resize_area < pos.x() < self.width() - resize_area,
             resize_area < pos.y() < self.height() - resize_area]
+
         if not self.__is_csd:
             window_area = [
                 pos.x() < self.width(), pos.y() < self.height()]
@@ -279,7 +280,8 @@ class CoreMainFrame(ProtoFrame):
 
             if visible:
                 self.__edge_resize_area = (
-                        self.__edge_resize_area_ssd + self.__shadow_size)
+                    self.__edge_resize_area_ssd + self.__shadow_size
+                    if self.__show_shadow else self.__edge_resize_area_ssd)
             else:
                 self.__edge_resize_area = self.__edge_resize_area_ssd
 
@@ -291,7 +293,6 @@ class CoreMainFrame(ProtoFrame):
             self.set_style_sheet(self.__style_sheet_inactive)
 
         if not self.__is_csd:
-            # self.central_widget().set_style_sheet(self.__style_sheet)
             if event.type() == QtCore.QEvent.Resize:
                 self.resize_event_signal.emit(event)
         else:
@@ -304,9 +305,13 @@ class CoreMainFrame(ProtoFrame):
 
             elif event.type() == QtCore.QEvent.MouseButtonPress:
                 self.__set_edge_cursor_position_shape()
+
                 if self.__edge_cursor_position:
                     self.window_handle().start_system_resize(
                         self.__edge_cursor_position)
+
+                elif self.under_mouse():
+                    self.window_handle().start_system_move()
 
             elif event.type() == QtCore.QEvent.MouseButtonRelease:
                 self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
