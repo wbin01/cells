@@ -7,18 +7,17 @@ from cells import Application, MainFrame, Frame, Signal
 
 class MainFrame(MainFrame):
 
-    x_signal = Signal()
+    test_signal = Signal(28)
 
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
-        self.event_filter_signal.callback(self.my_func)
-        self.x_signal.callback(lambda: print('zzz'))
+        self.events_signal.callback(self.my_func)
+        self.test_signal.callback(lambda: print(type(self.test_signal.obj)))
 
     def my_func(self):
-        print(self.event_filter_signal)
-        print('Hi!')
-        self.x_signal.send_signal()
+        print(self.events_signal)
+        self.test_signal.send()
 
 
 if __name__ == '__main__':

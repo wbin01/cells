@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import pathlib
+import sys
+
 from PySide6 import QtCore
 from __feature__ import snake_case
 
@@ -7,27 +10,27 @@ class Signal(QtCore.QObject):
     """..."""
     _signal = QtCore.Signal()
 
-    def __init__(self, name: str = 'Signal', *args, **kwargs):
+    def __init__(self, obj: any = None, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         """Class constructor"""
-        self.__name = name
+        self.__obj = obj
 
     @property
-    def name(self) -> str:
+    def obj(self) -> str:
         """..."""
-        return self.__name
+        return self.__obj
 
-    @name.setter
-    def name(self, name: str) -> None:
-        self.__name = name
+    @obj.setter
+    def obj(self, obj: str) -> None:
+        self.__obj = obj
 
     def callback(self, function) -> None:
         """..."""
         self._signal.connect(function)
 
-    def send_signal(self) -> None:
+    def send(self) -> None:
         """..."""
         self._signal.emit()
 
     def __str__(self) -> str:
-        return f'<cells.Signal("{self.__name}") at {id(self)}>'
+        return f'<cells.Signal({type(self.__obj)}) at {id(self)}>'

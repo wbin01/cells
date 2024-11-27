@@ -8,6 +8,7 @@ from __feature__ import snake_case
 from . import color
 from .modules import StyleManager
 from .edgeshadow import EdgeShadow
+from ..signal import Signal
 
 
 class ProtoFrame(QtWidgets.QMainWindow):
@@ -170,7 +171,7 @@ class CoreMainFrame(ProtoFrame):
 
     Using style integration
     """
-    event_filter_signal = QtCore.Signal()
+    event_filter_signal = Signal('event-filter')
 
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
@@ -296,7 +297,7 @@ class CoreMainFrame(ProtoFrame):
             self.__event_filter_can_emit = True
 
         if self.__event_filter_can_emit:
-            self.event_filter_signal.emit()
+            self.event_filter_signal.send()
 
     def event_filter(
             self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
