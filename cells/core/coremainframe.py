@@ -8,6 +8,7 @@ from __feature__ import snake_case
 from . import color
 from .modules import StyleManager
 from .edgeshadow import EdgeShadow
+from .coresignal import CoreSignal
 
 
 class ProtoFrame(QtWidgets.QMainWindow):
@@ -170,6 +171,7 @@ class CoreMainFrame(ProtoFrame):
 
     Using style integration
     """
+    event_filter_signal = CoreSignal()
 
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
@@ -287,7 +289,7 @@ class CoreMainFrame(ProtoFrame):
             else:
                 self.__edge_resize_area = self.__edge_resize_area_ssd
 
-    def __event_filter_emissions(self) -> None:
+    def __event_filter_emissions(self, event: QtCore.QEvent) -> None:
         # ...
         self.__event_filter_count += 1
         if self.__event_filter_count > 30 and not self.__event_filter_can_emit:
@@ -295,12 +297,11 @@ class CoreMainFrame(ProtoFrame):
             self.__event_filter_can_emit = True
 
         if self.__event_filter_can_emit:
-            print(self.__event_filter_count)
-            # pass
+            self.event_filter_signal.send_signal()
 
     def event_filter(
             self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
-        self.__event_filter_emissions()
+        self.__event_filter_emissions(event)
 
         if event.type() == QtCore.QEvent.FocusIn:
             self.set_style_sheet(self.__style_sheet)
@@ -309,7 +310,7 @@ class CoreMainFrame(ProtoFrame):
 
         if not self.__is_csd:
             if event.type() == QtCore.QEvent.Resize:
-                self.resize_event_signal.emit(event)
+                self.resize_event_signal.emit()
         else:
             if event.type() == QtCore.QEvent.HoverMove:
                 self.__set_edge_cursor_position(event)
