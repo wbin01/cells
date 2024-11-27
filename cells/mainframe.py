@@ -13,6 +13,8 @@ class MainFrame(object):
         """Class constructor"""
         super().__init__(*args, **kwargs)
         self.__frame = CoreMainFrame()
+        self._qt_class = self.__frame
+
         self.__icon = None
         self.__icon_path = None
         self.events_signal = self.__frame.event_filter_signal
@@ -30,6 +32,9 @@ class MainFrame(object):
         self.__icon = CoreIcon(path)
         self.__frame.set_window_icon(self.__icon)
 
-    def _show(self) -> None:
+    def show(self) -> None:
         # Starts the main loop
         self.__frame.show()
+
+    def __str__(self):
+        return f'<MainFrame() {id(self)}>'

@@ -10,9 +10,8 @@ from .core import ApplicationManager
 class Application(object):
     """Application manager
 
-    Configures parameters and events external to the application
+    Configures parameters and events external to the application.
     """
-
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         self.__args = args[0]
@@ -26,7 +25,7 @@ class Application(object):
     def frame(self) -> QtWidgets:
         """Application frame
         
-        That is, the main application window
+        That is, the main application window.
         """
         return self.__frame
 
@@ -38,7 +37,7 @@ class Application(object):
     def icon(self) -> str:
         """Frame icon path string
 
-        Application Icon
+        Application Icon.
         """
         return self.__icon_path
 
@@ -63,7 +62,7 @@ class Application(object):
         letters, numbers or underscores '_', such as:
             [__file__, 'app_4_me', 'App 4 me' ]
 
-        When set the list, all items are optional, but the order is mandatory
+        When set the list, all items are optional, but the order is mandatory.
         """
         return self.__frame_id_list
 
@@ -76,7 +75,7 @@ class Application(object):
     def exec(self) -> None:
         """Runs and displays the application
 
-        Starts the main loop and renders frames
+        Starts the main loop and renders frames.
         """
         if '--deploy' in self.__args:
             self.__devel.deploy()
@@ -86,7 +85,7 @@ class Application(object):
             self.__devel.clear_tmp()
             sys.exit(-1)
 
-        self.__frame._show()
+        self.__frame.show()
         exit_code = self.__application.exec()
         
         self.__devel.clear_tmp()

@@ -13,7 +13,7 @@ class MainFrame(MainFrame):
         """Class constructor"""
         super().__init__(*args, **kwargs)
         self.events_signal.callback(self.my_func)
-        self.test_signal.callback(lambda: print(type(self.test_signal.obj)))
+        self.test_signal.callback(lambda: print(self.test_signal.value))
 
     def my_func(self):
         print(self.events_signal)

@@ -11,7 +11,8 @@ class Frame(object):
         """Class constructor"""
         super().__init__(*args, **kwargs)
         self.__frame = CoreFrame()
+        self._qt_class = self.__frame
 
-    def _show(self) -> None:
+    def show(self) -> None:
         # Starts the main loop
         self.__frame.show()
