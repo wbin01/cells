@@ -15,8 +15,10 @@ class MainFrame(object):
         self.__frame = CoreMainFrame()
         self.__icon = None
         self.__icon_path = None
+        self._qobject_signal = self.__frame.event_filter_signal
 
-        self.event_filter_signal = self.__frame.event_filter_signal
+        self.event_filter_signal = Signal()
+        self.event_filter_signal._signal = self.__frame.event_filter_signal
 
     @property
     def icon(self) -> CoreIcon:

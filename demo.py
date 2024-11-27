@@ -15,7 +15,6 @@ class MainFrame(MainFrame):
         self.event_filter_signal.callback(self.my_func)
         self.x_signal.callback(lambda: print('zzz'))
 
-
     def my_func(self):
         print(self.event_filter_signal)
         print('Hi!')
