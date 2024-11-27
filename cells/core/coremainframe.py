@@ -180,6 +180,8 @@ class CoreMainFrame(ProtoFrame):
         self.__edge_resize_area = self.__edge_resize_area_ssd
         self.__is_csd = True
         self.__show_shadow = False
+        self.__event_filter_count = 1
+        self.__event_filter_can_emit = False
         self.__is_dark = color.is_dark(
             QtGui.QPalette().color(QtGui.QPalette.Window).to_tuple())
 
@@ -285,8 +287,21 @@ class CoreMainFrame(ProtoFrame):
             else:
                 self.__edge_resize_area = self.__edge_resize_area_ssd
 
+    def __event_filter_emissions(self) -> None:
+        # ...
+        self.__event_filter_count += 1
+        if self.__event_filter_count > 30 and not self.__event_filter_can_emit:
+            self.__event_filter_count = 1
+            self.__event_filter_can_emit = True
+
+        if self.__event_filter_can_emit:
+            print(self.__event_filter_count)
+            # pass
+
     def event_filter(
             self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
+        self.__event_filter_emissions()
+
         if event.type() == QtCore.QEvent.FocusIn:
             self.set_style_sheet(self.__style_sheet)
         elif event.type() == QtCore.QEvent.FocusOut:
