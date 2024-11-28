@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-class StyleValueHandler(object):
+class StyleManagerParser(object):
     def __init__(self):
         pass
 

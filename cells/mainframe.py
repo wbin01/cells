@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-from .core import CoreMainFrame, CoreIcon, CoreImage
+from .core import CoreMainFrame
+from .icon import Icon
 from .signal import Signal
 
 
@@ -17,10 +18,10 @@ class MainFrame(object):
 
         self.__icon = None
         self.__icon_path = None
-        self.events_signal = self.__frame.event_filter_signal
+        
 
     @property
-    def icon(self) -> CoreIcon:
+    def icon(self) -> Icon:
         """Frame icon
         
         Application Icon
@@ -29,8 +30,22 @@ class MainFrame(object):
 
     @icon.setter
     def icon(self, path: str) -> None:
-        self.__icon = CoreIcon(path)
+        self.__icon = Icon(path)
         self.__frame.set_window_icon(self.__icon)
+
+    def signal(self, name: str) -> Signal:
+        """Event Signals.
+
+        Signals are connections to events. When an event such as a mouse click 
+        or other event occurs, a signal is sent. The signal can be assigned a 
+        function to be executed when the signal is sent.
+
+        :param name:
+            String containing a signal type name, such as 'mouse-click'. 
+            All possible names are: 'event-filter'
+        """
+        if name == 'event-filter':
+            return self.__frame.event_filter_signal
 
     def show(self) -> None:
         # Starts the main loop

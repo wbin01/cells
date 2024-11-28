@@ -7,7 +7,7 @@ from __feature__ import snake_case
 
 from . import color
 from .modules import StyleManager
-from .edgeshadow import EdgeShadow
+from .coreshadow import CoreShadow
 from ..signal import Signal
 
 
@@ -44,16 +44,16 @@ class ProtoFrame(QtWidgets.QMainWindow):
         self.__top_box = QtWidgets.QHBoxLayout()
         self.__main_box.add_layout(self.__top_box)
 
-        self.__top_left_shadow = EdgeShadow('top-left')
+        self.__top_left_shadow = CoreShadow('top-left')
         self.__top_left_shadow.set_fixed_width(self.__shadow_size)
         self.__top_left_shadow.set_fixed_height(self.__shadow_size)
         self.__top_box.add_widget(self.__top_left_shadow)
 
-        self.__top_shadow = EdgeShadow('top')
+        self.__top_shadow = CoreShadow('top')
         self.__top_shadow.set_fixed_height(self.__shadow_size)
         self.__top_box.add_widget(self.__top_shadow)
 
-        self.__top_right_shadow = EdgeShadow('top-right')
+        self.__top_right_shadow = CoreShadow('top-right')
         self.__top_right_shadow.set_fixed_width(self.__shadow_size)
         self.__top_right_shadow.set_fixed_height(self.__shadow_size)
         self.__top_box.add_widget(self.__top_right_shadow)
@@ -62,12 +62,12 @@ class ProtoFrame(QtWidgets.QMainWindow):
         self.__left_center_right_box = QtWidgets.QHBoxLayout()
         self.__main_box.add_layout(self.__left_center_right_box)
 
-        self.__left_shadow = EdgeShadow('left')
+        self.__left_shadow = CoreShadow('left')
         self.__left_shadow.set_fixed_width(self.__shadow_size)
         self.__left_center_right_box.add_widget(self.__left_shadow)
 
         # Center
-        self.__center_shadow = EdgeShadow('center')
+        self.__center_shadow = CoreShadow('center')
         self.__left_center_right_box.add_widget(self.__center_shadow)
 
         self.__central_shadow_box = QtWidgets.QVBoxLayout()
@@ -98,7 +98,7 @@ class ProtoFrame(QtWidgets.QMainWindow):
         self.__central_widget_box.add_widget(self.__central_widget)
 
         # Right
-        self.__right_shadow = EdgeShadow('right')
+        self.__right_shadow = CoreShadow('right')
         self.__right_shadow.set_fixed_width(self.__shadow_size)
         self.__left_center_right_box.add_widget(self.__right_shadow)
 
@@ -106,16 +106,16 @@ class ProtoFrame(QtWidgets.QMainWindow):
         self.__bottom_box = QtWidgets.QHBoxLayout()
         self.__main_box.add_layout(self.__bottom_box)
 
-        self.__bottom_left_shadow = EdgeShadow('bottom-left')
+        self.__bottom_left_shadow = CoreShadow('bottom-left')
         self.__bottom_left_shadow.set_fixed_width(self.__shadow_size)
         self.__bottom_left_shadow.set_fixed_height(self.__shadow_size)
         self.__bottom_box.add_widget(self.__bottom_left_shadow)
 
-        self.__bottom_shadow = EdgeShadow('bottom')
+        self.__bottom_shadow = CoreShadow('bottom')
         self.__bottom_shadow.set_fixed_height(self.__shadow_size)
         self.__bottom_box.add_widget(self.__bottom_shadow)
 
-        self.__bottom_right_shadow = EdgeShadow('bottom-right')
+        self.__bottom_right_shadow = CoreShadow('bottom-right')
         self.__bottom_right_shadow.set_fixed_width(self.__shadow_size)
         self.__bottom_right_shadow.set_fixed_height(self.__shadow_size)
         self.__bottom_box.add_widget(self.__bottom_right_shadow)

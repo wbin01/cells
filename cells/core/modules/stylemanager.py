@@ -3,7 +3,7 @@ import os
 import pathlib
 
 from .desktopentryparse import DesktopFile
-from .stylevaluehandler import StyleValueHandler
+from .stylemanagerparser import StyleManagerParser
 
 
 class StyleManager(object):
@@ -12,7 +12,7 @@ class StyleManager(object):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
-        self.__style_handler = StyleValueHandler()
+        self.__style_handler = StyleManagerParser()
 
         self.__path = pathlib.Path(__file__).resolve().parent
         self.__url = os.path.join(self.__path, 'static', 'stylerc')

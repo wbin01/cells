@@ -3,7 +3,7 @@ import os
 import platform
 
 
-class Platform(object):
+class PlatformSelector(object):
     """..."""
 
     def __init__(self):

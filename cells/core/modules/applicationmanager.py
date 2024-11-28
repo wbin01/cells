@@ -4,7 +4,7 @@ import os
 import string
 import sys
 
-from .platform import Platform
+from .platformselector import PlatformSelector
 
 
 class ApplicationManager(object):
@@ -18,7 +18,7 @@ class ApplicationManager(object):
         self.__args = args[0][0]
         self.__path = os.path.dirname(os.path.abspath(__file__))
 
-        self.__platform = Platform()
+        self.__platform = PlatformSelector()
         self.__frame_id = None
         self.__filename_ext = None
         self.__filename = None

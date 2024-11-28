@@ -12,11 +12,13 @@ class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
-        self.events_signal.callback(self.my_func)
-        self.test_signal.callback(lambda: print(self.test_signal.value))
+        self.sig = self.signal('event-filter')
+        # self.sig.callback(self.my_func)
+
+        # self.test_signal.callback(lambda: print(self.test_signal.value))
 
     def my_func(self):
-        print(self.events_signal)
+        print(self.sig is self.signal('event-filter'))
         self.test_signal.send()
 
 

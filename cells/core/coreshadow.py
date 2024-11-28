@@ -3,7 +3,7 @@ from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 
-class EdgeShadow(QtWidgets.QFrame):
+class CoreShadow(QtWidgets.QFrame):
     """Specific part of a frame's shadow"""
     
     def __init__(self, position: str, *args, **kwargs) -> None:
