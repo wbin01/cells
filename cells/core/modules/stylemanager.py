@@ -20,8 +20,10 @@ class StyleManager(object):
         self.__style_file = DesktopFile(self.__url)
         self.__dict_style = self.__style_file.content
         self.__ini_style = self.__dict_style_to_ini_str()
+
         self.__qss_style = self.__dict_style_to_qss_str()
         self.__qss_inactive_style = self.__dict_style_to_qss_str(True)
+        self.__qss_full_style = self.__dict_style_to_qss_str(fullscreen=True)
 
     @property
     def dict_style(self) -> dict:
@@ -50,6 +52,19 @@ class StyleManager(object):
         self.__qss_style = style
 
     @property
+    def qss_fullscreen_style(self) -> str:
+        """Style for fullscreen as qss string
+
+        Get the style as a qss string or submit a new qss string style to 
+        update it
+        """
+        return self.__qss_full_style
+
+    @qss_fullscreen_style.setter
+    def qss_fullscreen_style(self, style: str) -> None:
+        self.__qss_full_style = style
+
+    @property
     def qss_inactive_style(self) -> str:
         """Style for inactive as qss string
 
@@ -72,7 +87,8 @@ class StyleManager(object):
                 ini += f'{k}={v}\n'
         return ini
 
-    def __dict_style_to_qss_str(self, inactive: bool = False) -> str:
+    def __dict_style_to_qss_str(
+            self, inactive: bool = False, fullscreen: bool = False) -> str:
         bg = self.__dict_style['[MainFrame]']['background']
         bd = self.__style_handler.border_str_to_list(
             self.__dict_style['[MainFrame]']['border'])
@@ -87,6 +103,10 @@ class StyleManager(object):
             if 'border' in self.__dict_style['[MainFrame:Inactive]']:
                 bd = self.__style_handler.border_str_to_list(
                     self.__dict_style['[MainFrame:Inactive]']['border'])
+
+        if fullscreen:  # Only borders
+            bdr = ['0', '0', '0', '0', '']
+            bd = ['0', '0', '0', '0', '#00000000']
 
         qss = (
             '#CentralShadow {\n'

@@ -16,7 +16,6 @@ class ProtoFrame(QtWidgets.QMainWindow):
 
     Only frame without integration
     """
-
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
@@ -195,7 +194,7 @@ class CoreMainFrame(ProtoFrame):
         self.__style_manager = StyleManager()
         self.__style_sheet = self.__style_manager.qss_style
         self.__style_sheet_inactive = self.__style_manager.qss_inactive_style
-        self.__style_sheet_fullscreen = self.__style_sheet
+        self.__style_sheet_fullscreen = self.__style_manager.qss_fullscreen_style
 
         self.set_focus_policy(QtCore.Qt.ClickFocus)
         self.install_event_filter(self)
@@ -335,10 +334,10 @@ class CoreMainFrame(ProtoFrame):
             elif event.type() == QtCore.QEvent.Resize:
                 if self.__is_csd:
                     if self.is_maximized() or self.is_full_screen():
-                        # self.central_widget().set_style_sheet(
-                        #     self.__style_sheet_fullscreen)
+                        self.set_style_sheet(self.__style_sheet_fullscreen)
                         self.__window_shadow_visible(False)
                     else:
+                        self.set_style_sheet(self.__style_sheet)
                         self.__window_shadow_visible(True)
 
         return QtWidgets.QMainWindow.event_filter(self, watched, event)

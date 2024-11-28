@@ -12,7 +12,6 @@ class ProtoFrame(QtWidgets.QFrame):
 
     Only frame without integration
     """
-    
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
@@ -161,7 +160,6 @@ class CoreFrame(ProtoFrame):
 
     Using style integration
     """
-
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
