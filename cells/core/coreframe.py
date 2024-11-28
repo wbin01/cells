@@ -2,7 +2,7 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from __feature__ import snake_case
 
-from . import color
+from .modules import colorconverter
 from .modules import StyleManager
 from .coreshadow import CoreShadow
 
@@ -165,7 +165,7 @@ class CoreFrame(ProtoFrame):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
-        self.__is_dark = color.is_dark(
+        self.__is_dark = colorconverter.is_dark(
             QtGui.QPalette().color(QtGui.QPalette.Window).to_tuple())
         self.__style_manager = StyleManager()
         self.__style_sheet = self.__style_manager.qss_style

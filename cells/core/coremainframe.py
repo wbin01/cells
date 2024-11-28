@@ -5,7 +5,7 @@ import os
 from PySide6 import QtCore, QtGui, QtWidgets
 from __feature__ import snake_case
 
-from . import color
+from .modules import colorconverter
 from .modules import StyleManager
 from .coreshadow import CoreShadow
 from ..signal import Signal
@@ -184,7 +184,7 @@ class CoreMainFrame(ProtoFrame):
         self.__show_shadow = False
         self.__event_filter_count = 1
         self.__event_filter_can_emit = False
-        self.__is_dark = color.is_dark(
+        self.__is_dark = colorconverter.is_dark(
             QtGui.QPalette().color(QtGui.QPalette.Window).to_tuple())
 
         if self.__is_csd:
