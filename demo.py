@@ -6,20 +6,24 @@ from cells import Application, MainFrame, Frame, Signal
 
 
 class MainFrame(MainFrame):
-
-    test_signal = Signal(28)
-
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
-        self.sig = self.signal('event-filter')
-        # self.sig.callback(self.my_func)
+        self.signal('mouse-left-click').callback(self.bg_style)
+        self.print_style()
 
-        # self.test_signal.callback(lambda: print(self.test_signal.value))
+    def print_style(self):
+        for key, value in self.style.items():
+            print(f'\n{key}')
+            for k, v in value.items():
+                print(k, '=', v)
 
-    def my_func(self):
-        print(self.sig is self.signal('event-filter'))
-        self.test_signal.send()
+    def bg_style(self):
+        ss = self.style
+        ss['[MainFrame]']['background'] = 'rgba(255, 0, 0, 1.00)'
+        self.style = ss
+        print('--')
+        self.print_style()
 
 
 if __name__ == '__main__':

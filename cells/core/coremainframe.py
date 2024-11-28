@@ -171,6 +171,11 @@ class CoreMainFrame(ProtoFrame):
     Using style integration
     """
     event_filter_signal = Signal('event-filter')
+    mouse_left_click = Signal('mouse-left-click')
+
+    # BUG: Only one works (release or press)
+    # mouse_button_press_signal = Signal('mouse-button-press')
+    # mouse_button_release_signal = Signal('mouse-button-release')
 
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
@@ -192,12 +197,20 @@ class CoreMainFrame(ProtoFrame):
             self.__window_shadow_visible(True)
 
         self.__style_manager = StyleManager()
-        self.__style_sheet = self.__style_manager.qss_style
-        self.__style_sheet_inactive = self.__style_manager.qss_inactive_style
-        self.__style_sheet_fullscreen = self.__style_manager.qss_fullscreen_style
+        self.__qss_styles = self.__style_manager.stylesheets_for_qss()
 
         self.set_focus_policy(QtCore.Qt.ClickFocus)
         self.install_event_filter(self)
+
+    @property
+    def stylesheet(self) -> dict:
+        return self.__style_manager.stylesheet
+
+    @stylesheet.setter
+    def stylesheet(self, style) -> None:
+        self.__style_manager.stylesheet = style
+        self.__qss_styles = self.__style_manager.stylesheets_for_qss()
+        self.set_style_sheet(self.__qss_styles['active'])
 
     def __set_edge_cursor_position(self, event: QtCore.QEvent) -> None:
         # Saves the position of the window where the mouse cursor is
@@ -303,9 +316,9 @@ class CoreMainFrame(ProtoFrame):
         self.__event_filter_emissions(event)
 
         if event.type() == QtCore.QEvent.FocusIn:
-            self.set_style_sheet(self.__style_sheet)
+            self.set_style_sheet(self.__qss_styles['active'])
         elif event.type() == QtCore.QEvent.FocusOut:
-            self.set_style_sheet(self.__style_sheet_inactive)
+            self.set_style_sheet(self.__qss_styles['inactive'])
 
         if not self.__is_csd:
             if event.type() == QtCore.QEvent.Resize:
@@ -319,6 +332,7 @@ class CoreMainFrame(ProtoFrame):
                 pass
 
             elif event.type() == QtCore.QEvent.MouseButtonPress:
+                # self.mouse_button_press_signal.send()
                 self.__set_edge_cursor_position_shape()
 
                 if self.__edge_cursor_position:
@@ -329,15 +343,17 @@ class CoreMainFrame(ProtoFrame):
                     self.window_handle().start_system_move()
 
             elif event.type() == QtCore.QEvent.MouseButtonRelease:
+                # self.mouse_button_release_signal.send()
+                self.mouse_left_click.send()
                 self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
 
             elif event.type() == QtCore.QEvent.Resize:
                 if self.__is_csd:
                     if self.is_maximized() or self.is_full_screen():
-                        self.set_style_sheet(self.__style_sheet_fullscreen)
+                        self.set_style_sheet(self.__qss_styles['fullscreen'])
                         self.__window_shadow_visible(False)
                     else:
-                        self.set_style_sheet(self.__style_sheet)
+                        self.set_style_sheet(self.__qss_styles['active'])
                         self.__window_shadow_visible(True)
 
         return QtWidgets.QMainWindow.event_filter(self, watched, event)

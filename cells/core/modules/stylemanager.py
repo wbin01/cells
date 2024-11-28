@@ -16,17 +16,15 @@ class StyleManager(object):
 
         self.__path = pathlib.Path(__file__).resolve().parent
         self.__url = os.path.join(self.__path, 'static', 'stylerc')
+        
+        self.__dict_style = None
+        self.__qss_style = None
 
         self.__style_file = DesktopFile(self.__url)
-        self.__dict_style = self.__style_file.content
-        self.__ini_style = self.__dict_style_to_ini_str()
-
-        self.__qss_style = self.__dict_style_to_qss_str()
-        self.__qss_inactive_style = self.__dict_style_to_qss_str(True)
-        self.__qss_full_style = self.__dict_style_to_qss_str(fullscreen=True)
+        self.stylesheet = self.__style_file.content
 
     @property
-    def dict_style(self) -> dict:
+    def stylesheet(self) -> dict:
         """Style as dict
 
         Get the style as a dictionary or submit a new dictionary style to 
@@ -34,58 +32,17 @@ class StyleManager(object):
         """
         return self.__dict_style
     
-    @dict_style.setter
-    def dict_style(self, style: dict) -> None:
+    @stylesheet.setter
+    def stylesheet(self, style: dict) -> None:
         self.__dict_style = style
+        self.__qss_style = {
+            'active': self.__dict_style_to_qss_str(),
+            'inactive': self.__dict_style_to_qss_str(True),
+            'fullscreen': self.__dict_style_to_qss_str(fullscreen=True)}
 
-    @property
-    def qss_style(self) -> str:
-        """Style as qss string
-
-        Get the style as a qss string or submit a new qss string style to 
-        update it
-        """
+    def stylesheets_for_qss(self) -> dict:
+        """..."""
         return self.__qss_style
-    
-    @qss_style.setter
-    def qss_style(self, style: str) -> None:
-        self.__qss_style = style
-
-    @property
-    def qss_fullscreen_style(self) -> str:
-        """Style for fullscreen as qss string
-
-        Get the style as a qss string or submit a new qss string style to 
-        update it
-        """
-        return self.__qss_full_style
-
-    @qss_fullscreen_style.setter
-    def qss_fullscreen_style(self, style: str) -> None:
-        self.__qss_full_style = style
-
-    @property
-    def qss_inactive_style(self) -> str:
-        """Style for inactive as qss string
-
-        Get the style as a qss string or submit a new qss string style to 
-        update it
-        """
-        return self.__qss_inactive_style
-    
-    @qss_inactive_style.setter
-    def qss_inactive_style(self, style: str) -> None:
-        self.__qss_inactive_style = style
-
-    def __dict_style_to_ini_str(self) -> str:
-        # dict style to ini str
-
-        ini = ''
-        for key, value in self.__dict_style.items():
-            ini += f'\n{key}\n'
-            for k, v in value.items():
-                ini += f'{k}={v}\n'
-        return ini
 
     def __dict_style_to_qss_str(
             self, inactive: bool = False, fullscreen: bool = False) -> str:

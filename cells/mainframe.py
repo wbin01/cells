@@ -18,7 +18,19 @@ class MainFrame(object):
 
         self.__icon = None
         self.__icon_path = None
-        
+    
+    @property
+    def style(self) -> dict:
+        """Style as dict
+
+        Get the style as a dictionary or submit a new dictionary style to 
+        update it
+        """
+        return self.__frame.stylesheet
+    
+    @style.setter
+    def style(self, style: dict) -> None:
+        self.__frame.stylesheet = style
 
     @property
     def icon(self) -> Icon:
@@ -46,6 +58,14 @@ class MainFrame(object):
         """
         if name == 'event-filter':
             return self.__frame.event_filter_signal
+        elif name == 'mouse-left-click':
+            return self.__frame.mouse_left_click
+
+        # BUG: Only one works (release or press)
+        # elif name == 'mouse-button-press':
+        #     return self.__frame.mouse_button_press_signal
+        # elif name == 'mouse-button-release':
+        #     return self.__frame.mouse_button_release_signal
 
     def show(self) -> None:
         # Starts the main loop
