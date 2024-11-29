@@ -217,7 +217,10 @@ class CoreMainFrame(ProtoFrame):
     def stylesheet(self, style) -> None:
         self.__style_manager.stylesheet = style
         self.__qss_styles = self.__style_manager.stylesheets_for_qss()
-        self.set_style_sheet(self.__qss_styles['active'])
+        if self.is_maximized() or self.is_full_screen():
+            self.set_style_sheet(self.__qss_styles['fullscreen'])
+        else:
+            self.set_style_sheet(self.__qss_styles['active'])
 
     def __set_edge_cursor_position(self, event: QtCore.QEvent) -> None:
         # Saves the position of the window where the mouse cursor is
@@ -341,7 +344,7 @@ class CoreMainFrame(ProtoFrame):
 
             elif event.type() == QtCore.QEvent.Type.HoverEnter:
                 self.hover_enter_signal.send()
-                
+
             elif event.type() == QtCore.QEvent.Type.HoverLeave:
                 self.hover_leave_signal.send()
 
