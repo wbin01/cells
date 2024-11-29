@@ -46,7 +46,7 @@ class MainFrame(object):
         self.__icon = Icon(path)
         self.__frame.set_window_icon(self.__icon)
 
-    def signal(self, event: Event) -> Signal:
+    def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
         Signals are connections to events. When an event such as a mouse click 

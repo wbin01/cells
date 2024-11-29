@@ -8,10 +8,11 @@ from cells import Application, MainFrame, Frame, Signal, Event
 class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-
         self.default_bg = self.style['[MainFrame]']['background']
-        self.signal(Event.HOVER_ENTER).callback(lambda: self.bg_style(True))
-        self.signal(Event.HOVER_LEAVE).callback(lambda: self.bg_style(False))
+        # self.event_signal(Event.HOVER_ENTER).callback(
+        #     lambda: self.bg_style(True))
+        # self.event_signal(Event.HOVER_LEAVE).callback(
+        #     lambda: self.bg_style(False))
 
     def bg_style(self, red=False):
         if red:
