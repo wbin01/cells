@@ -9,6 +9,7 @@ from .modules import colorconverter
 from .modules import StyleManager
 from .coreshadow import CoreShadow
 from ..signal import Signal
+from ..event import Event
 
 
 class ProtoFrame(QtWidgets.QMainWindow):
@@ -170,8 +171,14 @@ class CoreMainFrame(ProtoFrame):
 
     Using style integration
     """
-    event_filter_signal = Signal('event-filter')
-    mouse_left_click = Signal('mouse-left-click')
+    # https://doc.qt.io/qtforpython-6/PySide6/QtCore/QEvent.html#PySide6.QtCore.QEvent.Type
+    # event_filter_signal = Signal(Event.EVENT_FILTER)
+    focus_in_signal = Signal(Event.FOCUS_IN)
+    focus_out_signal = Signal(Event.FOCUS_OUT)
+    hover_enter_signal = Signal(Event.HOVER_ENTER)
+    hover_leave_signal = Signal(Event.HOVER_LEAVE)
+    hover_move_signal = Signal(Event.HOVER_MOVE)
+    mouse_left_click_signal = Signal(Event.MOUSE_LEFT_CLICK)
 
     # BUG: Only one works (release or press)
     # mouse_button_press_signal = Signal('mouse-button-press')
@@ -309,15 +316,18 @@ class CoreMainFrame(ProtoFrame):
             self.__event_filter_can_emit = True
 
         if self.__event_filter_can_emit:
-            self.event_filter_signal.send()
+            # self.event_filter_signal.send()
+            pass
 
     def event_filter(
             self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
-        self.__event_filter_emissions(event)
+        # self.__event_filter_emissions(event)
 
         if event.type() == QtCore.QEvent.FocusIn:
+            self.focus_in_signal.send()
             self.set_style_sheet(self.__qss_styles['active'])
         elif event.type() == QtCore.QEvent.FocusOut:
+            self.focus_out_signal.send()
             self.set_style_sheet(self.__qss_styles['inactive'])
 
         if not self.__is_csd:
@@ -325,11 +335,15 @@ class CoreMainFrame(ProtoFrame):
                 self.resize_event_signal.emit()
         else:
             if event.type() == QtCore.QEvent.HoverMove:
+                self.hover_move_signal.send()
                 self.__set_edge_cursor_position(event)
                 self.__set_edge_cursor_position_shape()
 
             elif event.type() == QtCore.QEvent.Type.HoverEnter:
-                pass
+                self.hover_enter_signal.send()
+                
+            elif event.type() == QtCore.QEvent.Type.HoverLeave:
+                self.hover_leave_signal.send()
 
             elif event.type() == QtCore.QEvent.MouseButtonPress:
                 # self.mouse_button_press_signal.send()
@@ -344,7 +358,7 @@ class CoreMainFrame(ProtoFrame):
 
             elif event.type() == QtCore.QEvent.MouseButtonRelease:
                 # self.mouse_button_release_signal.send()
-                self.mouse_left_click.send()
+                self.mouse_left_click_signal.send()
                 self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
 
             elif event.type() == QtCore.QEvent.Resize:

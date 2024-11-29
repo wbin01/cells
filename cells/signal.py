@@ -50,4 +50,4 @@ class Signal(QtCore.QObject):
         self.__signal.emit()
 
     def __str__(self) -> str:
-        return f'<Signal() {id(self)}>'
+        return f'<Signal: {self.__value} {id(self)}>'

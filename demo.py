@@ -2,28 +2,26 @@
 import os
 import sys
 
-from cells import Application, MainFrame, Frame, Signal
+from cells import Application, MainFrame, Frame, Signal, Event
 
 
 class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
         super().__init__(*args, **kwargs)
-        self.signal('mouse-left-click').callback(self.bg_style)
-        self.print_style()
 
-    def print_style(self):
-        for key, value in self.style.items():
-            print(f'\n{key}')
-            for k, v in value.items():
-                print(k, '=', v)
+        self.default_bg = self.style['[MainFrame]']['background']
+        self.signal(Event.HOVER_ENTER).callback(lambda: self.bg_style(True))
+        self.signal(Event.HOVER_LEAVE).callback(lambda: self.bg_style(False))
 
-    def bg_style(self):
-        ss = self.style
-        ss['[MainFrame]']['background'] = 'rgba(255, 0, 0, 1.00)'
-        self.style = ss
-        print('--')
-        self.print_style()
+    def bg_style(self, red=False):
+        if red:
+            style = self.style
+            style['[MainFrame]']['background'] = 'rgba(255, 0, 0, 1.00)'
+            self.style = style
+        else:
+            style = self.style
+            style['[MainFrame]']['background'] = self.default_bg
+            self.style = style
 
 
 if __name__ == '__main__':

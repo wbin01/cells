@@ -2,6 +2,7 @@
 from .core import CoreMainFrame
 from .icon import Icon
 from .signal import Signal
+from .event import Event
 
 
 class MainFrame(object):
@@ -45,27 +46,42 @@ class MainFrame(object):
         self.__icon = Icon(path)
         self.__frame.set_window_icon(self.__icon)
 
-    def signal(self, name: str) -> Signal:
+    def signal(self, event: Event) -> Signal:
         """Event Signals.
 
         Signals are connections to events. When an event such as a mouse click 
         or other event occurs, a signal is sent. The signal can be assigned a 
         function to be executed when the signal is sent.
 
-        :param name:
-            String containing a signal type name, such as 'mouse-click'. 
-            All possible names are: 'event-filter'
+        :param event:
+            Event enumeration (Enum) corresponding to the requested event, 
+            such as Event.HOVER_ENTER . All possible names are:
+            
+            FOCUS_IN
+            FOCUS_OUT
+            HOVER_ENTER
+            HOVER_LEAVE
+            HOVER_MOVE
+            MOUSE_LEFT_CLICK
+            NONE
         """
-        if name == 'event-filter':
-            return self.__frame.event_filter_signal
-        elif name == 'mouse-left-click':
-            return self.__frame.mouse_left_click
-
-        # BUG: Only one works (release or press)
-        # elif name == 'mouse-button-press':
-        #     return self.__frame.mouse_button_press_signal
-        # elif name == 'mouse-button-release':
-        #     return self.__frame.mouse_button_release_signal
+        # if event == Event.EVENT_FILTER:
+        #     return self.__frame.event_filter_signal
+        if event == Event.FOCUS_IN:
+            return self.__frame.focus_in_signal
+        elif event == Event.FOCUS_OUT:
+            return self.__frame.focus_out_signal
+        elif event == Event.HOVER_ENTER:
+            return self.__frame.hover_enter_signal
+        elif event == Event.HOVER_LEAVE:
+            return self.__frame.hover_leave_signal
+        elif event == Event.HOVER_MOVE:
+            return self.__frame.hover_move_signal
+        elif event == Event.MOUSE_LEFT_CLICK:
+            return self.__frame.mouse_left_click_signal
+            # BUG: Only one works, release or press
+        else:
+            return Signal(Event.NONE)
 
     def show(self) -> None:
         # Starts the main loop
