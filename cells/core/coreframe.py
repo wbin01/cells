@@ -18,7 +18,7 @@ class ProtoFrame(QtWidgets.QFrame):
         self.set_attribute(QtCore.Qt.WA_TranslucentBackground)
         self.set_window_flags(QtCore.Qt.FramelessWindowHint)
         self.set_contents_margins(0, 0, 0, 0)
-        self.set_minimum_width(60)
+        self.set_minimum_width(90)
         self.set_minimum_height(30)
 
         self.__is_shadow_has_added = True
@@ -137,6 +137,8 @@ class ProtoFrame(QtWidgets.QFrame):
             self.__right_shadow.set_visible(False)
 
             self.__is_shadow_has_added = False
+            self.set_minimum_height(30)
+            self.set_minimum_width(90)
 
         else:
             self.__center_shadow.hide_shadow(False)
@@ -153,21 +155,25 @@ class ProtoFrame(QtWidgets.QFrame):
             self.__right_shadow.set_visible(True)
 
             self.__is_shadow_has_added = True
+            self.set_minimum_height(30 + self.__shadow_size)
+            self.set_minimum_width(90 + self.__shadow_size)
 
 
 class CoreFrame(ProtoFrame):
     """Complete Frame
 
-    Using style integration
+    Using style integration and shadow
     """
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
         self.__is_dark = colorconverter.is_dark(
             QtGui.QPalette().color(QtGui.QPalette.Window).to_tuple())
-        self.__style_manager = StyleManager()
-        self.__style_sheet = self.__style_manager.qss_style
-        self.__style_sheet_fullscreen = self.__style_sheet
 
-        self.set_style_sheet(self.__style_sheet)
         self.hide_shadow(True)
+
+        self.__style_manager = StyleManager()
+        self.__qss_styles = self.__style_manager.stylesheets_for_qss()
+        self.set_style_sheet(self.__qss_styles['active'])
+
+        
