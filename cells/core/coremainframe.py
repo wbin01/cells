@@ -15,14 +15,17 @@ class CoreMainFrame(CoreFrameShadow):
     Using style integration
     """
     # https://doc.qt.io/qtforpython-6/PySide6/QtCore/QEvent.html#PySide6.QtCore.QEvent.Type
+    # https://doc.qt.io/qtforpython-6/overviews/qtquick-input-mouseevents.html
     # event_filter_signal = Signal(Event.EVENT_FILTER)
     focus_in_signal = Signal(Event.FOCUS_IN)
     focus_out_signal = Signal(Event.FOCUS_OUT)
     hover_enter_signal = Signal(Event.HOVER_ENTER)
     hover_leave_signal = Signal(Event.HOVER_LEAVE)
     hover_move_signal = Signal(Event.HOVER_MOVE)
-    mouse_left_click_signal = Signal(Event.MOUSE_LEFT_CLICK)
-
+    mouse_click_signal = Signal(Event.MOUSE_CLICK)
+    mouse_double_click_signal = Signal(Event.MOUSE_DOUBLE_CLICK)
+    mouse_right_click_signal = Signal(Event.MOUSE_RIGHT_CLICK)
+    mouse_wheel_signal = Signal(Event.MOUSE_WHEEL)
     # mouse, resize, state, application
 
     # BUG: Only one works (release or press)
@@ -37,7 +40,7 @@ class CoreMainFrame(CoreFrameShadow):
         self.__edge_resize_area_ssd = 5
         self.__edge_resize_area = self.__edge_resize_area_ssd
         self.__is_csd = True
-        self.__show_shadow = True
+        self.__show_shadow = False
         self.__event_filter_count = 1
         self.__event_filter_can_emit = False
         self.__is_dark = colorconverter.is_dark(
@@ -205,9 +208,18 @@ class CoreMainFrame(CoreFrameShadow):
                     self.window_handle().start_system_move()
 
             elif event.type() == QtCore.QEvent.MouseButtonRelease:
-                # self.mouse_button_release_signal.send()
-                self.mouse_left_click_signal.send()
+                if 'RightButton' in event.__str__():
+                    self.mouse_right_click_signal.send()
+                else:
+                    self.mouse_click_signal.send()
+
                 self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
+
+            elif event.type() == QtCore.QEvent.MouseButtonDblClick:
+                self.mouse_double_click_signal.send()
+
+            elif event.type() == QtCore.QEvent.Wheel:
+                self.mouse_wheel_signal.send()
 
             elif event.type() == QtCore.QEvent.Resize:
                 if self.__is_csd:

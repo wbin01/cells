@@ -77,9 +77,15 @@ class MainFrame(object):
             return self.__frame.hover_leave_signal
         elif event == Event.HOVER_MOVE:
             return self.__frame.hover_move_signal
-        elif event == Event.MOUSE_LEFT_CLICK:
-            return self.__frame.mouse_left_click_signal
+        elif event == Event.MOUSE_CLICK:
+            return self.__frame.mouse_click_signal
             # BUG: Only one works, release or press
+        elif event == Event.MOUSE_DOUBLE_CLICK:
+            return self.__frame.mouse_double_click_signal
+        elif event == Event.MOUSE_RIGHT_CLICK:
+            return self.__frame.mouse_right_click_signal
+        elif event == Event.MOUSE_WHEEL:
+            return self.__frame.mouse_wheel_signal
         else:
             return Signal(Event.NONE)
 
