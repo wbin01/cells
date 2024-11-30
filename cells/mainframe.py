@@ -66,10 +66,14 @@ class MainFrame(object):
         """
         # if event == Event.EVENT_FILTER:
         #     return self.__frame.event_filter_signal
-        if event == Event.DRAG:
+        if event == Event.CLOSE:
+            return self.__frame.close_signal
+        elif event == Event.DRAG:
             return self.__frame.drag_signal
         elif event == Event.DROP:
             return self.__frame.drop_signal
+        elif event == Event.FRAME_STATE_CHANGE:
+            return self.__frame.frame_state_change
         elif event == Event.FOCUS_IN:
             return self.__frame.focus_in_signal
         elif event == Event.FOCUS_OUT:

@@ -40,6 +40,10 @@ class MainFrame(MainFrame):
 
         self.event_signal(Event.RESIZE).callback(
             lambda: print('RESIZE'))
+        self.event_signal(Event.FRAME_STATE_CHANGE).callback(
+            lambda: print('FRAME_STATE_CHANGE'))
+        self.event_signal(Event.CLOSE).callback(
+            lambda: print('CLOSE'))
 
 
 if __name__ == '__main__':

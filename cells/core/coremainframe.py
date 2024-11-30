@@ -14,8 +14,10 @@ class CoreMainFrame(CoreFrameShadow):
 
     Using style integration
     """
+    close_signal = Signal()
     focus_in_signal = Signal()
     focus_out_signal = Signal()
+    frame_state_change = Signal()
     mouse_button_press_signal = Signal()
     mouse_button_release_signal = Signal()
     mouse_double_click_signal = Signal()
@@ -216,5 +218,11 @@ class CoreMainFrame(CoreFrameShadow):
                 else:
                     self.set_style_sheet(self.__qss_styles['active'])
                     self.__window_shadow_visible(True)
+
+        elif event.type() == QtCore.QEvent.WindowStateChange:
+            self.frame_state_change.send()
+
+        elif event.type() == QtCore.QEvent.Close:
+            self.close_signal.send()
 
         return QtWidgets.QMainWindow.event_filter(self, watched, event)
