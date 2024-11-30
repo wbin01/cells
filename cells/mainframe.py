@@ -18,19 +18,6 @@ class MainFrame(object):
 
         self.__icon = None
         self.__icon_path = None
-    
-    @property
-    def style(self) -> dict:
-        """Style as dict
-
-        Get the style as a dictionary or submit a new dictionary style to 
-        update it
-        """
-        return self.__frame.stylesheet
-    
-    @style.setter
-    def style(self, style: dict) -> None:
-        self.__frame.stylesheet = style
 
     @property
     def icon(self) -> Icon:
@@ -45,14 +32,18 @@ class MainFrame(object):
         self.__icon = Icon(path)
         self.__frame.set_window_icon(self.__icon)
 
-    def qt_class(self):
-        """Direct access to Qt classes (QtWidgets.QMainWindow)
+    @property
+    def style(self) -> dict:
+        """Style as dict
 
-        Warning: Direct access is discouraged and may break the project. 
-        This access is considered a hacking for complex Qt implementations, 
-        and should only be used for testing and analysis purposes.
+        Get the style as a dictionary or submit a new dictionary style to 
+        update it
         """
-        return self.__frame
+        return self.__frame.stylesheet
+    
+    @style.setter
+    def style(self, style: dict) -> None:
+        self.__frame.stylesheet = style
 
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
@@ -75,13 +66,18 @@ class MainFrame(object):
         """
         # if event == Event.EVENT_FILTER:
         #     return self.__frame.event_filter_signal
-        if event == Event.FOCUS_IN:
+        if event == Event.DRAG:
+            return self.__frame.drag_signal
+        elif event == Event.DROP:
+            return self.__frame.drop_signal
+        elif event == Event.FOCUS_IN:
             return self.__frame.focus_in_signal
         elif event == Event.FOCUS_OUT:
             return self.__frame.focus_out_signal
-        elif event == Event.MOUSE_CLICK:
-            return self.__frame.mouse_click_signal
-            # BUG: Only one works, release or press
+        elif event == Event.MOUSE_BUTTON_PRESS:
+            return self.__frame.mouse_button_press_signal
+        elif event == Event.MOUSE_BUTTON_RELEASE:
+            return self.__frame.mouse_button_release_signal
         elif event == Event.MOUSE_DOUBLE_CLICK:
             return self.__frame.mouse_double_click_signal
         elif event == Event.MOUSE_HOVER_ENTER:
@@ -99,9 +95,18 @@ class MainFrame(object):
         else:
             return Signal(Event.NONE)
 
+    def qt_class(self):
+        """Direct access to Qt classes (QtWidgets.QMainWindow)
+
+        Warning: Direct access is discouraged and may break the project. 
+        This access is considered a hacking for complex Qt implementations, 
+        and should only be used for testing and analysis purposes.
+        """
+        return self.__frame
+
     def show(self) -> None:
         # Starts the main loop
         self.__frame.show()
 
     def __str__(self):
-        return f'<MainFrame() {id(self)}>'
+        return f'<MainFrame: {id(self)}>'

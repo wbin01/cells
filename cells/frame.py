@@ -40,3 +40,6 @@ class Frame(object):
     def show(self) -> None:
         # Starts the main loop
         self.__frame.show()
+
+    def __str__(self):
+        return f'<Frame: {id(self)}>'

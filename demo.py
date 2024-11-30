@@ -26,8 +26,10 @@ class MainFrame(MainFrame):
             self.event_signal(Event.MOUSE_HOVER_MOVE).callback(
                 lambda: print(Cursor().position()))
 
-        self.event_signal(Event.MOUSE_CLICK).callback(
-            lambda: print('MOUSE_CLICK'))
+        self.event_signal(Event.MOUSE_BUTTON_PRESS).callback(
+            lambda: print('MOUSE_BUTTON_PRESS'))
+        self.event_signal(Event.MOUSE_BUTTON_RELEASE).callback(
+            lambda: print('MOUSE_BUTTON_RELEASE'))
         self.event_signal(Event.MOUSE_DOUBLE_CLICK).callback(
             lambda: print('MOUSE_DOUBLE_CLICK'))
 

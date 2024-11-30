@@ -7,3 +7,6 @@ class Icon(QtGui.QIcon):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
+
+    def __str__(self):
+        return f'<Icon: {id(self)}>'
