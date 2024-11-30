@@ -46,13 +46,6 @@ class MainFrame(object):
         self.__icon = Icon(path)
         self.__frame.set_window_icon(self.__icon)
 
-    def mouse_position(self) -> tuple:
-        """X and y coordinates of the mouse position.
-        
-        The coordinate is updated when a mouse click event occurs.
-        """
-        return self.__frame.mouse_position()
-
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 

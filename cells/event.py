@@ -13,4 +13,5 @@ class Event(Enum):
     MOUSE_HOVER_MOVE = 7
     MOUSE_RIGHT_CLICK = 8
     MOUSE_WHEEL = 9
+    RESIZE = 10
     # EVENT_FILTER

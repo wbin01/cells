@@ -2,14 +2,14 @@
 import os
 import sys
 
-from cells import Application, MainFrame, Frame, Signal, Event
+from cells import Application, MainFrame, Frame, Signal, Event, Cursor
 
 
 class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.print_events()
+        self.print_events(True)
 
     def print_events(self, mouse_move = False):
         self.event_signal(Event.FOCUS_IN).callback(
@@ -23,10 +23,8 @@ class MainFrame(MainFrame):
             lambda: print('MOUSE_HOVER_LEAVE'))
 
         if mouse_move:
-            # self.event_signal(Event.HOVER_MOVE).callback(
-            #     lambda: print('HOVER_MOVE'))
             self.event_signal(Event.MOUSE_HOVER_MOVE).callback(
-                lambda: print(self.mouse_position()))
+                lambda: print(Cursor().position()))
 
         self.event_signal(Event.MOUSE_CLICK).callback(
             lambda: print('MOUSE_CLICK'))

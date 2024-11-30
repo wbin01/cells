@@ -4,3 +4,4 @@ from .frame import Frame
 from .signal import Signal
 from .icon import Icon
 from .event import Event
+from .cursor import Cursor
