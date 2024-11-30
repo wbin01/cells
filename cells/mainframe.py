@@ -46,6 +46,13 @@ class MainFrame(object):
         self.__icon = Icon(path)
         self.__frame.set_window_icon(self.__icon)
 
+    def mouse_position(self) -> tuple:
+        """X and y coordinates of the mouse position.
+        
+        The coordinate is updated when a mouse click event occurs.
+        """
+        return self.__frame.mouse_position()
+
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
@@ -71,17 +78,20 @@ class MainFrame(object):
             return self.__frame.focus_in_signal
         elif event == Event.FOCUS_OUT:
             return self.__frame.focus_out_signal
-        elif event == Event.HOVER_ENTER:
-            return self.__frame.hover_enter_signal
-        elif event == Event.HOVER_LEAVE:
-            return self.__frame.hover_leave_signal
-        elif event == Event.HOVER_MOVE:
-            return self.__frame.hover_move_signal
+
         elif event == Event.MOUSE_CLICK:
             return self.__frame.mouse_click_signal
             # BUG: Only one works, release or press
         elif event == Event.MOUSE_DOUBLE_CLICK:
             return self.__frame.mouse_double_click_signal
+
+        elif event == Event.MOUSE_HOVER_ENTER:
+            return self.__frame.mouse_hover_enter_signal
+        elif event == Event.MOUSE_HOVER_LEAVE:
+            return self.__frame.mouse_hover_leave_signal
+        elif event == Event.MOUSE_HOVER_MOVE:
+            return self.__frame.mouse_hover_move_signal
+        
         elif event == Event.MOUSE_RIGHT_CLICK:
             return self.__frame.mouse_right_click_signal
         elif event == Event.MOUSE_WHEEL:
