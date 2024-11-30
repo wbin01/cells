@@ -15,7 +15,6 @@ class MainFrame(object):
         """Class constructor"""
         super().__init__(*args, **kwargs)
         self.__frame = CoreMainFrame()
-        self._qt_class = self.__frame
 
         self.__icon = None
         self.__icon_path = None
@@ -46,6 +45,15 @@ class MainFrame(object):
         self.__icon = Icon(path)
         self.__frame.set_window_icon(self.__icon)
 
+    def qt_class(self):
+        """Direct access to Qt classes (QtWidgets.QMainWindow)
+
+        Warning: Direct access is discouraged and may break the project. 
+        This access is considered a hacking for complex Qt implementations, 
+        and should only be used for testing and analysis purposes.
+        """
+        return self.__frame
+
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
@@ -71,24 +79,23 @@ class MainFrame(object):
             return self.__frame.focus_in_signal
         elif event == Event.FOCUS_OUT:
             return self.__frame.focus_out_signal
-
         elif event == Event.MOUSE_CLICK:
             return self.__frame.mouse_click_signal
             # BUG: Only one works, release or press
         elif event == Event.MOUSE_DOUBLE_CLICK:
             return self.__frame.mouse_double_click_signal
-
         elif event == Event.MOUSE_HOVER_ENTER:
             return self.__frame.mouse_hover_enter_signal
         elif event == Event.MOUSE_HOVER_LEAVE:
             return self.__frame.mouse_hover_leave_signal
         elif event == Event.MOUSE_HOVER_MOVE:
             return self.__frame.mouse_hover_move_signal
-        
         elif event == Event.MOUSE_RIGHT_CLICK:
             return self.__frame.mouse_right_click_signal
         elif event == Event.MOUSE_WHEEL:
             return self.__frame.mouse_wheel_signal
+        elif event == Event.RESIZE:
+            return self.__frame.resize_signal
         else:
             return Signal(Event.NONE)
 

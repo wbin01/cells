@@ -26,7 +26,7 @@ class CoreMainFrame(CoreFrameShadow):
     mouse_hover_move_signal = Signal()
     mouse_right_click_signal = Signal()
     mouse_wheel_signal = Signal()
-    resize = Signal()
+    resize_signal = Signal()
     # mouse, resize, state, application
 
     # BUG: Only one works (release or press)
@@ -182,55 +182,53 @@ class CoreMainFrame(CoreFrameShadow):
             self.focus_out_signal.send()
             self.set_style_sheet(self.__qss_styles['inactive'])
 
-        if not self.__is_csd:
-            if event.type() == QtCore.QEvent.Resize:
-                self.resize_event_signal.emit()
-        else:
-            if event.type() == QtCore.QEvent.HoverMove:
-                self.mouse_hover_move_signal.send()
-                # pos = event.position().to_point()  # Widget
-                # pos_screen = self.map_to_global(pos) # Screen
-                # pos_frame = self.window().map_from_global(pos_screen) # Frame
-                self.__set_edge_cursor_position(event)
-                self.__set_edge_cursor_position_shape()
+        if event.type() == QtCore.QEvent.HoverMove:
+            self.mouse_hover_move_signal.send()
+            # pos = event.position().to_point()  # Widget
+            # pos_screen = self.map_to_global(pos) # Screen
+            # pos_frame = self.window().map_from_global(pos_screen) # Frame
+            self.__set_edge_cursor_position(event)
+            self.__set_edge_cursor_position_shape()
 
-            elif event.type() == QtCore.QEvent.Type.HoverEnter:
-                self.mouse_hover_enter_signal.send()
+        elif event.type() == QtCore.QEvent.Type.HoverEnter:
+            self.mouse_hover_enter_signal.send()
 
-            elif event.type() == QtCore.QEvent.Type.HoverLeave:
-                self.mouse_hover_leave_signal.send()
+        elif event.type() == QtCore.QEvent.Type.HoverLeave:
+            self.mouse_hover_leave_signal.send()
 
-            elif event.type() == QtCore.QEvent.MouseButtonPress:
-                self.__set_edge_cursor_position_shape()
+        elif event.type() == QtCore.QEvent.MouseButtonPress:
+            self.__set_edge_cursor_position_shape()
 
-                if self.__edge_cursor_position:
-                    self.window_handle().start_system_resize(
-                        self.__edge_cursor_position)
+            if self.__edge_cursor_position:
+                self.window_handle().start_system_resize(
+                    self.__edge_cursor_position)
 
-                elif self.under_mouse():
-                    self.window_handle().start_system_move()
+            elif self.under_mouse():
+                self.window_handle().start_system_move()
 
-            elif event.type() == QtCore.QEvent.MouseButtonRelease:
-                if 'RightButton' in event.__str__():
-                    self.mouse_right_click_signal.send()
+        elif event.type() == QtCore.QEvent.MouseButtonRelease:
+            if 'RightButton' in event.__str__():
+                self.mouse_right_click_signal.send()
+            else:
+                self.mouse_click_signal.send()
+
+            self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
+
+        elif event.type() == QtCore.QEvent.MouseButtonDblClick:
+            self.mouse_double_click_signal.send()
+
+        elif event.type() == QtCore.QEvent.Wheel:
+            self.mouse_wheel_signal.send()
+
+        elif event.type() == QtCore.QEvent.Resize:
+            self.resize_signal.send()
+
+            if self.__is_csd:
+                if self.is_maximized() or self.is_full_screen():
+                    self.set_style_sheet(self.__qss_styles['fullscreen'])
+                    self.__window_shadow_visible(False)
                 else:
-                    self.mouse_click_signal.send()
-
-                self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
-
-            elif event.type() == QtCore.QEvent.MouseButtonDblClick:
-                self.mouse_double_click_signal.send()
-
-            elif event.type() == QtCore.QEvent.Wheel:
-                self.mouse_wheel_signal.send()
-
-            elif event.type() == QtCore.QEvent.Resize:
-                if self.__is_csd:
-                    if self.is_maximized() or self.is_full_screen():
-                        self.set_style_sheet(self.__qss_styles['fullscreen'])
-                        self.__window_shadow_visible(False)
-                    else:
-                        self.set_style_sheet(self.__qss_styles['active'])
-                        self.__window_shadow_visible(True)
+                    self.set_style_sheet(self.__qss_styles['active'])
+                    self.__window_shadow_visible(True)
 
         return QtWidgets.QMainWindow.event_filter(self, watched, event)

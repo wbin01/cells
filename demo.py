@@ -36,6 +36,9 @@ class MainFrame(MainFrame):
         self.event_signal(Event.MOUSE_WHEEL).callback(
             lambda: print('MOUSE_WHEEL'))
 
+        self.event_signal(Event.RESIZE).callback(
+            lambda: print('RESIZE'))
+
 
 if __name__ == '__main__':
     app = Application(sys.argv)

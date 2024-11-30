@@ -13,7 +13,15 @@ class Frame(object):
         """Class constructor"""
         super().__init__(*args, **kwargs)
         self.__frame = CoreFrame()
-        self._qt_class = self.__frame
+
+    def qt_class(self):
+        """Direct access to Qt classes (QtWidgets.QFrame)
+
+        Warning: Direct access is discouraged and may break the project. 
+        This access is considered a hacking for complex Qt implementations, 
+        and should only be used for testing and analysis purposes.
+        """
+        return self.__frame
 
     def signal(self, name: str) -> Signal:
         """Event Signals.
