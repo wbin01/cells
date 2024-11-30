@@ -33,8 +33,8 @@ class MainFrame(MainFrame):
         self.event_signal(Event.MOUSE_DOUBLE_CLICK).callback(
             lambda: print('MOUSE_DOUBLE_CLICK'))
 
-        self.event_signal(Event.MOUSE_RIGHT_CLICK).callback(
-            lambda: print('MOUSE_RIGHT_CLICK'))
+        self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).callback(
+            lambda: print('MOUSE_RIGHT_BUTTON_PRESS'))
         self.event_signal(Event.MOUSE_WHEEL).callback(
             lambda: print('MOUSE_WHEEL'))
 

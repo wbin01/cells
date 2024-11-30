@@ -86,8 +86,8 @@ class MainFrame(object):
             return self.__frame.mouse_hover_leave_signal
         elif event == Event.MOUSE_HOVER_MOVE:
             return self.__frame.mouse_hover_move_signal
-        elif event == Event.MOUSE_RIGHT_CLICK:
-            return self.__frame.mouse_right_click_signal
+        elif event == Event.MOUSE_RIGHT_BUTTON_PRESS:
+            return self.__frame.mouse_right_button_press_signal
         elif event == Event.MOUSE_WHEEL:
             return self.__frame.mouse_wheel_signal
         elif event == Event.RESIZE:

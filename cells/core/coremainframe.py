@@ -22,7 +22,7 @@ class CoreMainFrame(CoreFrameShadow):
     mouse_hover_enter_signal = Signal()
     mouse_hover_leave_signal = Signal()
     mouse_hover_move_signal = Signal()
-    mouse_right_click_signal = Signal()
+    mouse_right_button_press_signal = Signal()
     mouse_wheel_signal = Signal()
     resize_signal = Signal()
 
@@ -193,11 +193,11 @@ class CoreMainFrame(CoreFrameShadow):
 
         elif event.type() == QtCore.QEvent.MouseButtonRelease:
             if 'RightButton' in event.__str__():
-                self.mouse_right_click_signal.send()
+                self.mouse_right_button_press_signal.send()
             else:
-                self.__press = True
                 self.mouse_button_press_signal.send()
 
+            self.__press = True
             self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
 
         elif event.type() == QtCore.QEvent.MouseButtonDblClick:
