@@ -15,7 +15,7 @@ class MainFrame(object):
         """Class constructor"""
         super().__init__(*args, **kwargs)
         self.__frame = CoreMainFrame()
-
+        
         self.__icon = None
         self.__icon_path = None
 
@@ -185,8 +185,6 @@ class MainFrame(object):
             MOUSE_LEFT_CLICK
             NONE
         """
-        # if event == Event.EVENT_FILTER:
-        #     return self.__frame.event_filter_signal
         if event == Event.CLOSE:
             return self.__frame.close_signal
         elif event == Event.DRAG:
