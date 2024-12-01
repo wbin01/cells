@@ -5,5 +5,6 @@ from .cursor import Cursor
 from .event import Event
 from .frame import Frame
 from .icon import Icon
+from .label import Label
 from .mainframe import MainFrame
 from .signal import Signal

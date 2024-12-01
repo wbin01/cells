@@ -4,7 +4,7 @@ from __feature__ import snake_case
 
 
 class Component(object):
-    """..."""
+    """Component widget"""
     def __init__(self, horizontal: bool = False, *args, **kwargs) -> None:
         self.__widget = QtWidgets.QWidget()
 

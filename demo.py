@@ -3,7 +3,7 @@ import os
 import sys
 
 from cells import (
-    Application, MainFrame, Frame, Signal, Event, Cursor, Box, Component)
+    Application, MainFrame, Frame, Signal, Event, Cursor, Box, Label)
 
 
 class MainFrame(MainFrame):
@@ -24,7 +24,7 @@ class MainFrame(MainFrame):
         self.bb = Box()
         self.add_box(self.bb)
 
-        self.cc = Component()
+        self.cc = Label('ola')
         self.add_component(self.cc)
 
     def xxx(self):
