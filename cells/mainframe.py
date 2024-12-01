@@ -20,6 +20,18 @@ class MainFrame(object):
         self.__icon_path = None
 
     @property
+    def height(self) -> int:
+        """Returns the height of the Frame.
+
+        Pass a new integer value to update the height.
+        """
+        return self.__frame.height()
+
+    @height.setter
+    def height(self, height: int) -> None:
+        self.__frame.set_fixed_height(height)
+
+    @property
     def icon(self) -> Icon:
         """Frame icon
         
@@ -78,17 +90,81 @@ class MainFrame(object):
             self.__frame.show_normal()
 
     @property
+    def maximum_height(self) -> int:
+        """Returns the maximum height of the Frame.
+
+        Pass a new integer value to update the maximum height the Frame can 
+        have.
+        """
+        return self.__frame.maximum_height()
+
+    @maximum_height.setter
+    def maximum_height(self, height: int) -> None:
+        self.__frame.set_maximum_height(height)
+
+    @property
+    def maximum_width(self) -> int:
+        """Returns the maximum width of the Frame.
+
+        Pass a new integer value to update the maximum width the Frame can 
+        have.
+        """
+        return self.__frame.maximum_width()
+
+    @maximum_width.setter
+    def maximum_width(self, width: int) -> None:
+        self.__frame.set_maximum_width(width)
+
+    @property
+    def minimum_height(self) -> int:
+        """Returns the minimum height of the Frame.
+
+        Pass a new integer value to update the minimum height the Frame can 
+        have.
+        """
+        return self.__frame.minimum_height()
+
+    @minimum_height.setter
+    def minimum_height(self, height: int) -> None:
+        self.__frame.set_minimum_height(height)
+
+    @property
+    def minimum_width(self) -> int:
+        """Returns the minimum width of the Frame.
+
+        Pass a new integer value to update the minimum width the Frame can 
+        have.
+        """
+        return self.__frame.minimum_width()
+
+    @minimum_width.setter
+    def minimum_width(self, width: int) -> None:
+        self.__frame.set_minimum_width(width)
+
+    @property
     def style(self) -> dict:
-        """Style as dict
+        """Style as dict.
 
         Get the style as a dictionary or submit a new dictionary style to 
-        update it
+        update it.
         """
         return self.__frame.stylesheet
     
     @style.setter
     def style(self, style: dict) -> None:
         self.__frame.stylesheet = style
+
+    @property
+    def width(self) -> int:
+        """Returns the width of the Frame.
+
+        Pass a new integer value to update the width.
+        """
+        return self.__frame.width()
+
+    @width.setter
+    def width(self, width: int) -> int:
+        self.__frame.set_fixed_width(width)
 
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.

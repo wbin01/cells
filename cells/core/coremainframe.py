@@ -57,10 +57,10 @@ class CoreMainFrame(CoreFrameShadow):
 
     @property
     def stylesheet(self) -> dict:
-        """Style as dict
+        """Style as dict.
 
         Get the style as a dictionary or submit a new dictionary style to 
-        update it
+        update it.
         """
         return self.__style_manager.stylesheet
 
