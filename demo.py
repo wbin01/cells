@@ -9,7 +9,7 @@ class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.print_events(True)
+        self.print_events(False)
 
     def print_events(self, mouse_move = False):
         self.event_signal(Event.FOCUS_IN).callback(

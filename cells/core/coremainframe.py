@@ -161,10 +161,16 @@ class CoreMainFrame(CoreFrameShadow):
             self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
         if event.type() == QtCore.QEvent.FocusIn:
             self.focus_in_signal.send()
-            self.set_style_sheet(self.__qss_styles['active'])
+            if self.is_maximized() or self.is_full_screen():
+                self.set_style_sheet(self.__qss_styles['fullscreen'])
+            else:
+                self.set_style_sheet(self.__qss_styles['active'])
         elif event.type() == QtCore.QEvent.FocusOut:
             self.focus_out_signal.send()
-            self.set_style_sheet(self.__qss_styles['inactive'])
+            if self.is_maximized() or self.is_full_screen():
+                self.set_style_sheet(self.__qss_styles['inactive_fullscreen'])
+            else:
+                self.set_style_sheet(self.__qss_styles['inactive'])
 
         elif event.type() == QtCore.QEvent.HoverMove:
             self.mouse_hover_move_signal.send()

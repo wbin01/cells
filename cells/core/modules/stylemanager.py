@@ -38,7 +38,9 @@ class StyleManager(object):
         self.__qss_style = {
             'active': self.__dict_style_to_qss_str(),
             'inactive': self.__dict_style_to_qss_str(True),
-            'fullscreen': self.__dict_style_to_qss_str(fullscreen=True)}
+            'fullscreen': self.__dict_style_to_qss_str(fullscreen=True),
+            'inactive_fullscreen': self.__dict_style_to_qss_str(
+                inactive=True, fullscreen=True)}
 
     def stylesheets_for_qss(self) -> dict:
         """..."""
