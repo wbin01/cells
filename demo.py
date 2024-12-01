@@ -9,18 +9,22 @@ class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        # self.print_events(False)
         self.event_signal(Event.MOUSE_BUTTON_PRESS).callback(
-            lambda: print(self.minimum_width))
+            lambda: print(self.title))
 
-        self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).callback(
-            self.change_size)
+        self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).callback(self.xxx)
 
-    def change_size(self):
-        if self.minimum_width >= 500:
-            self.minimum_width = 200
+        self.event_signal(Event.TITLE_CHANGE).callback(
+            lambda: print('TITLE_CHANGE'))
+
+        self.event_signal(Event.STATE_CHANGE).callback(
+            lambda: print('STATE_CHANGE'))
+
+    def xxx(self):
+        if self.title == 'Myapp':
+            self.title = 'XXX'
         else:
-            self.minimum_width = 500
+            self.title = 'Myapp'
 
 if __name__ == '__main__':
     app = Application(sys.argv)

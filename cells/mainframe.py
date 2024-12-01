@@ -155,6 +155,16 @@ class MainFrame(object):
         self.__frame.stylesheet = style
 
     @property
+    def title(self) -> str:
+        """
+        """
+        return self.__frame.window_title()
+    
+    @title.setter
+    def title(self, title: str) -> None:
+        self.__frame.set_window_title(title)
+
+    @property
     def width(self) -> int:
         """Returns the width of the Frame.
 
@@ -191,8 +201,7 @@ class MainFrame(object):
             return self.__frame.drag_signal
         elif event == Event.DROP:
             return self.__frame.drop_signal
-        elif event == Event.FRAME_STATE_CHANGE:
-            return self.__frame.frame_state_change
+        
         elif event == Event.FOCUS_IN:
             return self.__frame.focus_in_signal
         elif event == Event.FOCUS_OUT:
@@ -215,6 +224,10 @@ class MainFrame(object):
             return self.__frame.mouse_wheel_signal
         elif event == Event.RESIZE:
             return self.__frame.resize_signal
+        elif event == Event.STATE_CHANGE:
+            return self.__frame.state_change_signal
+        elif event == Event.TITLE_CHANGE:
+            return self.__frame.title_change_signal
         else:
             return Signal(Event.NONE)
 

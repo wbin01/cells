@@ -17,7 +17,6 @@ class CoreMainFrame(CoreFrameShadow):
     close_signal = Signal()
     focus_in_signal = Signal()
     focus_out_signal = Signal()
-    frame_state_change = Signal()
     mouse_button_press_signal = Signal()
     mouse_button_release_signal = Signal()
     mouse_double_click_signal = Signal()
@@ -27,6 +26,8 @@ class CoreMainFrame(CoreFrameShadow):
     mouse_right_button_press_signal = Signal()
     mouse_wheel_signal = Signal()
     resize_signal = Signal()
+    state_change_signal = Signal()
+    title_change_signal = Signal()
 
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
@@ -231,7 +232,10 @@ class CoreMainFrame(CoreFrameShadow):
                     self.__window_shadow_visible(True)
 
         elif event.type() == QtCore.QEvent.WindowStateChange:
-            self.frame_state_change.send()
+            self.state_change.send()
+
+        elif event.type() == QtCore.QEvent.WindowTitleChange:
+            self.title_change_signal.send()
 
         elif event.type() == QtCore.QEvent.Close:
             self.close_signal.send()
