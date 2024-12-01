@@ -57,6 +57,11 @@ class CoreMainFrame(CoreFrameShadow):
 
     @property
     def stylesheet(self) -> dict:
+        """Style as dict
+
+        Get the style as a dictionary or submit a new dictionary style to 
+        update it
+        """
         return self.__style_manager.stylesheet
 
     @stylesheet.setter
@@ -174,9 +179,6 @@ class CoreMainFrame(CoreFrameShadow):
 
         elif event.type() == QtCore.QEvent.HoverMove:
             self.mouse_hover_move_signal.send()
-            # pos = event.position().to_point()  # Widget
-            # pos_screen = self.map_to_global(pos) # Screen
-            # pos_frame = self.window().map_from_global(pos_screen) # Frame
             self.__set_edge_cursor_position(event)
             self.__set_edge_cursor_position_shape()
 

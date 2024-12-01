@@ -34,7 +34,10 @@ class MainFrame(object):
 
     @property
     def is_fullscreen(self) -> bool:
-        """If the Frame is full screen."""
+        """If the Frame is full screen.
+
+        Use a boolean value to change the state of the Frame.
+        """
         return self.__frame.is_full_screen()
 
     @is_fullscreen.setter
@@ -46,7 +49,10 @@ class MainFrame(object):
 
     @property
     def is_maximized(self) -> bool:
-        """..."""
+        """If the Frame is maximized.
+
+        Use a boolean value to change the state of the Frame.
+        """
         return self.__frame.is_maximized()
 
     @is_maximized.setter
@@ -58,7 +64,10 @@ class MainFrame(object):
 
     @property
     def is_minimized(self) -> bool:
-        """..."""
+        """If the Frame is minimized.
+
+        Use a boolean value to change the state of the Frame.
+        """
         return self.__frame.is_minimized()
 
     @is_minimized.setter
