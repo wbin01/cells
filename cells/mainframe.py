@@ -33,6 +33,42 @@ class MainFrame(object):
         self.__frame.set_window_icon(self.__icon)
 
     @property
+    def is_fullscreen(self) -> bool:
+        """If the Frame is full screen."""
+        return self.__frame.is_full_screen()
+
+    @is_fullscreen.setter
+    def is_fullscreen(self, value: bool) -> None:
+        if value:
+            self.__frame.show_full_screen()
+        else:
+            self.__frame.show_normal()
+
+    @property
+    def is_maximized(self) -> bool:
+        """..."""
+        return self.__frame.is_maximized()
+
+    @is_maximized.setter
+    def is_maximized(self, value: bool) -> None:
+        if value:
+            self.__frame.show_maximized()
+        else:
+            self.__frame.show_normal()
+
+    @property
+    def is_minimized(self) -> bool:
+        """..."""
+        return self.__frame.is_minimized()
+
+    @is_minimized.setter
+    def is_minimized(self, value: bool) -> None:
+        if value:
+            self.__frame.show_minimized()
+        else:
+            self.__frame.show_normal()
+
+    @property
     def style(self) -> dict:
         """Style as dict
 
@@ -100,7 +136,7 @@ class MainFrame(object):
             return Signal(Event.NONE)
 
     def qt_class(self):
-        """Direct access to Qt classes (QtWidgets.QMainWindow)
+        """Direct access to Qt classes (QtWidgets.QMainWindow).
 
         Warning: Direct access is discouraged and may break the project. 
         This access is considered a hacking for complex Qt implementations, 
@@ -109,7 +145,7 @@ class MainFrame(object):
         return self.__frame
 
     def show(self) -> None:
-        # Starts the main loop
+        """Show the frame."""
         self.__frame.show()
 
     def __str__(self):

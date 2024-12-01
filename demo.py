@@ -9,7 +9,29 @@ class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.print_events(False)
+        # self.print_events(False)
+        self.event_signal(Event.MOUSE_BUTTON_PRESS).callback(
+            lambda: print(self.is_minimized))
+
+        self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).callback(self.xxx)
+
+        self.event_signal(Event.FRAME_STATE_CHANGE).callback(self.yyy)
+
+    def xxx(self):
+        if self.is_minimized:
+            self.is_minimized = False
+        else:
+            self.is_minimized = True
+
+    def yyy(self):
+        if self.is_minimized:
+            print('min')
+        elif self.is_maximized:
+            print('max')
+        elif self.is_fullscreen:
+            print('full')
+        else:
+            print('normal')
 
     def print_events(self, mouse_move = False):
         self.event_signal(Event.FOCUS_IN).callback(
