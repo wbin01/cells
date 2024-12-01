@@ -1,5 +1,6 @@
 from .application import Application
 from .box import Box
+from .button import Button
 from .component import Component
 from .cursor import Cursor
 from .event import Event
