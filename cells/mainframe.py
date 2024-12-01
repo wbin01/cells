@@ -1,20 +1,27 @@
 #!/usr/bin/env python3
+from PySide6 import QtWidgets
+from __feature__ import snake_case
+
+from .box import Box
+from .component import Component
 from .core import CoreMainFrame
+from .event import Event
 from .icon import Icon
 from .signal import Signal
-from .event import Event
 
 
 class MainFrame(object):
-    """Main frame
+    """Main frame.
     
-    That is, the main application window
+    That is, the main application window.
     """
-
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.__frame = CoreMainFrame()
+
+        self.__frame_box = Box()
+        self.__frame.central_widget().set_layout(self.__frame_box.qt_obj)
         
         self.__icon = None
         self.__icon_path = None
@@ -33,9 +40,9 @@ class MainFrame(object):
 
     @property
     def icon(self) -> Icon:
-        """Frame icon
+        """Frame icon.
         
-        Application Icon
+        Application Icon.
         """
         return self.__icon
 
@@ -91,7 +98,7 @@ class MainFrame(object):
 
     @property
     def maximum_height(self) -> int:
-        """Returns the maximum height of the Frame.
+        """Returns the Frame maximum height.
 
         Pass a new integer value to update the maximum height the Frame can 
         have.
@@ -104,7 +111,7 @@ class MainFrame(object):
 
     @property
     def maximum_width(self) -> int:
-        """Returns the maximum width of the Frame.
+        """Returns the Frame maximum width.
 
         Pass a new integer value to update the maximum width the Frame can 
         have.
@@ -117,7 +124,7 @@ class MainFrame(object):
 
     @property
     def minimum_height(self) -> int:
-        """Returns the minimum height of the Frame.
+        """Returns the Frame minimum height.
 
         Pass a new integer value to update the minimum height the Frame can 
         have.
@@ -130,7 +137,7 @@ class MainFrame(object):
 
     @property
     def minimum_width(self) -> int:
-        """Returns the minimum width of the Frame.
+        """Returns the Frame minimum width.
 
         Pass a new integer value to update the minimum width the Frame can 
         have.
@@ -140,6 +147,20 @@ class MainFrame(object):
     @minimum_width.setter
     def minimum_width(self, width: int) -> None:
         self.__frame.set_minimum_width(width)
+
+    @property
+    def qt_obj(self):
+        """Direct access to Qt classes.
+
+        Warning: Direct access is discouraged and may break the project. 
+        This access is considered a hacking for complex Qt implementations, 
+        and should only be used for testing and analysis purposes.
+        """
+        return self.__frame
+
+    @qt_obj.setter
+    def qt_obj(self, obj: QtWidgets) -> None:
+        self.__frame = obj
 
     @property
     def style(self) -> dict:
@@ -156,7 +177,9 @@ class MainFrame(object):
 
     @property
     def title(self) -> str:
-        """
+        """Returns the Frame title.
+
+        Pass a new integer value to update the title.
         """
         return self.__frame.window_title()
     
@@ -166,7 +189,7 @@ class MainFrame(object):
 
     @property
     def width(self) -> int:
-        """Returns the width of the Frame.
+        """Returns the Frame width.
 
         Pass a new integer value to update the width.
         """
@@ -175,6 +198,14 @@ class MainFrame(object):
     @width.setter
     def width(self, width: int) -> int:
         self.__frame.set_fixed_width(width)
+
+    def add_box(self, box: Box) -> None:
+        """..."""
+        self.__frame_box.add_box(box)
+
+    def add_component(self, component: Component) -> None:
+        """..."""
+        self.__frame_box.add_component(component)
 
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
@@ -187,13 +218,10 @@ class MainFrame(object):
             Event enumeration (Enum) corresponding to the requested event, 
             such as Event.HOVER_ENTER . All possible names are:
             
-            FOCUS_IN
-            FOCUS_OUT
-            HOVER_ENTER
-            HOVER_LEAVE
-            HOVER_MOVE
-            MOUSE_LEFT_CLICK
-            NONE
+            NONE, CLOSE, DRAG, DROP, FOCUS_IN, FOCUS_OUT, MOUSE_BUTTON_PRESS, 
+            MOUSE_BUTTON_RELEASE, MOUSE_DOUBLE_CLICK, MOUSE_HOVER_ENTER, 
+            MOUSE_HOVER_LEAVE, MOUSE_HOVER_MOVE, MOUSE_RIGHT_BUTTON_PRESS, 
+            MOUSE_WHEEL, RESIZE, STATE_CHANGE, TITLE_CHANGE.
         """
         if event == Event.CLOSE:
             return self.__frame.close_signal
@@ -230,15 +258,6 @@ class MainFrame(object):
             return self.__frame.title_change_signal
         else:
             return Signal(Event.NONE)
-
-    def qt_class(self):
-        """Direct access to Qt classes (QtWidgets.QMainWindow).
-
-        Warning: Direct access is discouraged and may break the project. 
-        This access is considered a hacking for complex Qt implementations, 
-        and should only be used for testing and analysis purposes.
-        """
-        return self.__frame
 
     def show(self) -> None:
         """Show the frame."""

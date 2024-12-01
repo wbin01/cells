@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-import pathlib
-import sys
-
 from PySide6 import QtCore
 from __feature__ import snake_case
 

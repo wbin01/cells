@@ -10,9 +10,9 @@ from ..event import Event
 
 
 class CoreMainFrame(CoreFrameShadow):
-    """Complete Frame
+    """Complete Frame.
 
-    Using style integration
+    Using style integration.
     """
     close_signal = Signal()
     focus_in_signal = Signal()
@@ -29,8 +29,10 @@ class CoreMainFrame(CoreFrameShadow):
     state_change_signal = Signal()
     title_change_signal = Signal()
 
+    boxes = []
+
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.set_minimum_width(100)
         self.set_minimum_height(100)

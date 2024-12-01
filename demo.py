@@ -2,7 +2,8 @@
 import os
 import sys
 
-from cells import Application, MainFrame, Frame, Signal, Event, Cursor
+from cells import (
+    Application, MainFrame, Frame, Signal, Event, Cursor, Box, Component)
 
 
 class MainFrame(MainFrame):
@@ -20,11 +21,18 @@ class MainFrame(MainFrame):
         self.event_signal(Event.STATE_CHANGE).callback(
             lambda: print('STATE_CHANGE'))
 
+        self.bb = Box()
+        self.add_box(self.bb)
+
+        self.cc = Component()
+        self.add_component(self.cc)
+
     def xxx(self):
         if self.title == 'Myapp':
             self.title = 'XXX'
         else:
             self.title = 'Myapp'
+
 
 if __name__ == '__main__':
     app = Application(sys.argv)

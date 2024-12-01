@@ -4,18 +4,18 @@ from .signal import Signal
 
 
 class Frame(object):
-    """Main frame
+    """Main frame.
     
-    That is, the main application window
+    That is, the main application window.
     """
     
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.__frame = CoreFrame()
 
     def qt_class(self):
-        """Direct access to Qt classes (QtWidgets.QFrame)
+        """Direct access to Qt classes (QtWidgets.QFrame).
 
         Warning: Direct access is discouraged and may break the project. 
         This access is considered a hacking for complex Qt implementations, 
@@ -32,7 +32,7 @@ class Frame(object):
 
         :param name:
             String containing a signal type name, such as 'mouse-click'. 
-            All possible names are: 'event-filter'
+            All possible names are: 'event-filter'.
         """
         if name == 'event-filter':
             return self.__frame.event_filter_signal
