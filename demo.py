@@ -10,22 +10,22 @@ class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(
-            lambda: self.fun('Hello', 'World'))
+        # self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(
+        #     lambda: self.fun('Hello', 'World'))
 
-        self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.xxx)
+        # self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.xxx)
 
-        self.event_signal(Event.TITLE_CHANGE).connect(
-            lambda: print('TITLE_CHANGE'))
+        # self.event_signal(Event.TITLE_CHANGE).connect(
+        #     lambda: print('TITLE_CHANGE'))
 
-        self.event_signal(Event.STATE_CHANGE).connect(
-            lambda: print('STATE_CHANGE'))
+        # self.event_signal(Event.STATE_CHANGE).connect(
+        #     lambda: print('STATE_CHANGE'))
 
-        self.event_signal(Event.FOCUS_IN).connect(
-            lambda: print('FOCUS_IN'))
+        # self.event_signal(Event.FOCUS_IN).connect(
+        #     lambda: print('FOCUS_IN'))
 
-        self.event_signal(Event.FOCUS_OUT).connect(
-            lambda: print('FOCUS_OUT'))
+        # self.event_signal(Event.FOCUS_OUT).connect(
+        #     lambda: print('FOCUS_OUT'))
 
         self.box = Box()
         self.add_box(self.box)
@@ -34,24 +34,15 @@ class MainFrame(MainFrame):
         self.add_component(self.label)
 
         self.btn = Button('Click me')
-        self.btn.connect(lambda: self.bbb(2024))
+        self.btn.connect(lambda: self.btn_fun(2024))
         self.add_component(self.btn)
 
-    def fun(self, arg1, arg2):
-        print(self, arg1, arg2)
+        self.num = 0
 
-    def xxx(self):
-        if self.title == 'Myapp':
-            self.title = 'Title'
-        else:
-            self.title = 'Myapp'
-
-    def bbb(self, args):
-        if self.label.text == 'Hello world!':
-            self.label.text = 'Hi'
-        else:
-            self.label.text = 'Hello world!'
-        print(args)
+    def btn_fun(self, args):
+        self.num += 1
+        self.label.text = f'Button Clicked: {self.num}'
+        print('btn arg:', args)
 
 
 if __name__ == '__main__':

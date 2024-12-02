@@ -3,22 +3,24 @@ from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 from .component import Component
+from .event import Event
 
 
 class Button(Component):
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.qt_obj = QtWidgets.QPushButton(text)
+        # self.qt_obj = QtWidgets.QPushButton(text)
+        self.__label = ''
 
     @property
     def text(self) -> str:
         """..."""
-        return self.qt_obj.text()
+        return self.__label
 
     @text.setter
     def text(self, text: str) -> None:
         """..."""
-        self.qt_obj.set_text(text)
+        self.__label = text
 
     def connect(self, function: callable) -> None:
-    	self.qt_obj.clicked.connect(function)
+        self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(function)
