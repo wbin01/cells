@@ -20,5 +20,5 @@ class Button(Component):
         """..."""
         self.qt_obj.set_text(text)
 
-    def callback(self, callback: callable) -> None:
-    	self.qt_obj.clicked.connect(callback)
+    def connect(self, function: callable) -> None:
+    	self.qt_obj.clicked.connect(function)

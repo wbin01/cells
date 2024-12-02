@@ -171,15 +171,14 @@ class CoreMainFrame(CoreFrameShadow):
     def event_filter(
             self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
         if event.type() == QtCore.QEvent.FocusIn:
-            print(event.reason())
-            self.focus_in_signal.send()
+            self.focus_in_signal.emit()
             if self.is_maximized() or self.is_full_screen():
                 self.set_style_sheet(self.__qss_styles['fullscreen'])
             else:
                 self.set_style_sheet(self.__qss_styles['active'])
 
         elif event.type() == QtCore.QEvent.FocusOut:
-            self.focus_out_signal.send()
+            self.focus_out_signal.emit()
             if self.is_maximized() or self.is_full_screen():
                 self.set_style_sheet(self.__qss_styles['inactive_fullscreen'])
             else:
@@ -188,18 +187,18 @@ class CoreMainFrame(CoreFrameShadow):
                 self.set_style_sheet(self.__qss_styles['inactive'])
 
         elif event.type() == QtCore.QEvent.HoverMove:
-            self.mouse_hover_move_signal.send()
+            self.mouse_hover_move_signal.emit()
             self.__set_edge_cursor_position(event)
             self.__set_edge_cursor_position_shape()
 
         elif event.type() == QtCore.QEvent.Type.HoverEnter:
-            self.mouse_hover_enter_signal.send()
+            self.mouse_hover_enter_signal.emit()
             if self.__press:
-                self.mouse_button_release_signal.send()
+                self.mouse_button_release_signal.emit()
                 self.__press = False
 
         elif event.type() == QtCore.QEvent.Type.HoverLeave:
-            self.mouse_hover_leave_signal.send()
+            self.mouse_hover_leave_signal.emit()
 
         elif event.type() == QtCore.QEvent.MouseButtonPress:
             self.__set_edge_cursor_position_shape()
@@ -213,21 +212,21 @@ class CoreMainFrame(CoreFrameShadow):
 
         elif event.type() == QtCore.QEvent.MouseButtonRelease:
             if 'RightButton' in event.__str__():
-                self.mouse_right_button_press_signal.send()
+                self.mouse_right_button_press_signal.emit()
             else:
-                self.mouse_button_press_signal.send()
+                self.mouse_button_press_signal.emit()
 
             self.__press = True
             self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
 
         elif event.type() == QtCore.QEvent.MouseButtonDblClick:
-            self.mouse_double_click_signal.send()
+            self.mouse_double_click_signal.emit()
 
         elif event.type() == QtCore.QEvent.Wheel:
-            self.mouse_wheel_signal.send()
+            self.mouse_wheel_signal.emit()
 
         elif event.type() == QtCore.QEvent.Resize:
-            self.resize_signal.send()
+            self.resize_signal.emit()
 
             if self.__is_csd:
                 if self.is_maximized() or self.is_full_screen():
@@ -238,12 +237,12 @@ class CoreMainFrame(CoreFrameShadow):
                     self.__window_shadow_visible(True)
 
         elif event.type() == QtCore.QEvent.WindowStateChange:
-            self.state_change.send()
+            self.state_change.emit()
 
         elif event.type() == QtCore.QEvent.WindowTitleChange:
-            self.title_change_signal.send()
+            self.title_change_signal.emit()
 
         elif event.type() == QtCore.QEvent.Close:
-            self.close_signal.send()
+            self.close_signal.emit()
 
         return QtWidgets.QMainWindow.event_filter(self, watched, event)
