@@ -2,15 +2,48 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
-from .signal import Signal
-from .event import Event
 from .core import CoreComponent
+from .event import Event
+from .signal import Signal
 
 
 class Component(object):
-    """Component widget"""
-    def __init__(self, horizontal: bool = False, *args, **kwargs) -> None:
+    """Component widget."""
+    def __init__(self, *args, **kwargs) -> None:
+        """Class constructor."""
+
+
+class Component(Component):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.__component = CoreComponent()
+        self._main_parent = None
+
+        self.__box = QtWidgets.QVBoxLayout()
+        self.__component.set_layout(self.__box)
+
+    @property
+    def main_parent(self):
+        """..."""
+        return self._main_parent
+    
+    @main_parent.setter
+    def main_parent(self, parent) -> None:
+        self._main_parent = parent
+
+    @property
+    def qt_obj(self):
+        """Direct access to Qt classes.
+
+        Warning: Direct access is discouraged and may break the project. 
+        This access is considered a hacking for complex Qt implementations, 
+        and should only be used for testing and analysis purposes.
+        """
+        return self.__component
+
+    @qt_obj.setter
+    def qt_obj(self, obj: QtWidgets) -> None:
+        self.__component = obj
 
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
@@ -49,16 +82,12 @@ class Component(object):
         else:
             return Signal(Event.NONE)
 
-    @property
-    def qt_obj(self):
-        """Direct access to Qt classes.
+    def add_box(self, box) -> None:
+        # ...
+        box.main_parent = self.main_parent
+        self.__box.add_layout(box.qt_obj)
 
-        Warning: Direct access is discouraged and may break the project. 
-        This access is considered a hacking for complex Qt implementations, 
-        and should only be used for testing and analysis purposes.
-        """
-        return self.__component
-
-    @qt_obj.setter
-    def qt_obj(self, obj: QtWidgets) -> None:
-        self.__component = obj
+    def add_component(self, component: Component) -> None:
+        # ...
+        component.main_parent = self.main_parent
+        self.__box.add_widget(component.qt_obj)

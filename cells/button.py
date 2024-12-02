@@ -4,23 +4,29 @@ from __feature__ import snake_case
 
 from .component import Component
 from .event import Event
+from .box import Box
+from .label import Label
 
 
 class Button(Component):
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        # self.qt_obj = QtWidgets.QPushButton(text)
-        self.__label = ''
+
+        self.__box = Box(True)
+        self.add_box(self.__box)
+
+        self.__label = Label(text)
+        self.__box.add_component(self.__label)
 
     @property
     def text(self) -> str:
         """..."""
-        return self.__label
+        return self.__label.text
 
     @text.setter
     def text(self, text: str) -> None:
         """..."""
-        self.__label = text
+        self.__label.text = text
 
     def connect(self, function: callable) -> None:
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(function)

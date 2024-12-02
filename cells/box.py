@@ -35,11 +35,23 @@ class Box(object):
 class Box(Box):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        self._main_parent = None
+
+    @property
+    def main_parent(self):
+        """..."""
+        return self._main_parent
+    
+    @main_parent.setter
+    def main_parent(self, parent) -> None:
+        self._main_parent = parent
 
     def add_box(self, box: Box) -> None:
         # ...
+        box.main_parent = self.main_parent
         self.__box.add_layout(box.qt_obj)
 
     def add_component(self, component: Component) -> None:
-        # add component type
+        # ...
+        component.main_parent = self.main_parent
         self.__box.add_widget(component.qt_obj)

@@ -42,7 +42,6 @@ class MainFrame(MainFrame):
     def btn_fun(self, args):
         self.num += 1
         self.label.text = f'Button Clicked: {self.num}'
-        print('btn arg:', args)
 
 
 if __name__ == '__main__':

@@ -21,6 +21,7 @@ class MainFrame(object):
         self.__frame = CoreMainFrame()
 
         self.__frame_box = Box()
+        self.__frame_box.main_parent = self
         self.__frame.central_widget().set_layout(self.__frame_box.qt_obj)
         
         self.__icon = None
@@ -201,10 +202,12 @@ class MainFrame(object):
 
     def add_box(self, box: Box) -> None:
         """..."""
+        box.main_parent = self
         self.__frame_box.add_box(box)
 
     def add_component(self, component: Component) -> None:
         """..."""
+        component.main_parent = self
         self.__frame_box.add_component(component)
 
     def event_signal(self, event: Event) -> Signal:
