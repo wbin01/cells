@@ -237,7 +237,7 @@ class CoreMainFrame(CoreMainFrameShadow):
                     self.__window_shadow_visible(True)
 
         elif event.type() == QtCore.QEvent.WindowStateChange:
-            self.state_change.emit()
+            self.state_change_signal.emit()
 
         elif event.type() == QtCore.QEvent.WindowTitleChange:
             self.title_change_signal.emit()
