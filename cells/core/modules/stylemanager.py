@@ -51,14 +51,15 @@ class StyleManager(object):
         # https://doc.qt.io/qt-5/stylesheet-reference.html
         # https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qpushbutton
         return (
-            self.__qss_button() +
+            self.__qss_button(inactive) +
             self.__qss_frame() +
-            self.__qss_label() +
+            self.__qss_label(inactive) +
             self.__qss_main_frame(inactive, fullscreen)
             )
 
-    def __qss_button(self) -> str:
+    def __qss_button(self, inactive: bool = False) -> str:
         bg = self.__dict_style['[Button]']['background']
+        cl = self.__dict_style['[Button]']['color']
         bd = self.__style_handler.border_str_to_list(
             self.__dict_style['[Button]']['border'])
         bdr = self.__style_handler.border_radius_str_to_list(
@@ -67,6 +68,15 @@ class StyleManager(object):
             self.__dict_style['[Button]']['margin'])
         pd = self.__style_handler.margin_padding_str_to_list(
             self.__dict_style['[Button]']['padding'])
+
+        if inactive:  # Only colors
+            if 'background' in self.__dict_style['[Button:inactive]']:
+                bg = self.__dict_style['[Button:inactive]']['background']
+            if 'color' in self.__dict_style['[Button:inactive]']:
+                cl = self.__dict_style['[Button:inactive]']['color']
+            if 'border' in self.__dict_style['[Button:inactive]']:
+                bd = self.__style_handler.border_str_to_list(
+                    self.__dict_style['[Button:inactive]']['border'])
         qss = (
             '#Button {\n'
             f'  background-color: {bg};\n'
@@ -86,15 +96,20 @@ class StyleManager(object):
             f'  padding-right: {pd[1]}px;\n'
             f'  padding-bottom: {pd[2]}px;\n'
             f'  padding-left: {pd[3]}px;\n'
-            '}\n')
-        if 'background' in self.__dict_style['[Button:hover]']:
-            bg = self.__dict_style['[Button:hover]']['background']
-        if 'border' in self.__dict_style['[Button:hover]']:
-            bd = self.__style_handler.border_str_to_list(
-                self.__dict_style['[Button:hover]']['border'])
-        if 'border radius' in self.__dict_style['[Button:hover]']:
-            bdr = self.__style_handler.border_radius_str_to_list(
-                self.__dict_style['[Button:hover]']['border radius'])
+            '}\n'
+            '#ButtonLabel {\n'
+            f'  color: {cl};\n'
+            '}\n'
+            )
+        if not inactive:
+            if 'background' in self.__dict_style['[Button:hover]']:
+                bg = self.__dict_style['[Button:hover]']['background']
+            if 'border' in self.__dict_style['[Button:hover]']:
+                bd = self.__style_handler.border_str_to_list(
+                    self.__dict_style['[Button:hover]']['border'])
+            if 'border radius' in self.__dict_style['[Button:hover]']:
+                bdr = self.__style_handler.border_radius_str_to_list(
+                    self.__dict_style['[Button:hover]']['border radius'])
         qss += (
             '#Button:hover {\n'
             f'  background-color: {bg};\n'
@@ -112,14 +127,15 @@ class StyleManager(object):
             f'  border-bottom-right-radius: {bdr[2]}px;\n'
             '}\n'
             )
-        if 'background' in self.__dict_style['[Button:pressed]']:
-            bg = self.__dict_style['[Button:pressed]']['background']
-        if 'border' in self.__dict_style['[Button:pressed]']:
-            bd = self.__style_handler.border_str_to_list(
-                self.__dict_style['[Button:pressed]']['border'])
-        if 'border radius' in self.__dict_style['[Button:pressed]']:
-            bdr = self.__style_handler.border_radius_str_to_list(
-                self.__dict_style['[Button:pressed]']['border radius'])
+        if not inactive:
+            if 'background' in self.__dict_style['[Button:pressed]']:
+                bg = self.__dict_style['[Button:pressed]']['background']
+            if 'border' in self.__dict_style['[Button:pressed]']:
+                bd = self.__style_handler.border_str_to_list(
+                    self.__dict_style['[Button:pressed]']['border'])
+            if 'border radius' in self.__dict_style['[Button:pressed]']:
+                bdr = self.__style_handler.border_radius_str_to_list(
+                    self.__dict_style['[Button:pressed]']['border radius'])
         qss += (
             '#Button:pressed {\n'
             f'  background-color: {bg};\n'
@@ -145,6 +161,8 @@ class StyleManager(object):
             self.__dict_style['[Frame]']['border'])
         bdr = self.__style_handler.border_radius_str_to_list(
             self.__dict_style['[Frame]']['border radius'])
+        pd = self.__style_handler.margin_padding_str_to_list(
+            self.__dict_style['[Frame]']['padding'])
 
         qss = (
             '#FrameShadow {\n'
@@ -163,11 +181,15 @@ class StyleManager(object):
             '#FrameCentral {\n'
             f'  background-color: {bg};\n  border: 0px;\n'
             f'  border-radius: {int(bdr[0])-1}px;\n'
+            f'  padding-top: {pd[0]}px;\n'
+            f'  padding-right: {pd[1]}px;\n'
+            f'  padding-bottom: {pd[2]}px;\n'
+            f'  padding-left: {pd[3]}px;\n'
             '}\n'
             )
         return qss
 
-    def __qss_label(self) -> str:
+    def __qss_label(self, inactive: bool = False) -> str:
         bg = self.__dict_style['[Label]']['background']
         cl = self.__dict_style['[Label]']['color']
         bd = self.__style_handler.border_str_to_list(
@@ -178,6 +200,15 @@ class StyleManager(object):
             self.__dict_style['[Label]']['margin'])
         pd = self.__style_handler.margin_padding_str_to_list(
             self.__dict_style['[Label]']['padding'])
+
+        if inactive:  # Only colors
+            if 'background' in self.__dict_style['[Label:inactive]']:
+                bg = self.__dict_style['[Label:inactive]']['background']
+            if 'color' in self.__dict_style['[Label:inactive]']:
+                cl = self.__dict_style['[Label:inactive]']['color']
+            if 'border' in self.__dict_style['[Label:inactive]']:
+                bd = self.__style_handler.border_str_to_list(
+                    self.__dict_style['[Label:inactive]']['border'])
         qss = (
             '#Label {\n'
             f'  background-color: {bg};\n'
@@ -198,7 +229,8 @@ class StyleManager(object):
             f'  padding-right: {pd[1]}px;\n'
             f'  padding-bottom: {pd[2]}px;\n'
             f'  padding-left: {pd[3]}px;\n'
-            '}\n')
+            '}\n'
+            )
         if 'background' in self.__dict_style['[Label:hover]']:
             bg = self.__dict_style['[Label:hover]']['background']
         if 'color' in self.__dict_style['[Label:hover]']:
@@ -235,13 +267,15 @@ class StyleManager(object):
             self.__dict_style['[MainFrame]']['border'])
         bdr = self.__style_handler.border_radius_str_to_list(
             self.__dict_style['[MainFrame]']['border radius'])
+        pd = self.__style_handler.margin_padding_str_to_list(
+            self.__dict_style['[MainFrame]']['padding'])
 
         if inactive:  # Only colors
-            if 'background' in self.__dict_style['[MainFrame:Inactive]']:
-                bg = self.__dict_style['[MainFrame:Inactive]']['background']
-            if 'border' in self.__dict_style['[MainFrame:Inactive]']:
+            if 'background' in self.__dict_style['[MainFrame:inactive]']:
+                bg = self.__dict_style['[MainFrame:inactive]']['background']
+            if 'border' in self.__dict_style['[MainFrame:inactive]']:
                 bd = self.__style_handler.border_str_to_list(
-                    self.__dict_style['[MainFrame:Inactive]']['border'])
+                    self.__dict_style['[MainFrame:inactive]']['border'])
 
         if fullscreen:  # Only borders
             bdr = ['0', '0', '0', '0', '']
@@ -273,6 +307,10 @@ class StyleManager(object):
             f'  border-top-right-radius: {int(bdr[1])-1}px;\n'
             f'  border-bottom-left-radius: {int(bdr[3])-1}px;\n'
             f'  border-bottom-right-radius: {int(bdr[2])-1}px;\n'
+            f'  padding-top: {pd[0]}px;\n'
+            f'  padding-right: {pd[1]}px;\n'
+            f'  padding-bottom: {pd[2]}px;\n'
+            f'  padding-left: {pd[3]}px;\n'
             '}\n'
             )
         return qss

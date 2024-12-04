@@ -25,6 +25,21 @@ class Component(Component):
         self.__component.set_layout(self.__box)
 
     @property
+    def style_id(self) -> str:
+        """Style ID.
+
+        An ID allows you to define a unique style that does not distort parent 
+        objects of the same type that inherit from the class.
+
+        Send a string with a unique ID to set the style for this Component only.
+        """
+        return self.__component.object_name()
+
+    @style_id.setter
+    def style_id(self, style_id: str) -> None:
+        self.__component.set_object_name(style_id)
+
+    @property
     def _main_parent(self):
         """Main frame of the application.
 
