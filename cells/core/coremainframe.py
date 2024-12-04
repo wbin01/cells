@@ -34,8 +34,8 @@ class CoreMainFrame(CoreMainFrameShadow):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.set_minimum_width(100)
-        self.set_minimum_height(100)
+        self.set_minimum_width(50)
+        self.set_minimum_height(50)
 
         self.__shadow_size = 8
         self.__edge_cursor_position = None

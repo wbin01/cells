@@ -13,12 +13,13 @@ class Button(Component):
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-
         self.__box = Box(True)
         self.add_box(self.__box)
 
         self.__label = Label(text)
         self.__box.add_component(self.__label)
+
+        self._obj.set_object_name('Button')
 
     @property
     def text(self) -> str:

@@ -23,6 +23,9 @@ class Box(Box):
         self.__box = QtWidgets.QVBoxLayout()
         if horizontal:
             self.__box = QtWidgets.QHBoxLayout()
+
+        self.__box.set_contents_margins(0, 0, 0, 0)
+        self.__box.set_spacing(0)
         self.__main_parent = None
 
     @property
