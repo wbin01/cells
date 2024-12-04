@@ -6,6 +6,12 @@ from .component import Component
 
 class Box(object):
     """Box layout"""
+    def __init__(self, *args, **kwargs) -> None:
+        """Class constructor."""
+
+
+class Box(Box):
+    """Box layout"""
     def __init__(self, horizontal: bool = False, *args, **kwargs) -> None:
         """Class constructor.
 
@@ -13,12 +19,27 @@ class Box(object):
 
         :param horizontal: Changes the orientation of the Box to horizontal
         """
+        super().__init__(horizontal, *args, **kwargs)
         self.__box = QtWidgets.QVBoxLayout()
         if horizontal:
             self.__box = QtWidgets.QHBoxLayout()
+        self.__main_parent = None
 
     @property
-    def qt_obj(self):
+    def _main_parent(self) -> Component | Box:
+        """Main frame of the application.
+
+        Use only to access properties and methods of the Main Frame, defining a 
+        new frame will break the application.
+        """
+        return self.__main_parent
+    
+    @_main_parent.setter
+    def _main_parent(self, parent) -> None:
+        self.__main_parent = parent
+
+    @property
+    def _obj(self):
         """Direct access to Qt classes.
 
         Warning: Direct access is discouraged and may break the project. 
@@ -27,31 +48,19 @@ class Box(object):
         """
         return self.__box
 
-    @qt_obj.setter
-    def qt_obj(self, obj: QtWidgets) -> None:
+    @_obj.setter
+    def _obj(self, obj: QtWidgets) -> None:
         self.__box = obj
 
-
-class Box(Box):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self._main_parent = None
-
-    @property
-    def main_parent(self):
-        """..."""
-        return self._main_parent
-    
-    @main_parent.setter
-    def main_parent(self, parent) -> None:
-        self._main_parent = parent
-
     def add_box(self, box: Box) -> None:
-        # ...
-        box.main_parent = self.main_parent
-        self.__box.add_layout(box.qt_obj)
+        """Add a new Box inside this Box"""
+        box.main_parent = self.__main_parent
+        self.__box.add_layout(box._obj)
 
     def add_component(self, component: Component) -> None:
-        # ...
-        component.main_parent = self.main_parent
-        self.__box.add_widget(component.qt_obj)
+        """Add a Component inside this Box"""
+        component._main_parent = self._main_parent
+        self.__box.add_widget(component._obj)
+
+    def __str__(self):
+        return f'<Box: {id(self)}>'

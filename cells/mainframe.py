@@ -21,8 +21,8 @@ class MainFrame(object):
         self.__frame = CoreMainFrame()
 
         self.__frame_box = Box()
-        self.__frame_box.main_parent = self
-        self.__frame.central_widget().set_layout(self.__frame_box.qt_obj)
+        self.__frame_box._main_parent = self
+        self.__frame.central_widget().set_layout(self.__frame_box._obj)
         
         self.__icon = None
         self.__icon_path = None
@@ -50,7 +50,7 @@ class MainFrame(object):
     @icon.setter
     def icon(self, path: str) -> None:
         self.__icon = Icon(path)
-        self.__frame.set_window_icon(self.__icon)
+        self.__frame.set_window_icon(self.__icon._obj)
 
     @property
     def is_fullscreen(self) -> bool:
@@ -150,20 +150,6 @@ class MainFrame(object):
         self.__frame.set_minimum_width(width)
 
     @property
-    def qt_obj(self):
-        """Direct access to Qt classes.
-
-        Warning: Direct access is discouraged and may break the project. 
-        This access is considered a hacking for complex Qt implementations, 
-        and should only be used for testing and analysis purposes.
-        """
-        return self.__frame
-
-    @qt_obj.setter
-    def qt_obj(self, obj: QtWidgets) -> None:
-        self.__frame = obj
-
-    @property
     def style(self) -> dict:
         """Style as dict.
 
@@ -200,14 +186,28 @@ class MainFrame(object):
     def width(self, width: int) -> int:
         self.__frame.set_fixed_width(width)
 
+    @property
+    def _obj(self):
+        """Direct access to Qt classes.
+
+        Warning: Direct access is discouraged and may break the project. 
+        This access is considered a hacking for complex Qt implementations, 
+        and should only be used for testing and analysis purposes.
+        """
+        return self.__frame
+
+    @_obj.setter
+    def _obj(self, obj: QtWidgets) -> None:
+        self.__frame = obj
+
     def add_box(self, box: Box) -> None:
         """..."""
-        box.main_parent = self
+        box._main_parent = self
         self.__frame_box.add_box(box)
 
     def add_component(self, component: Component) -> None:
         """..."""
-        component.main_parent = self
+        component._main_parent = self
         self.__frame_box.add_component(component)
 
     def event_signal(self, event: Event) -> Signal:

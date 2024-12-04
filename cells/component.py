@@ -14,25 +14,31 @@ class Component(object):
 
 
 class Component(Component):
+    """Component widget."""
     def __init__(self, *args, **kwargs) -> None:
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.__component = CoreComponent()
-        self._main_parent = None
+        self.__main_parent = None
 
         self.__box = QtWidgets.QVBoxLayout()
         self.__component.set_layout(self.__box)
 
     @property
-    def main_parent(self):
-        """..."""
-        return self._main_parent
+    def _main_parent(self):
+        """Main frame of the application.
+
+        Use only to access properties and methods of the Main Frame, defining a 
+        new frame will break the application.
+        """
+        return self.__main_parent
     
-    @main_parent.setter
-    def main_parent(self, parent) -> None:
-        self._main_parent = parent
+    @_main_parent.setter
+    def _main_parent(self, parent) -> None:
+        self.__main_parent = parent
 
     @property
-    def qt_obj(self):
+    def _obj(self):
         """Direct access to Qt classes.
 
         Warning: Direct access is discouraged and may break the project. 
@@ -41,8 +47,8 @@ class Component(Component):
         """
         return self.__component
 
-    @qt_obj.setter
-    def qt_obj(self, obj: QtWidgets) -> None:
+    @_obj.setter
+    def _obj(self, obj: QtWidgets) -> None:
         self.__component = obj
 
     def event_signal(self, event: Event) -> Signal:
@@ -83,11 +89,14 @@ class Component(Component):
             return Signal(Event.NONE)
 
     def add_box(self, box) -> None:
-        # ...
-        box.main_parent = self.main_parent
-        self.__box.add_layout(box.qt_obj)
+        """Add a Box inside this Component"""
+        box._main_parent = self._main_parent
+        self.__box.add_layout(box._obj)
 
     def add_component(self, component: Component) -> None:
-        # ...
-        component.main_parent = self.main_parent
+        """Add a new Component inside this Component"""
+        component.main_parent = self._main_parent
         self.__box.add_widget(component.qt_obj)
+
+    def __str__(self):
+        return f'<Component: {id(self)}>'

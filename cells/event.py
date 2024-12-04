@@ -3,6 +3,7 @@ from enum import Enum
 
 
 class Event(Enum):
+    """Event enumeration"""
     NONE = 'NONE'
     CLOSE = 'CLOSE'
     DRAG = 'DRAG'

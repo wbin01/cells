@@ -6,16 +6,23 @@ from .component import Component
 
 
 class Label(Component):
+    """Label Component Widget."""
     def __init__(self, text: str = '', *args, **kwargs) -> None:
+        """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.qt_obj = QtWidgets.QLabel(text)
+        self._obj = QtWidgets.QLabel(text)
 
     @property
     def text(self) -> str:
-        """..."""
-        return self.qt_obj.text()
+        """Label text.
+        
+        Pass a new string to update the text.
+        """
+        return self._obj.text()
 
     @text.setter
     def text(self, text: str) -> None:
-        """..."""
-        self.qt_obj.set_text(text)
+        self._obj.set_text(text)
+
+    def __str__(self):
+        return f'<Label: {id(self)}>'

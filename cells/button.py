@@ -9,7 +9,9 @@ from .label import Label
 
 
 class Button(Component):
+    """Button Component Widget."""
     def __init__(self, text: str = '', *args, **kwargs) -> None:
+        """Class constructor."""
         super().__init__(*args, **kwargs)
 
         self.__box = Box(True)
@@ -20,13 +22,24 @@ class Button(Component):
 
     @property
     def text(self) -> str:
-        """..."""
+        """Button text.
+        
+        Pass a new string to update the text.
+        """
         return self.__label.text
 
     @text.setter
     def text(self, text: str) -> None:
-        """..."""
         self.__label.text = text
 
     def connect(self, function: callable) -> None:
+        """Connection to function.
+
+        Executes a function when the button is clicked.
+
+        :param function: Function to be executed.
+        """
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(function)
+
+    def __str__(self):
+        return f'<Button: {id(self)}>'

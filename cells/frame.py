@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+from PySide6 import QtWidgets
+from __feature__ import snake_case
+
 from .core import CoreFrame
 from .signal import Signal
 
@@ -14,14 +17,19 @@ class Frame(object):
         super().__init__(*args, **kwargs)
         self.__frame = CoreFrame()
 
-    def qt_class(self):
-        """Direct access to Qt classes (QtWidgets.QFrame).
+    @property
+    def _obj(self):
+        """Direct access to Qt classes.
 
         Warning: Direct access is discouraged and may break the project. 
         This access is considered a hacking for complex Qt implementations, 
         and should only be used for testing and analysis purposes.
         """
         return self.__frame
+
+    @_obj.setter
+    def _obj(self, obj: QtWidgets) -> None:
+        self.__frame = obj
 
     def signal(self, name: str) -> Signal:
         """Event Signals.
