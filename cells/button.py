@@ -21,29 +21,19 @@ class Button(Component):
 
         self.__label = Label(text)
         self.__label.style_id = 'ButtonLabel'
-
+        self.__box.add_component(self.__label)
         # self.__label._obj.set_size_policy(
         #     QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
-        self.__box.add_component(self.__label)
-
-        self.__style_manager = StyleManager()
-        self.__normal_stl = self.__style_manager.qss_button(only_normal=True)
-        self.__pressed_stl = self.__style_manager.qss_button(only_pressed=True)
 
         self.__normal_style = None
         self.__normal_style_label = None
+        self.__inactive_style = None
+        self.__inactive_style_label = None
         self.__hover_style = None
         self.__hover_style_label = None
         self.__pressed_style = None
         self.__pressed_style_label = None
         self.__set_styles()
-        self.__label._obj.set_style_sheet(self.__normal_style_label)
-
-
-        self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__pressed)
-        self.event_signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
-        self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
-        self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
     
     @property
     def text(self) -> str:
@@ -67,14 +57,22 @@ class Button(Component):
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(function)
 
     def __set_styles(self):
-        normal_stl = self.__style_manager.qss_button(only_normal=True)
-        hover_stl = self.__style_manager.qss_button(only_hover=True)
-        pressed_stl = self.__style_manager.qss_button(only_pressed=True)
+        style_manager = StyleManager()
+        normal_stl = style_manager.qss_button(only_normal=True)
+        inactive_stl = style_manager.qss_button(inactive=True, only_normal=True)
+        hover_stl = style_manager.qss_button(only_hover=True)
+        pressed_stl = style_manager.qss_button(only_pressed=True)
 
         normal_style = normal_stl.split('#ButtonLabel {')
         self.__normal_style = normal_style[0].replace(
             '#Button {', '').replace('}', '').strip()
         self.__normal_style_label = normal_style[1].replace(
+            '#ButtonLabel {', '').replace('}', '').strip()
+
+        inactive_style = normal_stl.split('#ButtonLabel {')
+        self.__inactive_style = inactive_style[0].replace(
+            '#Button {', '').replace('}', '').strip()
+        self.__inactive_style_label = inactive_style[1].replace(
             '#ButtonLabel {', '').replace('}', '').strip()
 
         hover_style = hover_stl.split('#ButtonLabel:hover {')
@@ -89,6 +87,11 @@ class Button(Component):
         self.__pressed_style_label = pressed_style[1].replace(
             '#ButtonLabel:pressed {', '').replace('}', '').strip()
 
+        self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__pressed)
+        self.event_signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
+        self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
+        self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+
     def __pressed(self) -> None:
         self._obj.set_style_sheet(self.__pressed_style)
         self.__label._obj.set_style_sheet(self.__pressed_style_label)
@@ -101,8 +104,10 @@ class Button(Component):
         self.__label._obj.set_style_sheet(self.__hover_style_label)
 
     def __leave(self) -> None:
-        self._obj.set_style_sheet(self.__normal_style)
-        self.__label._obj.set_style_sheet(self.__normal_style_label)
+        # self._obj.set_style_sheet(self.__normal_style)
+        # self.__label._obj.set_style_sheet(self.__normal_style_label)
+        self._obj.set_style_sheet('')
+        self.__label._obj.set_style_sheet('')
 
     def __str__(self):
         return f'<Button: {id(self)}>'
