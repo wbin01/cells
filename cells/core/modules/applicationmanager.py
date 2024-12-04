@@ -30,6 +30,7 @@ class ApplicationManager(object):
         # Linux
         self.__linux_icon_has_set = False
         self.__linux_applications_dir = None
+        self.__linux_desktop_file_url_root = None
         self.__linux_desktop_file_url = None
 
     @property
@@ -62,6 +63,8 @@ class ApplicationManager(object):
                 os.environ['HOME'], '.local', 'share', 'applications')
         self.__linux_desktop_file_url = os.path.join(
                 self.__linux_applications_dir, self.__wm_class + '.desktop')
+        self.__linux_desktop_file_url_root = os.path.join(
+            '/usr/share/applications', self.__wm_class + '.desktop')
         self.__linux_wayland_tmp_desktop_for_icon()
 
     @property
@@ -79,8 +82,7 @@ class ApplicationManager(object):
         Application Icon
         """
         self.__icon = path
-        if '--dev' in self.__args:
-            self.__linux_wayland_tmp_desktop_for_icon()
+        self.__linux_wayland_tmp_desktop_for_icon()
 
     @property
     def wm_class(self) -> str:
@@ -108,20 +110,24 @@ class ApplicationManager(object):
             return
 
         if self.__platform.operational_system == 'linux' and self.__frame_id:
-            with open(self.__linux_desktop_file_url, 'w') as f:
-                f.write(
-                    '[Desktop Entry]\n'
-                    f'Name={self.__app_name}\n'
-                    f'Exec={self.__frame_id[0]}\n'
-                    f'Icon={self.__icon}\n'
-                    'PrefersNonDefaultGPU=false\n'
-                    'StartupNotify=true\n'
-                    'Terminal=false\n'
-                    'Type=Application\n'
-                    'X-KDE-SubstituteUID=false\n')
 
-            os.chmod(self.__frame_id[0] , 0o777)
-            self.__linux_icon_has_set = True
+            if (not os.path.isfile(self.__linux_desktop_file_url) or not
+                    os.path.isfile(self.__linux_desktop_file_url_root)):
+
+                with open(self.__linux_desktop_file_url, 'w') as f:
+                    f.write(
+                        '[Desktop Entry]\n'
+                        f'Name={self.__app_name}\n'
+                        f'Exec={self.__frame_id[0]}\n'
+                        f'Icon={self.__icon}\n'
+                        'PrefersNonDefaultGPU=false\n'
+                        'StartupNotify=true\n'
+                        'Terminal=false\n'
+                        'Type=Application\n'
+                        'X-KDE-SubstituteUID=false\n')
+
+                os.chmod(self.__frame_id[0] , 0o777)
+                self.__linux_icon_has_set = True
 
     def __check__wm_class(self):
         message = (
