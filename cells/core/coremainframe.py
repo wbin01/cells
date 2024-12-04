@@ -4,12 +4,12 @@ from __feature__ import snake_case
 
 from .modules import colorconverter
 from .modules import StyleManager
-from .coreshadow import CoreFrameShadow
+from .coreshadow import CoreMainFrameShadow
 from ..signal import Signal
 from ..event import Event
 
 
-class CoreMainFrame(CoreFrameShadow):
+class CoreMainFrame(CoreMainFrameShadow):
     """Complete Frame.
 
     Using style integration.

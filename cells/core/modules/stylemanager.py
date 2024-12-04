@@ -48,13 +48,38 @@ class StyleManager(object):
 
     def __dict_style_to_qss_str(
             self, inactive: bool = False, fullscreen: bool = False) -> str:
+        # ...
+        bg = self.__dict_style['[Frame]']['background']
+        bd = self.__style_handler.border_str_to_list(
+            self.__dict_style['[Frame]']['border'])
+        bdr = self.__style_handler.border_radius_str_to_list(
+            self.__dict_style['[Frame]']['border radius'])
+
+        frame_style = (
+            '#FrameShadow {\n'
+            '  background-color: rgba(0, 0, 0, 0);\n'
+            '  border: 1px solid rgba(0, 0, 0, 0.2);\n'
+            f'  border-radius: {bdr[0]}px;\n'
+            '}\n'
+            '#FrameBorder {\n'
+            '  background-color: rgba(0, 0, 0, 0);\n'
+            f'  border-top: {bd[0]}px solid {bd[4]};\n'
+            f'  border-right: {bd[1]}px solid {bd[4]};\n'
+            f'  border-bottom: {bd[2]}px solid {bd[4]};\n'
+            f'  border-left: {bd[3]}px solid {bd[4]};\n'
+            f'  border-radius: {bdr[0]}px;\n'
+            '}\n'
+            '#FrameCentral {\n'
+            f'  background-color: {bg};\n  border: 0px;\n'
+            f'  border-radius: {int(bdr[0])-1}px;\n'
+            '}\n'
+            )
+
         bg = self.__dict_style['[MainFrame]']['background']
         bd = self.__style_handler.border_str_to_list(
             self.__dict_style['[MainFrame]']['border'])
         bdr = self.__style_handler.border_radius_str_to_list(
             self.__dict_style['[MainFrame]']['border radius'])
-        pd = self.__style_handler.margin_padding_str_to_list(
-            self.__dict_style['[MainFrame]']['padding'])
 
         if inactive:  # Only colors
             if 'background' in self.__dict_style['[MainFrame:Inactive]']:
@@ -67,8 +92,8 @@ class StyleManager(object):
             bdr = ['0', '0', '0', '0', '']
             bd = ['0', '0', '0', '0', '#00000000']
 
-        qss = (
-            '#CentralShadow {\n'
+        main_frame_style = (
+            '#MainFrameShadow {\n'
             '  background-color: rgba(0, 0, 0, 0);\n'
             '  border: 1px solid rgba(0, 0, 0, 0.2);\n'
             f'  border-top-left-radius: {bdr[0]}px;\n'
@@ -76,13 +101,7 @@ class StyleManager(object):
             f'  border-bottom-left-radius: {bdr[3]}px;\n'
             f'  border-bottom-right-radius: {bdr[2]}px;\n'
             '}\n'
-            '#FrameCentralShadow {\n'
-            '  background-color: rgba(0, 0, 0, 0);\n'
-            '  border: 1px solid rgba(0, 0, 0, 0.2);\n'
-            f'  border-radius: {bdr[0]}px;\n'
-            '}\n'
-
-            '#CentralBorder {\n'
+            '#MainFrameBorder {\n'
             '  background-color: rgba(0, 0, 0, 0);\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
@@ -93,28 +112,16 @@ class StyleManager(object):
             f'  border-bottom-left-radius: {bdr[3]}px;\n'
             f'  border-bottom-right-radius: {bdr[2]}px;\n'
             '}\n'
-            '#FrameCentralBorder {\n'
-            '  background-color: rgba(0, 0, 0, 0);\n'
-            f'  border-top: {bd[0]}px solid {bd[4]};\n'
-            f'  border-right: {bd[1]}px solid {bd[4]};\n'
-            f'  border-bottom: {bd[2]}px solid {bd[4]};\n'
-            f'  border-left: {bd[3]}px solid {bd[4]};\n'
-            f'  border-radius: {bdr[0]}px;\n'
-            '}\n'
-
-            '#Central {\n'
+            '#MainFrameCentral {\n'
             f'  background-color: {bg};\n  border: 0px;\n'
             f'  border-top-left-radius: {int(bdr[0])-1}px;\n'
             f'  border-top-right-radius: {int(bdr[1])-1}px;\n'
             f'  border-bottom-left-radius: {int(bdr[3])-1}px;\n'
             f'  border-bottom-right-radius: {int(bdr[2])-1}px;\n'
             '}\n'
-            '#FrameCentral {\n'
-            f'  background-color: {bg};\n  border: 0px;\n'
-            f'  border-radius: {int(bdr[0])-1}px;\n'
-            '}\n'
             )
 
+        qss = frame_style + main_frame_style
         return qss
 
 
