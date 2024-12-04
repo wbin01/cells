@@ -33,7 +33,7 @@ class CoreComponent(QtWidgets.QFrame):
     def enter_event(self, e):
         self.mouse_hover_enter_signal.emit()
 
-    def enter_leave(self, e):
+    def leave_event(self, e):
         self.mouse_hover_leave_signal.emit()
 
     def mouse_move_event(self, e):

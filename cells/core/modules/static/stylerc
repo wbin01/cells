@@ -13,10 +13,12 @@ border=1px 1px 1px 1px rgba(50, 50, 50, 0.50)
 
 [Button:hover]
 background=rgba(40, 40, 40, 1.00)
+color=rgba(0, 230, 0, 1.00)
 border=1px 1px 1px 1px rgba(50, 50, 50, 0.80)
 
 [Button:pressed]
 background=rgba(50, 50, 50, 1.00)
+color=rgba(230, 0, 0, 1.00)
 border=1px 1px 1px 1px rgba(50, 50, 50, 0.80)
 
 [Frame]
