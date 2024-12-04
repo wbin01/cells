@@ -48,14 +48,20 @@ class StyleManager(object):
 
     def __dict_style_to_qss_str(
             self, inactive: bool = False, fullscreen: bool = False) -> str:
-        # ...
+        
+        return (
+            self.__qss_frame() +
+            self.__qss_main_frame(inactive, fullscreen)
+            )
+
+    def __qss_frame(self) -> str:
         bg = self.__dict_style['[Frame]']['background']
         bd = self.__style_handler.border_str_to_list(
             self.__dict_style['[Frame]']['border'])
         bdr = self.__style_handler.border_radius_str_to_list(
             self.__dict_style['[Frame]']['border radius'])
 
-        frame_style = (
+        qss = (
             '#FrameShadow {\n'
             '  background-color: rgba(0, 0, 0, 0);\n'
             '  border: 1px solid rgba(0, 0, 0, 0.2);\n'
@@ -74,7 +80,9 @@ class StyleManager(object):
             f'  border-radius: {int(bdr[0])-1}px;\n'
             '}\n'
             )
+        return qss
 
+    def __qss_main_frame(self, inactive: bool = False, fullscreen: bool = False) -> str:
         bg = self.__dict_style['[MainFrame]']['background']
         bd = self.__style_handler.border_str_to_list(
             self.__dict_style['[MainFrame]']['border'])
@@ -92,7 +100,7 @@ class StyleManager(object):
             bdr = ['0', '0', '0', '0', '']
             bd = ['0', '0', '0', '0', '#00000000']
 
-        main_frame_style = (
+        qss = (
             '#MainFrameShadow {\n'
             '  background-color: rgba(0, 0, 0, 0);\n'
             '  border: 1px solid rgba(0, 0, 0, 0.2);\n'
@@ -120,8 +128,6 @@ class StyleManager(object):
             f'  border-bottom-right-radius: {int(bdr[2])-1}px;\n'
             '}\n'
             )
-
-        qss = frame_style + main_frame_style
         return qss
 
 
