@@ -58,31 +58,37 @@ class StyleManager(object):
             )
 
     def qss_button(
-        self, inactive: bool = False,
-        only_normal: bool = False,
-        only_hover: bool = False,
-        only_pressed: bool = False,) -> str:
-        bg = self.__dict_style['[Button]']['background']
-        cl = self.__dict_style['[Button]']['color']
+            self,
+            name: str = 'Button',
+            dict_style: dict = None,
+            inactive: bool = False,
+            only_normal: bool = False,
+            only_hover: bool = False,
+            only_pressed: bool = False,) -> str:
+        """..."""
+        dict_style = self.__dict_style if not dict_style else dict_style
+
+        bg = dict_style[f'[{name}]']['background']
+        cl = dict_style[f'[{name}]']['color']
         bd = self.__style_handler.border_str_to_list(
-            self.__dict_style['[Button]']['border'])
+            dict_style[f'[{name}]']['border'])
         bdr = self.__style_handler.border_radius_str_to_list(
-            self.__dict_style['[Button]']['border radius'])
+            dict_style[f'[{name}]']['border radius'])
         mg = self.__style_handler.margin_padding_str_to_list(
-            self.__dict_style['[Button]']['margin'])
+            dict_style[f'[{name}]']['margin'])
         pd = self.__style_handler.margin_padding_str_to_list(
-            self.__dict_style['[Button]']['padding'])
+            dict_style[f'[{name}]']['padding'])
 
         if inactive:  # Only colors
-            if 'background' in self.__dict_style['[Button:inactive]']:
-                bg = self.__dict_style['[Button:inactive]']['background']
-            if 'color' in self.__dict_style['[Button:inactive]']:
-                cl = self.__dict_style['[Button:inactive]']['color']
-            if 'border' in self.__dict_style['[Button:inactive]']:
+            if 'background' in dict_style[f'[{name}:inactive]']:
+                bg = dict_style[f'[{name}:inactive]']['background']
+            if 'color' in dict_style[f'[{name}:inactive]']:
+                cl = dict_style[f'[{name}:inactive]']['color']
+            if 'border' in dict_style[f'[{name}:inactive]']:
                 bd = self.__style_handler.border_str_to_list(
-                    self.__dict_style['[Button:inactive]']['border'])
+                    dict_style[f'[{name}:inactive]']['border'])
         qss = (
-            '#Button {\n'
+            f'#{name} ' '{\n'
             f'  background-color: {bg};\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
@@ -101,7 +107,7 @@ class StyleManager(object):
             f'  padding-bottom: {pd[2]}px;\n'
             f'  padding-left: {pd[3]}px;\n'
             '}\n'
-            '#ButtonLabel {\n'
+            f'#{name}Label ' '{\n'
             f'  color: {cl};\n'
             '  background-color: rgba(0, 0, 0, 0.0);\n'
             '  border: 0px solid rgba(0, 0, 0, 0.0);\n'
@@ -112,18 +118,18 @@ class StyleManager(object):
             return qss
 
         if not inactive:
-            if 'background' in self.__dict_style['[Button:hover]']:
-                bg = self.__dict_style['[Button:hover]']['background']
-            if 'color' in self.__dict_style['[Button:hover]']:
-                cl = self.__dict_style['[Button:hover]']['color']
-            if 'border' in self.__dict_style['[Button:hover]']:
+            if 'background' in dict_style[f'[{name}:hover]']:
+                bg = dict_style[f'[{name}:hover]']['background']
+            if 'color' in dict_style[f'[{name}:hover]']:
+                cl = dict_style[f'[{name}:hover]']['color']
+            if 'border' in dict_style[f'[{name}:hover]']:
                 bd = self.__style_handler.border_str_to_list(
-                    self.__dict_style['[Button:hover]']['border'])
-            if 'border radius' in self.__dict_style['[Button:hover]']:
+                    dict_style[f'[{name}:hover]']['border'])
+            if 'border radius' in dict_style[f'[{name}:hover]']:
                 bdr = self.__style_handler.border_radius_str_to_list(
-                    self.__dict_style['[Button:hover]']['border radius'])
+                    dict_style[f'[{name}:hover]']['border radius'])
         hover = (
-            '#Button:hover {\n'
+            f'#{name}:hover ' '{\n'
             f'  background-color: {bg};\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
@@ -138,7 +144,7 @@ class StyleManager(object):
             f'  border-bottom-left-radius: {bdr[3]}px;\n'
             f'  border-bottom-right-radius: {bdr[2]}px;\n'
             '}\n'
-            '#ButtonLabel:hover {\n'
+            f'#{name}Label:hover ' '{\n'
             f'  color: {cl};\n'
             '  background-color: rgba(0, 0, 0, 0.0);\n'
             '  border: 0px solid rgba(0, 0, 0, 0.0);\n'
@@ -150,18 +156,18 @@ class StyleManager(object):
             return hover
         
         if not inactive:
-            if 'background' in self.__dict_style['[Button:pressed]']:
-                bg = self.__dict_style['[Button:pressed]']['background']
-            if 'color' in self.__dict_style['[Button:pressed]']:
-                cl = self.__dict_style['[Button:pressed]']['color']
-            if 'border' in self.__dict_style['[Button:pressed]']:
+            if 'background' in dict_style[f'[{name}:pressed]']:
+                bg = dict_style[f'[{name}:pressed]']['background']
+            if 'color' in dict_style[f'[{name}:pressed]']:
+                cl = dict_style[f'[{name}:pressed]']['color']
+            if 'border' in dict_style[f'[{name}:pressed]']:
                 bd = self.__style_handler.border_str_to_list(
-                    self.__dict_style['[Button:pressed]']['border'])
-            if 'border radius' in self.__dict_style['[Button:pressed]']:
+                    dict_style[f'[{name}:pressed]']['border'])
+            if 'border radius' in dict_style[f'[{name}:pressed]']:
                 bdr = self.__style_handler.border_radius_str_to_list(
-                    self.__dict_style['[Button:pressed]']['border radius'])
+                    dict_style[f'[{name}:pressed]']['border radius'])
         pressed = (
-            '#Button:pressed {\n'
+            f'#{name}:pressed ' '{\n'
             f'  background-color: {bg};\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
@@ -172,7 +178,7 @@ class StyleManager(object):
             f'  border-bottom-left-radius: {bdr[3]}px;\n'
             f'  border-bottom-right-radius: {bdr[2]}px;\n'
             '}\n'
-            '#ButtonLabel:pressed {\n'
+            f'#{name}Label:pressed ' '{\n'
             f'  color: {cl};\n'
             '  background-color: rgba(0, 0, 0, 0.0);\n'
             '  border: 0px solid rgba(0, 0, 0, 0.0);\n'
