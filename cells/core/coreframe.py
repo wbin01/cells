@@ -21,5 +21,5 @@ class CoreFrame(CoreFrameShadow):
         self.hide_shadow(True)
 
         self.__style_manager = StyleManager()
-        self.__qss_styles = self.__style_manager.stylesheets_for_qss()
+        self.__qss_styles = self.__style_manager.stylesheet_for_qss()
         self.set_style_sheet(self.__qss_styles['active'])

@@ -24,6 +24,7 @@ class Button(Widget):
         self.__box.add_widget(self.__label)
         # self.__label._obj.set_size_policy(
         #     QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        self._is_inactive = False
 
         self.__style_manager = StyleManager()
         self.__default_style = {}
@@ -38,13 +39,13 @@ class Button(Widget):
         self.__pressed_style_label = None
         self.__set_styles()
 
-        self.event_signal(Event.STYLE_CHANGE).connect(self.__style_changed)
-        self.event_signal(Event.STYLE_ID_CHANGE).connect(self.__style_id_changed)
+        self.event_signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__pressed)
         self.event_signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
         self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
         self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
-        self.event_signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
+        self.event_signal(Event.STYLE_CHANGE).connect(self.__style_changed)
+        self.event_signal(Event.STYLE_ID_CHANGE).connect(self.__style_id_changed)
         
     @property
     def style(self) -> str:
@@ -78,9 +79,38 @@ class Button(Widget):
         """
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(function)
 
+    def __active(self) -> None:
+        self._is_inactive = False
+        self.__leave()
+
+    def __hover(self) -> None:
+        self._obj.set_style_sheet(self.__hover_style)
+        self.__label._obj.set_style_sheet(self.__hover_style_label)
+
+    def __inactive(self) -> None:
+        self._is_inactive = True
+        self._obj.set_style_sheet(self.__inactive_style)
+        self.__label._obj.set_style_sheet(self.__inactive_style_label)
+
+    def __leave(self) -> None:
+        if self._is_inactive:
+            # self._obj.set_style_sheet('')
+            # self.__label._obj.set_style_sheet('')
+            self.__inactive()
+        else:
+            self._obj.set_style_sheet(self.__normal_style)
+            self.__label._obj.set_style_sheet(self.__normal_style_label)
+
     def __main_added(self) -> None:
         self._main_parent.event_signal(Event.FOCUS_IN).connect(self.__active)
         self._main_parent.event_signal(Event.FOCUS_OUT).connect(self.__inactive)
+
+    def __pressed(self) -> None:
+        self._obj.set_style_sheet(self.__pressed_style)
+        self.__label._obj.set_style_sheet(self.__pressed_style_label)
+
+    def __release(self) -> None:
+        self.__hover()
 
     def __set_styles(self):
         # self.__style_manager = StyleManager()
@@ -117,48 +147,11 @@ class Button(Widget):
         self.__pressed_style_label = pressed_style[1].replace(
             f'#{self.style_id}Label:pressed '+'{', '').replace('}', '').strip()
 
-    def __pressed(self) -> None:
-        self._obj.set_style_sheet(self.__pressed_style)
-        self.__label._obj.set_style_sheet(self.__pressed_style_label)
-
-    def __release(self) -> None:
-        self.__hover()
-
-    def __hover(self) -> None:
-        self._obj.set_style_sheet(self.__hover_style)
-        self.__label._obj.set_style_sheet(self.__hover_style_label)
-
-    def __leave(self) -> None:
-        self._obj.set_style_sheet(self.__normal_style)
-        self.__label._obj.set_style_sheet(self.__normal_style_label)
-        # self._obj.set_style_sheet('')
-        # self.__label._obj.set_style_sheet('')
-
     def __style_changed(self) -> None:
-        # self.__label.style_id = f'{self.style_id}Label'
         pass
-
-    def __inactive(self) -> None:
-        self._obj.set_style_sheet(self.__inactive_style)
-        self.__label._obj.set_style_sheet(self.__inactive_style_label)
-
-    def __active(self) -> None:
-        self.__leave()
 
     def __style_id_changed(self) -> None:
         self.__label.style_id = f'{self.style_id}Label'
-        # self._main_parent.style[
-        #     f'[{self.style_id}]'] = self.__style_manager.qss_button(
-        #         only_normal=True)
-        # self._main_parent.style[
-        #     f'[{self.style_id}:inactive]'] = self.__style_manager.qss_button(
-        #         inactive=True, only_normal=True)
-        # self._main_parent.style[
-        #     f'[{self.style_id}:hover]'] = self.__style_manager.qss_button(
-        #         only_hover=True)
-        # self._main_parent.style[
-        #     f'[{self.style_id}:pressed]'] = self.__style_manager.qss_button(
-        #         only_pressed=True)
 
         if self._main_parent:
             self.__default_style[
@@ -173,18 +166,12 @@ class Button(Widget):
                 f'[{self.style_id}:pressed]'] = self._main_parent.style[
                 '[Button:pressed]']
 
-            # style = self._main_parent.style
-            # style.update(self.__default_style)
-            # self._main_parent.style = style
-            # self.__style_manager.stylesheet = style
             self._main_parent.style.update(self.__default_style)
             self.__style_manager.stylesheet = self._main_parent.style
 
             self.__set_styles()
             self._obj.set_style_sheet(self.__normal_style)
             self.__label._obj.set_style_sheet(self.__normal_style_label)
-            # self._obj.set_style_sheet('')
-            # self.__label._obj.set_style_sheet('')
 
     def __str__(self):
         return f'<Button: {id(self)}>'

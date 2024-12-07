@@ -56,7 +56,7 @@ class CoreMainFrame(CoreMainFrameShadow):
             self.__window_shadow_visible(True)
 
         self.__style_manager = StyleManager()
-        self.__qss_styles = self.__style_manager.stylesheets_for_qss()
+        self.__qss_styles = self.__style_manager.stylesheet_for_qss()
 
         self.set_focus_policy(QtCore.Qt.ClickFocus)
         self.install_event_filter(self)

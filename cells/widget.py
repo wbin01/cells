@@ -84,6 +84,16 @@ class Widget(Widget):
     def _obj(self, obj: QtWidgets) -> None:
         self.__widget = obj
 
+    def add_box(self, box) -> None:
+        """Add a Box inside this Widget"""
+        box._main_parent = self._main_parent
+        self.__box.add_layout(box._obj)
+
+    def add_widget(self, widget: Widget) -> None:
+        """Add a new Widget inside this Widget"""
+        widget.main_parent = self._main_parent
+        self.__box.add_widget(widget._obj)
+    
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
@@ -130,16 +140,6 @@ class Widget(Widget):
             return self.style_id_change_signal
         else:
             return Signal(Event.NONE)
-
-    def add_box(self, box) -> None:
-        """Add a Box inside this Widget"""
-        box._main_parent = self._main_parent
-        self.__box.add_layout(box._obj)
-
-    def add_widget(self, widget: Widget) -> None:
-        """Add a new Widget inside this Widget"""
-        widget.main_parent = self._main_parent
-        self.__box.add_widget(widget._obj)
 
     def __str__(self):
         return f'<Widget: {id(self)}>'

@@ -41,7 +41,7 @@ class MainFrame(MainFrame):
         self.new_btn = Button('Click me')
         self.add_widget(self.new_btn)
         self.new_btn.style_id = 'NewButton'
-        
+
         self.num = 0
 
     def btn_fun(self, args):

@@ -17,6 +17,7 @@ class CoreWidget(QtWidgets.QFrame):
         self.mouse_hover_leave_signal = Signal()
         self.mouse_hover_move_signal = Signal()
 
+        # TODO
         self.mouse_right_button_press_signal = Signal()
         self.mouse_wheel_signal = Signal()
         self.resize_signal = Signal()
