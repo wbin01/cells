@@ -299,6 +299,7 @@ class StyleManager(object):
             self.__dict_style['[MainFrame]']['border radius'])
         pd = self.__style_handler.margin_padding_str_to_list(
             self.__dict_style['[MainFrame]']['padding'])
+        bd_shadow = '1px solid rgba(0, 0, 0, 0.30)'
 
         if inactive:  # Only colors
             if 'background' in self.__dict_style['[MainFrame:inactive]']:
@@ -310,11 +311,12 @@ class StyleManager(object):
         if fullscreen:  # Only borders
             bdr = ['0', '0', '0', '0']
             bd = ['0', '0', '0', '0', 'rgba(0, 0, 0, 0.00)']
+            bd_shadow = '0px solid rgba(0, 0, 0, 0.00)'
 
         qss = (
             '#MainFrameShadow {\n'
             '  background-color: rgba(0, 0, 0, 0.00);\n'
-            '  border: 0px solid rgba(0, 0, 0, 0.00);\n'
+            f'  border: {bd_shadow};\n'
             f'  border-top-left-radius: {bdr[0]}px;\n'
             f'  border-top-right-radius: {bdr[1]}px;\n'
             f'  border-bottom-left-radius: {bdr[3]}px;\n'

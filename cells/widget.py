@@ -2,27 +2,27 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
-from .core import CoreComponent
+from .core import CoreWidget
 from .event import Event
 from .signal import Signal
 
 
-class Component(object):
-    """Component widget."""
+class Widget(object):
+    """Widget."""
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
 
 
-class Component(Component):
-    """Component widget."""
+class Widget(Widget):
+    """Widget."""
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.__component = CoreComponent()
+        self.__widget = CoreWidget()
         self.__main_parent = None
 
         self.__box = QtWidgets.QVBoxLayout()
-        self.__component.set_layout(self.__box)
+        self.__widget.set_layout(self.__box)
 
     @property
     def style_id(self) -> str:
@@ -31,13 +31,13 @@ class Component(Component):
         An ID allows you to define a unique style that does not distort parent 
         objects of the same type that inherit from the class.
 
-        Send a string with a unique ID to set the style for this Component only.
+        Send a string with a unique ID to set the style for this Widget only.
         """
-        return self.__component.object_name()
+        return self.__widget.object_name()
 
     @style_id.setter
     def style_id(self, style_id: str) -> None:
-        self.__component.set_object_name(style_id)
+        self.__widget.set_object_name(style_id)
 
     @property
     def _main_parent(self):
@@ -60,11 +60,11 @@ class Component(Component):
         This access is considered a hacking for complex Qt implementations, 
         and should only be used for testing and analysis purposes.
         """
-        return self.__component
+        return self.__widget
 
     @_obj.setter
     def _obj(self, obj: QtWidgets) -> None:
-        self.__component = obj
+        self.__widget = obj
 
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
@@ -82,36 +82,36 @@ class Component(Component):
             MOUSE_RIGHT_BUTTON_PRESS, MOUSE_WHEEL, RESIZE.
         """
         if event == Event.MOUSE_BUTTON_PRESS:
-            return self.__component.mouse_button_press_signal
+            return self.__widget.mouse_button_press_signal
         elif event == Event.MOUSE_BUTTON_RELEASE:
-            return self.__component.mouse_button_release_signal
+            return self.__widget.mouse_button_release_signal
         elif event == Event.MOUSE_DOUBLE_CLICK:
-            return self.__component.mouse_double_click_signal
+            return self.__widget.mouse_double_click_signal
         elif event == Event.MOUSE_HOVER_ENTER:
-            return self.__component.mouse_hover_enter_signal
+            return self.__widget.mouse_hover_enter_signal
         elif event == Event.MOUSE_HOVER_LEAVE:
-            return self.__component.mouse_hover_leave_signal
+            return self.__widget.mouse_hover_leave_signal
         elif event == Event.MOUSE_HOVER_MOVE:
-            return self.__component.mouse_hover_move_signal
+            return self.__widget.mouse_hover_move_signal
 
         elif event == Event.MOUSE_RIGHT_BUTTON_PRESS:
-            return self.__component.mouse_right_button_press_signal
+            return self.__widget.mouse_right_button_press_signal
         elif event == Event.MOUSE_WHEEL:
-            return self.__component.mouse_wheel_signal
+            return self.__widget.mouse_wheel_signal
         elif event == Event.RESIZE:
-            return self.__component.resize_signal
+            return self.__widget.resize_signal
         else:
             return Signal(Event.NONE)
 
     def add_box(self, box) -> None:
-        """Add a Box inside this Component"""
+        """Add a Box inside this Widget"""
         box._main_parent = self._main_parent
         self.__box.add_layout(box._obj)
 
-    def add_component(self, component: Component) -> None:
-        """Add a new Component inside this Component"""
-        component.main_parent = self._main_parent
-        self.__box.add_widget(component.qt_obj)
+    def add_widget(self, widget: Widget) -> None:
+        """Add a new Widget inside this Widget"""
+        widget.main_parent = self._main_parent
+        self.__box.add_widget(widget._obj)
 
     def __str__(self):
-        return f'<Component: {id(self)}>'
+        return f'<Widget: {id(self)}>'

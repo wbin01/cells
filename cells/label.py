@@ -2,11 +2,11 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
-from .component import Component
+from .widget import Widget
 
 
-class Label(Component):
-    """Label Component Widget."""
+class Label(Widget):
+    """Label Widget Widget."""
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)

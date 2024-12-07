@@ -2,15 +2,15 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
-from .component import Component
+from .widget import Widget
 from .event import Event
 from .box import Box
 from .label import Label
 from .core.modules import StyleManager
 
 
-class Button(Component):
-    """Button Component Widget."""
+class Button(Widget):
+    """Button Widget Widget."""
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
@@ -21,7 +21,7 @@ class Button(Component):
 
         self.__label = Label(text)
         self.__label.style_id = 'ButtonLabel'
-        self.__box.add_component(self.__label)
+        self.__box.add_widget(self.__label)
         # self.__label._obj.set_size_policy(
         #     QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
 

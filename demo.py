@@ -31,11 +31,11 @@ class MainFrame(MainFrame):
         self.add_box(self.box)
 
         self.label = Label('Hello world!')
-        self.add_component(self.label)
+        self.add_widget(self.label)
 
         self.btn = Button('Click me')
         self.btn.connect(lambda: self.btn_fun(2024))
-        self.add_component(self.btn)
+        self.add_widget(self.btn)
 
         self.num = 0
 

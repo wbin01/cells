@@ -2,7 +2,7 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
-from .component import Component
+from .widget import Widget
 
 class Box(object):
     """Box layout"""
@@ -29,7 +29,7 @@ class Box(Box):
         self.__main_parent = None
 
     @property
-    def _main_parent(self) -> Component | Box:
+    def _main_parent(self) -> Widget | Box:
         """Main frame of the application.
 
         Use only to access properties and methods of the Main Frame, defining a 
@@ -60,10 +60,10 @@ class Box(Box):
         box.main_parent = self.__main_parent
         self.__box.add_layout(box._obj)
 
-    def add_component(self, component: Component) -> None:
-        """Add a Component inside this Box"""
-        component._main_parent = self._main_parent
-        self.__box.add_widget(component._obj)
+    def add_widget(self, widget: Widget) -> None:
+        """Add a Widget inside this Box"""
+        widget._main_parent = self._main_parent
+        self.__box.add_widget(widget._obj)
 
     def __str__(self):
         return f'<Box: {id(self)}>'

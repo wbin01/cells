@@ -5,7 +5,7 @@ from __feature__ import snake_case
 from ..signal import Signal
 
 
-class CoreComponent(QtWidgets.QFrame):
+class CoreWidget(QtWidgets.QFrame):
     """..."""
     mouse_button_press_signal = Signal()
     mouse_button_release_signal = Signal()
@@ -20,7 +20,8 @@ class CoreComponent(QtWidgets.QFrame):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-    
+        self.set_object_name('FrameWidget')
+
     def mouse_press_event(self, e):
         self.mouse_button_press_signal.emit()
 

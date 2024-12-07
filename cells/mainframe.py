@@ -3,7 +3,7 @@ from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 from .box import Box
-from .component import Component
+from .widget import Widget
 from .core import CoreMainFrame
 from .event import Event
 from .icon import Icon
@@ -205,10 +205,10 @@ class MainFrame(object):
         box._main_parent = self
         self.__frame_box.add_box(box)
 
-    def add_component(self, component: Component) -> None:
+    def add_widget(self, widget: Widget) -> None:
         """..."""
-        component._main_parent = self
-        self.__frame_box.add_component(component)
+        widget._main_parent = self
+        self.__frame_box.add_widget(widget)
 
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
