@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import sys
+import pprint
 
 from cells import (
     Application, MainFrame, Frame, Signal, Event, Cursor, Box, Label, Button)
@@ -38,9 +39,9 @@ class MainFrame(MainFrame):
         self.add_widget(self.btn)
 
         self.new_btn = Button('Click me')
-        self.new_btn.style_id = 'NewButton'
         self.add_widget(self.new_btn)
-
+        self.new_btn.style_id = 'NewButton'
+        
         self.num = 0
 
     def btn_fun(self, args):

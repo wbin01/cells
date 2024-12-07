@@ -20,6 +20,7 @@ class Widget(Widget):
         super().__init__(*args, **kwargs)
         self.style_change_signal = Signal()
         self.style_id_change_signal = Signal()
+        self.main_parent_added = Signal()
 
         self.__widget = CoreWidget()
         self.__main_parent = None
@@ -30,12 +31,14 @@ class Widget(Widget):
     @property
     def style(self) -> str:
         """..."""
-        return ''
+        if self.__main_parent:
+            return self.__main_parent.style
+        return None
 
     @style.setter
-    def style(self, style: dict) -> dict:
+    def style(self, style: dict) -> None:
+        self.__main_parent.style = style
         self.style_change_signal.emit()
-        return {}
 
     @property
     def style_id(self) -> str:
@@ -65,6 +68,7 @@ class Widget(Widget):
     @_main_parent.setter
     def _main_parent(self, parent) -> None:
         self.__main_parent = parent
+        self.main_parent_added.emit()
 
     @property
     def _obj(self):
@@ -118,6 +122,8 @@ class Widget(Widget):
             return self.__widget.resize_signal
 
         # self.__widget -> self
+        elif event == Event.MAIN_PARENT_ADDED:
+            return self.main_parent_added
         elif event == Event.STYLE_CHANGE:
             return self.style_change_signal
         elif event == Event.STYLE_ID_CHANGE:
