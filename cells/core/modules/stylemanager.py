@@ -308,20 +308,20 @@ class StyleManager(object):
                     self.__dict_style['[MainFrame:inactive]']['border'])
 
         if fullscreen:  # Only borders
-            bdr = ['0', '0', '0', '0', '']
-            bd = ['0', '0', '0', '0', '#00000000']
+            bdr = ['0', '0', '0', '0']
+            bd = ['0', '0', '0', '0', 'rgba(0, 0, 0, 0.00)']
 
         qss = (
             '#MainFrameShadow {\n'
-            '  background-color: rgba(0, 0, 0, 0);\n'
-            '  border: 1px solid rgba(0, 0, 0, 0.2);\n'
+            '  background-color: rgba(0, 0, 0, 0.00);\n'
+            '  border: 0px solid rgba(0, 0, 0, 0.00);\n'
             f'  border-top-left-radius: {bdr[0]}px;\n'
             f'  border-top-right-radius: {bdr[1]}px;\n'
             f'  border-bottom-left-radius: {bdr[3]}px;\n'
             f'  border-bottom-right-radius: {bdr[2]}px;\n'
             '}\n'
             '#MainFrameBorder {\n'
-            '  background-color: rgba(0, 0, 0, 0);\n'
+            '  background-color: rgba(0, 0, 0, 0.0);\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
             f'  border-bottom: {bd[2]}px solid {bd[4]};\n'
