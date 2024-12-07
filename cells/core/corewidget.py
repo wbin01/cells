@@ -6,20 +6,21 @@ from ..signal import Signal
 
 
 class CoreWidget(QtWidgets.QFrame):
-    """..."""
-    mouse_button_press_signal = Signal()
-    mouse_button_release_signal = Signal()
-    mouse_double_click_signal = Signal()
-    mouse_hover_enter_signal = Signal()
-    mouse_hover_leave_signal = Signal()
-    mouse_hover_move_signal = Signal()
-
-    mouse_right_button_press_signal = Signal()
-    mouse_wheel_signal = Signal()
-    resize_signal = Signal()
-
+    """Core Widget"""
     def __init__(self, *args, **kwargs):
+        """Class constructor"""
         super().__init__(*args, **kwargs)
+        self.mouse_button_press_signal = Signal()
+        self.mouse_button_release_signal = Signal()
+        self.mouse_double_click_signal = Signal()
+        self.mouse_hover_enter_signal = Signal()
+        self.mouse_hover_leave_signal = Signal()
+        self.mouse_hover_move_signal = Signal()
+
+        self.mouse_right_button_press_signal = Signal()
+        self.mouse_wheel_signal = Signal()
+        self.resize_signal = Signal()
+
         self.set_object_name('FrameWidget')
 
     def mouse_press_event(self, e):

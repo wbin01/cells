@@ -20,7 +20,7 @@ class Button(Widget):
         self.add_box(self.__box)
 
         self.__label = Label(text)
-        self.__label.style_id = 'ButtonLabel'
+        self.__label.style_id = f'{self.style_id}Label'
         self.__box.add_widget(self.__label)
         # self.__label._obj.set_size_policy(
         #     QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
@@ -87,6 +87,7 @@ class Button(Widget):
         self.__pressed_style_label = pressed_style[1].replace(
             '#ButtonLabel:pressed {', '').replace('}', '').strip()
 
+        self.event_signal(Event.STYLE_ID_CHANGE).connect(self.__style_id_changed)
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__pressed)
         self.event_signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
         self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
@@ -108,6 +109,9 @@ class Button(Widget):
         # self.__label._obj.set_style_sheet(self.__normal_style_label)
         self._obj.set_style_sheet('')
         self.__label._obj.set_style_sheet('')
+
+    def __style_id_changed(self) -> None:
+        self.__label.style_id = f'{self.style_id}Label'
 
     def __str__(self):
         return f'<Button: {id(self)}>'

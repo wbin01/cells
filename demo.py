@@ -37,6 +37,10 @@ class MainFrame(MainFrame):
         self.btn.connect(lambda: self.btn_fun(2024))
         self.add_widget(self.btn)
 
+        self.new_btn = Button('Click me')
+        self.new_btn.style_id = 'NewButton'
+        self.add_widget(self.new_btn)
+
         self.num = 0
 
     def btn_fun(self, args):

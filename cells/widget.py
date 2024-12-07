@@ -18,11 +18,24 @@ class Widget(Widget):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
+        self.style_change_signal = Signal()
+        self.style_id_change_signal = Signal()
+
         self.__widget = CoreWidget()
         self.__main_parent = None
 
         self.__box = QtWidgets.QVBoxLayout()
         self.__widget.set_layout(self.__box)
+
+    @property
+    def style(self) -> str:
+        """..."""
+        return ''
+
+    @style.setter
+    def style(self, style: dict) -> dict:
+        self.style_change_signal.emit()
+        return {}
 
     @property
     def style_id(self) -> str:
@@ -38,6 +51,7 @@ class Widget(Widget):
     @style_id.setter
     def style_id(self, style_id: str) -> None:
         self.__widget.set_object_name(style_id)
+        self.style_id_change_signal.emit()
 
     @property
     def _main_parent(self):
@@ -79,7 +93,8 @@ class Widget(Widget):
             
             NONE, MOUSE_BUTTON_PRESS, MOUSE_BUTTON_RELEASE, MOUSE_DOUBLE_CLICK, 
             MOUSE_HOVER_ENTER, MOUSE_HOVER_LEAVE, MOUSE_HOVER_MOVE, 
-            MOUSE_RIGHT_BUTTON_PRESS, MOUSE_WHEEL, RESIZE.
+            MOUSE_RIGHT_BUTTON_PRESS, MOUSE_WHEEL, RESIZE, STYLE_CHANGE,
+            STYLE_ID_CHANGE.
         """
         if event == Event.MOUSE_BUTTON_PRESS:
             return self.__widget.mouse_button_press_signal
@@ -94,12 +109,19 @@ class Widget(Widget):
         elif event == Event.MOUSE_HOVER_MOVE:
             return self.__widget.mouse_hover_move_signal
 
+        # TODO
         elif event == Event.MOUSE_RIGHT_BUTTON_PRESS:
             return self.__widget.mouse_right_button_press_signal
         elif event == Event.MOUSE_WHEEL:
             return self.__widget.mouse_wheel_signal
         elif event == Event.RESIZE:
             return self.__widget.resize_signal
+
+        # self.__widget -> self
+        elif event == Event.STYLE_CHANGE:
+            return self.style_change_signal
+        elif event == Event.STYLE_ID_CHANGE:
+            return self.style_id_change_signal
         else:
             return Signal(Event.NONE)
 

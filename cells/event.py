@@ -20,6 +20,8 @@ class Event(Enum):
     MOUSE_WHEEL = 'MOUSE_WHEEL'
     RESIZE = 'RESIZE'
     STATE_CHANGE = 'STATE_CHANGE'
+    STYLE_CHANGE = 'STYLE_CHANGE'
+    STYLE_ID_CHANGE = 'STYLE_ID_CHANGE'
     TITLE_CHANGE = 'TITLE_CHANGE'
 
     def __str__(self):
