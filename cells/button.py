@@ -27,8 +27,7 @@ class Button(Widget):
         self._is_inactive = False
 
         self.__style_manager = StyleManager()
-        self.__default_style = {}
-
+        # self.__default_style = {}
         self.__normal_style = None
         self.__normal_style_label = None
         self.__inactive_style = None
@@ -47,17 +46,15 @@ class Button(Widget):
         self.event_signal(Event.STYLE_CHANGE).connect(self.__style_changed)
         self.event_signal(Event.STYLE_ID_CHANGE).connect(self.__style_id_changed)
         
-    @property
-    def style(self) -> str:
-        """..."""
-        return self.__default_style
-
-
-    @style.setter
-    def style(self, style: dict) -> None:
-        self.__main_parent.style = style
-        self.style_change_signal.emit()
-    
+    # @property
+    # def style(self) -> str:
+    #     """..."""
+    #     return self.__default_style
+    # 
+    # @style.setter
+    # def style(self, style: dict) -> None:
+    #     self.__main_parent.style = style
+    #     self.style_change_signal.emit()
     @property
     def text(self) -> str:
         """Button text.
@@ -113,7 +110,6 @@ class Button(Widget):
         self.__hover()
 
     def __set_styles(self):
-        # self.__style_manager = StyleManager()
         normal_stl = self.__style_manager.qss_button(
             name=self.style_id, only_normal=True)
         hover_stl = self.__style_manager.qss_button(
@@ -148,30 +144,30 @@ class Button(Widget):
             f'#{self.style_id}Label:pressed '+'{', '').replace('}', '').strip()
 
     def __style_changed(self) -> None:
-        pass
-
-    def __style_id_changed(self) -> None:
-        self.__label.style_id = f'{self.style_id}Label'
-
         if self._main_parent:
-            self.__default_style[
+            default_style = {}
+            default_style[
                 f'[{self.style_id}]'] = self._main_parent.style['[Button]']
-            self.__default_style[
+            default_style[
                 f'[{self.style_id}:inactive]'] = self._main_parent.style[
                 '[Button:inactive]']
-            self.__default_style[
+            default_style[
                 f'[{self.style_id}:hover]'] = self._main_parent.style[
                 '[Button:hover]']
-            self.__default_style[
+            default_style[
                 f'[{self.style_id}:pressed]'] = self._main_parent.style[
                 '[Button:pressed]']
 
-            self._main_parent.style.update(self.__default_style)
+            self._main_parent.style.update(default_style)
             self.__style_manager.stylesheet = self._main_parent.style
 
             self.__set_styles()
             self._obj.set_style_sheet(self.__normal_style)
             self.__label._obj.set_style_sheet(self.__normal_style_label)
+
+    def __style_id_changed(self) -> None:
+        self.__label.style_id = f'{self.style_id}Label'
+        self.__style_changed()
 
     def __str__(self):
         return f'<Button: {id(self)}>'

@@ -22,7 +22,7 @@ class CoreWidget(QtWidgets.QFrame):
         self.mouse_wheel_signal = Signal()
         self.resize_signal = Signal()
 
-        self.set_object_name('FrameWidget')
+        self.set_object_name('Widget')
 
     def mouse_press_event(self, e):
         self.mouse_button_press_signal.emit()

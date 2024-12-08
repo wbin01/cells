@@ -37,8 +37,9 @@ class Widget(Widget):
 
     @style.setter
     def style(self, style: dict) -> None:
-        self.__main_parent.style = style
         self.style_change_signal.emit()
+        self.__main_parent.style.update(style)
+        self.__main_parent.style = self.__main_parent.style
 
     @property
     def style_id(self) -> str:
@@ -54,6 +55,7 @@ class Widget(Widget):
     @style_id.setter
     def style_id(self, style_id: str) -> None:
         self.__widget.set_object_name(style_id)
+        self.__style_id_changed()
         self.style_id_change_signal.emit()
 
     @property
@@ -93,7 +95,7 @@ class Widget(Widget):
         """Add a new Widget inside this Widget"""
         widget.main_parent = self._main_parent
         self.__box.add_widget(widget._obj)
-    
+
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
@@ -140,6 +142,24 @@ class Widget(Widget):
             return self.style_id_change_signal
         else:
             return Signal(Event.NONE)
+
+    def __style_id_changed(self) -> None:
+        if self._main_parent:
+            default_style = {}
+            default_style[
+                f'[{self.style_id}]'] = self._main_parent.style['[Widget]']
+            default_style[
+                f'[{self.style_id}:inactive]'] = self._main_parent.style[
+                '[Widget:inactive]']
+            default_style[
+                f'[{self.style_id}:hover]'] = self._main_parent.style[
+                '[Widget:hover]']
+            default_style[
+                f'[{self.style_id}:pressed]'] = self._main_parent.style[
+                '[Widget:pressed]']
+
+            self._main_parent.style.update(default_style)
+            self._main_parent.style = self._main_parent.style
 
     def __str__(self):
         return f'<Widget: {id(self)}>'

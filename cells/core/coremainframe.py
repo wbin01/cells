@@ -29,6 +29,9 @@ class CoreMainFrame(CoreMainFrameShadow):
     state_change_signal = Signal()
     title_change_signal = Signal()
 
+    style_change_signal = Signal()
+    style_id_change_signal = Signal()
+
     boxes = []
 
     def __init__(self, *args, **kwargs) -> None:
@@ -73,7 +76,7 @@ class CoreMainFrame(CoreMainFrameShadow):
     @stylesheet.setter
     def stylesheet(self, style) -> None:
         self.__style_manager.stylesheet = style
-        self.__qss_styles = self.__style_manager.stylesheets_for_qss()
+        self.__qss_styles = self.__style_manager.stylesheet_for_qss()
         if self.is_maximized() or self.is_full_screen():
             self.set_style_sheet(self.__qss_styles['fullscreen'])
         else:

@@ -4,7 +4,7 @@ import sys
 import pprint
 
 from cells import (
-    Application, MainFrame, Frame, Signal, Event, Cursor, Box, Label, Button)
+    Application, MainFrame, Frame, Signal, Event, Cursor, Box, Label, Button, Widget)
 
 
 class MainFrame(MainFrame):
@@ -31,6 +31,20 @@ class MainFrame(MainFrame):
         self.box = Box()
         self.add_box(self.box)
 
+        self.w = Widget()
+        self.box.add_widget(self.w)
+
+        s = self.style
+        s['[Widget]']['background'] = 'rgba(0, 255, 0, 0.30)'
+        self.style = s
+
+        self.w2 = Widget()
+        self.box.add_widget(self.w2)
+        self.w2.style_id = 'Wid2'
+        s2 = self.style
+        s2['[Wid2]']['background'] = 'rgba(0, 0, 255, 0.30)'
+        self.style = s2
+
         self.label = Label('Hello world!')
         self.add_widget(self.label)
 
@@ -42,7 +56,15 @@ class MainFrame(MainFrame):
         self.add_widget(self.new_btn)
         self.new_btn.style_id = 'NewButton'
 
+        # pprint.pprint(self.new_btn.style)
+        s = self.new_btn.style
+        s['[NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
+        self.new_btn.style = s
+
         self.num = 0
+
+        # print(self.w.style_id)
+        # print(self.w2.style_id)
 
     def btn_fun(self, args):
         self.num += 1
