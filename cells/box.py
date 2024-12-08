@@ -3,6 +3,8 @@ from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 from .widget import Widget
+from .event import Event
+
 
 class Box(object):
     """Box layout"""
@@ -64,6 +66,10 @@ class Box(Box):
         """Add a Widget inside this Box"""
         widget._main_parent = self._main_parent
         self.__box.add_widget(widget._obj)
+
+        # if self._main_parent:
+        #     self._main_parent.style_ids[widget.style_id] = widget._base_id
+        #     self._main_parent.event_signal(Event.STYLE_ID_CHANGE).emit()
 
     def __str__(self):
         return f'<Box: {id(self)}>'

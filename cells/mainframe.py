@@ -259,6 +259,11 @@ class MainFrame(object):
             return self.__frame.state_change_signal
         elif event == Event.TITLE_CHANGE:
             return self.__frame.title_change_signal
+
+        elif event == Event.STYLE_CHANGE:
+            return self.__frame.style_change_signal
+        elif event == Event.STYLE_ID_CHANGE:
+            return self.__frame.style_id_change_signal
         else:
             return Signal(Event.NONE)
 

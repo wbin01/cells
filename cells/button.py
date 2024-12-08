@@ -45,16 +45,7 @@ class Button(Widget):
         self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
         self.event_signal(Event.STYLE_CHANGE).connect(self.__style_changed)
         self.event_signal(Event.STYLE_ID_CHANGE).connect(self.__style_id_changed)
-        
-    # @property
-    # def style(self) -> str:
-    #     """..."""
-    #     return self.__default_style
-    # 
-    # @style.setter
-    # def style(self, style: dict) -> None:
-    #     self.__main_parent.style = style
-    #     self.style_change_signal.emit()
+    
     @property
     def text(self) -> str:
         """Button text.
@@ -162,10 +153,11 @@ class Button(Widget):
             self.__style_manager.stylesheet = self._main_parent.style
 
             self.__set_styles()
-            self._obj.set_style_sheet(self.__normal_style)
-            self.__label._obj.set_style_sheet(self.__normal_style_label)
+            # self._obj.set_style_sheet(self.__normal_style)
+            # self.__label._obj.set_style_sheet(self.__normal_style_label)
 
     def __style_id_changed(self) -> None:
+        print('bbbbbbbbbbbb')
         self.__label.style_id = f'{self.style_id}Label'
         self.__style_changed()
 

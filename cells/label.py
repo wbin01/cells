@@ -11,7 +11,7 @@ class Label(Widget):
         """Class constructor."""
         super().__init__(*args, **kwargs)
         self._obj = QtWidgets.QLabel(text)
-        self._obj.set_object_name('Label')
+        self.style_id = 'Label'
 
     @property
     def text(self) -> str:

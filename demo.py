@@ -33,17 +33,14 @@ class MainFrame(MainFrame):
 
         self.w = Widget()
         self.box.add_widget(self.w)
-
-        s = self.style
-        s['[Widget]']['background'] = 'rgba(0, 255, 0, 0.30)'
-        self.style = s
+        # self.w.style['[Widget]']['background'] = 'rgba(0, 255, 0, 0.30)'
+        # self.w.style = self.w.style
 
         self.w2 = Widget()
         self.box.add_widget(self.w2)
         self.w2.style_id = 'Wid2'
-        s2 = self.style
-        s2['[Wid2]']['background'] = 'rgba(0, 0, 255, 0.30)'
-        self.style = s2
+        # self.w2.style['[Wid2]']['background'] = 'rgba(0, 0, 0, 0.30)'
+        # self.w2.style = self.w2.style
 
         self.label = Label('Hello world!')
         self.add_widget(self.label)
@@ -56,15 +53,11 @@ class MainFrame(MainFrame):
         self.add_widget(self.new_btn)
         self.new_btn.style_id = 'NewButton'
 
-        # pprint.pprint(self.new_btn.style)
-        s = self.new_btn.style
-        s['[NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
-        self.new_btn.style = s
+        # self.new_btn.style['[NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
+        # self.new_btn.style = self.new_btn.style
 
         self.num = 0
-
-        # print(self.w.style_id)
-        # print(self.w2.style_id)
+        # pprint.pprint(self.style)
 
     def btn_fun(self, args):
         self.num += 1

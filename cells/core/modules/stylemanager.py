@@ -49,13 +49,20 @@ class StyleManager(object):
             self, inactive: bool = False, fullscreen: bool = False) -> str:
         # https://doc.qt.io/qt-5/stylesheet-reference.html
         # https://doc.qt.io/qt-5/stylesheet-examples.html#customizing-qpushbutton
-        return (
-            self.qss_button(inactive=inactive) +
-            self.qss_frame() +
-            self.qss_label(inactive) +
-            self.qss_main_frame(inactive, fullscreen) +
-            self.qss_widget(inactive=inactive)
-            )
+        qss = ''
+        for name in self.__dict_style.keys():
+            name = name.split(':')[0][1:].rstrip(']')
+            if name.startswith('Button'):
+                qss += self.qss_button(name=name, inactive=inactive)
+            elif name.startswith('Frame'):
+                qss += self.qss_frame()
+            elif name.startswith('Label'):
+                qss += self.qss_label(inactive=inactive)
+            elif name.startswith('MainFrame'):
+                qss += self.qss_main_frame(inactive=inactive, fullscreen=fullscreen)
+            elif name.startswith('Widget'):
+                qss += self.qss_widget(name=name, inactive=inactive)
+        return qss
 
     def qss_button(
             self,
@@ -67,6 +74,7 @@ class StyleManager(object):
             only_pressed: bool = False,) -> str:
         """..."""
         dict_style = self.__dict_style if not dict_style else dict_style
+        name_id = name.split('.')[1] if '.' in name else name
 
         bg = dict_style[f'[{name}]']['background']
         cl = dict_style[f'[{name}]']['color']
@@ -87,7 +95,7 @@ class StyleManager(object):
                 bd = style_parser.border_str_to_list(
                     dict_style[f'[{name}:inactive]']['border'])
         qss = (
-            f'#{name} ' '{\n'
+            f'#{name_id} ' '{\n'
             f'  background-color: {bg};\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
@@ -106,7 +114,7 @@ class StyleManager(object):
             f'  padding-bottom: {pd[2]}px;\n'
             f'  padding-left: {pd[3]}px;\n'
             '}\n'
-            f'#{name}Label ' '{\n'
+            f'#{name_id}Label ' '{\n'
             f'  color: {cl};\n'
             '  background-color: rgba(0, 0, 0, 0.0);\n'
             '  border: 0px solid rgba(0, 0, 0, 0.0);\n'
@@ -128,7 +136,7 @@ class StyleManager(object):
                 bdr = style_parser.border_radius_str_to_list(
                     dict_style[f'[{name}:hover]']['border radius'])
         hover = (
-            f'#{name}:hover ' '{\n'
+            f'#{name_id}:hover ' '{\n'
             f'  background-color: {bg};\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
@@ -143,7 +151,7 @@ class StyleManager(object):
             f'  border-bottom-left-radius: {bdr[3]}px;\n'
             f'  border-bottom-right-radius: {bdr[2]}px;\n'
             '}\n'
-            f'#{name}Label:hover ' '{\n'
+            f'#{name_id}Label:hover ' '{\n'
             f'  color: {cl};\n'
             '  background-color: rgba(0, 0, 0, 0.0);\n'
             '  border: 0px solid rgba(0, 0, 0, 0.0);\n'
@@ -166,7 +174,7 @@ class StyleManager(object):
                 bdr = style_parser.border_radius_str_to_list(
                     dict_style[f'[{name}:pressed]']['border radius'])
         pressed = (
-            f'#{name}:pressed ' '{\n'
+            f'#{name_id}:pressed ' '{\n'
             f'  background-color: {bg};\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
@@ -177,7 +185,7 @@ class StyleManager(object):
             f'  border-bottom-left-radius: {bdr[3]}px;\n'
             f'  border-bottom-right-radius: {bdr[2]}px;\n'
             '}\n'
-            f'#{name}Label:pressed ' '{\n'
+            f'#{name_id}Label:pressed ' '{\n'
             f'  color: {cl};\n'
             '  background-color: rgba(0, 0, 0, 0.0);\n'
             '  border: 0px solid rgba(0, 0, 0, 0.0);\n'
@@ -358,10 +366,10 @@ class StyleManager(object):
             dict_style: dict = None,
             inactive: bool = False,
             only_normal: bool = False,
-            only_hover: bool = False,
-            only_pressed: bool = False,) -> str:
+            only_hover: bool = False) -> str:
         """..."""
         dict_style = self.__dict_style if not dict_style else dict_style
+        name_id = name.split('.')[1] if '.' in name else name
 
         bg = dict_style[f'[{name}]']['background']
         bd = style_parser.border_str_to_list(
@@ -380,7 +388,7 @@ class StyleManager(object):
                 bd = style_parser.border_str_to_list(
                     dict_style[f'[{name}:inactive]']['border'])
         qss = (
-            f'#{name} ' '{\n'
+            f'#{name_id} ' '{\n'
             f'  background-color: {bg};\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
@@ -414,7 +422,7 @@ class StyleManager(object):
                 bdr = style_parser.border_radius_str_to_list(
                     dict_style[f'[{name}:hover]']['border radius'])
         hover = (
-            f'#{name}:hover ' '{\n'
+            f'#{name_id}:hover ' '{\n'
             f'  background-color: {bg};\n'
             f'  border-top: {bd[0]}px solid {bd[4]};\n'
             f'  border-right: {bd[1]}px solid {bd[4]};\n'
@@ -434,33 +442,6 @@ class StyleManager(object):
 
         if only_hover:
             return hover
-        
-        if not inactive:
-            if 'background' in dict_style[f'[{name}:pressed]']:
-                bg = dict_style[f'[{name}:pressed]']['background']
-            if 'border' in dict_style[f'[{name}:pressed]']:
-                bd = style_parser.border_str_to_list(
-                    dict_style[f'[{name}:pressed]']['border'])
-            if 'border radius' in dict_style[f'[{name}:pressed]']:
-                bdr = style_parser.border_radius_str_to_list(
-                    dict_style[f'[{name}:pressed]']['border radius'])
-        pressed = (
-            f'#{name}:pressed ' '{\n'
-            f'  background-color: {bg};\n'
-            f'  border-top: {bd[0]}px solid {bd[4]};\n'
-            f'  border-right: {bd[1]}px solid {bd[4]};\n'
-            f'  border-bottom: {bd[2]}px solid {bd[4]};\n'
-            f'  border-left: {bd[3]}px solid {bd[4]};\n'
-            f'  border-top-left-radius: {bdr[0]}px;\n'
-            f'  border-top-right-radius: {bdr[1]}px;\n'
-            f'  border-bottom-left-radius: {bdr[3]}px;\n'
-            f'  border-bottom-right-radius: {bdr[2]}px;\n'
-            '}\n'
-            )
-        qss += pressed
-
-        if only_pressed:
-            return pressed
 
         return qss
 
