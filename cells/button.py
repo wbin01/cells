@@ -43,7 +43,7 @@ class Button(Widget):
         self.event_signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
         self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
         self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
-        self.event_signal(Event.STYLE_CHANGE).connect(self.__style_changed)
+        # self.event_signal(Event.STYLE_CHANGE).connect(self.__style_changed)
         self.event_signal(Event.STYLE_ID_CHANGE).connect(self.__style_id_changed)
     
     @property
@@ -69,7 +69,10 @@ class Button(Widget):
 
     def __active(self) -> None:
         self._is_inactive = False
-        self.__leave()
+        # self.__leave()
+
+        self._obj.set_style_sheet(self.__normal_style)
+        self.__label._obj.set_style_sheet(self.__normal_style_label)
 
     def __hover(self) -> None:
         self._obj.set_style_sheet(self.__hover_style)
@@ -101,14 +104,18 @@ class Button(Widget):
         self.__hover()
 
     def __set_styles(self):
+        style_id = self.style_id
+        if self.style_id != 'Button':
+            style_id = 'Button.' + self.style_id
+        
         normal_stl = self.__style_manager.qss_button(
-            name=self.style_id, only_normal=True)
+            name=style_id, only_normal=True)
         hover_stl = self.__style_manager.qss_button(
-            name=self.style_id, only_hover=True)
+            name=style_id, only_hover=True)
         pressed_stl = self.__style_manager.qss_button(
-            name=self.style_id, only_pressed=True)
+            name=style_id, only_pressed=True)
         inactive_stl = self.__style_manager.qss_button(
-            name=self.style_id, inactive=True, only_normal=True)
+            name=style_id, inactive=True, only_normal=True)
 
         normal_style = normal_stl.split(f'#{self.style_id}Label '+'{')
         self.__normal_style = normal_style[0].replace(
@@ -157,9 +164,9 @@ class Button(Widget):
             # self.__label._obj.set_style_sheet(self.__normal_style_label)
 
     def __style_id_changed(self) -> None:
-        print('bbbbbbbbbbbb')
         self.__label.style_id = f'{self.style_id}Label'
-        self.__style_changed()
+        # self.__style_changed()
+        self.__set_styles()
 
     def __str__(self):
         return f'<Button: {id(self)}>'
