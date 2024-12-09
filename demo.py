@@ -39,8 +39,9 @@ class MainFrame(MainFrame):
         self.w2 = Widget()
         self.box.add_widget(self.w2)
         self.w2.style_id = 'Wid2'
-        # self.w2.style['[Wid2]']['background'] = 'rgba(0, 0, 0, 0.30)'
-        # self.w2.style = self.w2.style
+        self.w2.style['[Widget.Wid2]']['background'] = 'rgba(0, 0, 0, 0.30)'
+        self.w2.style = self.w2.style
+
 
         self.label = Label('Hello world!')
         self.add_widget(self.label)
@@ -52,9 +53,14 @@ class MainFrame(MainFrame):
         self.new_btn = Button('Click me')
         self.add_widget(self.new_btn)
         self.new_btn.style_id = 'NewButton'
+        self.new_btn.style['[Button.NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
+        self.new_btn.style = self.new_btn.style
 
-        # self.new_btn.style['[NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
-        # self.new_btn.style = self.new_btn.style
+        self.new_btn2 = Button('Click me')
+        self.add_widget(self.new_btn2)
+        self.new_btn2.style_id = 'NewButton2'
+        self.new_btn2.style['[Button.NewButton2]']['background'] = 'rgba(0, 0, 125, 0.30)'
+        self.new_btn2.style = self.new_btn2.style
 
         self.num = 0
         # pprint.pprint(self.style)

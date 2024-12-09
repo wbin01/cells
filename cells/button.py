@@ -14,7 +14,7 @@ class Button(Widget):
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.style_id = 'Button'
+        self._obj.set_object_name('Button')
 
         self.__box = Box(True)
         self.add_box(self.__box)
@@ -43,7 +43,8 @@ class Button(Widget):
         self.event_signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
         self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
         self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
-        # self.event_signal(Event.STYLE_CHANGE).connect(self.__create_new_style)
+
+        self.event_signal(Event.STYLE_CHANGE).connect(self.__create_new_style)
         self.event_signal(Event.STYLE_ID_CHANGE).connect(self.__style_id_changed)
     
     @property
@@ -157,6 +158,7 @@ class Button(Widget):
                 '[Button:pressed]']
 
             self._main_parent.style.update(default_style)
+            self._main_parent.style = self._main_parent.style
             self.__style_manager.stylesheet = self._main_parent.style
 
             self.__set_styles()
