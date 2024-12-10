@@ -31,16 +31,21 @@ class MainFrame(MainFrame):
         self.box = Box()
         self.add_box(self.box)
 
+        self.ww = Widget()
+        self.box.add_widget(self.ww)
+
         self.w = Widget()
         self.box.add_widget(self.w)
-        # self.w.style['[Widget]']['background'] = 'rgba(0, 255, 0, 0.30)'
-        # self.w.style = self.w.style
+        self.w.style_id = 'Wid1'
+        self.w.style['[Widget.Wid1]']['background'] = 'rgba(0, 0, 0, 1.00)'
+        self.w.style = self.w.style
 
         self.w2 = Widget()
         self.box.add_widget(self.w2)
-        self.w2.style_id = 'Wid2'
-        self.w2.style['[Widget.Wid2]']['background'] = 'rgba(0, 0, 0, 0.30)'
-        self.w2.style = self.w2.style
+        # self.w2.style_id = 'Wid2'
+        # sss = self.w2.style.copy()
+        # sss['[Widget.Wid2]']['background'] = 'rgba(0, 0, 0, 0.30)'
+        # self.w2.style = sss
 
 
         self.label = Label('Hello world!')
@@ -53,14 +58,14 @@ class MainFrame(MainFrame):
         self.new_btn = Button('Click me')
         self.add_widget(self.new_btn)
         self.new_btn.style_id = 'NewButton'
-        self.new_btn.style['[Button.NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
-        self.new_btn.style = self.new_btn.style
+        # self.new_btn.style['[Button.NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
+        # self.new_btn.style = self.new_btn.style
 
         self.new_btn2 = Button('Click me')
         self.add_widget(self.new_btn2)
         self.new_btn2.style_id = 'NewButton2'
-        self.new_btn2.style['[Button.NewButton2]']['background'] = 'rgba(0, 0, 125, 0.30)'
-        self.new_btn2.style = self.new_btn2.style
+        # self.new_btn2.style['[Button.NewButton2]']['background'] = 'rgba(0, 0, 125, 0.30)'
+        # self.new_btn2.style = self.new_btn2.style
 
         self.num = 0
         # pprint.pprint(self.style)

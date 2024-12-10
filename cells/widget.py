@@ -34,14 +34,21 @@ class Widget(Widget):
     def style(self) -> str:
         """..."""
         if self.__main_parent:
-            return self.__main_parent.style
+            style = self.__main_parent.style.copy()
+            return style
         return None
 
     @style.setter
     def style(self, style: dict) -> None:
         self.style_change_signal.emit()
-        self.__main_parent.style.update(style)
-        self.__main_parent.style = self.__main_parent.style
+        new_style = {}
+        for key, value in style.items():
+            new_style[key] = value
+
+        for key, value in self.__main_parent.style.items():
+            new_style[key] = value
+        
+        self.__main_parent.style = new_style
 
     @property
     def style_id(self) -> str:
@@ -150,7 +157,7 @@ class Widget(Widget):
             return Signal(Event.NONE)
 
     def __create_new_style(self) -> None:
-        style = {}
+        style = self.__main_parent.style.copy()
         style[f'[Widget.{self.style_id}]'] = self.__main_parent.style[
             '[Widget]']
         style[f'[Widget.{self.style_id}:inactive]'] = self.__main_parent.style[
@@ -158,11 +165,7 @@ class Widget(Widget):
         style[f'[Widget.{self.style_id}:hover]'] = self.__main_parent.style[
             '[Widget:hover]']
 
-        self.__main_parent.style.update(style)
-        self.__main_parent.style = self.__main_parent.style
-
-        # self.__widget.set_style_sheet(self.__style_manager.qss_widget(
-        #     name=self.style_id, dict_style=style))
+        self.__main_parent.style = style
 
     def __str__(self):
         return f'<Widget: {id(self)}>'

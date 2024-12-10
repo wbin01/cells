@@ -45,6 +45,104 @@ class StyleManager(object):
         """..."""
         return self.__qss_style
 
+    def __style_to_qss(
+            self, inactive: bool = False, fullscreen: bool = False) -> str:
+        # disabled
+        background = 'rgba(0, 0, 0, 0.00)'
+        border = '0px 0px 0px 0px rgba(0, 0, 0, 0.00)'
+        border_radius = '0px 0px 0px 0px'
+        color = 'rgba(230, 230, 230, 1.00)'
+        margin = '0px 0px 0px 0px'
+        padding = '0px 0px 0px 0px'
+
+        qss = ''
+        for group_key in style.keys():
+            if inactive:
+                ok = False if ':inactive' not in group_key else True
+            else:
+                ok = False if ':inactive' in group_key else True
+
+            if ok:
+                if 'background' in style[group_key]:
+                    background = style[group_key]['background']
+                if 'border' in style[group_key]:
+                    border = style[group_key]['border']
+                if 'border_radius' in style[group_key]:
+                    border_radius = style[group_key]['border_radius']
+                if 'color' in style[group_key]:
+                    color = style[group_key]['color']
+                if 'margin' in style[group_key]:
+                    margin = style[group_key]['margin']
+                if 'padding' in style[group_key]:
+                    padding = style[group_key]['padding']
+
+            border = style_parser.border_str_to_list(border)
+            border_radius = style_parser.border_radius_str_to_list(border_radius)
+            margin = style_parser.margin_padding_str_to_list(margin)
+            padding = style_parser.margin_padding_str_to_list(padding)
+
+            # if fullscreen:  # Only borders
+            #     border = ['0', '0', '0', '0', 'rgba(0, 0, 0, 0.00)']
+            #     border_radius = ['0', '0', '0', '0']
+
+            qss += (
+                f'#{group_key.replace(':inactive', '')} ' '{\n'
+                f'  background-color: {background};\n'
+                f'  color: {color};\n'
+                f'  border-top: {border[0]}px solid {border[4]};\n'
+                f'  border-right: {border[1]}px solid {border[4]};\n'
+                f'  border-bottom: {border[2]}px solid {border[4]};\n'
+                f'  border-left: {border[3]}px solid {border[4]};\n'
+                f'  border-top-left-radius: {border_radius[0]}px;\n'
+                f'  border-top-right-radius: {border_radius[1]}px;\n'
+                f'  border-bottom-left-radius: {border_radius[3]}px;\n'
+                f'  border-bottom-right-radius: {border_radius[2]}px;\n'
+                f'  margin-top: {margin[0]}px;\n'
+                f'  margin-right: {margin[1]}px;\n'
+                f'  margin-bottom: {margin[2]}px;\n'
+                f'  margin-left: {margin[3]}px;\n'
+                f'  padding-top: {padding[0]}px;\n'
+                f'  padding-right: {padding[1]}px;\n'
+                f'  padding-bottom: {padding[2]}px;\n'
+                f'  padding-left: {padding[3]}px;\n'
+                '}\n'
+                )
+            """
+            qss = (
+            '#MainFrameShadow {\n'
+            '  background-color: rgba(0, 0, 0, 0.00);\n'
+            f'  border: {bd_shadow};\n'
+            f'  border-top-left-radius: {bdr[0]}px;\n'
+            f'  border-top-right-radius: {bdr[1]}px;\n'
+            f'  border-bottom-left-radius: {bdr[3]}px;\n'
+            f'  border-bottom-right-radius: {bdr[2]}px;\n'
+            '}\n'
+            '#MainFrameBorder {\n'
+            '  background-color: rgba(0, 0, 0, 0.0);\n'
+            f'  border-top: {bd[0]}px solid {bd[4]};\n'
+            f'  border-right: {bd[1]}px solid {bd[4]};\n'
+            f'  border-bottom: {bd[2]}px solid {bd[4]};\n'
+            f'  border-left: {bd[3]}px solid {bd[4]};\n'
+            f'  border-top-left-radius: {bdr[0]}px;\n'
+            f'  border-top-right-radius: {bdr[1]}px;\n'
+            f'  border-bottom-left-radius: {bdr[3]}px;\n'
+            f'  border-bottom-right-radius: {bdr[2]}px;\n'
+            '}\n'
+            '#MainFrameCentral {\n'
+            f'  background-color: {bg};\n  border: 0px;\n'
+            f'  border-top-left-radius: {int(bdr[0])-1}px;\n'
+            f'  border-top-right-radius: {int(bdr[1])-1}px;\n'
+            f'  border-bottom-left-radius: {int(bdr[3])-1}px;\n'
+            f'  border-bottom-right-radius: {int(bdr[2])-1}px;\n'
+            f'  padding-top: {pd[0]}px;\n'
+            f'  padding-right: {pd[1]}px;\n'
+            f'  padding-bottom: {pd[2]}px;\n'
+            f'  padding-left: {pd[3]}px;\n'
+            '}\n'
+            )
+            """
+        return ''
+
     def __dict_style_to_qss_str(
             self, inactive: bool = False, fullscreen: bool = False) -> str:
         # https://doc.qt.io/qt-5/stylesheet-reference.html
