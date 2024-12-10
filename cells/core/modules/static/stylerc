@@ -2,7 +2,7 @@
 background=rgba(38, 38, 38, 1.00)
 color=rgba(230, 230, 230, 1.00)
 border=1px 1px 1px 1px rgba(38, 38, 38, 1.00)
-border radius=5px 5px 5px 5px
+border_radius=5px 5px 5px 5px
 padding=0px 0px 0px 0px
 margin=0px 0px 0px 0px
 
@@ -24,14 +24,14 @@ border=1px 1px 1px 1px rgba(45, 45, 45, 1.00)
 [Frame]
 background=rgba(32, 32, 32, 1.00)
 border=1px 1px 1px 1px rgba(50, 50, 50, 0.80)
-border radius=5px 5px 5px 5px
+border_radius=5px 5px 5px 5px
 padding=5px 5px 5px 5px
 
 [Label]
 background=rgba(0, 0, 0, 0.00)
 color=rgba(230, 230, 230, 1.00)
 border=0px 0px 0px 0px rgba(0, 0, 0, 0.00)
-border radius=0px 0px 0px 0px
+border_radius=0px 0px 0px 0px
 padding=0px 0px 0px 0px
 margin=0px 0px 0px 0px
 
@@ -42,20 +42,30 @@ border=0px 0px 0px 0px rgba(0, 0, 0, 0.00)
 
 [Label:hover]
 
+[MainFrame-Border]
+border=1px 1px 1px 1px rgba(50, 50, 50, 0.80)
+border_radius=10px 10px 3px 3px
+
+[MainFrame-Shadow]
+border=1px 1px 1px 1px rgba(0, 0, 0, 0.50)
+border_radius=10px 10px 3px 3px
+
 [MainFrame]
 background=rgba(32, 32, 32, 1.00)
-border=1px 1px 1px 1px rgba(50, 50, 50, 0.80)
-border radius=10px 10px 3px 3px
+border=0px 0px 0px 0px rgba(0, 0, 0, 0.00)
+border_radius=10px 10px 3px 3px
 padding=5px 5px 5px 5px
 
 [MainFrame:inactive]
 background=rgba(25, 25, 25, 1.00)
-border=1px 1px 1px 1px rgba(40, 40, 40, 0.80)
+border=0px 0px 0px 0px rgba(0, 0, 0, 0.00)
+border_radius=10px 10px 3px 3px
+padding=5px 5px 5px 5px
 
 [Widget]
 background=rgba(0, 0, 0, 0.00)
 border=0px 0px 0px 0px rgba(0, 0, 0, 0.00)
-border radius=0px 0px 0px 0px
+border_radius=0px 0px 0px 0px
 padding=0px 0px 0px 0px
 margin=0px 0px 0px 0px
 
@@ -63,68 +73,4 @@ margin=0px 0px 0px 0px
 background=rgba(0, 0, 0, 0.00)
 
 [Widget:hover]
-background=rgba(255, 255, 255, 0.50)
-
-# 
-[Button.NewButton]
-background=rgba(38, 0, 0, 0.50)
-color=rgba(230, 230, 230, 1.00)
-border=1px 1px 1px 1px rgba(38, 0, 0, 1.00)
-border radius=5px 5px 5px 5px
-padding=0px 0px 0px 0px
-margin=0px 0px 0px 0px
-
-[Button.NewButton:inactive]
-background=rgba(35, 35, 35, 0.50)
-color=rgba(230, 230, 230, 0.50)
-border=1px 1px 1px 1px rgba(35, 35, 35, 0.50)
-
-[Button.NewButton:hover]
-background=rgba(40, 40, 40, 1.00)
-color=rgba(230, 0, 230, 1.00)
-border=1px 1px 1px 1px rgba(40, 40, 40, 1.00)
-
-[Button.NewButton:pressed]
-background=rgba(45, 45, 45, 1.00)
-color=rgba(0, 230, 230, 1.00)
-border=1px 1px 1px 1px rgba(45, 45, 45, 1.00)
-
-
-#
-
-[Button.NewButton2]
-background=rgba(38, 30, 0, 0.50)
-color=rgba(230, 230, 230, 1.00)
-border=1px 1px 1px 1px rgba(38, 30, 0, 1.00)
-border radius=5px 5px 5px 5px
-padding=0px 0px 0px 0px
-margin=0px 0px 0px 0px
-
-[Button.NewButton2:inactive]
-background=rgba(35, 35, 35, 0.50)
-color=rgba(230, 230, 230, 0.50)
-border=1px 1px 1px 1px rgba(35, 35, 35, 0.50)
-
-[Button.NewButton2:hover]
-background=rgba(40, 40, 40, 1.00)
-color=rgba(230, 0, 230, 1.00)
-border=1px 1px 1px 1px rgba(40, 40, 40, 1.00)
-
-[Button.NewButton2:pressed]
-background=rgba(45, 45, 45, 1.00)
-color=rgba(0, 230, 230, 1.00)
-border=1px 1px 1px 1px rgba(45, 45, 45, 1.00)
-
-
-[Widget.Wid2]
-background=rgba(0, 100, 100, 0.50)
-border=0px 0px 0px 0px rgba(0, 0, 0, 0.00)
-border radius=0px 0px 0px 0px
-padding=0px 0px 0px 0px
-margin=0px 0px 0px 0px
-
-[Widget.Wid2:inactive]
-background=rgba(0, 0, 0, 0.00)
-
-[Widget.Wid2:hover]
 background=rgba(255, 255, 255, 0.50)

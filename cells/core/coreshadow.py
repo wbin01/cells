@@ -171,7 +171,7 @@ class CoreFrameShadow(QtWidgets.QFrame):
         self.__center_shadow.set_layout(self.__central_shadow_box)
 
         self.__central_shadow_widget = QtWidgets.QFrame()
-        self.__central_shadow_widget.set_object_name('FrameShadow')
+        self.__central_shadow_widget.set_object_name('Frame-Shadow')
         self.__central_shadow_box.add_widget(self.__central_shadow_widget)
 
         self.__central_border_box = QtWidgets.QVBoxLayout()
@@ -180,7 +180,7 @@ class CoreFrameShadow(QtWidgets.QFrame):
         self.__central_shadow_widget.set_layout(self.__central_border_box)
 
         self.__central_border_widget = QtWidgets.QFrame()
-        self.__central_border_widget.set_object_name('FrameBorder')
+        self.__central_border_widget.set_object_name('Frame-Border')
         self.__central_border_box.add_widget(self.__central_border_widget)
 
         self.__central_widget_box = QtWidgets.QVBoxLayout()
@@ -189,7 +189,7 @@ class CoreFrameShadow(QtWidgets.QFrame):
         self.__central_border_widget.set_layout(self.__central_widget_box)
 
         self.__central_widget = QtWidgets.QFrame()
-        self.__central_widget.set_object_name('FrameCentral')
+        self.__central_widget.set_object_name('Frame')
         self.__central_widget_box.add_widget(self.__central_widget)
 
         # Right
@@ -329,7 +329,7 @@ class CoreMainFrameShadow(QtWidgets.QMainWindow):
         self.__center_shadow.set_layout(self.__central_shadow_box)
 
         self.__central_shadow_widget = QtWidgets.QFrame()
-        self.__central_shadow_widget.set_object_name('MainFrameShadow')
+        self.__central_shadow_widget.set_object_name('MainFrame-Shadow')
         self.__central_shadow_box.add_widget(self.__central_shadow_widget)
 
         self.__central_border_box = QtWidgets.QVBoxLayout()
@@ -338,7 +338,7 @@ class CoreMainFrameShadow(QtWidgets.QMainWindow):
         self.__central_shadow_widget.set_layout(self.__central_border_box)
 
         self.__central_border_widget = QtWidgets.QFrame()
-        self.__central_border_widget.set_object_name('MainFrameBorder')
+        self.__central_border_widget.set_object_name('MainFrame-Border')
         self.__central_border_box.add_widget(self.__central_border_widget)
 
         self.__central_widget_box = QtWidgets.QVBoxLayout()
@@ -347,7 +347,7 @@ class CoreMainFrameShadow(QtWidgets.QMainWindow):
         self.__central_border_widget.set_layout(self.__central_widget_box)
 
         self.__central_widget = QtWidgets.QFrame()
-        self.__central_widget.set_object_name('MainFrameCentral')
+        self.__central_widget.set_object_name('MainFrame')
         self.__central_widget_box.add_widget(self.__central_widget)
 
         # Right

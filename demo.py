@@ -28,51 +28,53 @@ class MainFrame(MainFrame):
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
 
-        self.box = Box()
-        self.add_box(self.box)
+        # self.box = Box()
+        # self.add_box(self.box)
 
-        self.ww = Widget()
-        self.box.add_widget(self.ww)
+        # self.ww = Widget()
+        # self.box.add_widget(self.ww)
 
-        self.w = Widget()
-        self.box.add_widget(self.w)
-        self.w.style_id = 'Wid1'
-        self.w.style['[Widget.Wid1]']['background'] = 'rgba(0, 0, 0, 1.00)'
-        self.w.style = self.w.style
+        # self.w = Widget()
+        # self.box.add_widget(self.w)
+        # self.w.style_id = 'Wid1'
+        # self.w.style['[Widget.Wid1]']['background'] = 'rgba(0, 0, 0, 1.00)'
+        # self.w.style = self.w.style
 
-        self.w2 = Widget()
-        self.box.add_widget(self.w2)
-        # self.w2.style_id = 'Wid2'
-        # sss = self.w2.style.copy()
-        # sss['[Widget.Wid2]']['background'] = 'rgba(0, 0, 0, 0.30)'
-        # self.w2.style = sss
+        # self.w2 = Widget()
+        # self.box.add_widget(self.w2)
+        # # self.w2.style_id = 'Wid2'
+        # # sss = self.w2.style.copy()
+        # # sss['[Widget.Wid2]']['background'] = 'rgba(0, 0, 0, 0.30)'
+        # # self.w2.style = sss
 
 
-        self.label = Label('Hello world!')
-        self.add_widget(self.label)
+        # self.label = Label('Hello world!')
+        # self.add_widget(self.label)
 
-        self.btn = Button('Click me')
-        self.btn.connect(lambda: self.btn_fun(2024))
-        self.add_widget(self.btn)
+        # self.btn = Button('Click me')
+        # self.btn.connect(lambda: self.btn_fun(2024))
+        # self.add_widget(self.btn)
 
-        self.new_btn = Button('Click me')
-        self.add_widget(self.new_btn)
-        self.new_btn.style_id = 'NewButton'
-        # self.new_btn.style['[Button.NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
-        # self.new_btn.style = self.new_btn.style
+        # self.new_btn = Button('Click me')
+        # self.add_widget(self.new_btn)
+        # self.new_btn.style_id = 'NewButton'
+        # # self.new_btn.style['[Button.NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
+        # # self.new_btn.style = self.new_btn.style
 
-        self.new_btn2 = Button('Click me')
-        self.add_widget(self.new_btn2)
-        self.new_btn2.style_id = 'NewButton2'
-        # self.new_btn2.style['[Button.NewButton2]']['background'] = 'rgba(0, 0, 125, 0.30)'
-        # self.new_btn2.style = self.new_btn2.style
+        # self.new_btn2 = Button('Click me')
+        # self.add_widget(self.new_btn2)
+        # self.new_btn2.style_id = 'NewButton2'
+        # # self.new_btn2.style['[Button.NewButton2]']['background'] = 'rgba(0, 0, 125, 0.30)'
+        # # self.new_btn2.style = self.new_btn2.style
 
-        self.num = 0
+        # self.num = 0
         # pprint.pprint(self.style)
 
+
     def btn_fun(self, args):
-        self.num += 1
-        self.label.text = f'Button Clicked: {self.num}'
+        # self.num += 1
+        # self.label.text = f'Button Clicked: {self.num}'
+        pass
 
 
 if __name__ == '__main__':
