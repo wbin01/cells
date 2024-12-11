@@ -28,8 +28,8 @@ class MainFrame(MainFrame):
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
 
-        # self.box = Box()
-        # self.add_box(self.box)
+        self.box = Box()
+        self.add_box(self.box)
 
         # self.ww = Widget()
         # self.box.add_widget(self.ww)
@@ -52,8 +52,10 @@ class MainFrame(MainFrame):
         # self.add_widget(self.label)
 
         # self.btn = Button('Click me')
-        # self.btn.connect(lambda: self.btn_fun(2024))
         # self.add_widget(self.btn)
+        # self.btn.style_id = 'NewBtn'
+        # self.btn.connect(lambda: self.btn_fun(2024))
+        
 
         # self.new_btn = Button('Click me')
         # self.add_widget(self.new_btn)
@@ -67,14 +69,13 @@ class MainFrame(MainFrame):
         # # self.new_btn2.style['[Button.NewButton2]']['background'] = 'rgba(0, 0, 125, 0.30)'
         # # self.new_btn2.style = self.new_btn2.style
 
-        # self.num = 0
+        self.num = 0
         # pprint.pprint(self.style)
 
 
     def btn_fun(self, args):
-        # self.num += 1
-        # self.label.text = f'Button Clicked: {self.num}'
-        pass
+        self.num += 1
+        self.label.text = f'Button Clicked: {self.num}'
 
 
 if __name__ == '__main__':

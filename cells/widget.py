@@ -157,15 +157,16 @@ class Widget(Widget):
             return Signal(Event.NONE)
 
     def __create_new_style(self) -> None:
-        style = self.__main_parent.style.copy()
-        style[f'[Widget.{self.style_id}]'] = self.__main_parent.style[
+        self.__main_parent.style[f'[{self.style_id}]'] = self.__main_parent.style[
             '[Widget]']
-        style[f'[Widget.{self.style_id}:inactive]'] = self.__main_parent.style[
+        self.__main_parent.style[f'[{self.style_id}:inactive]'] = self.__main_parent.style[
             '[Widget:inactive]']
-        style[f'[Widget.{self.style_id}:hover]'] = self.__main_parent.style[
+        self.__main_parent.style[f'[{self.style_id}:hover]'] = self.__main_parent.style[
             '[Widget:hover]']
+        self.__main_parent.style[f'[{self.style_id}:pressed]'] = self.__main_parent.style[
+            '[Widget:pressed]']
 
-        self.__main_parent.style = style
+        print(self.__main_parent.style)
 
     def __str__(self):
         return f'<Widget: {id(self)}>'

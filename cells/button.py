@@ -14,13 +14,13 @@ class Button(Widget):
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self._obj.set_object_name('Button')
+        self.style_id = 'Button'
 
         self.__box = Box(True)
         self.add_box(self.__box)
 
         self.__label = Label(text)
-        self.__label.style_id = 'ButtonLabel'
+        self.__label.style_id = 'Button-Label'
         self.__box.add_widget(self.__label)
         # self.__label._obj.set_size_policy(
         #     QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
@@ -106,55 +106,39 @@ class Button(Widget):
 
     def __set_styles(self):
         style_id = self.style_id
-        if self.style_id != 'Button':
-            style_id = 'Button.' + self.style_id
 
-        normal_stl = self.__style_manager.qss_button(
-            name=style_id, only_normal=True)
-        hover_stl = self.__style_manager.qss_button(
-            name=style_id, only_hover=True)
-        pressed_stl = self.__style_manager.qss_button(
-            name=style_id, only_pressed=True)
-        inactive_stl = self.__style_manager.qss_button(
-            name=style_id, inactive=True, only_normal=True)
+        self.__normal_style = self.__style_manager.style_to_qss(
+            {f'[{self.style_id}]': self.__style_manager.stylesheet['[Button]']})
+        self.__hover_style = self.__style_manager.style_to_qss(
+            {f'[{self.style_id}:hover]': self.__style_manager.stylesheet['[Button:hover]']})
+        self.__pressed_style = self.__style_manager.style_to_qss(
+            {f'[{self.style_id}:pressed]': self.__style_manager.stylesheet['[Button:pressed]']})
+        self.__inactive_style = self.__style_manager.style_to_qss(
+            {f'[{self.style_id}:inactive]': self.__style_manager.stylesheet['[Button:inactive]']})
 
-        normal_style = normal_stl.split(f'#{self.style_id}Label '+'{')
-        self.__normal_style = normal_style[0].replace(
-            f'#{self.style_id} '+'{', '').replace('}', '').strip()
-        self.__normal_style_label = normal_style[1].replace(
-            f'#{self.style_id}Label '+'{', '').replace('}', '').strip()
+        self.__normal_style_label = self.__style_manager.style_to_qss(
+            {f'[{self.style_id}-Label]': self.__style_manager.stylesheet['[Label]']})
+        self.__hover_style_label = self.__style_manager.style_to_qss(
+            {f'[{self.style_id}-Label:hover]': self.__style_manager.stylesheet['[Label:hover]']})
+        self.__pressed_style_label = self.__style_manager.style_to_qss(
+            {f'[{self.style_id}-Label:pressed]': self.__style_manager.stylesheet['[Label:pressed]']})
+        self.__inactive_style_label = self.__style_manager.style_to_qss(
+            {f'[{self.style_id}-Label:inactive]': self.__style_manager.stylesheet['[Label:inactive]']})
 
-        inactive_style = inactive_stl.split(f'#{self.style_id}Label '+'{')
-        self.__inactive_style = inactive_style[0].replace(
-            f'#{self.style_id} '+'{', '').replace('}', '').strip()
-        self.__inactive_style_label = inactive_style[1].replace(
-            f'#{self.style_id}Label '+'{', '').replace('}', '').strip()
-
-        hover_style = hover_stl.split(f'#{self.style_id}Label:hover '+'{')
-        self.__hover_style = hover_style[0].replace(
-            f'#{self.style_id}:hover '+'{', '').replace('}', '').strip()
-        self.__hover_style_label = hover_style[1].replace(
-            f'#{self.style_id}Label:hover '+'{', '').replace('}', '').strip()
-
-        pressed_style = pressed_stl.split(f'#{self.style_id}Label:pressed '+'{')
-        self.__pressed_style = pressed_style[0].replace(
-            f'#{self.style_id}:pressed '+'{', '').replace('}', '').strip()
-        self.__pressed_style_label = pressed_style[1].replace(
-            f'#{self.style_id}Label:pressed '+'{', '').replace('}', '').strip()
 
     def __create_new_style(self) -> None:
         if self._main_parent:
             default_style = {}
             default_style[
-                f'[Button.{self.style_id}]'] = self._main_parent.style['[Button]']
+                f'[{self.style_id}]'] = self._main_parent.style['[Button]']
             default_style[
-                f'[Button.{self.style_id}:inactive]'] = self._main_parent.style[
+                f'[{self.style_id}:inactive]'] = self._main_parent.style[
                 '[Button:inactive]']
             default_style[
-                f'[Button.{self.style_id}:hover]'] = self._main_parent.style[
+                f'[{self.style_id}:hover]'] = self._main_parent.style[
                 '[Button:hover]']
             default_style[
-                f'[Button.{self.style_id}:pressed]'] = self._main_parent.style[
+                f'[{self.style_id}:pressed]'] = self._main_parent.style[
                 '[Button:pressed]']
 
             self._main_parent.style.update(default_style)
@@ -166,9 +150,19 @@ class Button(Widget):
             # self.__label._obj.set_style_sheet(self.__normal_style_label)
 
     def __style_id_changed(self) -> None:
-        self.__label.style_id = f'{self.style_id}Label'
+        self.__label.style_id = f'{self.style_id}-Label'
+
+        self.__main_parent.style[f'[{self.style_id}-Label]'] = self.__main_parent.style[
+            '[Label]']
+        self.__main_parent.style[f'[{self.style_id}-Label:inactive]'] = self.__main_parent.style[
+            '[Label:inactive]']
+        self.__main_parent.style[f'[{self.style_id}-Label:hover]'] = self.__main_parent.style[
+            '[Label:hover]']
+        self.__main_parent.style[f'[{self.style_id}-Label:pressed]'] = self.__main_parent.style[
+            '[Label:pressed]']
+
         if self._main_parent:
-            if not f'[Button.{self.style_id}]' in self._main_parent.style:
+            if not f'[{self.style_id}]' in self._main_parent.style:
                 self.__create_new_style()
         self.__set_styles()
 
