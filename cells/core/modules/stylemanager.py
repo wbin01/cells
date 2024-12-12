@@ -17,10 +17,9 @@ class StyleManager(object):
         
         self.__dict_style = None
         self.__qss_style = None
-        self.style_ids = {}
 
-        self.__style_file = DesktopFile(self.__url)
-        self.stylesheet = self.__style_file.content
+        self.__style_file = None
+        self.stylesheet = None
 
     @property
     def stylesheet(self) -> dict:
@@ -29,6 +28,10 @@ class StyleManager(object):
         Get the style as a dictionary or submit a new dictionary style to 
         update it
         """
+        if not self.__dict_style:
+            self.__style_file = DesktopFile(self.__url)
+            self.__dict_style = self.__style_file.content
+
         return self.__dict_style
     
     @stylesheet.setter
@@ -43,12 +46,20 @@ class StyleManager(object):
 
     def stylesheet_for_qss(self) -> dict:
         """..."""
+        if not self.__dict_style:
+            self.__style_file = DesktopFile(self.__url)
+            self.stylesheet = self.__style_file.content
+
         return self.__qss_style
 
     def style_to_qss(
             self, style: dict = None,
             inactive: bool = False,
             fullscreen: bool = False) -> str:
+
+        if not self.__dict_style:
+            self.__style_file = DesktopFile(self.__url)
+            self.__dict_style = self.__style_file.content
 
         style = self.__dict_style if not style else style
         qss = ''
@@ -122,30 +133,7 @@ class StyleManager(object):
                     f'  padding-bottom: {padding[2]}px;\n'
                     f'  padding-left: {padding[3]}px;\n')
             qss += '}\n'
-
-            # group_key = group_key.replace(':inactive', '')[1:-1]
-            # qss += (
-            #     f'#{group_key} ' '{\n'
-            #     f'  background-color: {background};\n'
-            #     f'  color: {color};\n'
-            #     f'  border-top: {border[0]}px solid {border[4]};\n'
-            #     f'  border-right: {border[1]}px solid {border[4]};\n'
-            #     f'  border-bottom: {border[2]}px solid {border[4]};\n'
-            #     f'  border-left: {border[3]}px solid {border[4]};\n'
-            #     f'  border-top-left-radius: {border_radius[0]}px;\n'
-            #     f'  border-top-right-radius: {border_radius[1]}px;\n'
-            #     f'  border-bottom-left-radius: {border_radius[3]}px;\n'
-            #     f'  border-bottom-right-radius: {border_radius[2]}px;\n'
-            #     f'  margin-top: {margin[0]}px;\n'
-            #     f'  margin-right: {margin[1]}px;\n'
-            #     f'  margin-bottom: {margin[2]}px;\n'
-            #     f'  margin-left: {margin[3]}px;\n'
-            #     f'  padding-top: {padding[0]}px;\n'
-            #     f'  padding-right: {padding[1]}px;\n'
-            #     f'  padding-bottom: {padding[2]}px;\n'
-            #     f'  padding-left: {padding[3]}px;\n'
-            #     '}\n'
-            #     )
+        
         return qss
 
 
