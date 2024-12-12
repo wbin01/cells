@@ -80,7 +80,7 @@ class StyleManager(object):
             margin = style_parser.margin_padding_str_to_list(margin)
             padding = style_parser.margin_padding_str_to_list(padding)
 
-            if group_key == '[MainFrame]' or group_key == '[Frame]':
+            if 'Frame' in group_key:
                 border_radius = [
                     int(border_radius[0]) -1,
                     int(border_radius[1]) -1,

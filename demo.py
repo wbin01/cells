@@ -79,7 +79,16 @@ class MainFrame(MainFrame):
 
 
 if __name__ == '__main__':
+    # from PySide6 import QtCore, QtGui, QtWidgets
+    # from __feature__ import snake_case
+    # import cells.core.coreshadow as shadow
+
     app = Application(sys.argv)
+
+    # s = shadow.CoreMainFrameShadow()
+    # s.set_window_flags(
+    #     QtCore.Qt.FramelessWindowHint | QtCore.Qt.Window)
+
     app.frame = MainFrame()
     app.frame_id = [__file__, 'my_app', 'My App']
     app.icon = os.path.join(
