@@ -59,7 +59,7 @@ class CoreMainFrame(CoreMainFrameShadow):
             self.__window_shadow_visible(True)
 
         self.__style_manager = StyleManager()
-        self.__qss_styles = self.__style_manager.stylesheet_for_qss()
+        self.__qss_styles = self.__style_manager.stylesheet_qss()
 
         self.set_focus_policy(QtCore.Qt.ClickFocus)
         self.install_event_filter(self)
@@ -76,7 +76,7 @@ class CoreMainFrame(CoreMainFrameShadow):
     @stylesheet.setter
     def stylesheet(self, style) -> None:
         self.__style_manager.stylesheet = style
-        self.__qss_styles = self.__style_manager.stylesheet_for_qss()
+        self.__qss_styles = self.__style_manager.stylesheet_qss()
         if self.is_maximized() or self.is_full_screen():
             self.set_style_sheet(self.__qss_styles['fullscreen'])
         else:

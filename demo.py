@@ -31,8 +31,10 @@ class MainFrame(MainFrame):
         self.box = Box()
         self.add_box(self.box)
 
-        # self.ww = Widget()
-        # self.box.add_widget(self.ww)
+        self.w1 = Widget()
+        self.box.add_widget(self.w1)
+        self.w1.style_id = 'Wid1'
+        # pprint.pprint(self.w1.style)
 
         # self.w = Widget()
         # self.box.add_widget(self.w)

@@ -28,27 +28,34 @@ class Widget(Widget):
 
         self.__box = QtWidgets.QVBoxLayout()
         self.__widget.set_layout(self.__box)
+
         self.__style_manager = StyleManager()
+        self.__normal_style = self.__get_qss_style()
+        self.__hover_style = self.__get_qss_style(':hover')
+        self.__pressed_style = self.__get_qss_style(':pressed')
+        self.__inactive_style = self.__get_qss_style(':inactive', True)
+
+        self._is_inactive = False
+
+        self.event_signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
+        self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
+        self.event_signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
+        self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
+        self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
 
     @property
     def style(self) -> str:
         """..."""
         if self.__main_parent:
-            style = self.__main_parent.style.copy()
-            return style
+            return self.__main_parent.style
         return None
 
     @style.setter
     def style(self, style: dict) -> None:
         self.style_change_signal.emit()
-        new_style = {}
-        for key, value in style.items():
-            new_style[key] = value
-
-        for key, value in self.__main_parent.style.items():
-            new_style[key] = value
-        
-        self.__main_parent.style = new_style
+        self.__main_parent.style = style
+        # self.__main_parent.event_signal(
+        #     Event.STYLE_CHANGE).connect(self.__create_new_style)
 
     @property
     def style_id(self) -> str:
@@ -63,13 +70,10 @@ class Widget(Widget):
 
     @style_id.setter
     def style_id(self, style_id: str) -> None:
-        self.__widget.set_object_name(style_id)
-
-        if self.__main_parent:
-            if not f'[Widget.{self.style_id}]' in self.__main_parent.style:
-                self.__create_new_style()
-
         self.style_id_change_signal.emit()
+        self.__widget.set_object_name(style_id)
+        if self.__main_parent:
+                self.__create_new_style()
 
     @property
     def _main_parent(self):
@@ -166,7 +170,44 @@ class Widget(Widget):
         self.__main_parent.style[f'[{self.style_id}:pressed]'] = self.__main_parent.style[
             '[Widget:pressed]']
 
-        print(self.__main_parent.style)
+        self.__main_parent.style = self.__main_parent.style
+
+    def __focus_in(self) -> None:
+        self._is_inactive = False
+        self._obj.set_style_sheet(self.__normal_style)
+
+    def __focus_out(self) -> None:
+        self._is_inactive = True
+        self._obj.set_style_sheet(self.__inactive_style)
+
+    def __get_qss_style(self, state: str = '', inactive: bool = False) -> str:
+        return self.__style_manager.style_to_qss(
+            {
+                f'[{self.style_id}{state}]':
+                self.__style_manager.stylesheet[f'[{self.style_id}{state}]']
+            },
+            inactive=inactive).split('{')[1].replace('}', '').strip()
+
+    def __leave(self) -> None:
+        if self._is_inactive:
+            # self._obj.set_style_sheet('')
+            # self.__label._obj.set_style_sheet('')
+            self.__focus_out()
+        else:
+            self._obj.set_style_sheet(self.__normal_style)
+
+    def __main_added(self) -> None:
+        self.__main_parent.event_signal(Event.FOCUS_IN).connect(self.__focus_in)
+        self.__main_parent.event_signal(Event.FOCUS_OUT).connect(self.__focus_out)
+
+    def __press(self) -> None:
+        self.__widget.set_style_sheet(self.__pressed_style)
+
+    def __release(self) -> None:
+        self._obj.set_style_sheet(self.__hover_style)
+
+    def __hover(self) -> None:
+        self._obj.set_style_sheet(self.__hover_style)
 
     def __str__(self):
         return f'<Widget: {id(self)}>'

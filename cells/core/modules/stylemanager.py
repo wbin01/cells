@@ -14,10 +14,8 @@ class StyleManager(object):
         super().__init__(*args, **kwargs)
         self.__path = pathlib.Path(__file__).resolve().parent
         self.__url = os.path.join(self.__path, 'static', 'stylerc')
-        
         self.__dict_style = None
         self.__qss_style = None
-
         self.__style_file = None
         self.stylesheet = None
 
@@ -44,7 +42,7 @@ class StyleManager(object):
             'inactive_fullscreen': self.style_to_qss(
                 inactive=True, fullscreen=True)}
 
-    def stylesheet_for_qss(self) -> dict:
+    def stylesheet_qss(self) -> dict:
         """..."""
         if not self.__dict_style:
             self.__style_file = DesktopFile(self.__url)
@@ -64,7 +62,7 @@ class StyleManager(object):
         style = self.__dict_style if not style else style
         qss = ''
         for group_key in style.keys():
-            if group_key == '[MainFrame:inactive]' and not inactive:
+            if ':inactive]' in group_key and not inactive:
                 continue  # disabled
             background = 'rgba(0, 0, 0, 0.00)'
             border = '0px 0px 0px 0px rgba(0, 0, 0, 0.00)'
@@ -133,7 +131,7 @@ class StyleManager(object):
                     f'  padding-bottom: {padding[2]}px;\n'
                     f'  padding-left: {padding[3]}px;\n')
             qss += '}\n'
-        
+
         return qss
 
 
