@@ -64,8 +64,9 @@ class Box(Box):
 
     def add_widget(self, widget: Widget) -> None:
         """Add a Widget inside this Box"""
-        widget._main_parent = self._main_parent
-        self.__box.add_widget(widget._obj)
+        widget._main_parent = self.__main_parent
+        _, w = setattr(self, str(widget), widget), getattr(self, str(widget))
+        self.__box.add_widget(w._obj)
 
         # if self._main_parent:
         #     self._main_parent.style_ids[widget.style_id] = widget._base_id

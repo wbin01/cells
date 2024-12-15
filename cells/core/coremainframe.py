@@ -77,6 +77,7 @@ class CoreMainFrame(CoreMainFrameShadow):
     def stylesheet(self, style) -> None:
         self.__style_manager.stylesheet = style
         self.__qss_styles = self.__style_manager.stylesheet_qss()
+
         if self.is_maximized() or self.is_full_screen():
             self.set_style_sheet(self.__qss_styles['fullscreen'])
         else:

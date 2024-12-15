@@ -31,49 +31,32 @@ class MainFrame(MainFrame):
         self.box = Box()
         self.add_box(self.box)
 
-        self.w1 = Widget()
-        self.box.add_widget(self.w1)
-        self.w1.style_id = 'Wid1'
-        # pprint.pprint(self.w1.style)
+        self.top = None
 
-        # self.w = Widget()
-        # self.box.add_widget(self.w)
-        # self.w.style_id = 'Wid1'
-        # self.w.style['[Widget.Wid1]']['background'] = 'rgba(0, 0, 0, 1.00)'
-        # self.w.style = self.w.style
+        for n in range(10):
+            w = Widget()
+            self.box.add_widget(w)
+            
+            if n == 3:
+                w.style_id = f'Wid{n}'
+                w.style[f'[Wid{n}]']['background'] = 'rgba(200, 0, 0, 1.00)'
+                w.style = w.style
 
-        # self.w2 = Widget()
-        # self.box.add_widget(self.w2)
-        # # self.w2.style_id = 'Wid2'
-        # # sss = self.w2.style.copy()
-        # # sss['[Widget.Wid2]']['background'] = 'rgba(0, 0, 0, 0.30)'
-        # # self.w2.style = sss
+                self.top = w
 
+        self.top.style[f'[Wid3]']['background'] = 'rgba(0, 0, 200, 1.00)'
+        self.top.style = self.top.style
 
-        # self.label = Label('Hello world!')
-        # self.add_widget(self.label)
+        for n in range(10):
+            _, w = setattr(self, 'w' + str(n), Widget()), getattr(self, 'w' + str(n))
+            self.box.add_widget(w)
 
-        # self.btn = Button('Click me')
-        # self.add_widget(self.btn)
-        # self.btn.style_id = 'NewBtn'
-        # self.btn.connect(lambda: self.btn_fun(2024))
-        
-
-        # self.new_btn = Button('Click me')
-        # self.add_widget(self.new_btn)
-        # self.new_btn.style_id = 'NewButton'
-        # # self.new_btn.style['[Button.NewButton]']['background'] = 'rgba(125, 0, 125, 0.30)'
-        # # self.new_btn.style = self.new_btn.style
-
-        # self.new_btn2 = Button('Click me')
-        # self.add_widget(self.new_btn2)
-        # self.new_btn2.style_id = 'NewButton2'
-        # # self.new_btn2.style['[Button.NewButton2]']['background'] = 'rgba(0, 0, 125, 0.30)'
-        # # self.new_btn2.style = self.new_btn2.style
+        self.wid = getattr(self, 'w' + str(3))
+        self.wid.style_id = 'Widg3'
+        self.wid.style[f'[Widg3]']['background'] = 'rgba(0, 200, 0, 1.00)'
+        self.wid.style = self.wid.style
 
         self.num = 0
-        # pprint.pprint(self.style)
-
 
     def btn_fun(self, args):
         self.num += 1
