@@ -33,10 +33,12 @@ class Widget(Widget):
         self.__widget.set_layout(self.__box)
 
         self.__style_manager = StyleManager()
-        self.__normal_style = self.__qss_piece(None)
-        self.__hover_style = self.__qss_piece(None, ':hover')
-        self.__pressed_style = self.__qss_piece(None, ':pressed')
-        self.__inactive_style = self.__qss_piece(None, ':inactive', True)
+        self.__normal_style = None
+        self.__hover_style = None
+        self.__pressed_style = None
+        self.__inactive_style = None
+        self.__style = None
+        self.__styles(self.__style_manager.stylesheet, 'Widget', 'Widget')
 
         self._is_inactive = False
 
@@ -67,32 +69,12 @@ class Widget(Widget):
         The second way is the recommended one. First we add the widget to the 
         `Box`, and only then we configure the widget.
         """
-        if self.__main_parent:
-            # return self.__main_parent.style
-            style = {}
-            if f'[{self.style_id}]' in self.__main_parent.style:
-                style[f'[{self.style_id}]'] = self.__main_parent.style[f'[{self.style_id}]']
-            if f'[{self.style_id}:inactive]' in self.__main_parent.style:
-                style[f'[{self.style_id}:inactive]'] = self.__main_parent.style[f'[{self.style_id}:inactive]']
-            if f'[{self.style_id}:hover]' in self.__main_parent.style:
-                style[f'[{self.style_id}:hover]'] = self.__main_parent.style[f'[{self.style_id}:hover]']
-            if f'[{self.style_id}:pressed]' in self.__main_parent.style:
-                style[f'[{self.style_id}:pressed]'] = self.__main_parent.style[f'[{self.style_id}:pressed]']
-            return style
-
-        return None
+        return self.__style
 
     @style.setter
     def style(self, style: dict) -> None:
         self.style_change_signal.emit()
-        if self.__main_parent:
-            self.__main_parent.style.update(style)
-            # self.__main_parent.event_signal(
-            #     Event.STYLE_CHANGE).connect(self.__create_new_style_to_id)
-            self.__normal_style = self.__qss_piece(style)
-            self.__hover_style = self.__qss_piece(style, ':hover')
-            self.__pressed_style = self.__qss_piece(style, ':pressed')
-            self.__inactive_style = self.__qss_piece(style, ':inactive', True)
+        self.__styles(style, self.style_id, self.style_id)
 
     @property
     def style_id(self) -> str:
@@ -108,10 +90,10 @@ class Widget(Widget):
     @style_id.setter
     def style_id(self, style_id: str) -> None:
         self.style_id_change_signal.emit()
-        self.__widget.set_object_name(style_id)
 
-        if self.__main_parent:
-            self.__create_new_style_to_id()
+        inherited_id = self.__widget.object_name()
+        self.__widget.set_object_name(style_id)
+        self.__styles(self.__style, style_id, inherited_id)
 
     @property
     def _main_parent(self):
@@ -202,17 +184,6 @@ class Widget(Widget):
         else:
             return Signal(Event.NONE)
 
-    def __create_new_style_to_id(self) -> None:
-        self.__main_parent.style[f'[{self.style_id}]'] = self.__main_parent.style[
-            '[Widget]']
-        self.__main_parent.style[f'[{self.style_id}:inactive]'] = self.__main_parent.style[
-            '[Widget:inactive]']
-        self.__main_parent.style[f'[{self.style_id}:hover]'] = self.__main_parent.style[
-            '[Widget:hover]']
-        self.__main_parent.style[f'[{self.style_id}:pressed]'] = self.__main_parent.style[
-            '[Widget:pressed]']
-        self.__main_parent.style = self.__main_parent.style.copy()
-
     def __focus_in(self) -> None:
         self._is_inactive = False
         self._obj.set_style_sheet(self.__normal_style)
@@ -241,18 +212,24 @@ class Widget(Widget):
             style: dict = None,
             state: str = '',
             inactive: bool = False) -> str:
-        if not style:
-            if self.__main_parent:
-                style = self.__main_parent.style
-            else:
-                style = self.__style_manager.stylesheet
-
         return self.__style_manager.style_to_qss(
             {
                 f'[{self.style_id}{state}]':
                 style[f'[{self.style_id}{state}]']
             },
             inactive=inactive).split('{')[1].replace('}', '').strip()
+
+    def __styles(self, style: dict, updated_id: str, inherited_id: str) -> None:
+        self.__style = {
+            f'[{updated_id}]': style[f'[{inherited_id}]'],
+            f'[{updated_id}:inactive]': style[f'[{inherited_id}:inactive]'],
+            f'[{updated_id}:hover]': style[f'[{inherited_id}:hover]'],
+            f'[{updated_id}:pressed]': style[f'[{inherited_id}:pressed]']}
+        
+        self.__normal_style = self.__qss_piece(self.__style)
+        self.__hover_style = self.__qss_piece(self.__style, ':hover')
+        self.__pressed_style = self.__qss_piece(self.__style, ':pressed')
+        self.__inactive_style = self.__qss_piece(self.__style, ':inactive', True)
 
     def __release(self) -> None:
         self._obj.set_style_sheet(self.__hover_style)
