@@ -7,6 +7,14 @@ from cells import (
     Application, MainFrame, Frame, Signal, Event, Cursor, Box, Label, Button, Widget)
 
 
+class Wid(Widget):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.style_id = 'Wid'
+        self.style['[Wid]']['background'] = 'rgba(0, 200, 0, 0.30)'
+        self.style = self.style
+
+
 class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -30,26 +38,21 @@ class MainFrame(MainFrame):
 
         self.box = self.add_box(Box())
 
-        self.top = None
-        for n in range(10):
+        self.wid = self.box.add_widget(Wid())
+
+        self.w = None
+        for n in range(5):
             w = self.box.add_widget(Widget())
             if n == 3:
                 w.style_id = f'Wid{n}'
-                w.style[f'[Wid{n}]']['background'] = 'rgba(200, 0, 0, 1.00)'
-                w.style = w.style
-                self.top = w
+                w.style[f'[Wid{n}]']['background'], w.style = 'rgba(200, 0, 0, 1.00)', w.style
+                self.w = w
 
-        self.top.style[f'[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
-        self.top.style = self.top.style
+        self.w.style[f'[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
+        self.w.style = self.w.style
 
-        # for n in range(10):
-        #     _, w = setattr(self, 'w' + str(n), Widget()), getattr(self, 'w' + str(n))
-        #     self.box.add_widget(w)
-
-        # self.wid = getattr(self, 'w' + str(3))
-        # self.wid.style_id = 'Widg3'
-        # self.wid.style[f'[Widg3]']['background'] = 'rgba(0, 200, 0, 1.00)'
-        # self.wid.style = self.wid.style
+        self.widg = self.box.add_widget(Widget())
+        self.widg.style[f'[Widget]']['background'], self.widg.style = 'rgba(200, 0, 0, 0.30)', self.widg.style
 
         self.num = 0
 
