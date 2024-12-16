@@ -33,10 +33,10 @@ class Widget(Widget):
         self.__widget.set_layout(self.__box)
 
         self.__style_manager = StyleManager()
-        self.__normal_style = self.__qss_piece()
-        self.__hover_style = self.__qss_piece(':hover')
-        self.__pressed_style = self.__qss_piece(':pressed')
-        self.__inactive_style = self.__qss_piece(':inactive', True)
+        self.__normal_style = self.__qss_piece(None)
+        self.__hover_style = self.__qss_piece(None, ':hover')
+        self.__pressed_style = self.__qss_piece(None, ':pressed')
+        self.__inactive_style = self.__qss_piece(None, ':inactive', True)
 
         self._is_inactive = False
 
@@ -89,10 +89,10 @@ class Widget(Widget):
             self.__main_parent.style.update(style)
             # self.__main_parent.event_signal(
             #     Event.STYLE_CHANGE).connect(self.__create_new_style_to_id)
-            self.__normal_style = self.__qss_piece()
-            self.__hover_style = self.__qss_piece(':hover')
-            self.__pressed_style = self.__qss_piece(':pressed')
-            self.__inactive_style = self.__qss_piece(':inactive', True)
+            self.__normal_style = self.__qss_piece(style)
+            self.__hover_style = self.__qss_piece(style, ':hover')
+            self.__pressed_style = self.__qss_piece(style, ':pressed')
+            self.__inactive_style = self.__qss_piece(style, ':inactive', True)
 
     @property
     def style_id(self) -> str:
@@ -109,8 +109,9 @@ class Widget(Widget):
     def style_id(self, style_id: str) -> None:
         self.style_id_change_signal.emit()
         self.__widget.set_object_name(style_id)
+
         if self.__main_parent:
-                self.__create_new_style_to_id()
+            self.__create_new_style_to_id()
 
     @property
     def _main_parent(self):
@@ -140,15 +141,19 @@ class Widget(Widget):
     def _obj(self, obj: QtWidgets) -> None:
         self.__widget = obj
 
-    def add_box(self, box) -> None:
+    def add_box(self, box):
         """Add a Box inside this Widget"""
         box._main_parent = self._main_parent
+        _, box = setattr(self, str(box), box), getattr(self, str(box))
         self.__box.add_layout(box._obj)
+        return box
 
-    def add_widget(self, widget: Widget) -> None:
+    def add_widget(self, widget: Widget) -> Widget:
         """Add a new Widget inside this Widget"""
         widget.main_parent = self._main_parent
+        _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
         self.__box.add_widget(widget._obj)
+        return widget
 
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
@@ -231,16 +236,21 @@ class Widget(Widget):
     def __press(self) -> None:
         self.__widget.set_style_sheet(self.__pressed_style)
 
-    def __qss_piece(self, state: str = '', inactive: bool = False) -> str:
-        if self.__main_parent:
-            main_style = self.__main_parent.style
-        else:
-            main_style = self.__style_manager.stylesheet
+    def __qss_piece(
+            self,
+            style: dict = None,
+            state: str = '',
+            inactive: bool = False) -> str:
+        if not style:
+            if self.__main_parent:
+                style = self.__main_parent.style
+            else:
+                style = self.__style_manager.stylesheet
 
         return self.__style_manager.style_to_qss(
             {
                 f'[{self.style_id}{state}]':
-                main_style[f'[{self.style_id}{state}]']
+                style[f'[{self.style_id}{state}]']
             },
             inactive=inactive).split('{')[1].replace('}', '').strip()
 

@@ -28,14 +28,16 @@ class MainFrame(MainFrame):
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
 
-        self.box = Box()
-        self.add_box(self.box)
+        # self.box = Box()
+        # self.add_box(self.box)
+        self.box = self.add_box(Box())
 
         self.top = None
 
         for n in range(10):
-            w = Widget()
-            self.box.add_widget(w)
+            # w = Widget()
+            # self.box.add_widget(w)
+            w = self.box.add_widget(Widget())
             
             if n == 3:
                 w.style_id = f'Wid{n}'

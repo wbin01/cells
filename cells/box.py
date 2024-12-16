@@ -57,20 +57,23 @@ class Box(Box):
     def _obj(self, obj: QtWidgets) -> None:
         self.__box = obj
 
-    def add_box(self, box: Box) -> None:
+    def add_box(self, box: Box) -> Box:
         """Add a new Box inside this Box"""
         box.main_parent = self.__main_parent
+        _, box = setattr(self, str(box), box), getattr(self, str(box))
         self.__box.add_layout(box._obj)
+        return box
 
-    def add_widget(self, widget: Widget) -> None:
+    def add_widget(self, widget: Widget) -> Widget:
         """Add a Widget inside this Box"""
         widget._main_parent = self.__main_parent
-        _, w = setattr(self, str(widget), widget), getattr(self, str(widget))
-        self.__box.add_widget(w._obj)
+        _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
+        self.__box.add_widget(widget._obj)
 
         # if self._main_parent:
         #     self._main_parent.style_ids[widget.style_id] = widget._base_id
         #     self._main_parent.event_signal(Event.STYLE_ID_CHANGE).emit()
+        return widget
 
     def __str__(self):
         return f'<Box: {id(self)}>'

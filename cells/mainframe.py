@@ -200,16 +200,20 @@ class MainFrame(object):
     def _obj(self, obj: QtWidgets) -> None:
         self.__frame = obj
 
-    def add_box(self, box: Box) -> None:
+    def add_box(self, box: Box) -> Box:
         """..."""
         box._main_parent = self
+        _, box = setattr(self, str(box), box), getattr(self, str(box))
         self.__frame_box.add_box(box)
+        return box
 
-    def add_widget(self, widget: Widget) -> None:
+    def add_widget(self, widget: Widget) -> Widget:
         """..."""
         widget._main_parent = self
+        _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
         self.__frame_box.add_widget(widget)
-
+        return widget
+    
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
