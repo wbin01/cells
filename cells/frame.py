@@ -104,6 +104,7 @@ class Frame(object):
     @style.setter
     def style(self, style: dict) -> None:
         self.__frame.stylesheet = style
+        self.__frame.style_change_signal.emit()
 
     @property
     def width(self) -> int:

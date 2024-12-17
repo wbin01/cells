@@ -2,11 +2,11 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from __feature__ import snake_case
 
+from .coreshadow import CoreMainFrameShadow
 from .modules import colorconverter
 from .modules import StyleManager
-from .coreshadow import CoreMainFrameShadow
-from ..signal import Signal
 from ..event import Event
+from ..signal import Signal
 
 
 class CoreMainFrame(CoreMainFrameShadow):

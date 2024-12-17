@@ -33,6 +33,13 @@ class Window(Frame):
 
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
+        # self.width = 500
+        # self.height = 500
+        # self.minimum_width = 500
+        # self.minimum_height = 500
+        # self.maximum_width = 500
+        # self.maximum_height = 500
+
         self.box = self.add_box(Box())
 
         self.label = self.box.add_widget(Label('hello'))

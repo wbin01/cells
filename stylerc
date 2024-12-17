@@ -12,8 +12,6 @@ border=0px 0px 0px 0px rgba(0, 0, 0, 0.00)
 border_radius=10px 10px 10px 10px
 padding=5px 5px 5px 5px
 
-
-
 [MainFrame-Border]
 border=1px 1px 1px 1px rgba(100, 50, 50, 0.80)
 border_radius=10px 10px 10px 10px
@@ -42,10 +40,10 @@ padding=0px 0px 0px 0px
 margin=0px 0px 0px 0px
 
 [Widget:inactive]
-background=rgba(0, 0, 0, 1.00)
+background=rgba(0, 0, 0, 0.00)
 
 [Widget:hover]
-background=rgba(255, 255, 255, 0.10)
+background=rgba(255, 0, 0, 0.10)
 
 [Widget:pressed]
-background=rgba(255, 255, 255, 0.50)
+background=rgba(255, 0, 0, 0.20)

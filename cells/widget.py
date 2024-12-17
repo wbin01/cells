@@ -192,6 +192,10 @@ class Widget(Widget):
         self._is_inactive = True
         self._obj.set_style_sheet(self.__inactive_style)
 
+    def __hover(self) -> None:
+        if not self._is_inactive:
+            self._obj.set_style_sheet(self.__hover_style)
+
     def __leave(self) -> None:
         if self._is_inactive:
             # self._obj.set_style_sheet('')
@@ -203,6 +207,8 @@ class Widget(Widget):
     def __main_added(self) -> None:
         self.__main_parent.event_signal(Event.FOCUS_IN).connect(self.__focus_in)
         self.__main_parent.event_signal(Event.FOCUS_OUT).connect(self.__focus_out)
+        self.__main_parent.event_signal(Event.STYLE_CHANGE).connect(
+            self.__update_style)
 
     def __press(self) -> None:
         self.__widget.set_style_sheet(self.__pressed_style)
@@ -219,6 +225,10 @@ class Widget(Widget):
             },
             inactive=inactive).split('{')[1].replace('}', '').strip()
 
+    def __release(self) -> None:
+        if not self._is_inactive:
+            self._obj.set_style_sheet(self.__hover_style)
+
     def __styles(self, style: dict, updated_id: str, inherited_id: str) -> None:
         self.__style = {
             f'[{updated_id}]': style[f'[{inherited_id}]'],
@@ -231,13 +241,10 @@ class Widget(Widget):
         self.__pressed_style = self.__qss_piece(self.__style, ':pressed')
         self.__inactive_style = self.__qss_piece(self.__style, ':inactive', True)
 
-    def __release(self) -> None:
-        if not self._is_inactive:
-            self._obj.set_style_sheet(self.__hover_style)
+    def __update_style(self) -> None:
+        self.style.update(self._main_parent.style)
+        self.style = self.style
 
-    def __hover(self) -> None:
-        if not self._is_inactive:
-            self._obj.set_style_sheet(self.__hover_style)
 
     def __str__(self):
         return f'<Widget: {id(self)}>'
