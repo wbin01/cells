@@ -48,13 +48,17 @@ class MainFrame(MainFrame):
                 w.style[f'[Wid{n}]']['background'], w.style = 'rgba(200, 0, 0, 1.00)', w.style
                 self.w = w
 
-        self.w.style[f'[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
+        self.w.style['[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
         self.w.style = self.w.style
 
         self.widg = self.box.add_widget(Widget())
-        self.widg.style[f'[Widget]']['background'], self.widg.style = 'rgba(200, 0, 0, 0.30)', self.widg.style
+        self.widg.style['[Widget]']['background'], self.widg.style = 'rgba(200, 0, 0, 0.30)', self.widg.style
 
         self.num = 0
+        self.style = {
+        '[MainFrame-Border]': {
+            'border': '1px 1px 1px 1px rgba(50, 50, 100, 0.80)',
+            'border_radius': '10px 10px 10px 10px'}}
 
     def btn_fun(self, args):
         self.num += 1
