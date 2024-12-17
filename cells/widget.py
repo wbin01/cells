@@ -26,6 +26,8 @@ class Widget(Widget):
         self.style_id_change_signal = Signal()
         self.main_parent_added = Signal()
 
+        self._is_inactive = False
+
         self.__widget = CoreWidget()
         self.__main_parent = main_parent
 
@@ -39,8 +41,6 @@ class Widget(Widget):
         self.__inactive_style = None
         self.__style = None
         self.__styles(self.__style_manager.stylesheet, 'Widget', 'Widget')
-
-        self._is_inactive = False
 
         self.event_signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
@@ -91,7 +91,7 @@ class Widget(Widget):
     def style_id(self, style_id: str) -> None:
         self.style_id_change_signal.emit()
 
-        inherited_id = self.__widget.object_name()
+        inherited_id = self.style_id if self.style_id else 'Widget'
         self.__widget.set_object_name(style_id)
         self.__styles(self.__style, style_id, inherited_id)
 
@@ -232,10 +232,12 @@ class Widget(Widget):
         self.__inactive_style = self.__qss_piece(self.__style, ':inactive', True)
 
     def __release(self) -> None:
-        self._obj.set_style_sheet(self.__hover_style)
+        if not self._is_inactive:
+            self._obj.set_style_sheet(self.__hover_style)
 
     def __hover(self) -> None:
-        self._obj.set_style_sheet(self.__hover_style)
+        if not self._is_inactive:
+            self._obj.set_style_sheet(self.__hover_style)
 
     def __str__(self):
         return f'<Widget: {id(self)}>'

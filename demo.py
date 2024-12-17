@@ -18,9 +18,7 @@ class Wid(Widget):
 class MainFrame(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-
-        # self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(
-        #     lambda: self.fun('Hello', 'World'))
+        # self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
 
         # self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.xxx)
 
@@ -38,6 +36,10 @@ class MainFrame(MainFrame):
 
         self.box = self.add_box(Box())
 
+        self.label = self.box.add_widget(Label('hello'))
+        self.label_count = 0
+        self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
+
         self.wid = self.box.add_widget(Wid())
 
         self.w = None
@@ -54,17 +56,18 @@ class MainFrame(MainFrame):
         self.widg = self.box.add_widget(Widget())
         self.widg.style['[Widget]']['background'], self.widg.style = 'rgba(200, 0, 0, 0.30)', self.widg.style
 
-        self.num = 0
+        
         self.style = {
         '[MainFrame-Border]': {
             'border': '1px 1px 1px 1px rgba(50, 50, 100, 0.80)',
             'border_radius': '10px 10px 10px 10px'}}
 
-        self.style = self.style_from_file('stylerc')
+        # self.style = self.style_from_file('stylerc')
 
-    def btn_fun(self, args):
-        self.num += 1
-        self.label.text = f'Button Clicked: {self.num}'
+
+    def fn_label(self):
+        self.label_count += 1
+        self.label.text = f'Clicked: {self.label_count}'
 
 
 if __name__ == '__main__':
