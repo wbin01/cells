@@ -3,13 +3,12 @@ from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 from .box import Box
-from .widget import Widget
 from .core import CoreMainFrame
+from .core.modules import desktopentryparse
 from .event import Event
 from .icon import Icon
 from .signal import Signal
-
-from .core.modules import desktopentryparse
+from .widget import Widget
 
 
 class MainFrame(object):

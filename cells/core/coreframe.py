@@ -46,6 +46,22 @@ class CoreFrame(CoreFrameShadow):
         self.set_focus_policy(QtCore.Qt.ClickFocus)
         self.install_event_filter(self)
 
+    @property
+    def stylesheet(self) -> dict:
+        """Style as dict.
+
+        Get the style as a dictionary or submit a new dictionary style to 
+        update it.
+        """
+        return self.__style_manager.stylesheet
+
+    @stylesheet.setter
+    def stylesheet(self, style) -> None:
+        self.__style_manager.stylesheet.update(style)
+        self.__style_manager.stylesheet = self.__style_manager.stylesheet
+        self.__qss_styles = self.__style_manager.stylesheet_qss()
+        self.set_style_sheet(self.__qss_styles['active'])
+
     def event_filter(
             self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
         if event.type() == QtCore.QEvent.FocusIn:

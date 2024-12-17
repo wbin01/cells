@@ -3,10 +3,11 @@ from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 from .box import Box
-from .widget import Widget
 from .core import CoreFrame
-from .signal import Signal
+from .core.modules import desktopentryparse
 from .event import Event
+from .signal import Signal
+from .widget import Widget
 
 
 class Frame(object):
@@ -26,6 +27,95 @@ class Frame(object):
         self.__frame_box = Box()
         self.__frame_box._main_parent = self
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
+
+    @property
+    def height(self) -> int:
+        """Returns the height of the Frame.
+
+        Pass a new integer value to update the height.
+        """
+        return self.__frame.height()
+
+    @height.setter
+    def height(self, height: int) -> None:
+        self.__frame.set_fixed_height(height)
+
+    @property
+    def maximum_height(self) -> int:
+        """Returns the Frame maximum height.
+
+        Pass a new integer value to update the maximum height the Frame can 
+        have.
+        """
+        return self.__frame.maximum_height()
+
+    @maximum_height.setter
+    def maximum_height(self, height: int) -> None:
+        self.__frame.set_maximum_height(height)
+
+    @property
+    def maximum_width(self) -> int:
+        """Returns the Frame maximum width.
+
+        Pass a new integer value to update the maximum width the Frame can 
+        have.
+        """
+        return self.__frame.maximum_width()
+
+    @maximum_width.setter
+    def maximum_width(self, width: int) -> None:
+        self.__frame.set_maximum_width(width)
+
+    @property
+    def minimum_height(self) -> int:
+        """Returns the Frame minimum height.
+
+        Pass a new integer value to update the minimum height the Frame can 
+        have.
+        """
+        return self.__frame.minimum_height()
+
+    @minimum_height.setter
+    def minimum_height(self, height: int) -> None:
+        self.__frame.set_minimum_height(height)
+
+    @property
+    def minimum_width(self) -> int:
+        """Returns the Frame minimum width.
+
+        Pass a new integer value to update the minimum width the Frame can 
+        have.
+        """
+        return self.__frame.minimum_width()
+
+    @minimum_width.setter
+    def minimum_width(self, width: int) -> None:
+        self.__frame.set_minimum_width(width)
+
+    @property
+    def style(self) -> dict:
+        """Style as dict.
+
+        Get the style as a dictionary or submit a new dictionary style to 
+        update it.
+        """
+        return self.__frame.stylesheet
+    
+    @style.setter
+    def style(self, style: dict) -> None:
+        self.__frame.stylesheet = style
+
+    @property
+    def width(self) -> int:
+        """Returns the Frame width.
+
+        Pass a new integer value to update the width.
+        """
+        return self.__frame.width()
+
+    @width.setter
+    def width(self, width: int) -> int:
+        self.__frame.set_fixed_width(width)
 
     @property
     def _main_parent(self):
@@ -129,6 +219,11 @@ class Frame(object):
     def show(self) -> None:
         # Starts the main loop
         self.__frame.show()
+
+    def style_from_file(self, path: str) -> dict:
+        """..."""
+        style_file = desktopentryparse.DesktopFile(path)
+        return style_file.content
 
     def __str__(self):
         return f'<Frame: {id(self)}>'

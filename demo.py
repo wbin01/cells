@@ -15,7 +15,7 @@ class Wid(Widget):
         self.style = self.style
 
 
-class MainFrame(Frame):
+class Window(Frame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         # self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
@@ -57,11 +57,15 @@ class MainFrame(Frame):
 
         
         self.style = {
-        '[MainFrame-Border]': {
-            'border': '1px 1px 1px 1px rgba(50, 50, 100, 0.80)',
-            'border_radius': '10px 10px 10px 10px'}}
+            '[MainFrame-Border]': {
+                'border': '1px 1px 1px 1px rgba(50, 50, 100, 0.80)',
+                'border_radius': '10px 10px 10px 10px'},
+            '[Frame-Border]': {
+                'border': '1px 1px 1px 1px rgba(50, 50, 100, 0.80)',
+                'border_radius': '10px 10px 10px 10px'},
+            }
 
-        # self.style = self.style_from_file('stylerc')
+        self.style = self.style_from_file('stylerc')
 
 
     def fn_label(self):
@@ -80,7 +84,7 @@ if __name__ == '__main__':
     # s.set_window_flags(
     #     QtCore.Qt.FramelessWindowHint | QtCore.Qt.Window)
 
-    app.frame = MainFrame()
+    app.frame = Window()
     app.frame_id = [__file__, 'my_app', 'My App']
     app.icon = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 'icon.svg')
