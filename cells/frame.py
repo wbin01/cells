@@ -12,11 +12,14 @@ class Frame(object):
     That is, the main application window.
     """
     
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, main_parent = None, *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.__frame = CoreFrame()
+        self.main_parent_added = Signal()
+        self.__main_parent = main_parent
 
+        self.__frame = CoreFrame()
+        
     @property
     def _obj(self):
         """Direct access to Qt classes.
@@ -30,6 +33,20 @@ class Frame(object):
     @_obj.setter
     def _obj(self, obj: QtWidgets) -> None:
         self.__frame = obj
+
+    @property
+    def _main_parent(self):
+        """Main frame of the application.
+
+        Use only to access properties and methods of the Main Frame, defining a 
+        new frame will break the application.
+        """
+        return self.__main_parent
+    
+    @_main_parent.setter
+    def _main_parent(self, parent) -> None:
+        self.__main_parent = parent
+        self.main_parent_added.emit()
 
     def signal(self, name: str) -> Signal:
         """Event Signals.

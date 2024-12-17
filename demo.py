@@ -81,7 +81,7 @@ if __name__ == '__main__':
     # s.set_window_flags(
     #     QtCore.Qt.FramelessWindowHint | QtCore.Qt.Window)
 
-    app.frame = MainFrame()
+    app.frame = Frame()
     app.frame_id = [__file__, 'my_app', 'My App']
     app.icon = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 'icon.svg')
