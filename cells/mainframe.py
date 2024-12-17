@@ -9,6 +9,8 @@ from .event import Event
 from .icon import Icon
 from .signal import Signal
 
+from .core.modules import desktopentryparse
+
 
 class MainFrame(object):
     """Main frame.
@@ -213,7 +215,7 @@ class MainFrame(object):
         _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
         self.__frame_box.add_widget(widget)
         return widget
-    
+
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
@@ -274,6 +276,11 @@ class MainFrame(object):
     def show(self) -> None:
         """Show the frame."""
         self.__frame.show()
+
+    def style_from_file(self, path: str) -> dict:
+        """..."""
+        style_file = desktopentryparse.DesktopFile(path)
+        return style_file.content
 
     def __str__(self):
         return f'<MainFrame: {id(self)}>'

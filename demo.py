@@ -60,6 +60,8 @@ class MainFrame(MainFrame):
             'border': '1px 1px 1px 1px rgba(50, 50, 100, 0.80)',
             'border_radius': '10px 10px 10px 10px'}}
 
+        self.style = self.style_from_file('stylerc')
+
     def btn_fun(self, args):
         self.num += 1
         self.label.text = f'Button Clicked: {self.num}'
