@@ -5,6 +5,7 @@ from __feature__ import snake_case
 from .modules import colorconverter
 from .modules import StyleManager
 from .coreshadow import CoreFrameShadow
+from ..signal import Signal
 
 
 class CoreFrame(CoreFrameShadow):
@@ -12,6 +13,24 @@ class CoreFrame(CoreFrameShadow):
 
     Using style integration and shadow
     """
+    close_signal = Signal()
+    focus_in_signal = Signal()
+    focus_out_signal = Signal()
+    mouse_button_press_signal = Signal()
+    mouse_button_release_signal = Signal()
+    mouse_double_click_signal = Signal()
+    mouse_hover_enter_signal = Signal()
+    mouse_hover_leave_signal = Signal()
+    mouse_hover_move_signal = Signal()
+    mouse_right_button_press_signal = Signal()
+    mouse_wheel_signal = Signal()
+    resize_signal = Signal()
+    # state_change_signal = Signal()
+    # title_change_signal = Signal()
+
+    style_change_signal = Signal()
+    style_id_change_signal = Signal()
+
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor"""
         super().__init__(*args, **kwargs)
@@ -23,3 +42,50 @@ class CoreFrame(CoreFrameShadow):
         self.__style_manager = StyleManager()
         self.__qss_styles = self.__style_manager.stylesheet_qss()
         self.set_style_sheet(self.__qss_styles['active'])
+
+        self.set_focus_policy(QtCore.Qt.ClickFocus)
+        self.install_event_filter(self)
+
+    def event_filter(
+            self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
+        if event.type() == QtCore.QEvent.FocusIn:
+            self.focus_in_signal.emit()
+
+        elif event.type() == QtCore.QEvent.FocusOut:
+            self.focus_out_signal.emit()
+
+        elif event.type() == QtCore.QEvent.HoverMove:
+            self.mouse_hover_move_signal.emit()
+
+        elif event.type() == QtCore.QEvent.Type.HoverEnter:
+            self.mouse_hover_enter_signal.emit()
+            if self.__press:
+                self.mouse_button_release_signal.emit()
+                self.__press = False
+
+        elif event.type() == QtCore.QEvent.Type.HoverLeave:
+            self.mouse_hover_leave_signal.emit()
+
+        # elif event.type() == QtCore.QEvent.MouseButtonPress:
+        elif event.type() == QtCore.QEvent.MouseButtonRelease:
+            if 'RightButton' in event.__str__():
+                self.mouse_right_button_press_signal.emit()
+            else:
+                self.mouse_button_press_signal.emit()
+
+            self.__press = True
+            self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
+
+        elif event.type() == QtCore.QEvent.MouseButtonDblClick:
+            self.mouse_double_click_signal.emit()
+
+        elif event.type() == QtCore.QEvent.Wheel:
+            self.mouse_wheel_signal.emit()
+
+        elif event.type() == QtCore.QEvent.Resize:
+            self.resize_signal.emit()
+
+        elif event.type() == QtCore.QEvent.Close:
+            self.close_signal.emit()
+
+        return QtWidgets.QMainWindow.event_filter(self, watched, event)

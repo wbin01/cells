@@ -15,7 +15,7 @@ class Wid(Widget):
         self.style = self.style
 
 
-class MainFrame(MainFrame):
+class MainFrame(Frame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         # self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
@@ -33,7 +33,6 @@ class MainFrame(MainFrame):
 
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
-
         self.box = self.add_box(Box())
 
         self.label = self.box.add_widget(Label('hello'))
@@ -81,7 +80,7 @@ if __name__ == '__main__':
     # s.set_window_flags(
     #     QtCore.Qt.FramelessWindowHint | QtCore.Qt.Window)
 
-    app.frame = Frame()
+    app.frame = MainFrame()
     app.frame_id = [__file__, 'my_app', 'My App']
     app.icon = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 'icon.svg')
