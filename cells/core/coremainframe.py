@@ -15,6 +15,7 @@ class CoreMainFrame(CoreMainFrameShadow):
     Using style integration.
     """
     close_signal = Signal()
+    # context_menu_signal = Signal()
     focus_in_signal = Signal()
     focus_out_signal = Signal()
     mouse_button_press_signal = Signal()

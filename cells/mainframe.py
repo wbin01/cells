@@ -234,6 +234,8 @@ class MainFrame(object):
         """
         if event == Event.CLOSE:
             return self.__frame.close_signal
+        # elif event == Event.CONTEXT_MENU:
+        #     return self.__frame.context_menu_signal
         elif event == Event.DRAG:
             return self.__frame.drag_signal
         elif event == Event.DROP:

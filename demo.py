@@ -15,12 +15,12 @@ class Wid(Widget):
         self.style = self.style
 
 
-class Window(Frame):
+class Window(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         # self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
 
-        # self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.xxx)
+        self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
 
         # self.event_signal(Event.TITLE_CHANGE).connect(
         #     lambda: print('TITLE_CHANGE'))
@@ -33,13 +33,6 @@ class Window(Frame):
 
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
-        # self.width = 500
-        # self.height = 500
-        # self.minimum_width = 500
-        # self.minimum_height = 500
-        # self.maximum_width = 500
-        # self.maximum_height = 500
-
         self.box = self.add_box(Box())
 
         self.label = self.box.add_widget(Label('hello'))
@@ -74,10 +67,18 @@ class Window(Frame):
 
         self.style = self.style_from_file('stylerc')
 
+        self.ctx_menu = Frame()
+        self.cursor = Cursor()
+
 
     def fn_label(self):
         self.label_count += 1
         self.label.text = f'Clicked: {self.label_count}'
+
+    def ctx(self, event = None):
+        self.ctx_menu.flags = ['popup']
+        self.ctx_menu.show()
+        self.ctx_menu.move(self.cursor.x(), self.cursor.y())
 
 
 if __name__ == '__main__':

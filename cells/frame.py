@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from PySide6 import QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets
 from __feature__ import snake_case
 
 from .box import Box
@@ -21,13 +21,31 @@ class Frame(object):
         super().__init__(*args, **kwargs)
         self.main_parent_added = Signal()
         self.__main_parent = main_parent
+        self.__frame_flags = []
 
         self.__frame = CoreFrame()
+        # self.__frame.set_window_flags(QtCore.Qt.Popup)
 
         self.__frame_box = Box()
         self.__frame_box._main_parent = self
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
 
+    @property
+    def flags(self) -> list:
+        """..."""
+        return self.__frame_flags
+
+    @flags.setter
+    def flags(self, flags: list) -> None:
+        """..."""
+        # test
+        for flag in flags:
+            if flag in ['popup', 'example'] and flag not in self.__frame_flags:
+                self.__frame_flags.append(flag)
+                if flag == 'popup':
+                    flag = QtCore.Qt.Popup
+                self.__frame.set_window_flags(flag)
+    
     @property
     def height(self) -> int:
         """Returns the height of the Frame.
@@ -216,6 +234,15 @@ class Frame(object):
             return self.__frame.style_id_change_signal
         else:
             return Signal(Event.NONE)
+
+    def move(self, x: int, y: int) -> None:
+        """..."""
+        # cc = QtGui.QCursor()
+        # cc.pos()
+        # eve=QtGui.QContextMenuEvent(QtGui.QContextMenuEvent.Mouse, cc.pos())
+        # pos = self.__frame.map_to_global(event.pos())
+        # self.__frame.move(pos.x(), pos.y())
+        self.__frame.move(x, y)
 
     def show(self) -> None:
         # Starts the main loop

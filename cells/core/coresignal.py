@@ -19,7 +19,7 @@ class CoreSignal(QtCore.QObject):
             Use when you need to pass and retrieve a value.
         """
         super().__init__(*args, **kwargs)
-        self._qt_class = self.__signal
+        self._obj = self.__signal
 
         self.__value = value
 

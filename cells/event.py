@@ -6,6 +6,7 @@ class Event(Enum):
     """Event enumeration"""
     NONE = 'NONE'
     CLOSE = 'CLOSE'
+    # CONTEXT_MENU = 'CONTEXT_MENU'
     DRAG = 'DRAG'
     DROP = 'DROP'
     FOCUS_IN = 'FOCUS_IN'
