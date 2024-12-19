@@ -4,7 +4,7 @@ import sys
 import pprint
 
 from cells import (
-    Application, MainFrame, Frame, Signal, Event, Cursor, Box, Label, Button, Widget)
+    Application, MainFrame, Flag, Frame, Signal, Event, Cursor, Box, Label, Button, Widget)
 
 
 class Wid(Widget):
@@ -76,9 +76,9 @@ class Window(MainFrame):
         self.label.text = f'Clicked: {self.label_count}'
 
     def ctx(self, event = None):
-        self.ctx_menu.flags = ['popup']
+        self.ctx_menu.flags = [Flag.POPUP]
         self.ctx_menu.show()
-        self.ctx_menu.move(self.cursor.x(), self.cursor.y())
+        self.ctx_menu.move(self.cursor.x() - 5, self.cursor.y() - 5)
 
 
 if __name__ == '__main__':

@@ -19,14 +19,26 @@ class MainFrame(object):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
+        self.__frame_flags = []
         self.__frame = CoreMainFrame()
-
         self.__frame_box = Box()
         self.__frame_box._main_parent = self
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
-        
         self.__icon = None
         self.__icon_path = None
+
+    @property
+    def flags(self) -> list:
+        """..."""
+        return self.__frame_flags
+
+    @flags.setter
+    def flags(self, flags: list) -> None:
+        """..."""
+        for flag in flags:
+            if flag not in self.__frame_flags:
+                self.__frame_flags.append(flag)
+                self.__frame.set_window_flags(flag.value)
 
     @property
     def height(self) -> int:

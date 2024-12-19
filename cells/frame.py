@@ -6,6 +6,7 @@ from .box import Box
 from .core import CoreFrame
 from .core.modules import desktopentryparse
 from .event import Event
+from .flag import Flag
 from .signal import Signal
 from .widget import Widget
 
@@ -20,12 +21,9 @@ class Frame(object):
         """Class constructor."""
         super().__init__(*args, **kwargs)
         self.main_parent_added = Signal()
-        self.__main_parent = main_parent
         self.__frame_flags = []
-
+        self.__main_parent = main_parent
         self.__frame = CoreFrame()
-        # self.__frame.set_window_flags(QtCore.Qt.Popup)
-
         self.__frame_box = Box()
         self.__frame_box._main_parent = self
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
@@ -38,13 +36,10 @@ class Frame(object):
     @flags.setter
     def flags(self, flags: list) -> None:
         """..."""
-        # test
         for flag in flags:
-            if flag in ['popup', 'example'] and flag not in self.__frame_flags:
+            if flag not in self.__frame_flags:
                 self.__frame_flags.append(flag)
-                if flag == 'popup':
-                    flag = QtCore.Qt.Popup
-                self.__frame.set_window_flags(flag)
+                self.__frame.set_window_flags(flag.value)
     
     @property
     def height(self) -> int:
