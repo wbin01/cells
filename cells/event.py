@@ -3,7 +3,7 @@ from enum import Enum
 
 
 class Event(Enum):
-    """Event enumeration"""
+    """Event enumeration."""
     NONE = 'NONE'
     CLOSE = 'CLOSE'
     # CONTEXT_MENU = 'CONTEXT_MENU'

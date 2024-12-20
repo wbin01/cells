@@ -7,10 +7,10 @@ from __feature__ import snake_case
 
 
 class CoreShadow(QtWidgets.QFrame):
-    """Specific part of a frame's shadow"""
+    """Specific part of a frame's shadow."""
     
     def __init__(self, position: str, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.set_object_name('toplevelwindowshadow')
         self.__shadow_color = 'rgba(0, 0, 0, 20)'
@@ -99,7 +99,7 @@ class CoreShadow(QtWidgets.QFrame):
                 '}')
 
     def hide_shadow(self, hide: bool) -> None:
-        """Hides or displays this shadow"""
+        """Hides or displays this shadow."""
         if hide:
             self.set_style_sheet(
                 '#toplevelwindowshadow {'
@@ -114,12 +114,12 @@ class CoreShadow(QtWidgets.QFrame):
 
 
 class CoreFrameShadow(QtWidgets.QFrame):
-    """Frame with shadow
+    """Frame with shadow.
 
-    Only frame without integration
+    Only frame without integration.
     """
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.set_attribute(QtCore.Qt.WA_TranslucentBackground)
         self.set_window_flags(QtCore.Qt.FramelessWindowHint)
@@ -216,18 +216,18 @@ class CoreFrameShadow(QtWidgets.QFrame):
         self.__bottom_box.add_widget(self.__bottom_right_shadow)
 
     def central_widget(self) -> QtWidgets:
-        """Central widget
+        """Central widget.
         
-        First widget. Is the frame body
+        First widget. Is the frame body.
         """
         return self.__central_widget
 
     def is_shadow_visible(self) -> bool:
-        """If the shadow is visible"""
+        """If the shadow is visible."""
         return self.__is_shadow_has_added
 
     def hide_shadow(self, hide: bool) -> None:
-        """Hides or displays the frame shadow"""
+        """Hides or displays the frame shadow."""
         if hide:
             self.__center_shadow.hide_shadow(True)
 
@@ -266,12 +266,12 @@ class CoreFrameShadow(QtWidgets.QFrame):
 
 
 class CoreMainFrameShadow(QtWidgets.QMainWindow):
-    """Frame with shadow
+    """Frame with shadow.
 
-    Only frame without integration
+    Only frame without integration.
     """
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.set_attribute(QtCore.Qt.WA_TranslucentBackground)
         self.set_contents_margins(0, 0, 0, 0)
@@ -374,18 +374,18 @@ class CoreMainFrameShadow(QtWidgets.QMainWindow):
         self.__bottom_box.add_widget(self.__bottom_right_shadow)
 
     def central_widget(self) -> QtWidgets:
-        """Central widget
+        """Central widget.
         
-        First widget. Is the frame body
+        First widget. Is the frame body.
         """
         return self.__central_widget
 
     def is_shadow_visible(self) -> bool:
-        """If the shadow is visible"""
+        """If the shadow is visible."""
         return self.__is_shadow_has_added
 
     def hide_shadow(self, hide: bool) -> None:
-        """Hides or displays the frame shadow"""
+        """Hides or displays the frame shadow."""
         if hide:
             self.__center_shadow.hide_shadow(True)
 

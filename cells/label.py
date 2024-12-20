@@ -6,7 +6,7 @@ from .widget import Widget
 
 
 class Label(Widget):
-    """Label Widget Widget."""
+    """Label Widget."""
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)

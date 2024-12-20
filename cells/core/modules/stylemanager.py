@@ -7,10 +7,10 @@ from . import stylemanagerparser as style_parser
 
 
 class StyleManager(object):
-    """Frame style manager"""
+    """Frame style manager."""
 
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.__path = pathlib.Path(__file__).resolve().parent
         self.__url = os.path.join(self.__path, 'static', 'stylerc')
@@ -21,10 +21,10 @@ class StyleManager(object):
 
     @property
     def stylesheet(self) -> dict:
-        """Style as dict
+        """Style as dict.
 
         Get the style as a dictionary or submit a new dictionary style to 
-        update it
+        update it.
         """
         if not self.__dict_style:
             self.__style_file = DesktopFile(self.__url)
@@ -43,7 +43,7 @@ class StyleManager(object):
                 inactive=True, fullscreen=True)}
 
     def stylesheet_qss(self) -> dict:
-        """..."""
+        """Style as qss."""
         if not self.__dict_style:
             self.__style_file = DesktopFile(self.__url)
             self.stylesheet = self.__style_file.content
@@ -54,6 +54,12 @@ class StyleManager(object):
             self, style: dict = None,
             inactive: bool = False,
             fullscreen: bool = False) -> str:
+        """Convert dict style to qss style string.
+        
+        :param style: dict style. Default is auto.
+        :param inactive: True if want inactive style. Default is False.
+        :param fullscreen:  True if want fullscreen style. Default is False.
+        """
 
         if not self.__dict_style:
             self.__style_file = DesktopFile(self.__url)
@@ -87,7 +93,8 @@ class StyleManager(object):
                 padding = style[group_key]['padding']
 
             border = style_parser.border_str_to_list(border)
-            border_radius = style_parser.border_radius_str_to_list(border_radius)
+            border_radius = style_parser.border_radius_str_to_list(
+                border_radius)
             margin = style_parser.margin_padding_str_to_list(margin)
             padding = style_parser.margin_padding_str_to_list(padding)
 

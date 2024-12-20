@@ -29,12 +29,17 @@ class MainFrame(object):
 
     @property
     def flags(self) -> list:
-        """..."""
+        """Frame flags.
+
+        They are used to configure the native behavior of the window.
+        For example, the POPUP flag configures that the frame can appear on 
+        the indicated position on the X and Y axes, and also that the Frame 
+        closes by itself.
+        """
         return self.__frame_flags
 
     @flags.setter
     def flags(self, flags: list) -> None:
-        """..."""
         for flag in flags:
             if flag not in self.__frame_flags:
                 self.__frame_flags.append(flag)
@@ -215,7 +220,7 @@ class MainFrame(object):
         self.__frame = obj
 
     def add_box(self, box: Box = None, horizontal: bool = False) -> Box:
-        """Add a Box inside this Frame"""
+        """Add a Box inside this Frame."""
         if not box:
             box = Box(horizontal)
 
@@ -225,8 +230,9 @@ class MainFrame(object):
         return box
 
     def add_widget(self, widget: Widget) -> Widget:
-        """..."""
-        _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
+        """Add a Widget inside this Frame."""
+        _, widget = setattr(self, str(widget), widget), getattr(
+            self, str(widget))
         widget._main_parent = self
         self.__frame_box.add_widget(widget)
         return widget
@@ -295,7 +301,7 @@ class MainFrame(object):
         self.__frame.show()
 
     def style_from_file(self, path: str) -> dict:
-        """..."""
+        """Convert the contents of a file into a valid dictionary style."""
         style_file = desktopentryparse.DesktopFile(path)
         return style_file.content
 

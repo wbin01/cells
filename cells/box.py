@@ -17,7 +17,8 @@ class Box(Box):
     def __init__(self, horizontal: bool = False, *args, **kwargs) -> None:
         """Class constructor.
 
-        By default the Box orientation is vertical. Use the horizontal parameter to change it.
+        By default the Box orientation is vertical. Use the horizontal 
+        parameter to change it.
 
         :param horizontal: Changes the orientation of the Box to horizontal
         """

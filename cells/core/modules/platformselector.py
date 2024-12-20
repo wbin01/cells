@@ -4,10 +4,10 @@ import platform
 
 
 class PlatformSelector(object):
-    """..."""
+    """Platform Selector."""
 
     def __init__(self):
-        """..."""
+        """Class constructor."""
         # linux bsd mac windows unknown
         self.__operational_system = self.__os()
 
@@ -17,7 +17,7 @@ class PlatformSelector(object):
 
     @property
     def desktop_environment(self) -> str:
-        """Desktop environment name"""
+        """Desktop environment name."""
         return self.__desktop_environment
 
     @desktop_environment.setter
@@ -26,7 +26,7 @@ class PlatformSelector(object):
 
     @property
     def operational_system(self) -> str:
-        """Operational system name"""
+        """Operational system name."""
         return self.__operational_system
 
     @operational_system.setter

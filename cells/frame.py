@@ -169,7 +169,8 @@ class Frame(object):
     def add_widget(self, widget: Widget) -> Widget:
         """..."""
         widget._main_parent = self
-        _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
+        _, widget = setattr(self, str(widget), widget), getattr(
+            self, str(widget))
         self.__frame_box.add_widget(widget)
         return widget
 

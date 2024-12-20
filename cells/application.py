@@ -8,12 +8,12 @@ from .core import ApplicationManager
 
 
 class Application(object):
-    """Application manager
+    """Application manager.
 
     Configures parameters and events external to the application.
     """
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         self.__args = args[0]
         self.__application = QtWidgets.QApplication(self.__args)
         self.__frame = None
@@ -23,7 +23,7 @@ class Application(object):
 
     @property
     def frame(self) -> QtWidgets:
-        """Application frame
+        """Application frame.
         
         That is, the main application window.
         """
@@ -35,7 +35,7 @@ class Application(object):
 
     @property
     def icon(self) -> str:
-        """Frame icon path string
+        """Frame icon path string.
 
         Application Icon.
         """
@@ -51,7 +51,7 @@ class Application(object):
 
     @property
     def frame_id(self) -> list:
-        """Frame identity list
+        """Frame identity list.
 
         List containing app identity information.
         The first item is the main file, __file__, followed by an ID
@@ -73,7 +73,7 @@ class Application(object):
         self.__application.set_desktop_file_name(self.__devel.wm_class)
     
     def exec(self) -> None:
-        """Runs and displays the application
+        """Runs and displays the application.
 
         Starts the main loop and renders frames.
         """

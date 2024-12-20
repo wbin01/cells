@@ -1,6 +1,6 @@
 from .application import Application
 from .box import Box
-from .button import Button
+# from .button import Button
 from .cursor import Cursor
 from .event import Event
 from .flag import Flag

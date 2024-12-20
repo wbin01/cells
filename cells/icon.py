@@ -4,7 +4,7 @@ from __feature__ import snake_case
 
 
 class Icon(object):
-    """Mouse cursor position."""
+    """Icon."""
     def __init__(self, path: str = None) -> None:
         """Class constructor."""
         self.__icon = QtGui.QIcon(path)

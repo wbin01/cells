@@ -52,7 +52,10 @@ class Widget(Widget):
 
     @property
     def margin(self) -> tuple:
-        """..."""
+        """Utility to set widget margins using a simple int tuple.
+
+        Will affect all widget states, such as pressed, hover and inactive.
+        """
         m = self.style[f'[{self.style_id}]']['margin'].replace(
             'px', '').split()
         return int(m[0]), int(m[1]), int(m[2]), int(m[3])
@@ -72,7 +75,7 @@ class Widget(Widget):
 
     @property
     def style(self) -> str:
-        """Style
+        """Style as dict.
 
         The style is accessed from the main frame (`MainFrame`), so the main 
         frame property (`self.my_widget._main_parent`) needs to be set first. 
@@ -102,8 +105,8 @@ class Widget(Widget):
     def style_id(self) -> str:
         """Style ID.
 
-        An ID allows you to define a unique style that does not distort parent 
-        objects of the same type that inherit from the class.
+        An ID allows you to define a unique style that does not distort 
+        parent objects of the same type that inherit from the class.
 
         Send a string with a unique ID to set the style for this Widget only.
         """
@@ -121,8 +124,8 @@ class Widget(Widget):
     def _main_parent(self):
         """Main frame of the application.
 
-        Use only to access properties and methods of the Main Frame, defining a 
-        new frame will break the application.
+        Use only to access properties and methods of the Main Frame, defining 
+        a new frame will break the application.
         """
         return self.__main_parent
     
@@ -146,7 +149,7 @@ class Widget(Widget):
         self.__widget = obj
 
     def add_box(self, box = None, horizontal: bool = False):
-        """Add a Box inside this Widget"""
+        """Add a Box inside this Widget."""
         if not box:
             box = Box(horizontal)
 
@@ -156,8 +159,9 @@ class Widget(Widget):
         return box
 
     def add_widget(self, widget: Widget) -> Widget:
-        """Add a new Widget inside this Widget"""
-        _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
+        """Add a new Widget inside this Widget."""
+        _, widget = setattr(self, str(widget), widget), getattr(
+            self, str(widget))
         widget.main_parent = self._main_parent
         self.__box.add_widget(widget._obj)
         return widget
@@ -165,18 +169,18 @@ class Widget(Widget):
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
-        Signals are connections to events. When an event such as a mouse click 
-        or other event occurs, a signal is sent. The signal can be assigned a 
-        function to be executed when the signal is sent.
+        Signals are connections to events. When an event such as a mouse 
+        click or other event occurs, a signal is sent. The signal can be 
+        assigned a function to be executed when the signal is sent.
 
         :param event:
             Event enumeration (Enum) corresponding to the requested event, 
             such as Event.HOVER_ENTER . All possible names are:
             
-            NONE, MOUSE_BUTTON_PRESS, MOUSE_BUTTON_RELEASE, MOUSE_DOUBLE_CLICK, 
-            MOUSE_HOVER_ENTER, MOUSE_HOVER_LEAVE, MOUSE_HOVER_MOVE, 
-            MOUSE_RIGHT_BUTTON_PRESS, MOUSE_WHEEL, RESIZE, STYLE_CHANGE,
-            STYLE_ID_CHANGE.
+            NONE, MOUSE_BUTTON_PRESS, MOUSE_BUTTON_RELEASE, 
+            MOUSE_DOUBLE_CLICK, MOUSE_HOVER_ENTER, MOUSE_HOVER_LEAVE, 
+            MOUSE_HOVER_MOVE, MOUSE_RIGHT_BUTTON_PRESS, MOUSE_WHEEL, RESIZE, 
+            STYLE_CHANGE, STYLE_ID_CHANGE.
         """
         if event == Event.MOUSE_BUTTON_PRESS:
             return self.__widget.mouse_button_press_signal
@@ -230,8 +234,10 @@ class Widget(Widget):
             self._obj.set_style_sheet(self.__normal_style)
 
     def __main_added(self) -> None:
-        self.__main_parent.event_signal(Event.FOCUS_IN).connect(self.__focus_in)
-        self.__main_parent.event_signal(Event.FOCUS_OUT).connect(self.__focus_out)
+        self.__main_parent.event_signal(Event.FOCUS_IN).connect(
+            self.__focus_in)
+        self.__main_parent.event_signal(Event.FOCUS_OUT).connect(
+            self.__focus_out)
         self.__main_parent.event_signal(Event.STYLE_CHANGE).connect(
             self.__update_style)
 
@@ -254,7 +260,8 @@ class Widget(Widget):
         if not self._is_inactive:
             self._obj.set_style_sheet(self.__hover_style)
 
-    def __styles(self, style: dict, updated_id: str, inherited_id: str) -> None:
+    def __styles(
+            self, style: dict, updated_id: str, inherited_id: str) -> None:
         self.__style = {
             f'[{updated_id}]': style[f'[{inherited_id}]'],
             f'[{updated_id}:inactive]': style[f'[{inherited_id}:inactive]'],
@@ -264,7 +271,8 @@ class Widget(Widget):
         self.__normal_style = self.__qss_piece(self.__style)
         self.__hover_style = self.__qss_piece(self.__style, ':hover')
         self.__pressed_style = self.__qss_piece(self.__style, ':pressed')
-        self.__inactive_style = self.__qss_piece(self.__style, ':inactive', True)
+        self.__inactive_style = self.__qss_piece(
+            self.__style, ':inactive', True)
 
         if self._main_parent:
             self._main_parent.style.update(self.__style)

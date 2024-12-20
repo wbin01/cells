@@ -7,13 +7,13 @@ from .platformselector import PlatformSelector
 
 
 class ApplicationManager(object):
-    """Dev mode integration
+    """Dev mode integration.
 
-    Temporary integration with the platform when in development mode
+    Temporary integration with the platform when in development mode.
     """
 
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         self.__args = args[0][0]
         self.__path = os.path.dirname(os.path.abspath(__file__))
 
@@ -34,14 +34,14 @@ class ApplicationManager(object):
 
     @property
     def frame_id(self) -> list:
-        """Frame identity list
+        """Frame identity list.
 
         List containing app identity information.
-        The first item is the main file, __file__, followed by an ID
+        The first item is the main file, __file__, followed by an ID.
         Example:
             [__file__, 'app_id', 'App Name']
 
-        When set the list, all items are optional, but the order is mandatory
+        When set the list, all items are optional, but the order is mandatory.
         """
         return self.__frame_id
 
@@ -50,7 +50,8 @@ class ApplicationManager(object):
         # General
         self.__frame_id = frame_id
         self.__filename_ext = '.' + frame_id[0].split('/')[-1].split('.')[-1]
-        self.__filename = frame_id[0].split('/')[-1].rstrip(self.__filename_ext)
+        self.__filename = frame_id[0].split('/')[-1].rstrip(
+            self.__filename_ext)
         self.__wm_class = self.__filename if len(frame_id) < 2 else frame_id[1]
         self.__app_name = self.__wm_class if len(frame_id) < 3 else frame_id[2]
         self.__work_dir = os.path.dirname(frame_id[0])
@@ -68,27 +69,23 @@ class ApplicationManager(object):
 
     @property
     def icon(self) -> str:
-        """Frame icon path string
+        """Frame icon path string.
 
-        Application Icon
+        Application Icon.
         """
         return self.__icon
 
     @icon.setter
     def icon(self, path: str) -> None:
-        """Frame icon path string
-
-        Application Icon
-        """
         self.__icon = path
         if self.__platform.operational_system == 'linux' and self.__frame_id:
             self.__linux_wayland_tmp_desktop_for_icon()
 
     @property
     def wm_class(self) -> str:
-        """Window Manager Class
+        """Window Manager Class.
 
-        Application ID
+        Application ID.
         """
         return self.__wm_class
 
@@ -141,6 +138,10 @@ class ApplicationManager(object):
                 sys.exit(-1)
 
     def deploy(self) -> None:
+        """Creates a distributable executable.
+
+        Platform dependent.
+        """
         if not self.__frame_id or not self.__icon:
             print(
                 '\n | First set the "\033[0;34mframe_id\033[0m" and '

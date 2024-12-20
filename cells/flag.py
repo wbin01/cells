@@ -6,7 +6,7 @@ from __feature__ import snake_case
 
 
 class Flag(Enum):
-    """Flag enumeration"""
+    """Flag enumeration."""
     POPUP = QtCore.Qt.Popup
 
     def __str__(self):

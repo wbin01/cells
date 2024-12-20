@@ -4,7 +4,8 @@ import sys
 import pprint
 
 from cells import (
-    Application, MainFrame, Flag, Frame, Signal, Event, Cursor, Box, Label, Button, Widget)
+    Application, MainFrame, Flag, Frame, Signal, Event, Cursor, Box, Label,
+    Widget)
 
 
 class Wid(Widget):

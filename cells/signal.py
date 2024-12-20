@@ -3,7 +3,9 @@ from .core.coresignal import CoreSignal
 
 
 class Signal(object):
+    """Signal object."""
     def __init__(self):
+        """Class constructor."""
         self.__signal = CoreSignal()
 
     @property

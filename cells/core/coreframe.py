@@ -9,9 +9,9 @@ from ..signal import Signal
 
 
 class CoreFrame(CoreFrameShadow):
-    """Complete Frame
+    """Complete Frame.
 
-    Using style integration and shadow
+    Using style integration and shadow.
     """
     close_signal = Signal()
     focus_in_signal = Signal()
@@ -32,7 +32,7 @@ class CoreFrame(CoreFrameShadow):
     style_id_change_signal = Signal()
 
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.__is_dark = colorconverter.is_dark(
             QtGui.QPalette().color(QtGui.QPalette.Window).to_tuple())

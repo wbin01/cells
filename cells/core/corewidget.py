@@ -6,9 +6,9 @@ from ..signal import Signal
 
 
 class CoreWidget(QtWidgets.QFrame):
-    """Core Widget"""
+    """Core Widget."""
     def __init__(self, *args, **kwargs):
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.mouse_button_press_signal = Signal()
         self.mouse_button_release_signal = Signal()
@@ -17,7 +17,6 @@ class CoreWidget(QtWidgets.QFrame):
         self.mouse_hover_leave_signal = Signal()
         self.mouse_hover_move_signal = Signal()
 
-        # TODO
         self.mouse_right_button_press_signal = Signal()
         self.mouse_wheel_signal = Signal()
         self.resize_signal = Signal()
@@ -43,9 +42,9 @@ class CoreWidget(QtWidgets.QFrame):
 
 
 class CoreBaseWidget(QtWidgets.QWidget):
-    """Core Widget"""
+    """Core Widget."""
     def __init__(self, *args, **kwargs):
-        """Class constructor"""
+        """Class constructor."""
         super().__init__(*args, **kwargs)
         self.mouse_button_press_signal = Signal()
         self.mouse_button_release_signal = Signal()
@@ -54,7 +53,6 @@ class CoreBaseWidget(QtWidgets.QWidget):
         self.mouse_hover_leave_signal = Signal()
         self.mouse_hover_move_signal = Signal()
 
-        # TODO
         self.mouse_right_button_press_signal = Signal()
         self.mouse_wheel_signal = Signal()
         self.resize_signal = Signal()
