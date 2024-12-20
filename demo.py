@@ -33,12 +33,12 @@ class Window(MainFrame):
 
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
-        self.box = self.add_box(Box())
+        self.box = self.add_box()
         self.label = self.box.add_widget(Label('hello'))
         self.label_count = 0
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
 
-        self.new_box = self.box.add_box(Box())
+        self.new_box = self.box.add_box()
 
         self.wid = self.new_box.add_widget(Wid())
         # print(self.wid.margin)

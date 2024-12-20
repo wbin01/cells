@@ -64,7 +64,7 @@ class Widget(Widget):
                 logging.error(
                     'The values of the "margin" tuple must be of type "int".')
                 return
-        
+
         for key in self.style.keys():
             self.style[key]['margin'
                 ] = f'{margin[0]}px {margin[1]}px {margin[2]}px {margin[3]}px'
@@ -145,8 +145,11 @@ class Widget(Widget):
     def _obj(self, obj: QtWidgets) -> None:
         self.__widget = obj
 
-    def add_box(self, box):
+    def add_box(self, box = None, horizontal: bool = False):
         """Add a Box inside this Widget"""
+        if not box:
+            box = Box(horizontal)
+
         _, box = setattr(self, str(box), box), getattr(self, str(box))
         box._main_parent = self._main_parent
         self.__box.add_layout(box._obj)

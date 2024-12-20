@@ -57,8 +57,11 @@ class Box(Box):
     def _obj(self, obj: QtWidgets) -> None:
         self.__box = obj
 
-    def add_box(self, box: Box) -> Box:
+    def add_box(self, box: Box = None, horizontal: bool = False) -> Box:
         """Add a new Box inside this Box"""
+        if not box:
+            box = Box(horizontal)
+
         _, box = setattr(self, str(box), box), getattr(self, str(box))
         box._main_parent = self.__main_parent
         self.__box.add_layout(box._obj)

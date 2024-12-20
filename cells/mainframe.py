@@ -214,8 +214,11 @@ class MainFrame(object):
     def _obj(self, obj: QtWidgets) -> None:
         self.__frame = obj
 
-    def add_box(self, box: Box) -> Box:
-        """..."""
+    def add_box(self, box: Box = None, horizontal: bool = False) -> Box:
+        """Add a Box inside this Frame"""
+        if not box:
+            box = Box(horizontal)
+
         _, box = setattr(self, str(box), box), getattr(self, str(box))
         box._main_parent = self
         self.__frame_box.add_box(box)
