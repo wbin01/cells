@@ -21,8 +21,46 @@ class CoreWidget(QtWidgets.QFrame):
         self.mouse_right_button_press_signal = Signal()
         self.mouse_wheel_signal = Signal()
         self.resize_signal = Signal()
+        self.set_object_name('Widget')
+
+    def mouse_press_event(self, e):
+        self.mouse_button_press_signal.emit()
+
+    def mouse_release_event(self, e):
+        self.mouse_button_release_signal.emit()
+
+    def mouse_double_click_event(self, e):
+        self.mouse_double_click_signal.emit()
+
+    def enter_event(self, e):
+        self.mouse_hover_enter_signal.emit()
+
+    def leave_event(self, e):
+        self.mouse_hover_leave_signal.emit()
+
+    def mouse_move_event(self, e):
+        self.mouse_hover_move_signal.emit()
+
+
+class CoreBaseWidget(QtWidgets.QWidget):
+    """Core Widget"""
+    def __init__(self, *args, **kwargs):
+        """Class constructor"""
+        super().__init__(*args, **kwargs)
+        self.mouse_button_press_signal = Signal()
+        self.mouse_button_release_signal = Signal()
+        self.mouse_double_click_signal = Signal()
+        self.mouse_hover_enter_signal = Signal()
+        self.mouse_hover_leave_signal = Signal()
+        self.mouse_hover_move_signal = Signal()
+
+        # TODO
+        self.mouse_right_button_press_signal = Signal()
+        self.mouse_wheel_signal = Signal()
+        self.resize_signal = Signal()
 
         self.set_object_name('Widget')
+        self.__wid = CoreFrame()
 
     def mouse_press_event(self, e):
         self.mouse_button_press_signal.emit()

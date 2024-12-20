@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import logging
+
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
@@ -47,6 +49,25 @@ class Widget(Widget):
         self.event_signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
         self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
         self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+
+    @property
+    def margin(self) -> tuple:
+        """..."""
+        m = self.style[f'[{self.style_id}]']['margin'].replace(
+            'px', '').split()
+        return int(m[0]), int(m[1]), int(m[2]), int(m[3])
+    
+    @margin.setter
+    def margin(self, margin: tuple) -> None:
+        for item in margin:
+            if not isinstance(item, int):
+                logging.error(
+                    'The values of the "margin" tuple must be of type "int".')
+                return
+
+        self.style[f'[{self.style_id}]']['margin'
+            ] = f'{margin[0]}px {margin[1]}px {margin[2]}px {margin[3]}px'
+        self.style = self.style
 
     @property
     def style(self) -> str:

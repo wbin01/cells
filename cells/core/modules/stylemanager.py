@@ -95,6 +95,7 @@ class StyleManager(object):
                     int(border_radius[1]) -1,
                     int(border_radius[2]) -1,
                     int(border_radius[3]) -1]
+                margin = [0, 0, 0, 0]
 
             if fullscreen and group_key.startswith('[MainFrame'):
                 border = ['0', '0', '0', '0', 'rgba(0, 0, 0, 0.00)']
@@ -118,7 +119,7 @@ class StyleManager(object):
                     f'  border-bottom-right-radius: {border_radius[2]}px;\n')
             if 'color' in style[group_key]:
                 qss += f'  color: {color};\n'
-            if 'margin' in style[group_key]:
+            if 'margin' in style[group_key] or 'Frame' in group_key:
                 qss += (
                     f'  margin-top: {margin[0]}px;\n'
                     f'  margin-right: {margin[1]}px;\n'

@@ -51,31 +51,19 @@ class Window(MainFrame):
 
         self.w.style['[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
         self.w.style = self.w.style
-
-        self.widg = self.box.add_widget(Widget())
-        self.widg.style['[Widget]']['background'], self.widg.style = 'rgba(200, 0, 0, 0.30)', self.widg.style
-
-        
-        self.style = {
-            '[MainFrame-Border]': {
-                'border': '1px 1px 1px 1px rgba(50, 50, 100, 0.80)',
-                'border_radius': '10px 10px 10px 10px'},
-            '[Frame-Border]': {
-                'border': '1px 1px 1px 1px rgba(50, 50, 100, 0.80)',
-                'border_radius': '10px 10px 10px 10px'},
-            }
-
-        self.style = self.style_from_file('stylerc')
+        print(self.w.margin)
+        self.w.margin = 30, 15, 15, 15
+        print(self.w.margin)
+        pprint.pprint(self.w.style)
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
-
 
     def fn_label(self):
         self.label_count += 1
         self.label.text = f'Clicked: {self.label_count}'
 
-    def ctx(self, event = None):
+    def ctx(self):
         self.ctx_menu.flags = [Flag.POPUP]
         self.ctx_menu.show()
         self.ctx_menu.move(self.cursor.x() - 5, self.cursor.y() - 5)
