@@ -60,6 +60,8 @@ class StyleManager(object):
             self.__dict_style = self.__style_file.content
 
         style = self.__dict_style if not style else style
+        # style = self.__expand_style(style)
+
         qss = ''
         for group_key in style.keys():
             if ':inactive]' in group_key and not inactive:
@@ -134,6 +136,41 @@ class StyleManager(object):
             qss += '}\n'
 
         return qss
+
+    @staticmethod
+    def __expand_style(style: dict) -> dict:
+        for main_key in style.keys():
+            if ':' not in main_key:
+
+                for key in style.keys():
+                    if key != main_key and key.startswith(main_key[:-1]):
+
+                        if ('background' not in style[key] and
+                            'background' in style[main_key]):
+                            style[key]['background'] = style[
+                                main_key]['background']
+
+                        if ('border_radius' not in style[key] and
+                            'border_radius' in style[main_key]):
+                            style[key]['border_radius'] = style[
+                                main_key]['border_radius']
+
+                        if ('border' not in style[key] and
+                            'border' in style[main_key]):
+                            style[key]['border'] = style[main_key]['border']
+
+                        if ('color' not in style[key] and
+                            'color' in style[main_key]):
+                            style[key]['color'] = style[main_key]['color']
+
+                        if ('margin' not in style[key] and
+                            'margin' in style[main_key]):
+                            style[key]['margin'] = style[main_key]['margin']
+
+                        if ('padding' not in style[key] and
+                            'padding' in style[main_key]):
+                            style[key]['padding'] = style[main_key]['padding']
+        return style
 
 
 if __name__ == '__main__':

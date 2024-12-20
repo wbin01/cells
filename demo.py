@@ -34,12 +34,17 @@ class Window(MainFrame):
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
         self.box = self.add_box(Box())
-
         self.label = self.box.add_widget(Label('hello'))
         self.label_count = 0
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
 
-        self.wid = self.box.add_widget(Wid())
+        self.new_box = self.box.add_box(Box())
+
+        self.wid = self.new_box.add_widget(Wid())
+        # print(self.wid.margin)
+        self.wid.margin = 30, 15, 15, 15
+        # print(self.wid.margin)
+        pprint.pprint(self.wid.style)
 
         self.w = None
         for n in range(5):
@@ -51,10 +56,6 @@ class Window(MainFrame):
 
         self.w.style['[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
         self.w.style = self.w.style
-        print(self.w.margin)
-        self.w.margin = 30, 15, 15, 15
-        print(self.w.margin)
-        pprint.pprint(self.w.style)
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()

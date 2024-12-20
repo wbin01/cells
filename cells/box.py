@@ -59,15 +59,15 @@ class Box(Box):
 
     def add_box(self, box: Box) -> Box:
         """Add a new Box inside this Box"""
-        box.main_parent = self.__main_parent
         _, box = setattr(self, str(box), box), getattr(self, str(box))
+        box._main_parent = self.__main_parent
         self.__box.add_layout(box._obj)
         return box
 
     def add_widget(self, widget: Widget) -> Widget:
         """Add a Widget inside this Box"""
-        widget._main_parent = self.__main_parent
         _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
+        widget._main_parent = self.__main_parent
         self.__box.add_widget(widget._obj)
 
         # if self._main_parent:

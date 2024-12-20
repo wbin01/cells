@@ -216,15 +216,15 @@ class MainFrame(object):
 
     def add_box(self, box: Box) -> Box:
         """..."""
-        box._main_parent = self
         _, box = setattr(self, str(box), box), getattr(self, str(box))
+        box._main_parent = self
         self.__frame_box.add_box(box)
         return box
 
     def add_widget(self, widget: Widget) -> Widget:
         """..."""
-        widget._main_parent = self
         _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
+        widget._main_parent = self
         self.__frame_box.add_widget(widget)
         return widget
 

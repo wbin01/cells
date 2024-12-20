@@ -64,9 +64,10 @@ class Widget(Widget):
                 logging.error(
                     'The values of the "margin" tuple must be of type "int".')
                 return
-
-        self.style[f'[{self.style_id}]']['margin'
-            ] = f'{margin[0]}px {margin[1]}px {margin[2]}px {margin[3]}px'
+        
+        for key in self.style.keys():
+            self.style[key]['margin'
+                ] = f'{margin[0]}px {margin[1]}px {margin[2]}px {margin[3]}px'
         self.style = self.style
 
     @property
@@ -146,15 +147,15 @@ class Widget(Widget):
 
     def add_box(self, box):
         """Add a Box inside this Widget"""
-        box._main_parent = self._main_parent
         _, box = setattr(self, str(box), box), getattr(self, str(box))
+        box._main_parent = self._main_parent
         self.__box.add_layout(box._obj)
         return box
 
     def add_widget(self, widget: Widget) -> Widget:
         """Add a new Widget inside this Widget"""
-        widget.main_parent = self._main_parent
         _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
+        widget.main_parent = self._main_parent
         self.__box.add_widget(widget._obj)
         return widget
 
