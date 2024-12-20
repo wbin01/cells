@@ -41,10 +41,7 @@ class Window(MainFrame):
         self.new_box = self.box.add_box()
 
         self.wid = self.new_box.add_widget(Wid())
-        # print(self.wid.margin)
         self.wid.margin = 30, 15, 15, 15
-        # print(self.wid.margin)
-        pprint.pprint(self.wid.style)
 
         self.w = None
         for n in range(5):

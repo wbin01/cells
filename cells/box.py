@@ -69,13 +69,10 @@ class Box(Box):
 
     def add_widget(self, widget: Widget) -> Widget:
         """Add a Widget inside this Box"""
-        _, widget = setattr(self, str(widget), widget), getattr(self, str(widget))
+        _, widget = setattr(self, str(widget), widget), getattr(
+            self, str(widget))
         widget._main_parent = self.__main_parent
         self.__box.add_widget(widget._obj)
-
-        # if self._main_parent:
-        #     self._main_parent.style_ids[widget.style_id] = widget._base_id
-        #     self._main_parent.event_signal(Event.STYLE_ID_CHANGE).emit()
         return widget
 
     def __str__(self):
