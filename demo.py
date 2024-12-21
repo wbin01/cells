@@ -41,12 +41,12 @@ class Window(MainFrame):
 
         self.new_box = self.box.add_box()
 
-        self.wid = self.new_box.add_widget(Wid())
+        self.wid = self.new_box.add_widget(Wid(is_base=False))
         self.wid.margin = 30, 15, 15, 15
 
         self.w = None
         for n in range(5):
-            w = self.box.add_widget(Widget())
+            w = self.box.add_widget(Widget(is_base=False))
             if n == 3:
                 w.style_id = f'Wid{n}'
                 w.style[f'[Wid{n}]']['background'], w.style = 'rgba(200, 0, 0, 1.00)', w.style

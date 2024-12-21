@@ -58,7 +58,6 @@ class CoreBaseWidget(QtWidgets.QWidget):
         self.resize_signal = Signal()
 
         self.set_object_name('Widget')
-        self.__wid = CoreFrame()
 
     def mouse_press_event(self, e):
         self.mouse_button_press_signal.emit()

@@ -4,7 +4,7 @@ import logging
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
-from .core import CoreWidget
+from .core import CoreWidget, CoreBaseWidget
 from .core.modules import StyleManager
 from .event import Event
 from .signal import Signal
@@ -18,20 +18,23 @@ class Widget(object):
 
 class Widget(Widget):
     """Widget."""
-    def __init__(self, main_parent = None, *args, **kwargs) -> None:
+    def __init__(
+            self, main_parent = None, is_base: bool = True,
+            *args, **kwargs) -> None:
         """Class constructor.
 
         :main_parent: MainFrame object
         """
         super().__init__(*args, **kwargs)
+        self.__main_parent = main_parent
+        self.__is_base = is_base
+
         self.style_change_signal = Signal()
         self.style_id_change_signal = Signal()
         self.main_parent_added = Signal()
 
         self._is_inactive = False
-
-        self.__widget = CoreWidget()
-        self.__main_parent = main_parent
+        self.__widget = CoreWidget() if not is_base else CoreBaseWidget()
 
         self.__box = QtWidgets.QVBoxLayout()
         self.__widget.set_layout(self.__box)
@@ -162,7 +165,7 @@ class Widget(Widget):
         """Add a new Widget inside this Widget."""
         _, widget = setattr(self, str(widget), widget), getattr(
             self, str(widget))
-        widget.main_parent = self._main_parent
+        widget._main_parent = self._main_parent
         self.__box.add_widget(widget._obj)
         return widget
 
