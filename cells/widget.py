@@ -45,7 +45,8 @@ class Widget(Widget):
         self.__pressed_style = None
         self.__inactive_style = None
         self.__style = None
-        self.__styles(self.__style_manager.stylesheet, 'Widget', 'Widget')
+        self.__style = self.__style_manager.stylesheet
+        self.__styles(self.__style, 'Widget', 'Widget')
 
         if not self.__base:
             self.event_signal(
@@ -118,24 +119,6 @@ class Widget(Widget):
             my_widget.style['[Widget]']['margin'] = '05px 05px 05px 05px'
             my_widget.style = my_widget.style
 
-        The style is accessed from the main frame (MainFrame), so the main 
-        frame property (self.my_widget._main_parent) needs to be set first. 
-        
-        When adding the widget (Widget, Button, Label...) to a Box it will do 
-        this automatically.
-        
-        Equivalent ways to set up access to the style:
-
-            1) my_widget = Widget(main_parent=self)
-
-            2) my_widget = Widget()
-               my_box.add_widget(my_widget)
-
-            3) my_widget = self.add_widget(Widget())
-
-        The third way is the recommended one. First we add the widget to the 
-        Box, and only then we configure the widget.
-
         The base widget (Widget) does not respond to style settings because it 
         is the base element from which all other widgets are built. However, 
         the 'margin' property can still be used. In order for the style to be 
@@ -145,6 +128,9 @@ class Widget(Widget):
 
         This will enable color style support in any state, such as the 'hover' 
         and 'pressed' states.
+
+        Note: The Box's 'spacing' property takes precedence over the widget's 
+        margins, unless the widget is the only one isolated within a Box.
         """
         return self.__style
 

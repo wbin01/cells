@@ -41,7 +41,7 @@ class Window(MainFrame):
 
         self.new_box = self.box.add_box()
 
-        self.wid = self.new_box.add_widget(Wid(base=True))
+        self.wid = self.new_box.add_widget(Wid(base=False))
         self.wid.margin = 30, 15, 15, 15
 
         self.w = None
@@ -51,7 +51,7 @@ class Window(MainFrame):
                 w.style_id = 'Wid3'
                 w.style['[Wid3]']['background'], w.style = 'rgba(200, 0, 0, 1.00)', w.style
                 self.w = w
-
+        
         self.w.style['[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
         self.w.style = self.w.style
 
