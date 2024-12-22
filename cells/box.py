@@ -32,6 +32,32 @@ class Box(Box):
         self.__main_parent = None
 
     @property
+    def margin(self) -> tuple:
+        """Box Margins"""
+        return self.__box.contents_margins()
+    
+    @margin.setter
+    def margin(self, margin: tuple) -> None:
+        self.__box.set_contents_margins(
+            margin[3], margin[0], margin[1], margin[2])
+
+    @property
+    def spacing(self) -> int:
+        """
+        The space between widgets inside the box.
+
+        This property takes precedence over the margins of the widgets that 
+        are added (add_widgets), so if the Box is vertical, then only the side 
+        margins of the widgets will be respected. The Box does not activate 
+        the spacing with a single isolated widget.
+        """
+        return self.__box.spacing()
+
+    @spacing.setter
+    def spacing(self, spacing: int) -> None:
+        self.__box.set_spacing(spacing)
+
+    @property
     def _main_parent(self) -> Widget | Box:
         """Main frame of the application.
 

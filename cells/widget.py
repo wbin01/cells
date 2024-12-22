@@ -62,6 +62,12 @@ class Widget(Widget):
         """Utility to set widget margins using a simple int tuple.
 
         Will affect all widget states, such as pressed, hover and inactive.
+
+        Note: The Box's 'spacing' property takes precedence over the widget's 
+        margins, unless the widget is the only one isolated within a Box. If 
+        the Box is vertical, then only the side margins of the widgets will be 
+        respected. The Box does not activate the spacing with a single 
+        isolated widget.
         """
         if self.__base:
             margin = self.__widget.contents_margins()
