@@ -34,7 +34,8 @@ class Box(Box):
     @property
     def margin(self) -> tuple:
         """Box Margins"""
-        return self.__box.contents_margins()
+        margin = self.__box.contents_margins()
+        return margin.top(), margin.right(), margin.bottom(), margin.left()
     
     @margin.setter
     def margin(self, margin: tuple) -> None:

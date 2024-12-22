@@ -53,7 +53,9 @@ class Window(MainFrame):
                 self.w = w
 
         self.box.spacing = 5
+        print(self.box.margin)
         self.box.margin = 0, 0, 0, 10
+        print(self.box.margin)
 
         self.w.style['[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
         self.w.style = self.w.style
