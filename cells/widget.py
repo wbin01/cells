@@ -19,7 +19,7 @@ class Widget(object):
 class Widget(Widget):
     """Widget."""
     def __init__(
-            self, main_parent = None, is_base: bool = True,
+            self, main_parent = None, base: bool = True,
             *args, **kwargs) -> None:
         """Class constructor.
 
@@ -27,14 +27,14 @@ class Widget(Widget):
         """
         super().__init__(*args, **kwargs)
         self.__main_parent = main_parent
-        self.__is_base = is_base
+        self.__base = base
 
         self.style_change_signal = Signal()
         self.style_id_change_signal = Signal()
         self.main_parent_added = Signal()
 
         self._is_inactive = False
-        self.__widget = CoreWidget() if not is_base else CoreBaseWidget()
+        self.__widget = CoreWidget() if not self.__base else CoreBaseWidget()
 
         self.__box = QtWidgets.QVBoxLayout()
         self.__widget.set_layout(self.__box)
@@ -47,11 +47,14 @@ class Widget(Widget):
         self.__style = None
         self.__styles(self.__style_manager.stylesheet, 'Widget', 'Widget')
 
-        self.event_signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
-        self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
-        self.event_signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
-        self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
-        self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+        if not self.__base:
+            self.event_signal(
+                Event.MAIN_PARENT_ADDED).connect(self.__main_added)
+            self.event_signal(
+                Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
+            self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
+            self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
+            self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
 
     @property
     def margin(self) -> tuple:
@@ -59,12 +62,21 @@ class Widget(Widget):
 
         Will affect all widget states, such as pressed, hover and inactive.
         """
+        if self.__base:
+            margin = self.__widget.contents_margins()
+            return margin.top(), margin.right(), margin.bottom(), margin.left()
+
         m = self.style[f'[{self.style_id}]']['margin'].replace(
             'px', '').split()
         return int(m[0]), int(m[1]), int(m[2]), int(m[3])
     
     @margin.setter
     def margin(self, margin: tuple) -> None:
+        if self.__base:
+            self.__widget.set_contents_margins(
+                margin[3], margin[0], margin[1], margin[2])
+            return
+
         for item in margin:
             if not isinstance(item, int):
                 logging.error(
@@ -80,22 +92,59 @@ class Widget(Widget):
     def style(self) -> str:
         """Style as dict.
 
-        The style is accessed from the main frame (`MainFrame`), so the main 
-        frame property (`self.my_widget._main_parent`) needs to be set first. 
-        When adding the widget (`Widget`, `Button`, `Label`...) to a `Box` it 
-        will do this automatically.
+        The style is a 'dict' that goes back to the style INI file. The 
+        contents of this file are something like:
+
+            [Widget]
+            background=rgba(200, 0, 0, 1.00)
+            margin=5px 5px 5px 5px
+
+        So the dictionary will be:
+
+            {'[Widget]': {
+                'background': 'rgba(200, 0, 0, 1.00)',
+                'margin': '5px 5px 5px 5px',}
+            }
+
+        Simply changing the existing dictionary does not update the style, 
+        the property actually needs to be updated with a new dictionary:
+
+            new_style = my_widget.style
+            new_style['[Widget]']['margin'] = '05px 05px 05px 05px'
+            my_widget.style = new_style
+
+        Shortened:
+
+            my_widget.style['[Widget]']['margin'] = '05px 05px 05px 05px'
+            my_widget.style = my_widget.style
+
+        The style is accessed from the main frame (MainFrame), so the main 
+        frame property (self.my_widget._main_parent) needs to be set first. 
+        
+        When adding the widget (Widget, Button, Label...) to a Box it will do 
+        this automatically.
+        
         Equivalent ways to set up access to the style:
 
-        1) my_widget = Widget(main_parent=self)
+            1) my_widget = Widget(main_parent=self)
 
-        2) my_widget = Widget()
-           my_box.add_widget(my_widget)
+            2) my_widget = Widget()
+               my_box.add_widget(my_widget)
 
-        3) my_widget = Widget()
-           my_widget._main_parent = self
+            3) my_widget = self.add_widget(Widget())
 
-        The second way is the recommended one. First we add the widget to the 
-        `Box`, and only then we configure the widget.
+        The third way is the recommended one. First we add the widget to the 
+        Box, and only then we configure the widget.
+
+        The base widget (Widget) does not respond to style settings because it 
+        is the base element from which all other widgets are built. However, 
+        the 'margin' property can still be used. In order for the style to be 
+        affected, it must have the 'base' parameter set to 'False':
+
+            Widget(base=False)
+
+        This will enable color style support in any state, such as the 'hover' 
+        and 'pressed' states.
         """
         return self.__style
 
@@ -237,12 +286,12 @@ class Widget(Widget):
             self._obj.set_style_sheet(self.__normal_style)
 
     def __main_added(self) -> None:
-        self.__main_parent.event_signal(Event.FOCUS_IN).connect(
-            self.__focus_in)
-        self.__main_parent.event_signal(Event.FOCUS_OUT).connect(
-            self.__focus_out)
-        self.__main_parent.event_signal(Event.STYLE_CHANGE).connect(
-            self.__update_style)
+        self.__main_parent.event_signal(
+            Event.FOCUS_IN).connect(self.__focus_in)
+        self.__main_parent.event_signal(
+            Event.FOCUS_OUT).connect(self.__focus_out)
+        self.__main_parent.event_signal(
+            Event.STYLE_CHANGE).connect(self.__update_style)
 
     def __press(self) -> None:
         self.__widget.set_style_sheet(self.__pressed_style)
