@@ -35,6 +35,11 @@ class Window(MainFrame):
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
         self.box = self.insert(Box())
+        # self.box.event_signal(Event.INSERT_ITEM).connect(
+        #     lambda: print('INSERT_ITEM'))
+        self.box.event_signal(Event.REMOVE_ITEM).connect(
+            lambda: print('REMOVE_ITEM'))
+
         self.label = self.box.insert(Label('hello'))
         self.label_count = 0
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
@@ -65,8 +70,14 @@ class Window(MainFrame):
     def fn_label(self):
         self.label_count += 1
         self.label.text = f'Clicked: {self.label_count}'
+        print(self.box.items())
+        print(len(self.box.items()))
 
     def ctx(self):
+        self.box.remove(self.label)
+        print(self.box.items())
+        print(len(self.box.items()))
+
         self.ctx_menu.flags = [Flag.POPUP]
         self.ctx_menu.show()
         self.ctx_menu.move(self.cursor.x() - 5, self.cursor.y() - 5)

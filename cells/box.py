@@ -3,6 +3,7 @@ from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 from .event import Event
+from .signal import Signal
 
 
 class Box(object):
@@ -28,6 +29,9 @@ class Box(Box):
         :param horizontal: Changes the orientation of the Box to horizontal
         """
         super().__init__(horizontal, *args, **kwargs)
+        self.insert_item_signal = Signal()
+        self.remove_item_signal = Signal()
+
         self.__box = QtWidgets.QVBoxLayout()
         if horizontal:
             self.__box = QtWidgets.QHBoxLayout()
@@ -35,6 +39,8 @@ class Box(Box):
         self.__box.set_contents_margins(0, 0, 0, 0)
         self.__box.set_spacing(0)
         self.__main_parent = None
+
+        self.__items = []
 
     @property
     def margin(self) -> tuple:
@@ -90,6 +96,26 @@ class Box(Box):
     def _obj(self, obj: QtWidgets) -> None:
         self.__box = obj
 
+    def event_signal(self, event: Event) -> Signal:
+        """Event Signals.
+
+        Signals are connections to events. When an event such as a mouse 
+        click or other event occurs, a signal is sent. The signal can be 
+        assigned a function to be executed when the signal is sent.
+
+        :param event:
+            Event enumeration (Enum) corresponding to the requested event, 
+            such as Event.HOVER_ENTER . All possible names are:
+            
+            NONE, INSERT_ITEM, REMOVE_ITEM
+        """
+        if event == Event.INSERT_ITEM:
+            return self.insert_item_signal
+        elif event == Event.REMOVE_ITEM:
+            return self.remove_item_signal
+        else:
+            return Signal(Event.NONE)
+
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
 
@@ -99,6 +125,8 @@ class Box(Box):
         :param index: Index number where the item should be inserted 
             (Default is -1)
         """
+        self.insert_item_signal.emit()
+
         _, item = setattr(self, str(item), item), getattr(self, str(item))
         item._main_parent = self.__main_parent
 
@@ -107,7 +135,22 @@ class Box(Box):
         else:
             self.__box.insert_widget(index, item._obj)
 
+        self.__items.append(item)
         return item
+
+    def items(self) -> list:
+        """List with added widgets."""
+        return self.__items
+
+    def remove(self, item: Widget | Box) -> None:
+        """Removes a Widget or a Box.
+
+        :param item: A Widget (Widget, Label, Button...) or a Box.
+        """
+        self.remove_item_signal.emit()
+
+        item._obj.delete_later()
+        self.__items.remove(item)
 
     def __str__(self):
         return f'<Box: {id(self)}>'
