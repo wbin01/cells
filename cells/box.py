@@ -96,6 +96,8 @@ class Box(Box):
         Returns the reference to the inserted item.
         
         :param item: It can be a Widget (Widget, Label, Button...) or a Box.
+        :param index: Index number where the item should be inserted 
+            (Default is -1)
         """
         _, item = setattr(self, str(item), item), getattr(self, str(item))
         item._main_parent = self.__main_parent
