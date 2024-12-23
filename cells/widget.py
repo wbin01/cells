@@ -10,6 +10,12 @@ from .event import Event
 from .signal import Signal
 
 
+class Box(object):
+    """Box."""
+    def __init__(self, *args, **kwargs) -> None:
+        """Class constructor."""
+
+
 class Widget(object):
     """Widget."""
     def __init__(self, *args, **kwargs) -> None:
@@ -192,24 +198,6 @@ class Widget(Widget):
     def _obj(self, obj: QtWidgets) -> None:
         self.__widget = obj
 
-    def add_box(self, box = None, horizontal: bool = False):
-        """Add a Box inside this Widget."""
-        if not box:
-            box = Box(horizontal)
-
-        _, box = setattr(self, str(box), box), getattr(self, str(box))
-        box._main_parent = self._main_parent
-        self.__box.add_layout(box._obj)
-        return box
-
-    def add_widget(self, widget: Widget) -> Widget:
-        """Add a new Widget inside this Widget."""
-        _, widget = setattr(self, str(widget), widget), getattr(
-            self, str(widget))
-        widget._main_parent = self._main_parent
-        self.__box.add_widget(widget._obj)
-        return widget
-
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
@@ -256,6 +244,18 @@ class Widget(Widget):
             return self.style_id_change_signal
         else:
             return Signal(Event.NONE)
+
+    def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+        """..."""
+        _, item = setattr(self, str(item), item), getattr(self, str(item))
+        item._main_parent = self.__main_parent
+
+        if isinstance(item, Box):
+            self.__box.insert_layout(index, item._obj)
+        else:
+            self.__box.insert_widget(index, item._obj)
+
+        return item
 
     def __focus_in(self) -> None:
         self._is_inactive = False

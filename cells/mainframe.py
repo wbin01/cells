@@ -219,24 +219,6 @@ class MainFrame(object):
     def _obj(self, obj: QtWidgets) -> None:
         self.__frame = obj
 
-    def add_box(self, box: Box = None, horizontal: bool = False) -> Box:
-        """Add a Box inside this Frame."""
-        if not box:
-            box = Box(horizontal)
-
-        _, box = setattr(self, str(box), box), getattr(self, str(box))
-        box._main_parent = self
-        self.__frame_box.add_box(box)
-        return box
-
-    def add_widget(self, widget: Widget) -> Widget:
-        """Add a Widget inside this Frame."""
-        _, widget = setattr(self, str(widget), widget), getattr(
-            self, str(widget))
-        widget._main_parent = self
-        self.__frame_box.add_widget(widget)
-        return widget
-
     def event_signal(self, event: Event) -> Signal:
         """Event Signals.
 
@@ -295,6 +277,18 @@ class MainFrame(object):
             return self.__frame.style_id_change_signal
         else:
             return Signal(Event.NONE)
+
+    def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+        """..."""
+        _, item = setattr(self, str(item), item), getattr(self, str(item))
+        item._main_parent = self
+
+        if isinstance(item, Box):
+            self.__frame_box._obj.insert_layout(index, item._obj)
+        else:
+            self.__frame_box._obj.insert_widget(index, item._obj)
+
+        return item
 
     def show(self) -> None:
         """Show the frame."""

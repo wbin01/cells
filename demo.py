@@ -34,19 +34,20 @@ class Window(MainFrame):
 
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
-        self.box = self.add_box()
-        self.label = self.box.add_widget(Label('hello'))
+        self.box = self.insert(Box())
+        self.label = self.box.insert(Label('hello'))
         self.label_count = 0
         self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
 
-        self.new_box = self.box.add_box()
+        self.new_box = self.box.insert(Box())
 
-        self.wid = self.new_box.add_widget(Wid(base=False))
+        self.wid = self.new_box.insert(Wid(base=False))
         self.wid.margin = 30, 15, 15, 15
 
         self.w = None
         for n in range(5):
-            w = self.box.add_widget(Widget(base=False))
+            # w = self.box.add_widget(Widget(base=False))
+            w = self.box.insert(Widget(base=False))
             if n == 3:
                 w.style_id = 'Wid3'
                 w.style['[Wid3]']['background'], w.style = 'rgba(200, 0, 0, 1.00)', w.style

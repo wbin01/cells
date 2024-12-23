@@ -2,12 +2,17 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
-from .widget import Widget
 from .event import Event
 
 
 class Box(object):
     """Box layout"""
+    def __init__(self, *args, **kwargs) -> None:
+        """Class constructor."""
+
+
+class Widget(object):
+    """Widget."""
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
 
@@ -85,23 +90,17 @@ class Box(Box):
     def _obj(self, obj: QtWidgets) -> None:
         self.__box = obj
 
-    def add_box(self, box: Box = None, horizontal: bool = False) -> Box:
-        """Add a new Box inside this Box"""
-        if not box:
-            box = Box(horizontal)
+    def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+        """..."""
+        _, item = setattr(self, str(item), item), getattr(self, str(item))
+        item._main_parent = self.__main_parent
 
-        _, box = setattr(self, str(box), box), getattr(self, str(box))
-        box._main_parent = self.__main_parent
-        self.__box.add_layout(box._obj)
-        return box
+        if isinstance(item, Box):
+            self.__box.insert_layout(index, item._obj)
+        else:
+            self.__box.insert_widget(index, item._obj)
 
-    def add_widget(self, widget: Widget) -> Widget:
-        """Add a Widget inside this Box"""
-        _, widget = setattr(self, str(widget), widget), getattr(
-            self, str(widget))
-        widget._main_parent = self.__main_parent
-        self.__box.add_widget(widget._obj)
-        return widget
+        return item
 
     def __str__(self):
         return f'<Box: {id(self)}>'
