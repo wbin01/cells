@@ -3,6 +3,7 @@ from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 from .event import Event
+from .orientation import Orientation
 from .signal import Signal
 
 
@@ -20,21 +21,25 @@ class Widget(object):
 
 class Box(Box):
     """Box layout"""
-    def __init__(self, horizontal: bool = False, *args, **kwargs) -> None:
+    def __init__(
+            self,
+            orientation: Orientation = Orientation.VERTICAL,
+            *args, **kwargs) -> None:
         """Class constructor.
 
         By default the Box orientation is vertical. Use the horizontal 
         parameter to change it.
 
-        :param horizontal: Changes the orientation of the Box to horizontal
+        :param orientation: Changes the orientation of the Box to horizontal
         """
-        super().__init__(horizontal, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.insert_item_signal = Signal()
         self.remove_item_signal = Signal()
 
-        self.__box = QtWidgets.QVBoxLayout()
-        if horizontal:
+        if orientation == Orientation.HORIZONTAL:
             self.__box = QtWidgets.QHBoxLayout()
+        else:
+            self.__box = QtWidgets.QVBoxLayout()
 
         self.__box.set_contents_margins(0, 0, 0, 0)
         self.__box.set_spacing(0)

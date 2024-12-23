@@ -7,6 +7,7 @@ from .core import CoreFrame
 from .core.modules import desktopentryparse
 from .event import Event
 from .flag import Flag
+from .orientation import Orientation
 from .signal import Signal
 from .widget import Widget
 
@@ -17,14 +18,18 @@ class Frame(object):
     That is, the main application window.
     """
     
-    def __init__(self, main_parent = None, *args, **kwargs) -> None:
+    def __init__(
+        self,
+        main_parent = None,
+        orientation: Orientation = Orientation.VERTICAL,
+        *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
         self.main_parent_added = Signal()
         self.__frame_flags = []
         self.__main_parent = main_parent
         self.__frame = CoreFrame()
-        self.__frame_box = Box()
+        self.__frame_box = Box(orientation=orientation)
         self.__frame_box._main_parent = self
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
 

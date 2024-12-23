@@ -8,6 +8,7 @@ from .box import Box
 from .core import CoreWidget, CoreBaseWidget
 from .core.modules import StyleManager
 from .event import Event
+from .orientation import Orientation
 from .signal import Signal
 
 
@@ -25,7 +26,10 @@ class Widget(Widget):
     height, width or background color will help to make it noticeable.
     """
     def __init__(
-            self, main_parent = None, base: bool = True,
+            self,
+            main_parent = None,
+            base: bool = True,
+            orientation: Orientation = Orientation.VERTICAL,
             *args, **kwargs) -> None:
         """Class constructor.
 
@@ -42,7 +46,7 @@ class Widget(Widget):
         self._is_inactive = False
         self.__widget = CoreWidget() if not self.__base else CoreBaseWidget()
 
-        self.__box = Box()
+        self.__box = Box(orientation=orientation)
         self.__widget.set_layout(self.__box._obj)
 
         self.__style_manager = StyleManager()

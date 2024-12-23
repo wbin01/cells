@@ -8,5 +8,6 @@ from .frame import Frame
 from .icon import Icon
 from .label import Label
 from .mainframe import MainFrame
+from .orientation import Orientation
 from .signal import Signal
 from .widget import Widget
