@@ -246,7 +246,12 @@ class Widget(Widget):
             return Signal(Event.NONE)
 
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
-        """..."""
+        """Inserts a Widget or a Box.
+
+        Returns the reference to the inserted item.
+        
+        :param item: It can be a Widget (Widget, Label, Button...) or a Box.
+        """
         _, item = setattr(self, str(item), item), getattr(self, str(item))
         item._main_parent = self.__main_parent
 
