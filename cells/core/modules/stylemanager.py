@@ -142,6 +142,18 @@ class StyleManager(object):
                     f'  padding-left: {padding[3]}px;\n')
             qss += '}\n'
 
+
+        # top_qss = (
+        #     'QWidget {\n'
+        #     '  margin-top: 0px;\n'
+        #     '  margin-right: 0px;\n'
+        #     '  margin-bottom: 0px;\n'
+        #     '  margin-left: 0px;\n'
+        #     '  padding-top: 0px;\n'
+        #     '  padding-right: 0px;\n'
+        #     '  padding-bottom: 0px;\n'
+        #     '  padding-left: 0px;\n'
+        #     '}\n')
         return qss
 
     @staticmethod

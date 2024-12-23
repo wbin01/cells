@@ -34,11 +34,14 @@ class Window(MainFrame):
 
         # self.event_signal(Event.FOCUS_OUT).connect(
         #     lambda: print('FOCUS_OUT'))
+        self.insert(Label('Insert Label'))
         self.box = self.insert(Box())
+        self.box.spacing = 5
+        self.box.margin = 0, 0, 0, 10
         # self.box.event_signal(Event.INSERT_ITEM).connect(
         #     lambda: print('INSERT_ITEM'))
-        self.box.event_signal(Event.REMOVE_ITEM).connect(
-            lambda: print('REMOVE_ITEM'))
+        # self.box.event_signal(Event.REMOVE_ITEM).connect(
+        #     lambda: print('REMOVE_ITEM'))
 
         self.label = self.box.insert(Label('hello'))
         self.label_count = 0
@@ -47,19 +50,16 @@ class Window(MainFrame):
         self.new_box = self.box.insert(Box())
 
         self.wid = self.new_box.insert(Wid(base=False))
-        self.wid.margin = 30, 15, 15, 15
+        self.lll = self.wid.insert(Label('llllll'))
 
         self.w = None
         for n in range(5):
-            # w = self.box.add_widget(Widget(base=False))
             w = self.box.insert(Widget(base=False))
+            w.minimum_height = 20
             if n == 3:
                 w.style_id = 'Wid3'
                 w.style['[Wid3]']['background'], w.style = 'rgba(200, 0, 0, 1.00)', w.style
                 self.w = w
-
-        self.box.spacing = 5
-        self.box.margin = 0, 0, 0, 10
 
         self.w.style['[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
         self.w.style = self.w.style
@@ -70,14 +70,8 @@ class Window(MainFrame):
     def fn_label(self):
         self.label_count += 1
         self.label.text = f'Clicked: {self.label_count}'
-        print(self.box.items())
-        print(len(self.box.items()))
 
     def ctx(self):
-        self.box.remove(self.label)
-        print(self.box.items())
-        print(len(self.box.items()))
-
         self.ctx_menu.flags = [Flag.POPUP]
         self.ctx_menu.show()
         self.ctx_menu.move(self.cursor.x() - 5, self.cursor.y() - 5)

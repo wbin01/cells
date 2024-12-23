@@ -4,16 +4,11 @@ import logging
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
+from .box import Box
 from .core import CoreWidget, CoreBaseWidget
 from .core.modules import StyleManager
 from .event import Event
 from .signal import Signal
-
-
-class Box(object):
-    """Box."""
-    def __init__(self, *args, **kwargs) -> None:
-        """Class constructor."""
 
 
 class Widget(object):
@@ -23,7 +18,12 @@ class Widget(object):
 
 
 class Widget(Widget):
-    """Widget."""
+    """Widget.
+
+    Tip: The base widget is an empty object, with no margins or spacing, and 
+    is visually imperceptible, as it does not take up a single pixel. Adding 
+    height, width or background color will help to make it noticeable.
+    """
     def __init__(
             self, main_parent = None, base: bool = True,
             *args, **kwargs) -> None:
@@ -42,8 +42,8 @@ class Widget(Widget):
         self._is_inactive = False
         self.__widget = CoreWidget() if not self.__base else CoreBaseWidget()
 
-        self.__box = QtWidgets.QVBoxLayout()
-        self.__widget.set_layout(self.__box)
+        self.__box = Box()
+        self.__widget.set_layout(self.__box._obj)
 
         self.__style_manager = StyleManager()
         self.__normal_style = None
@@ -62,6 +62,18 @@ class Widget(Widget):
             self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
             self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
             self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+
+    @property
+    def height(self) -> int:
+        """Returns the height of the Widget.
+
+        Pass a new integer value to update the height.
+        """
+        return self.__widget.height()
+
+    @height.setter
+    def height(self, height: int) -> None:
+        self.__widget.set_fixed_height(height)
 
     @property
     def margin(self) -> tuple:
@@ -100,6 +112,58 @@ class Widget(Widget):
             self.style[key]['margin'
                 ] = f'{margin[0]}px {margin[1]}px {margin[2]}px {margin[3]}px'
         self.style = self.style
+
+    @property
+    def maximum_height(self) -> int:
+        """Returns the Widget maximum height.
+
+        Pass a new integer value to update the maximum height the Widget can 
+        have.
+        """
+        return self.__widget.maximum_height()
+
+    @maximum_height.setter
+    def maximum_height(self, height: int) -> None:
+        self.__widget.set_maximum_height(height)
+
+    @property
+    def maximum_width(self) -> int:
+        """Returns the Widget maximum width.
+
+        Pass a new integer value to update the maximum width the Widget can 
+        have.
+        """
+        return self.__widget.maximum_width()
+
+    @maximum_width.setter
+    def maximum_width(self, width: int) -> None:
+        self.__widget.set_maximum_width(width)
+
+    @property
+    def minimum_height(self) -> int:
+        """Returns the Widget minimum height.
+
+        Pass a new integer value to update the minimum height the Widget can 
+        have.
+        """
+        return self.__widget.minimum_height()
+
+    @minimum_height.setter
+    def minimum_height(self, height: int) -> None:
+        self.__widget.set_minimum_height(height)
+
+    @property
+    def minimum_width(self) -> int:
+        """Returns the Widget minimum width.
+
+        Pass a new integer value to update the minimum width the Widget can 
+        have.
+        """
+        return self.__widget.minimum_width()
+
+    @minimum_width.setter
+    def minimum_width(self, width: int) -> None:
+        self.__widget.set_minimum_width(width)
 
     @property
     def style(self) -> str:
@@ -169,6 +233,18 @@ class Widget(Widget):
         inherited_id = self.style_id if self.style_id else 'Widget'
         self.__widget.set_object_name(style_id)
         self.__styles(self.__style, style_id, inherited_id)
+
+    @property
+    def width(self) -> int:
+        """Returns the Widget width.
+
+        Pass a new integer value to update the width.
+        """
+        return self.__widget.width()
+
+    @width.setter
+    def width(self, width: int) -> int:
+        self.__widget.set_fixed_width(width)
 
     @property
     def _main_parent(self):
@@ -258,9 +334,9 @@ class Widget(Widget):
         item._main_parent = self.__main_parent
 
         if isinstance(item, Box):
-            self.__box.insert_layout(index, item._obj)
+            self.__box._obj.insert_layout(index, item._obj)
         else:
-            self.__box.insert_widget(index, item._obj)
+            self.__box._obj.insert_widget(index, item._obj)
 
         return item
 
