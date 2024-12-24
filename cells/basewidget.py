@@ -6,7 +6,7 @@ from __feature__ import snake_case
 
 from .align import Align
 from .box import Box
-from .core import CoreWidget
+from .core import CoreWidget, CoreBaseWidget
 from .core.modules import StyleManager
 from .event import Event
 from .orientation import Orientation
@@ -29,6 +29,7 @@ class Widget(Widget):
     def __init__(
             self,
             main_parent = None,
+            base: bool = True,
             orientation: Orientation = Orientation.VERTICAL,
             *args, **kwargs) -> None:
         """Class constructor.
@@ -38,12 +39,13 @@ class Widget(Widget):
         super().__init__(*args, **kwargs)
         # Param
         self.__main_parent = main_parent
+        self.__base = base
 
         # Flags
         self._is_inactive = False
 
         # Obj
-        self.__widget = CoreWidget()
+        self.__widget = CoreWidget() if not self.__base else CoreBaseWidget()
 
         self.__box = Box(orientation=orientation)
         self.__widget.set_layout(self.__box._obj)
@@ -59,18 +61,18 @@ class Widget(Widget):
 
         # Signals
         self.alignment_signal = Signal()
-        self.main_parent_added_signal = Signal()
-        self.main_parent_added_signal = Signal()
         self.style_change_signal = Signal()
         self.style_id_change_signal = Signal()
-        # Signals TODO: for all properties and methods 
+        self.main_parent_added_signal = Signal()
+        # self.mouse_right_button_press_signal = self.__widget.mouse_right_button_press_signal
 
-
-        self.signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
-        self.signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
-        self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
-        self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
-        self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+        # if not self.__base:
+        #     self.signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
+        #     self.signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
+        #     self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
+        #     self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
+        #     self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+        self.base = self.__base
 
     @property
     def alignment(self) -> Align:
@@ -84,6 +86,37 @@ class Widget(Widget):
     def alignment(self, alignment: Align) -> None:
         self.__box._obj.set_alignment(alignment.value)
         self.alignment_signal.emit()
+
+    @property
+    def base(self) -> bool:
+        """..."""
+        return self.__base
+
+    @base.setter
+    def base(self, value: bool) -> None:
+        self.__base = value
+
+        widget = CoreWidget()
+        # for ppt, value in vars(self.__widget).items():
+        #     print(ppt)
+        #     # setattr(widget, ppt, value)
+        self.__widget = widget
+
+        # for ppt, value in vars(self).items():
+        #     setattr(widget, ppt, value)
+
+        self.signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
+        self.signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
+        self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
+        self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
+        self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+        
+        if self.__base:
+            self.signal(Event.MAIN_PARENT_ADDED).disconnect(self.__main_added)
+            self.signal(Event.MOUSE_BUTTON_RELEASE).disconnect(self.__release)
+            self.signal(Event.MOUSE_BUTTON_PRESS).disconnect(self.__press)
+            self.signal(Event.MOUSE_HOVER_ENTER).disconnect(self.__hover)
+            self.signal(Event.MOUSE_HOVER_LEAVE).disconnect(self.__leave)
 
     @property
     def height(self) -> int:
@@ -109,12 +142,21 @@ class Widget(Widget):
         respected. The Box does not activate the spacing with a single 
         isolated widget.
         """
+        if self.__base:
+            margin = self.__widget.contents_margins()
+            return margin.top(), margin.right(), margin.bottom(), margin.left()
+
         m = self.style[f'[{self.style_id}]']['margin'].replace(
             'px', '').split()
         return int(m[0]), int(m[1]), int(m[2]), int(m[3])
     
     @margin.setter
     def margin(self, margin: tuple) -> None:
+        if self.__base:
+            self.__widget.set_contents_margins(
+                margin[3], margin[0], margin[1], margin[2])
+            return
+
         for item in margin:
             if not isinstance(item, int):
                 logging.error(
@@ -207,6 +249,16 @@ class Widget(Widget):
 
             my_widget.style['[Widget]']['margin'] = '05px 05px 05px 05px'
             my_widget.style = my_widget.style
+
+        The base widget (Widget) does not respond to style settings because it 
+        is the base element from which all other widgets are built. However, 
+        the 'margin' property can still be used. In order for the style to be 
+        affected, it must have the 'base' parameter set to 'False':
+
+            Widget(base=False)
+
+        This will enable color style support in any state, such as the 'hover' 
+        and 'pressed' states.
 
         Note: The Box's 'spacing' property takes precedence over the widget's 
         margins, unless the widget is the only one isolated within a Box.

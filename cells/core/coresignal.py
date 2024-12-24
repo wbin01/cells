@@ -39,6 +39,10 @@ class CoreSignal(QtCore.QObject):
         """
         self.__signal.connect(function)
 
+    def remove_callback(self, function, *args) -> None:
+        """Function to be disconnected."""
+        self.__signal.disconnect(function)
+
     def send(self) -> None:
         """Send this signal.
 

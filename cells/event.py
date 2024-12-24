@@ -5,6 +5,7 @@ from enum import Enum
 class Event(Enum):
     """Event enumeration."""
     NONE = 'NONE'
+    ALIGNMENT_CHANGE = 'ALIGNMENT_CHANGE'
     CLOSE = 'CLOSE'
     # CONTEXT_MENU = 'CONTEXT_MENU'
     DRAG = 'DRAG'

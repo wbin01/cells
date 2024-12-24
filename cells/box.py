@@ -114,26 +114,6 @@ class Box(Box):
     def _obj(self, obj: QtWidgets) -> None:
         self.__box = obj
 
-    def event_signal(self, event: Event) -> Signal:
-        """Event Signals.
-
-        Signals are connections to events. When an event such as a mouse 
-        click or other event occurs, a signal is sent. The signal can be 
-        assigned a function to be executed when the signal is sent.
-
-        :param event:
-            Event enumeration (Enum) corresponding to the requested event, 
-            such as Event.HOVER_ENTER . All possible names are:
-            
-            NONE, INSERT_ITEM, REMOVE_ITEM
-        """
-        if event == Event.INSERT_ITEM:
-            return self.insert_item_signal
-        elif event == Event.REMOVE_ITEM:
-            return self.remove_item_signal
-        else:
-            return Signal(Event.NONE)
-
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
 
@@ -169,6 +149,26 @@ class Box(Box):
 
         item._obj.delete_later()
         self.__items.remove(item)
+
+    def signal(self, event: Event) -> Signal:
+        """Event Signals.
+
+        Signals are connections to events. When an event such as a mouse 
+        click or other event occurs, a signal is sent. The signal can be 
+        assigned a function to be executed when the signal is sent.
+
+        :param event:
+            Event enumeration (Enum) corresponding to the requested event, 
+            such as Event.HOVER_ENTER . All possible names are:
+            
+            NONE, INSERT_ITEM, REMOVE_ITEM
+        """
+        if event == Event.INSERT_ITEM:
+            return self.insert_item_signal
+        elif event == Event.REMOVE_ITEM:
+            return self.remove_item_signal
+        else:
+            return Signal(Event.NONE)
 
     def __str__(self):
         return f'<Box: {id(self)}>'

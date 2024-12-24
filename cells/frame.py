@@ -26,7 +26,7 @@ class Frame(object):
         *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.main_parent_added = Signal()
+        self.main_parent_added_signal = Signal()
         self.__frame_flags = []
         self.__main_parent = main_parent
         self.__frame = CoreFrame()
@@ -161,7 +161,7 @@ class Frame(object):
     @_main_parent.setter
     def _main_parent(self, parent) -> None:
         self.__main_parent = parent
-        self.main_parent_added.emit()
+        self.main_parent_added_signal.emit()
 
     @property
     def _obj(self):
@@ -192,7 +192,20 @@ class Frame(object):
         self.__frame_box.add_widget(widget)
         return widget
 
-    def event_signal(self, event: Event) -> Signal:
+    def move(self, x: int, y: int) -> None:
+        """..."""
+        # cc = QtGui.QCursor()
+        # cc.pos()
+        # eve=QtGui.QContextMenuEvent(QtGui.QContextMenuEvent.Mouse, cc.pos())
+        # pos = self.__frame.map_to_global(event.pos())
+        # self.__frame.move(pos.x(), pos.y())
+        self.__frame.move(x, y)
+
+    def show(self) -> None:
+        # Starts the main loop
+        self.__frame.show()
+
+    def signal(self, event: Event) -> Signal:
         """Event Signals.
 
         Signals are connections to events. When an event such as a mouse click 
@@ -248,19 +261,6 @@ class Frame(object):
             return self.__frame.style_id_change_signal
         else:
             return Signal(Event.NONE)
-
-    def move(self, x: int, y: int) -> None:
-        """..."""
-        # cc = QtGui.QCursor()
-        # cc.pos()
-        # eve=QtGui.QContextMenuEvent(QtGui.QContextMenuEvent.Mouse, cc.pos())
-        # pos = self.__frame.map_to_global(event.pos())
-        # self.__frame.move(pos.x(), pos.y())
-        self.__frame.move(x, y)
-
-    def show(self) -> None:
-        # Starts the main loop
-        self.__frame.show()
 
     def style_from_file(self, path: str) -> dict:
         """..."""

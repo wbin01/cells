@@ -20,43 +20,40 @@ class Wid(Widget):
 class Window(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        # self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
+        self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
+        # self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
+        # self.signal(Event.TITLE_CHANGE).connect(lambda: print('TITLE_CHANGE'))
+        # self.signal(Event.STATE_CHANGE).connect(lambda: print('STATE_CHANGE'))
+        # self.signal(Event.FOCUS_IN).connect(lambda: print('FOCUS_IN'))
+        # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
 
-        self.event_signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
-
-        # self.event_signal(Event.TITLE_CHANGE).connect(
-        #     lambda: print('TITLE_CHANGE'))
-
-        # self.event_signal(Event.STATE_CHANGE).connect(
-        #     lambda: print('STATE_CHANGE'))
-
-        # self.event_signal(Event.FOCUS_IN).connect(
-        #     lambda: print('FOCUS_IN'))
-
-        # self.event_signal(Event.FOCUS_OUT).connect(
-        #     lambda: print('FOCUS_OUT'))
         self.insert(Label('Insert Label'))
         self.box = self.insert(Box())
         self.box.spacing = 5
         self.box.margin = 0, 0, 0, 10
-        # self.box.event_signal(Event.INSERT_ITEM).connect(
-        #     lambda: print('INSERT_ITEM'))
-        # self.box.event_signal(Event.REMOVE_ITEM).connect(
-        #     lambda: print('REMOVE_ITEM'))
+        # self.box.signal(Event.INSERT_ITEM).connect(lambda: print('INSERT'))
+        # self.box.signal(Event.REMOVE_ITEM).connect(lambda: print('REMOVE'))
 
         self.label = self.box.insert(Label('hello'))
         self.label_count = 0
-        self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
+        self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
 
         self.new_box = self.box.insert(Box())
 
-        self.wid = self.new_box.insert(Wid(base=False))
+        self.wid = self.new_box.insert(Wid())
         self.lll = self.wid.insert(Label('llllll'))
-        # self.lll.alignment = Align.LEFT
+        self.lll.alignment = Align.LEFT
+        self.lll.style_id = 'Lala'
+        self.lll.style['[Lala]']['background'] = 'rgba(200, 0, 0, 1.00)'
+        self.lll.style = self.lll.style
+        self.lll.text = 'ccc'
+
+        self.lll2 = self.wid.insert(Label('l2l22l'))
+        self.lll2.alignment = Align.LEFT
 
         self.w = None
         for n in range(5):
-            w = self.box.insert(Widget(base=False))
+            w = self.box.insert(Widget())
             w.minimum_height = 20
             if n == 3:
                 w.style_id = 'Wid3'

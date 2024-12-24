@@ -236,7 +236,30 @@ class MainFrame(object):
     def _obj(self, obj: QtWidgets) -> None:
         self.__frame = obj
 
-    def event_signal(self, event: Event) -> Signal:
+    def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+        """Inserts a Widget or a Box.
+
+        Returns the reference to the inserted item.
+        
+        :param item: It can be a Widget (Widget, Label, Button...) or a Box.
+        :param index: Index number where the item should be inserted 
+            (Default is -1)
+        """
+        _, item = setattr(self, str(item), item), getattr(self, str(item))
+        item._main_parent = self
+
+        if isinstance(item, Box):
+            self.__frame_box._obj.insert_layout(index, item._obj)
+        else:
+            self.__frame_box._obj.insert_widget(index, item._obj)
+
+        return item
+
+    def show(self) -> None:
+        """Show the frame."""
+        self.__frame.show()
+
+    def signal(self, event: Event) -> Signal:
         """Event Signals.
 
         Signals are connections to events. When an event such as a mouse click 
@@ -294,29 +317,6 @@ class MainFrame(object):
             return self.__frame.style_id_change_signal
         else:
             return Signal(Event.NONE)
-
-    def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
-        """Inserts a Widget or a Box.
-
-        Returns the reference to the inserted item.
-        
-        :param item: It can be a Widget (Widget, Label, Button...) or a Box.
-        :param index: Index number where the item should be inserted 
-            (Default is -1)
-        """
-        _, item = setattr(self, str(item), item), getattr(self, str(item))
-        item._main_parent = self
-
-        if isinstance(item, Box):
-            self.__frame_box._obj.insert_layout(index, item._obj)
-        else:
-            self.__frame_box._obj.insert_widget(index, item._obj)
-
-        return item
-
-    def show(self) -> None:
-        """Show the frame."""
-        self.__frame.show()
 
     def style_from_file(self, path: str) -> dict:
         """Convert the contents of a file into a valid dictionary style."""

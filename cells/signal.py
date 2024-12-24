@@ -42,9 +42,18 @@ class Signal(object):
 
             my_obj.obj_signal.connect(self.my_function)
 
-        :param function: Function to be executed when the signal is sent.
+        :param callback: Function to be executed when the signal is sent.
         """
         self.__signal.callback(callback)
+
+    def disconnect(self, callback: callable) -> None:
+        """Function to be disconnected.
+
+            my_obj.obj_signal.disconnect(self.my_function)
+
+        :param callback: Function to be disconnect.
+        """
+        self.__signal.remove_callback(callback)
 
     def emit(self) -> None:
         """Send this signal.
