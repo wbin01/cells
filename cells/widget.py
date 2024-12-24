@@ -73,19 +73,6 @@ class Widget(Widget):
         self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
 
     @property
-    def alignment(self) -> Align:
-        """Alignment enum.
-
-        Sets the alignment of the Box.
-        """
-        return self.__box._obj.alignment()
-
-    @alignment.setter
-    def alignment(self, alignment: Align) -> None:
-        self.__box._obj.set_alignment(alignment.value)
-        self.alignment_signal.emit()
-
-    @property
     def height(self) -> int:
         """Returns the height of the Widget.
 

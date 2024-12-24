@@ -40,16 +40,15 @@ class Window(MainFrame):
 
         self.new_box = self.box.insert(Box())
 
-        self.wid = self.new_box.insert(Wid())
-        self.lll = self.wid.insert(Label('llllll'))
-        self.lll.alignment = Align.LEFT
+        self.wid = self.new_box.insert(Wid(orientation=Orientation.HORIZONTAL))
+        self.lll = self.wid.insert(Label('l1'))
+        self.lll.height = 50
         self.lll.style_id = 'Lala'
         self.lll.style['[Lala]']['background'] = 'rgba(200, 0, 0, 1.00)'
-        self.lll.style = self.lll.style
-        self.lll.text = 'ccc'
 
-        self.lll2 = self.wid.insert(Label('l2l22l'))
-        self.lll2.alignment = Align.LEFT
+        self.lll.style = self.lll.style
+        self.lll.text = 'l+'
+        self.lll2 = self.wid.insert(Label('l2'))
 
         self.w = None
         for n in range(5):

@@ -14,16 +14,14 @@ class Label(Widget):
         self.style_id = 'Label'
 
         self.__label = QtWidgets.QLabel(text)
-        self.__label.set_object_name('Label')
-        self.__label.set_contents_margins(0, 0, 0, 0)
+        self.__label.set_object_name('Label_Label')
         self.__label.set_style_sheet(
             'margin: 0px; padding: 0px; border: 0px; '
             'background-color: rgba(0, 0, 0, 0.00);')
 
         setattr(self.__label, '_obj', self.__label)
         self.insert(self.__label)
-
-        self.signal(Event.ALIGNMENT_CHANGE).connect(self.__alignment_change)
+        
         self.signal(Event.STYLE_ID_CHANGE).connect(self.__style_id_change)
 
     @property

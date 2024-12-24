@@ -48,6 +48,8 @@ color=rgba(230, 230, 230, 0.50)
 
 [Label:hover]
 
+[Label:pressed]
+
 [MainFrame-Border]
 border=1px 1px 1px 1px rgba(50, 50, 50, 0.80)
 border_radius=10px 10px 10px 10px
