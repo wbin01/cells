@@ -2,6 +2,7 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
+from .align import Align
 from .box import Box
 from .core import CoreMainFrame
 from .core.modules import desktopentryparse
@@ -30,6 +31,18 @@ class MainFrame(object):
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
         self.__icon = None
         self.__icon_path = None
+
+    @property
+    def alignment(self) -> Align:
+        """Alignment enum.
+
+        Sets the alignment of the Box.
+        """
+        return self.__frame_box._obj.alignment()
+
+    @alignment.setter
+    def alignment(self, alignment: Align) -> None:
+        self.__frame_box._obj.set_alignment(alignment.value)
 
     @property
     def flags(self) -> list:

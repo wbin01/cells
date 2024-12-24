@@ -1,3 +1,4 @@
+from .align import Align
 from .application import Application
 from .box import Box
 # from .button import Button

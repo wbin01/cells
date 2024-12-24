@@ -4,6 +4,7 @@ import logging
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
+from .align import Align
 from .box import Box
 from .core import CoreWidget, CoreBaseWidget
 from .core.modules import StyleManager
@@ -66,6 +67,18 @@ class Widget(Widget):
             self.event_signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
             self.event_signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
             self.event_signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+
+    @property
+    def alignment(self) -> Align:
+        """Alignment enum.
+
+        Sets the alignment of the Box.
+        """
+        return self.__box._obj.alignment()
+
+    @alignment.setter
+    def alignment(self, alignment: Align) -> None:
+        self.__box._obj.set_alignment(alignment.value)
 
     @property
     def height(self) -> int:

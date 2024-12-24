@@ -2,6 +2,7 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
+from .align import Align
 from .event import Event
 from .orientation import Orientation
 from .signal import Signal
@@ -46,6 +47,18 @@ class Box(Box):
         self.__main_parent = None
 
         self.__items = []
+
+    @property
+    def alignment(self) -> Align:
+        """Alignment enum.
+
+        Sets the alignment of the Box.
+        """
+        return self.__box.alignment()
+
+    @alignment.setter
+    def alignment(self, alignment: Align) -> None:
+        self.__box.set_alignment(alignment.value)
 
     @property
     def margin(self) -> tuple:
