@@ -2,7 +2,6 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
-from .core import CoreLabel
 from .widget import Widget
 
 
@@ -11,8 +10,14 @@ class Label(Widget):
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.__label = self.insert(CoreLabel(text))
         self.style_id = 'Label'
+
+        self.__label = QtWidgets.QLabel(text)
+        self.__label.set_object_name('Label')
+        self.__label.set_contents_margins(0, 0, 0, 0)
+
+        setattr(self.__label, '_obj', self.__label)
+        self.insert(self.__label)
 
     @property
     def text(self) -> str:

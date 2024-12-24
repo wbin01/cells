@@ -52,6 +52,7 @@ class Window(MainFrame):
 
         self.wid = self.new_box.insert(Wid(base=False))
         self.lll = self.wid.insert(Label('llllll'))
+        # self.lll.alignment = Align.LEFT
 
         self.w = None
         for n in range(5):
