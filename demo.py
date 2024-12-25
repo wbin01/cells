@@ -6,7 +6,7 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, Box, Orientation, Align,
-    Widget, Label)
+    Widget, WidgetBase, Label)
 
 
 class Wid(Widget):
@@ -46,23 +46,16 @@ class Window(MainFrame):
         self.new_box = self.box.insert(Box())
 
         self.wid = self.new_box.insert(Wid(orientation=Orientation.HORIZONTAL))
-        self.lll = self.wid.insert(Label('l1'))
-        self.lll.style['[Label]']['background'] = 'rgba(200, 0, 200, 1.00)'
-        self.lll.height = 50
-        # self.lll.style_id = 'Lala'
-        # self.lll.style['[Lala]']['background'] = 'rgba(200, 0, 0, 1.00)'
-        # self.lll.style['[Lala:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
-        self.lll.style = self.lll.style
-        self.lll.text = 'l+'
+        self.label_2 = self.wid.insert(Label('l1'))
+        self.label_2.style['[Label]']['background'] = 'rgba(200, 0, 200, 1.00)'
+        self.label_2.style = self.label_2.style
+        self.label_2.text = 'l+'
 
-        self.lll2 = self.wid.insert(Label('l2'))
-        # self.lll2.style['[Label:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
-        print(self.lll.style_id)
-        print(self.lll2.style_id)
+        self.label_3 = self.wid.insert(Label('l2'))
 
         self.w = None
         for n in range(5):
-            w = self.box.insert(Widget())
+            w = self.box.insert(WidgetBase())
             w.minimum_height = 20
             if n == 3:
                 w.style_id = 'Wid3'

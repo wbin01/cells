@@ -91,7 +91,6 @@ background=rgba(255, 255, 255, 0.20)
 
 [Widget]
 background=rgba(0, 0, 0, 0.00)
-color=rgba(230, 230, 230, 1.00)
 border=0px 0px 0px 0px rgba(0, 0, 0, 0.00)
 border_radius=0px 0px 0px 0px
 padding=0px 0px 0px 0px
@@ -99,7 +98,7 @@ margin=0px 0px 0px 0px
 
 [Widget:inactive]
 background=rgba(0, 0, 0, 0.00)
-color=rgba(230, 230, 230, 0.30)
+
 
 [Widget:hover]
 background=rgba(255, 255, 255, 0.10)
