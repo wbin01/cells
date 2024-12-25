@@ -34,6 +34,7 @@ class Window(MainFrame):
         self.top_label.style = self.top_label.style
 
         self.box = self.insert(Box())
+        self.box.align = Align.LEFT
         self.box.spacing = 5
         self.box.margin = 0, 0, 0, 10
         # self.box.signal(Event.INSERT_ITEM).connect(lambda: print('INSERT'))

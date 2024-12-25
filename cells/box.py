@@ -49,16 +49,16 @@ class Box(Box):
         self.__items = []
 
     @property
-    def alignment(self) -> Align:
-        """Alignment enum.
+    def align(self) -> Align:
+        """Align enum.
 
-        Sets the alignment of the Box.
+        Sets the Box alignment.
         """
         return self.__box.alignment()
 
-    @alignment.setter
-    def alignment(self, alignment: Align) -> None:
-        self.__box.set_alignment(alignment.value)
+    @align.setter
+    def align(self, align: Align) -> None:
+        self.__box.set_alignment(align.value)
 
     @property
     def margin(self) -> tuple:
