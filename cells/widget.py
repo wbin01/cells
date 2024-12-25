@@ -55,7 +55,10 @@ class Widget(Widget):
         self.__inactive_style = None
         self.__style = None
         self.__style = self.__style_manager.stylesheet
-        self.__styles(self.__style, 'Widget', 'Widget')
+        self.__styles(
+            self.__style,
+            self.__widget.object_name(),
+            self.__widget.object_name())
 
         # Signals
         self.alignment_signal = Signal()
@@ -389,8 +392,8 @@ class Widget(Widget):
         self.__inactive_style = self.__qss_piece(
             self.__style, ':inactive', True)
 
-        if self._main_parent:
-            self._main_parent.style.update(self.__style)
+        # if self._main_parent:
+        #     self._main_parent.style.update(self.__style)
 
     def __update_style(self) -> None:
         self.style.update(self._main_parent.style)

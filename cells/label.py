@@ -4,6 +4,7 @@ from __feature__ import snake_case
 
 from .event import Event
 from .widget import Widget
+from .signal import Signal
 
 
 class Label(Widget):
@@ -11,18 +12,11 @@ class Label(Widget):
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.style_id = 'Label'
-
-        self.__label = QtWidgets.QLabel(text)
-        self.__label.set_object_name('Label_Label')
-        self.__label.set_style_sheet(
-            'margin: 0px; padding: 0px; border: 0px; '
-            'background-color: rgba(0, 0, 0, 0.00);')
-
-        setattr(self.__label, '_obj', self.__label)
-        self.insert(self.__label)
         
-        self.signal(Event.STYLE_ID_CHANGE).connect(self.__style_id_change)
+
+        self._obj = QtWidgets.QLabel(text)
+        self.style_id = 'Label'
+        # self.signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
 
     @property
     def text(self) -> str:
@@ -30,17 +24,22 @@ class Label(Widget):
         
         Pass a new string to update the text.
         """
-        return self.__label._obj.text()
+        return self._obj.text()
 
     @text.setter
     def text(self, text: str) -> None:
-        self.__label._obj.set_text(text)
+        self._obj.set_text(text)
 
     def __alignment_change(self) -> None:
-        self.__label.set_alignment(self.alignment)
+        # self.__label.set_alignment(self.alignment)
+        pass
 
-    def __style_id_change(self) -> None:
-        self.__label.set_object_name(self.style_id)
+    def __main_added(self) -> None:
+        self.style[f'[{self.style_id}]'] = self._main_parent.style['[Label]']
+        self.style[f'[{self.style_id}:inactive]'] = self._main_parent.style['[Label:inactive]']
+        self.style[f'[{self.style_id}:hover]'] = self._main_parent.style['[Label:hover]']
+        self.style[f'[{self.style_id}:pressed]'] = self._main_parent.style['[Label:pressed]']
+        self.style = self.style
 
     def __str__(self):
         return f'<Label: {id(self)}>'

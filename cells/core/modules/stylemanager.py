@@ -66,7 +66,7 @@ class StyleManager(object):
             self.__dict_style = self.__style_file.content
 
         style = self.__dict_style if not style else style
-        # style = self.__expand_style(style)
+        style = self.__expand_style(style)
 
         qss = ''
         for group_key in style.keys():

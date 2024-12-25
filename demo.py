@@ -27,7 +27,12 @@ class Window(MainFrame):
         # self.signal(Event.FOCUS_IN).connect(lambda: print('FOCUS_IN'))
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
 
-        self.insert(Label('Insert Label'))
+        self.top_label = self.insert(Label('Insert Label'))
+        self.top_label.style_id = 'TopLabel'
+        self.top_label.style['[TopLabel]']['background'] = 'rgba(200, 0, 0, 1.00)'
+        self.top_label.style['[TopLabel:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
+        self.top_label.style = self.top_label.style
+
         self.box = self.insert(Box())
         self.box.spacing = 5
         self.box.margin = 0, 0, 0, 10
@@ -42,13 +47,18 @@ class Window(MainFrame):
 
         self.wid = self.new_box.insert(Wid(orientation=Orientation.HORIZONTAL))
         self.lll = self.wid.insert(Label('l1'))
+        self.lll.style['[Label]']['background'] = 'rgba(200, 0, 200, 1.00)'
         self.lll.height = 50
-        self.lll.style_id = 'Lala'
-        self.lll.style['[Lala]']['background'] = 'rgba(200, 0, 0, 1.00)'
-
+        # self.lll.style_id = 'Lala'
+        # self.lll.style['[Lala]']['background'] = 'rgba(200, 0, 0, 1.00)'
+        # self.lll.style['[Lala:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
         self.lll.style = self.lll.style
         self.lll.text = 'l+'
+
         self.lll2 = self.wid.insert(Label('l2'))
+        # self.lll2.style['[Label:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
+        print(self.lll.style_id)
+        print(self.lll2.style_id)
 
         self.w = None
         for n in range(5):
@@ -60,6 +70,7 @@ class Window(MainFrame):
                 self.w = w
 
         self.w.style['[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
+        self.w.style['[Wid3:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
         self.w.style = self.w.style
 
         self.ctx_menu = Frame()
