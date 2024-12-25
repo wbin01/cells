@@ -76,7 +76,8 @@ class Widget(Widget):
         self.__main_parent = main_parent
 
         # Flags
-        self._is_inactive = False
+        self.__is_enabled = True
+        self.__is_inactive = False
         self.__visible = False  # Hack: Fix aways is False | Box active this
 
         # Obj
@@ -105,12 +106,28 @@ class Widget(Widget):
         self.style_id_change_signal = Signal()
         # Signals TODO: for all properties and methods 
 
-
         self.signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
         self.signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
         self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
         self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
         self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+
+    @property
+    def enabled(self) -> bool:
+        """..."""
+        return self.__is_enabled
+
+    @enabled.setter
+    def enabled(self, value: bool) -> None:
+        self.__is_enabled = value
+        if self.__is_enabled:
+            self.__enable()
+            self.__widget.mouse_button_press_signal.connect()
+            self.__widget.mouse_button_release_signal.connect()
+        else:
+            self.__disable()
+            self.__widget.mouse_button_press_signal.disconnect()
+            self.__widget.mouse_button_release_signal.disconnect()
 
     @property
     def height(self) -> int:
@@ -396,24 +413,37 @@ class Widget(Widget):
         else:
             return Signal(Event.NONE)
 
-    def __focus_in(self) -> None:
-        self._is_inactive = False
-        self._obj.set_style_sheet(self.__normal_style)
-
-    def __focus_out(self) -> None:
-        self._is_inactive = True
+    def __disable(self) -> None:
+        self.__is_enabled = False
         self._obj.set_style_sheet(self.__inactive_style)
 
+    def __enable(self) -> None:
+        self.__is_enabled = True
+        self._obj.set_style_sheet(self.__normal_style)
+
+    def __focus_in(self) -> None:
+        self.__is_inactive = False
+        if self.__is_enabled:
+            self._obj.set_style_sheet(self.__normal_style)
+
+    def __focus_out(self) -> None:
+        self.__is_inactive = True
+        if self.__is_enabled:
+            self._obj.set_style_sheet(self.__inactive_style)
+
     def __hover(self) -> None:
-        if not self._is_inactive:
-            self._obj.set_style_sheet(self.__hover_style)
+        if not self.__is_inactive and self.__is_enabled:
+                self._obj.set_style_sheet(self.__hover_style)
 
     def __leave(self) -> None:
-        if self._is_inactive:
-            # self._obj.set_style_sheet('')
-            # self.__label._obj.set_style_sheet('')
-            self.__focus_out()
-        else:
+        # self._obj.set_style_sheet('')
+        # self.__label._obj.set_style_sheet('')
+
+        # if self.__is_inactive:
+        #     self.__focus_out()
+        # else:
+        #     self._obj.set_style_sheet(self.__normal_style)
+        if not self.__is_inactive and self.__is_enabled:
             self._obj.set_style_sheet(self.__normal_style)
 
     def __main_added(self) -> None:
@@ -423,7 +453,8 @@ class Widget(Widget):
             Event.STYLE_CHANGE).connect(self.__update_style)
 
     def __press(self) -> None:
-        self.__widget.set_style_sheet(self.__pressed_style)
+        if self.__is_enabled:
+            self.__widget.set_style_sheet(self.__pressed_style)
 
     def __qss_piece(
             self,
@@ -438,7 +469,7 @@ class Widget(Widget):
             inactive=inactive).split('{')[1].replace('}', '').strip()
 
     def __release(self) -> None:
-        if not self._is_inactive:
+        if not self.__is_inactive and self.__is_enabled:
             self._obj.set_style_sheet(self.__hover_style)
 
     def __styles(

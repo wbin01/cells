@@ -14,6 +14,7 @@ class Wid(Widget):
         super().__init__(*args, **kwargs)
         self.style_id = 'Wid'
         self.style['[Wid]']['background'] = 'rgba(0, 200, 0, 0.30)'
+        self.style['[Wid:inactive]']['background'] = 'rgba(150, 150, 255, 0.10)'
         self.style = self.style
 
 
@@ -32,6 +33,11 @@ class Window(MainFrame):
         self.top_label.style['[TopLabel]']['background'] = 'rgba(200, 0, 0, 1.00)'
         self.top_label.style['[TopLabel:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
         self.top_label.style = self.top_label.style
+
+        self.top_wid = self.insert(Wid())
+        self.top_wid.height = 20
+        self.top_wid.signal(Event.MOUSE_BUTTON_PRESS).connect(
+            lambda: print('XXX'))
 
         self.box = self.insert(Box())
         self.box.align = Align.LEFT
@@ -66,6 +72,7 @@ class Window(MainFrame):
         self.w.style['[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
         self.w.style['[Wid3:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
         self.w.style = self.w.style
+        self.w.signal(Event.MOUSE_BUTTON_PRESS).connect(self.on_blue_btn)
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
@@ -74,15 +81,16 @@ class Window(MainFrame):
         self.label_count += 1
         self.label.text = f'Clicked: {self.label_count}'
 
-        if self.top_label.visible:
-            self.top_label.visible = False
-        else:
-            self.top_label.visible = True
-
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP
         self.ctx_menu.show()
         self.ctx_menu.move(self.cursor.x() - 5, self.cursor.y() - 5)
+
+    def on_blue_btn(self):
+        if self.top_wid.enabled:
+            self.top_wid.enabled = False
+        else:
+            self.top_wid.enabled = True
 
 
 if __name__ == '__main__':
