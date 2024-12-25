@@ -47,17 +47,20 @@ class Frame(object):
         self.__frame_box._obj.set_alignment(alignment.value)
 
     @property
-    def flags(self) -> list:
-        """..."""
+    def flag(self) -> list:
+        """Frame flags.
+
+        They are used to configure the native behavior of the Frame.
+        For example, the POPUP flag configures that the frame can appear on 
+        the indicated position on the X and Y axes, and also that the Frame 
+        closes by itself.
+        """
         return self.__frame_flags
 
-    @flags.setter
-    def flags(self, flags: list) -> None:
-        """..."""
-        for flag in flags:
-            if flag not in self.__frame_flags:
-                self.__frame_flags.append(flag)
-                self.__frame.set_window_flags(flag.value)
+    @flag.setter
+    def flag(self, flag: Flag) -> None:
+        self.__frame_flags.append(flag)
+        self.__frame.set_window_flags(flag.value)
     
     @property
     def height(self) -> int:

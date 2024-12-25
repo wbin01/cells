@@ -80,7 +80,7 @@ class Window(MainFrame):
             self.top_label.visible = True
 
     def ctx(self):
-        self.ctx_menu.flags = [Flag.POPUP]
+        self.ctx_menu.flag = Flag.POPUP
         self.ctx_menu.show()
         self.ctx_menu.move(self.cursor.x() - 5, self.cursor.y() - 5)
 
