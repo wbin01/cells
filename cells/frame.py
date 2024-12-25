@@ -177,21 +177,6 @@ class Frame(object):
     def _obj(self, obj: QtWidgets) -> None:
         self.__frame = obj
 
-    def add_box(self, box: Box) -> Box:
-        """..."""
-        box._main_parent = self
-        _, box = setattr(self, str(box), box), getattr(self, str(box))
-        self.__frame_box.add_box(box)
-        return box
-
-    def add_widget(self, widget: Widget) -> Widget:
-        """..."""
-        widget._main_parent = self
-        _, widget = setattr(self, str(widget), widget), getattr(
-            self, str(widget))
-        self.__frame_box.add_widget(widget)
-        return widget
-
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
 
@@ -213,16 +198,17 @@ class Frame(object):
         return item
 
     def move(self, x: int, y: int) -> None:
-        """..."""
-        # cc = QtGui.QCursor()
-        # cc.pos()
-        # eve=QtGui.QContextMenuEvent(QtGui.QContextMenuEvent.Mouse, cc.pos())
-        # pos = self.__frame.map_to_global(event.pos())
-        # self.__frame.move(pos.x(), pos.y())
+        """Move the Frame.
+
+        The X and Y positions are relative to the main parent.
+        
+        :param x: Horizontal position relative to the main parent.
+        :param y: Vertical position relative to the main parent.
+        """
         self.__frame.move(x, y)
 
     def show(self) -> None:
-        # Starts the main loop
+        """Renders and displays the Frame."""
         self.__frame.show()
 
     def signal(self, event: Event) -> Signal:

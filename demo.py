@@ -17,7 +17,7 @@ class Wid(Widget):
         self.style = self.style
 
 
-class Window(Frame):
+class Window(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
@@ -74,7 +74,6 @@ class Window(Frame):
         self.label_count += 1
         self.label.text = f'Clicked: {self.label_count}'
 
-        print(self.top_label.visible)
         if self.top_label.visible:
             self.top_label.visible = False
         else:

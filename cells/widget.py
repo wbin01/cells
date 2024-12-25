@@ -338,6 +338,16 @@ class Widget(Widget):
 
         return item
 
+    def move(self, x: int, y: int) -> None:
+        """Move the Widget.
+
+        The X and Y positions are relative to the main parent.
+        
+        :param x: Horizontal position relative to the main parent.
+        :param y: Vertical position relative to the main parent.
+        """
+        self.__widget.move(x, y)
+
     def signal(self, event: Event) -> Signal:
         """Event Signals.
 
