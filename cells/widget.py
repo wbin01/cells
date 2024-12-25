@@ -77,6 +77,7 @@ class Widget(Widget):
 
         # Flags
         self._is_inactive = False
+        self.__visible = False  # Hack: Fix aways is False | Box active this
 
         # Obj
         self.__widget = CoreWidget()
@@ -263,6 +264,21 @@ class Widget(Widget):
         self.style_id_change_signal.emit()
 
     @property
+    def visible(self) -> bool:
+        """Widget Visibility.
+
+        Qt has minor issues when calculating pixels to render areas that are 
+        repeatedly hidden and visible, so clearly define the sizes and spacing 
+        to avoid minor visual discomforts.
+        """
+        return self.__visible
+
+    @visible.setter
+    def visible(self, value: bool) -> None:
+        self.__visible = value
+        self.__widget.set_visible(value)
+
+    @property
     def width(self) -> int:
         """Returns the Widget width.
 
@@ -317,6 +333,7 @@ class Widget(Widget):
         if isinstance(item, Box):
             self.__box._obj.insert_layout(index, item._obj)
         else:
+            item.visible = True
             self.__box._obj.insert_widget(index, item._obj)
 
         return item

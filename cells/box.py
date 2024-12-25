@@ -131,6 +131,7 @@ class Box(Box):
         if isinstance(item, Box):
             self.__box.insert_layout(index, item._obj)
         else:
+            item.visible = True
             self.__box.insert_widget(index, item._obj)
 
         self.__items.append(item)

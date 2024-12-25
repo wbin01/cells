@@ -192,6 +192,26 @@ class Frame(object):
         self.__frame_box.add_widget(widget)
         return widget
 
+    def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+        """Inserts a Widget or a Box.
+
+        Returns the reference to the inserted item.
+        
+        :param item: It can be a Widget (Widget, Label, Button...) or a Box.
+        :param index: Index number where the item should be inserted 
+            (Default is -1)
+        """
+        _, item = setattr(self, str(item), item), getattr(self, str(item))
+        item._main_parent = self
+
+        if isinstance(item, Box):
+            self.__frame_box._obj.insert_layout(index, item._obj)
+        else:
+            item.visible = True
+            self.__frame_box._obj.insert_widget(index, item._obj)
+
+        return item
+
     def move(self, x: int, y: int) -> None:
         """..."""
         # cc = QtGui.QCursor()

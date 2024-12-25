@@ -17,7 +17,7 @@ class Wid(Widget):
         self.style = self.style
 
 
-class Window(MainFrame):
+class Window(Frame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
@@ -56,7 +56,7 @@ class Window(MainFrame):
 
         self.w = None
         for n in range(5):
-            w = self.box.insert(WidgetBase())
+            w = self.box.insert(Widget())
             w.minimum_height = 20
             if n == 3:
                 w.style_id = 'Wid3'
@@ -73,6 +73,12 @@ class Window(MainFrame):
     def fn_label(self):
         self.label_count += 1
         self.label.text = f'Clicked: {self.label_count}'
+
+        print(self.top_label.visible)
+        if self.top_label.visible:
+            self.top_label.visible = False
+        else:
+            self.top_label.visible = True
 
     def ctx(self):
         self.ctx_menu.flags = [Flag.POPUP]

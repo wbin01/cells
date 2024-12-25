@@ -251,6 +251,7 @@ class MainFrame(object):
         if isinstance(item, Box):
             self.__frame_box._obj.insert_layout(index, item._obj)
         else:
+            item.visible = True
             self.__frame_box._obj.insert_widget(index, item._obj)
 
         return item
