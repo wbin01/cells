@@ -114,7 +114,11 @@ class Widget(Widget):
 
     @property
     def enabled(self) -> bool:
-        """..."""
+        """Enables the Widget.
+
+        When False, the Widget is inactive both in appearance and in the 
+        Event.MOUSE_BUTTON_PRESS and Event.MOUSE_BUTTON_RELEASE events.
+        """
         return self.__is_enabled
 
     @enabled.setter
