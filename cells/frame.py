@@ -18,7 +18,6 @@ class Frame(object):
     
     That is, the main application window.
     """
-    
     def __init__(
         self,
         main_parent = None,
