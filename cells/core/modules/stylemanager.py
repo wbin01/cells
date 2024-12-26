@@ -72,39 +72,41 @@ class StyleManager(object):
         for group_key in style.keys():
             if ':inactive]' in group_key and not inactive:
                 continue  # disabled
-            background = 'rgba(0, 0, 0, 0.00)'
-            border = '0px 0px 0px 0px rgba(0, 0, 0, 0.00)'
-            border_radius = '0px 0px 0px 0px'
-            color = 'rgba(230, 230, 230, 1.00)'
-            margin = '0px 0px 0px 0px'
-            padding = '0px 0px 0px 0px'
 
             if 'background' in style[group_key]:
                 background = style[group_key]['background']
+            if 'background_image' in style[group_key]:
+                if os.name == 'posix':
+                    background_image = os.path.expanduser(
+                        style[group_key]['background_image'])
+                else:
+                    background_image = os.path.expandvars(
+                        style[group_key]['background_image'])
             if 'border' in style[group_key]:
                 border = style[group_key]['border']
+                border = style_parser.border_str_to_list(border)
             if 'border_radius' in style[group_key]:
                 border_radius = style[group_key]['border_radius']
+                border_radius = style_parser.border_radius_str_to_list(
+                    border_radius)
             if 'color' in style[group_key]:
                 color = style[group_key]['color']
             if 'margin' in style[group_key]:
                 margin = style[group_key]['margin']
+                margin = style_parser.margin_padding_str_to_list(margin)
             if 'padding' in style[group_key]:
                 padding = style[group_key]['padding']
-
-            border = style_parser.border_str_to_list(border)
-            border_radius = style_parser.border_radius_str_to_list(
-                border_radius)
-            margin = style_parser.margin_padding_str_to_list(margin)
-            padding = style_parser.margin_padding_str_to_list(padding)
+                padding = style_parser.margin_padding_str_to_list(padding)
 
             if 'Frame' in group_key:
-                border_radius = [
-                    int(border_radius[0]) -1,
-                    int(border_radius[1]) -1,
-                    int(border_radius[2]) -1,
-                    int(border_radius[3]) -1]
-                margin = [0, 0, 0, 0]
+                if 'border_radius' in style[group_key]:
+                    border_radius = [
+                        int(border_radius[0]) -1,
+                        int(border_radius[1]) -1,
+                        int(border_radius[2]) -1,
+                        int(border_radius[3]) -1]
+                if 'margin' in style[group_key]:
+                    margin = [0, 0, 0, 0]
 
             if fullscreen and group_key.startswith('[MainFrame'):
                 border = ['0', '0', '0', '0', 'rgba(0, 0, 0, 0.00)']
@@ -114,6 +116,8 @@ class StyleManager(object):
             
             if 'background' in style[group_key]:
                 qss += f'  background-color: {background};\n'
+            if 'background_image' in style[group_key]:
+                qss += f'background: url({background_image});'  # no-repeat
             if 'border' in style[group_key]:
                 qss += (
                     f'  border-top: {border[0]}px solid {border[4]};\n'

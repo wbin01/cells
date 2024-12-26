@@ -34,16 +34,16 @@ class MainFrame(object):
         self.__icon_path = None
 
     @property
-    def alignment(self) -> Align:
+    def align(self) -> Align:
         """Alignment enum.
 
         Sets the alignment of the Box.
         """
         return self.__frame_box._obj.alignment()
 
-    @alignment.setter
-    def alignment(self, alignment: Align) -> None:
-        self.__frame_box._obj.set_alignment(alignment.value)
+    @align.setter
+    def align(self, align: Align) -> None:
+        self.__frame_box._obj.set_alignment(align.value)
 
     @property
     def flag(self) -> list:

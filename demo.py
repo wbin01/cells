@@ -28,6 +28,7 @@ class Window(MainFrame):
         # self.signal(Event.FOCUS_IN).connect(lambda: print('FOCUS_IN'))
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
 
+        self.align = Align.TOP
         self.top_label = self.insert(Label('Insert Label'))
         self.top_label.style_id = 'TopLabel'
         self.top_label.style['[TopLabel]']['background'] = 'rgba(200, 0, 0, 1.00)'
