@@ -2,7 +2,7 @@
 import os
 import pathlib
 
-from .desktopentryparse import DesktopFile
+from .iniparse import IniParse
 from . import stylemanagerparser as style_parser
 
 
@@ -27,7 +27,7 @@ class StyleManager(object):
         update it.
         """
         if not self.__dict_style:
-            self.__style_file = DesktopFile(self.__url)
+            self.__style_file = IniParse(self.__url)
             self.__dict_style = self.__style_file.content
 
         return self.__dict_style
@@ -45,7 +45,7 @@ class StyleManager(object):
     def stylesheet_qss(self) -> dict:
         """Style as qss."""
         if not self.__dict_style:
-            self.__style_file = DesktopFile(self.__url)
+            self.__style_file = IniParse(self.__url)
             self.stylesheet = self.__style_file.content
 
         return self.__qss_style
@@ -62,7 +62,7 @@ class StyleManager(object):
         """
 
         if not self.__dict_style:
-            self.__style_file = DesktopFile(self.__url)
+            self.__style_file = IniParse(self.__url)
             self.__dict_style = self.__style_file.content
 
         style = self.__dict_style if not style else style
