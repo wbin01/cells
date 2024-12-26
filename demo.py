@@ -78,6 +78,9 @@ class Window(MainFrame):
         self.ctx_menu = Frame()
         self.cursor = Cursor()
 
+        # self.style_from_file('stylerc')
+        pprint.pprint(self.style['[Button]'])
+
     def fn_label(self):
         self.label_count += 1
         self.label.text = f'Clicked: {self.label_count}'

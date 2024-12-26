@@ -5,7 +5,6 @@ from __feature__ import snake_case
 from .align import Align
 from .box import Box
 from .core import CoreFrame
-from .core.modules import desktopentryparse
 from .event import Event
 from .flag import Flag
 from .orientation import Orientation
@@ -272,9 +271,34 @@ class Frame(object):
             return Signal(Event.NONE)
 
     def style_from_file(self, path: str) -> dict:
-        """..."""
-        style_file = desktopentryparse.DesktopFile(path)
-        return style_file.content
+        """Convert the contents of a file into a valid dictionary style."""
+        with open(path, 'r') as ini_file:
+            ini_text = ini_file.read()
+
+        content = {}
+        for scope in ini_text.split('['):
+            if not scope.strip().startswith('#'):
+                scope = f'[{scope.strip()}'
+
+            header, key, value = '', '', ''
+            for line in scope.split('\n'):
+                if line and not line.strip().startswith('#'):
+                    line = line.strip()
+
+                    if line.startswith('['):
+                        header = line
+                        content[header] = {}
+
+                    elif '=' in line:
+                        key, value = line.split('=')
+                        content[header][key] = value
+
+                    else:
+                        value = content[header][key] + line
+                        content[header][key] = value
+        
+        self.style.update(content)
+        self.style = self.style
 
     def __str__(self):
         return f'<Frame: {id(self)}>'

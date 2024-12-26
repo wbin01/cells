@@ -172,33 +172,30 @@ class DesktopFile(object):
         return self.__url
 
     def __parse_file_to_dict(self) -> None:
-        # Open file
-        with open(self.__url, 'r') as desktop_file:
-            desktop_file_line = desktop_file.read()
+        with open(self.__url, 'r') as ini_file:
+            ini_text = ini_file.read()
 
-        # Separate scope: "[header]key=value...", "[h]k=v...",
-        desktop_scope = [
-            x + y for x, y in zip(
-                re.findall(r'\[\S', desktop_file_line),
-                re.split(r'\[\S', desktop_file_line)[1:])]
-                # re.findall('\[[A-Z]', desktop_file_line),
-                # re.split('\[[A-Z]', desktop_file_line)[1:])]
-
-        # Create dict
         self.__content = {}
-        for scope in desktop_scope:
-            escope_header = ''           # [Desktop Entry]
-            escope_keys_and_values = {}  # Key=Value
+        for scope in ini_text.split('['):
+            if not scope.strip().startswith('#'):
+                scope = f'[{scope.strip()}'
 
-            for index_num, scopeline in enumerate(scope.split('\n')):
-                if index_num == 0:
-                    escope_header = scopeline
-                else:
-                    if scopeline and scopeline[0] != '#' and '=' in scopeline:
-                        line_key, line_value = scopeline.split('=', 1)
-                        escope_keys_and_values[line_key] = line_value
+            header, key, value = '', '', ''
+            for line in scope.split('\n'):
+                if line and not line.strip().startswith('#'):
+                    line = line.strip()
 
-            self.__content[escope_header] = escope_keys_and_values
+                    if line.startswith('['):
+                        header = line
+                        self.__content[header] = {}
+
+                    elif '=' in line:
+                        key, value = line.split('=')
+                        self.__content[header][key] = value
+
+                    else:
+                        value = self.__content[header][key] + ' ' + line
+                        self.__content[header][key] = value
 
     def __gt__(self, _object) -> bool:
         if '[Desktop Entry]' in self.content:
