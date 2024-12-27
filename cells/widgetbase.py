@@ -52,4 +52,4 @@ class WidgetBase(Widget):
         self._obj = CoreWidgetBase()
 
     def __str__(self):
-        return f'<Label: {id(self)}>'
+        return f'<WidgetBase: {id(self)}>'

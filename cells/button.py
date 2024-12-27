@@ -23,6 +23,7 @@ class Button(Widget):
         self.__label.margin = 0, 5, 0, 5
         
         self.signal(Event.MAIN_PARENT_ADDED).connect(self.__on_main_added)
+        self.enabled_change_signal.connect(self.__on_enabled_change)
 
     @property
     def text(self) -> str:
@@ -37,21 +38,28 @@ class Button(Widget):
         self.__text = text
         self.__label.text = text
 
+    def __on_enabled_change(self) -> None:
+        if self.enabled:
+            self.__on_main_parent_focus_in()
+        else:
+            self.__on_main_parent_focus_out()
+
     def __on_main_added(self) -> None:
         self._main_parent.signal(Event.FOCUS_IN).connect(
             self.__on_main_parent_focus_in)
         self._main_parent.signal(Event.FOCUS_OUT).connect(
             self.__on_main_parent_focus_out)
 
-    def __on_main_parent_focus_in(self):
-        self.__label.style['[Label]']['color'] = self.style[
-            '[Button]']['color']
-        self.__label.style = self.__label.style
+    def __on_main_parent_focus_in(self) -> None:
+        if self.enabled:
+            self.__label.style['[Label]']['color'] = self.style[
+                '[Button]']['color']
+            self.__label.style = self.__label.style
 
-    def __on_main_parent_focus_out(self):
+    def __on_main_parent_focus_out(self) -> None:
         self.__label.style['[Label]']['color'] = self.style[
             '[Button:inactive]']['color']
         self.__label.style = self.__label.style
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'<Button: {id(self)}>'

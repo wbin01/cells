@@ -5,7 +5,7 @@ background=rgba(35, 35, 35, 1.00)
 color=rgba(230, 230, 230, 1.00)
 border=1px 1px 1px 1px rgba(40, 40, 40, 1.00)
 border_radius=3px 3px 3px 3px
-padding=0px 0px 0px 0px
+padding=5px 5px 5px 5px
 margin=0px 0px 0px 0px
 
 [Button:hover]

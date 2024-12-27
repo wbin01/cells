@@ -20,14 +20,14 @@ class Window(MainFrame):
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
 
         self.align = Align.TOP
-        self.insert(Label('Zeta'))
+        self.insert(Label('Zeta 1'))
 
-        self.ll = self.insert(Label('Zeta'))
-        self.ll.style_id = 'Zeta'
-        self.ll.style['[Zeta]']['color'] = 'rgba(0, 200, 0, 1.00)'
+        self.ll = self.insert(Label('Zeta 2'))
+        self.ll.style_id = 'Zeta2'
+        self.ll.style['[Zeta2]']['color'] = 'rgba(0, 200, 0, 1.00)'
         self.ll.style = self.ll.style
 
-        self.ooo = self.insert(Label('Zetaz'))
+        self.ooo = self.insert(Label('Zeta 3'))
 
         self.top_wid = self.insert(Widget())
         self.top_wid.height = 15
@@ -35,6 +35,12 @@ class Window(MainFrame):
         self.my_button = self.insert(Button('My Button'))
         self.my_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
             lambda: print(self.my_button.text))
+        self.my_button.margin = 5, 5, 5, 5
+
+        self.block_my_button = self.insert(Button('Block My Button'))
+        self.block_my_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
+            self.on_block_my_button)
+        self.block_my_button.margin = 5, 5, 5, 5
 
         self.insert(Label('222'))
 
@@ -53,12 +59,15 @@ class Window(MainFrame):
         self.ctx_menu.show()
         self.ctx_menu.move(self.cursor.x() - 5, self.cursor.y() - 5)
 
-    def on_blue_btn(self):
-        if self.top_wid.enabled:
-            self.top_wid.enabled = False
+    def on_block_my_button(self):
+        if self.my_button.enabled:
+            self.my_button.enabled = False
+            # self.ll.enabled = False
+            self.block_my_button.text = 'Unblock My Button'
         else:
-            self.top_wid.enabled = True
-
+            self.my_button.enabled = True
+            # self.ll.enabled = True
+            self.block_my_button.text = 'Block My Button'
 
 if __name__ == '__main__':
     # from PySide6 import QtCore, QtGui, QtWidgets

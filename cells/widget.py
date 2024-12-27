@@ -77,6 +77,7 @@ class Widget(Widget):
 
         # Signals
         self.alignment_signal = Signal()
+        self.enabled_change_signal = Signal()
         self.insert_item_signal = Signal()
         self.main_parent_added_signal = Signal()
         self.main_parent_added_signal = Signal()
@@ -128,14 +129,19 @@ class Widget(Widget):
     @enabled.setter
     def enabled(self, value: bool) -> None:
         self.__is_enabled = value
+
         if self.__is_enabled:
-            self.__enable()
-            self.__widget.mouse_button_press_signal.connect()
-            self.__widget.mouse_button_release_signal.connect()
+            self.__is_enabled = True
+            self._obj.set_style_sheet(self.__normal_style)
+            self._obj.mouse_button_press_signal.connect()
+            self._obj.mouse_button_release_signal.connect()
         else:
-            self.__disable()
-            self.__widget.mouse_button_press_signal.disconnect()
-            self.__widget.mouse_button_release_signal.disconnect()
+            self.__is_enabled = False
+            self._obj.set_style_sheet(self.__inactive_style)
+            self._obj.mouse_button_press_signal.disconnect()
+            self._obj.mouse_button_release_signal.disconnect()
+
+        self.enabled_change_signal.emit()
 
     @property
     def height(self) -> int:
@@ -445,10 +451,12 @@ class Widget(Widget):
     def __disable(self) -> None:
         self.__is_enabled = False
         self._obj.set_style_sheet(self.__inactive_style)
+        self.enable_change_signal.emit()
 
     def __enable(self) -> None:
         self.__is_enabled = True
         self._obj.set_style_sheet(self.__normal_style)
+        self.enable_change_signal.emit()
 
     def __focus_in(self) -> None:
         self.__is_inactive = False
