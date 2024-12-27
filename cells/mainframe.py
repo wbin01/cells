@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import os
+import platform
+
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
@@ -32,6 +35,7 @@ class MainFrame(object):
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
         self.__icon = None
         self.__icon_path = None
+        self.__user_settings()
 
     @property
     def align(self) -> Align:
@@ -325,6 +329,17 @@ class MainFrame(object):
         ini = IniParse(path)
         self.style.update(ini.content)
         self.style = self.style
+
+    def __user_settings(self) -> None:
+        static_url = os.path.join(
+            os.path.expanduser('~user'), '.config', 'cells', 'static')
+
+        if os.name == 'posix' and platform.system() == 'Linux':
+            os.makedirs(static_url, exist_ok=True)
+            home_style = os.path.join(static_url, 'stylerc')
+
+            if os.path.isfile(home_style):
+                self.style_from_file(home_style)
 
     def __str__(self):
         return f'<MainFrame: {id(self)}>'
