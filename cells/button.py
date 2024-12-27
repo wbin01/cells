@@ -23,7 +23,7 @@ class Button(Widget):
         self.__label.margin = 0, 5, 0, 5
         
         self.signal(Event.MAIN_PARENT_ADDED).connect(self.__on_main_added)
-        self.enabled_change_signal.connect(self.__on_enabled_change)
+        self.signal(Event.ENABLED_CHANGE).connect(self.__on_enabled_change)
 
     @property
     def text(self) -> str:
