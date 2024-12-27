@@ -26,17 +26,17 @@ class Window(MainFrame):
         self.ll.style_id = 'Zeta'
         self.ll.style['[Zeta]']['color'] = 'rgba(0, 200, 0, 1.00)'
         self.ll.style = self.ll.style
-        print(self.ll.style_id)
-        pprint.pprint(self.ll.style)
 
         self.ooo = self.insert(Label('Zetaz'))
-        print(self.ooo.style_id)
-        pprint.pprint(self.ooo.style)
 
         self.top_wid = self.insert(Widget())
-        self.top_wid.height = 20
-        self.top_wid.signal(Event.MOUSE_BUTTON_PRESS).connect(
-            lambda: print('XXX'))
+        self.top_wid.height = 15
+
+        self.my_button = self.insert(Button('My Button'))
+        self.my_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
+            lambda: print(self.my_button.text))
+
+        self.insert(Label('222'))
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
