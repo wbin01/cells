@@ -99,6 +99,9 @@ class Box(Box):
     @_main_parent.setter
     def _main_parent(self, parent) -> None:
         self.__main_parent = parent
+        for item in self.items():
+            if not item._main_parent:
+                item._main_parent = parent
 
     @property
     def _obj(self):
@@ -123,18 +126,20 @@ class Box(Box):
         :param index: Index number where the item should be inserted 
             (Default is -1)
         """
-        self.insert_item_signal.emit()
-
         _, item = setattr(self, str(item), item), getattr(self, str(item))
-        item._main_parent = self.__main_parent
+        if self.__main_parent:
+            item._main_parent = self.__main_parent
 
         if isinstance(item, Box):
             self.__box.insert_layout(index, item._obj)
         else:
+            item.style_id = item.style_id
             item.visible = True
             self.__box.insert_widget(index, item._obj)
 
         self.__items.append(item)
+        self.insert_item_signal.emit()
+
         return item
 
     def items(self) -> list:

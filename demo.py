@@ -6,16 +6,7 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, Box, Orientation, Align,
-    Widget, WidgetBase, Label)
-
-
-class Wid(Widget):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.style_id = 'Wid'
-        self.style['[Wid]']['background'] = 'rgba(0, 200, 0, 0.30)'
-        self.style['[Wid:inactive]']['background'] = 'rgba(150, 150, 255, 0.10)'
-        self.style = self.style
+    Widget, WidgetBase, Button, Label)
 
 
 class Window(MainFrame):
@@ -29,51 +20,23 @@ class Window(MainFrame):
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
 
         self.align = Align.TOP
-        self.top_label = self.insert(Label('Insert Label'))
-        self.top_label.style_id = 'TopLabel'
-        self.top_label.style['[TopLabel]']['background'] = 'rgba(200, 0, 0, 1.00)'
-        self.top_label.style['[TopLabel:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
-        self.top_label.style = self.top_label.style
+        self.insert(Label('Zeta'))
 
-        self.top_wid = self.insert(Wid())
+        self.ll = self.insert(Label('Zeta'))
+        self.ll.style_id = 'Zeta'
+        self.ll.style['[Zeta]']['color'] = 'rgba(0, 200, 0, 1.00)'
+        self.ll.style = self.ll.style
+        print(self.ll.style_id)
+        pprint.pprint(self.ll.style)
+
+        self.ooo = self.insert(Label('Zetaz'))
+        print(self.ooo.style_id)
+        pprint.pprint(self.ooo.style)
+
+        self.top_wid = self.insert(Widget())
         self.top_wid.height = 20
         self.top_wid.signal(Event.MOUSE_BUTTON_PRESS).connect(
             lambda: print('XXX'))
-
-        self.box = self.insert(Box())
-        self.box.align = Align.LEFT
-        self.box.spacing = 5
-        self.box.margin = 0, 0, 0, 10
-        # self.box.signal(Event.INSERT_ITEM).connect(lambda: print('INSERT'))
-        # self.box.signal(Event.REMOVE_ITEM).connect(lambda: print('REMOVE'))
-
-        self.label = self.box.insert(Label('hello'))
-        self.label_count = 0
-        self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
-
-        self.new_box = self.box.insert(Box())
-
-        self.wid = self.new_box.insert(Wid(orientation=Orientation.HORIZONTAL))
-        self.label_2 = self.wid.insert(Label('l1'))
-        self.label_2.style['[Label]']['background'] = 'rgba(200, 0, 200, 1.00)'
-        self.label_2.style = self.label_2.style
-        self.label_2.text = 'l+'
-
-        self.label_3 = self.wid.insert(Label('l2'))
-
-        self.w = None
-        for n in range(5):
-            w = self.box.insert(Widget())
-            w.minimum_height = 20
-            if n == 3:
-                w.style_id = 'Wid3'
-                w.style['[Wid3]']['background'], w.style = 'rgba(200, 0, 0, 1.00)', w.style
-                self.w = w
-
-        self.w.style['[Wid3]']['background'] = 'rgba(0, 0, 200, 0.30)'
-        self.w.style['[Wid3:hover]']['background'] = 'rgba(200, 0, 200, 1.00)'
-        self.w.style = self.w.style
-        self.w.signal(Event.MOUSE_BUTTON_PRESS).connect(self.on_blue_btn)
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()

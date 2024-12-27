@@ -198,6 +198,7 @@ class Frame(object):
         if isinstance(item, Box):
             self.__frame_box._obj.insert_layout(index, item._obj)
         else:
+            item.style_id = item.style_id
             item.visible = True
             self.__frame_box._obj.insert_widget(index, item._obj)
 

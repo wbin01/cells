@@ -75,6 +75,16 @@ class Widget(Widget):
         # Param
         self.__main_parent = main_parent
 
+        # Signals
+        self.alignment_signal = Signal()
+        self.insert_item_signal = Signal()
+        self.main_parent_added_signal = Signal()
+        self.main_parent_added_signal = Signal()
+        self.remove_item_signal = Signal()
+        self.style_change_signal = Signal()
+        self.style_id_change_signal = Signal()
+        # Signals TODO: for all properties and methods
+
         # Flags
         self.__is_enabled = True
         self.__is_inactive = False
@@ -82,35 +92,29 @@ class Widget(Widget):
 
         # Obj
         self.__widget = CoreWidget()
+        self.__widget.set_object_name('Widget')
+        self.__style_id = 'Widget'
 
         self.__box = Box(orientation=orientation)
+        self.__box.signal(Event.INSERT_ITEM).connect(
+            lambda: self.insert_item_signal.emit())
+        self.__box.signal(Event.REMOVE_ITEM).connect(
+            lambda: self.self.remove_item_signal.emit())
         self.__widget.set_layout(self.__box._obj)
 
         self.__style_manager = StyleManager()
+        self.__default_style = self.__style_manager.stylesheet
+        self.__style = {}
         self.__normal_style = None
         self.__hover_style = None
         self.__pressed_style = None
         self.__inactive_style = None
-        self.__style = None
-        self.__style = self.__style_manager.stylesheet
-        self.__styles(
-            self.__style,
-            self.__widget.object_name(),
-            self.__widget.object_name())
+        self.__style_state() 
 
-        # Signals
-        self.alignment_signal = Signal()
-        self.main_parent_added_signal = Signal()
-        self.main_parent_added_signal = Signal()
-        self.style_change_signal = Signal()
-        self.style_id_change_signal = Signal()
-        # Signals TODO: for all properties and methods 
-
-        self.signal(Event.MAIN_PARENT_ADDED).connect(self.__main_added)
-        self.signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__release)
-        self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__press)
-        self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__hover)
-        self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__leave)
+        self.signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__on_release)
+        self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__on_press)
+        self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__on_hover)
+        self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__on_leave)
 
     @property
     def enabled(self) -> bool:
@@ -263,8 +267,9 @@ class Widget(Widget):
 
     @style.setter
     def style(self, style: dict) -> None:
+        self.__style = style
+        self.__style_state()
         self.style_change_signal.emit()
-        self.__styles(style, self.style_id, self.style_id)
 
     @property
     def style_id(self) -> str:
@@ -275,13 +280,27 @@ class Widget(Widget):
 
         Send a string with a unique ID to set the style for this Widget only.
         """
-        return self.__widget.object_name()
+        return self.__style_id
 
     @style_id.setter
     def style_id(self, style_id: str) -> None:
-        inherited_id = self.style_id if self.style_id else 'Widget'
+        # In order
+        new_style = {
+            f'[{style_id}]':
+                self.__default_style[f'[{self.__style_id}]'],
+            f'[{style_id}:inactive]':
+                self.__default_style[f'[{self.__style_id}:inactive]'],
+            f'[{style_id}:hover]':
+                self.__default_style[f'[{self.__style_id}:hover]'],
+            f'[{style_id}:pressed]':
+                self.__default_style[f'[{self.__style_id}:pressed]']}
+
         self.__widget.set_object_name(style_id)
-        self.__styles(self.__style, style_id, inherited_id)
+        self.__style_id = style_id
+
+        self.__style = new_style
+        self.__style_state()
+
         self.style_id_change_signal.emit()
 
     @property
@@ -323,6 +342,7 @@ class Widget(Widget):
     @_main_parent.setter
     def _main_parent(self, parent) -> None:
         self.__main_parent = parent
+        self.__on_main_added()
         self.main_parent_added_signal.emit()
 
     @property
@@ -349,11 +369,13 @@ class Widget(Widget):
             (Default is -1)
         """
         _, item = setattr(self, str(item), item), getattr(self, str(item))
-        item._main_parent = self.__main_parent
+        if self.__main_parent:
+            item._main_parent = self.__main_parent
 
         if isinstance(item, Box):
             self.__box._obj.insert_layout(index, item._obj)
         else:
+            item.style_id = item.style_id
             item.visible = True
             self.__box._obj.insert_widget(index, item._obj)
 
@@ -397,7 +419,6 @@ class Widget(Widget):
             return self.__widget.mouse_hover_leave_signal
         elif event == Event.MOUSE_HOVER_MOVE:
             return self.__widget.mouse_hover_move_signal
-
         # elif event == Event.MOUSE_RIGHT_BUTTON_PRESS:
         #     return self.__widget.mouse_right_button_press_signal
         elif event == Event.MOUSE_WHEEL:
@@ -408,8 +429,12 @@ class Widget(Widget):
         # self.__widget -> self
         elif event == Event.ALIGNMENT_CHANGE:
             return self.alignment_signal
+        elif event == Event.INSERT_ITEM:
+            return self.insert_item_signal
         elif event == Event.MAIN_PARENT_ADDED:
             return self.main_parent_added_signal
+        elif event == Event.REMOVE_ITEM:
+            return self.remove_item_signal
         elif event == Event.STYLE_CHANGE:
             return self.style_change_signal
         elif event == Event.STYLE_ID_CHANGE:
@@ -435,11 +460,11 @@ class Widget(Widget):
         if self.__is_enabled:
             self._obj.set_style_sheet(self.__inactive_style)
 
-    def __hover(self) -> None:
+    def __on_hover(self) -> None:
         if not self.__is_inactive and self.__is_enabled:
                 self._obj.set_style_sheet(self.__hover_style)
 
-    def __leave(self) -> None:
+    def __on_leave(self) -> None:
         # self._obj.set_style_sheet('')
         # self.__label._obj.set_style_sheet('')
 
@@ -450,13 +475,14 @@ class Widget(Widget):
         if not self.__is_inactive and self.__is_enabled:
             self._obj.set_style_sheet(self.__normal_style)
 
-    def __main_added(self) -> None:
+    def __on_main_added(self) -> None:
         self.__main_parent.signal(Event.FOCUS_IN).connect(self.__focus_in)
         self.__main_parent.signal(Event.FOCUS_OUT).connect(self.__focus_out)
-        self.__main_parent.signal(
-            Event.STYLE_CHANGE).connect(self.__update_style)
+        for item in self.__box.items():
+            if not item._main_parent:
+                item._main_parent = self._main_parent
 
-    def __press(self) -> None:
+    def __on_press(self) -> None:
         if self.__is_enabled:
             self.__widget.set_style_sheet(self.__pressed_style)
 
@@ -472,31 +498,24 @@ class Widget(Widget):
             },
             inactive=inactive).split('{')[1].replace('}', '').strip()
 
-    def __release(self) -> None:
+    def __on_release(self) -> None:
         if not self.__is_inactive and self.__is_enabled:
             self._obj.set_style_sheet(self.__hover_style)
 
-    def __styles(
-            self, style: dict, updated_id: str, inherited_id: str) -> None:
-        self.__style = {
-            f'[{updated_id}]': style[f'[{inherited_id}]'],
-            f'[{updated_id}:inactive]': style[f'[{inherited_id}:inactive]'],
-            f'[{updated_id}:hover]': style[f'[{inherited_id}:hover]'],
-            f'[{updated_id}:pressed]': style[f'[{inherited_id}:pressed]']}
-        
+    def __style_state(self) -> None:
+        if not self.__style:
+            self.__style[f'[{self.__style_id}]'] = self.__default_style[f'[{self.__style_id}]']
+            self.__style[f'[{self.__style_id}:hover]'] = self.__default_style[f'[{self.__style_id}:hover]']
+            self.__style[f'[{self.__style_id}:pressed]'] = self.__default_style[f'[{self.__style_id}:pressed]']
+            self.__style[f'[{self.__style_id}:inactive]'] = self.__default_style[f'[{self.__style_id}:inactive]']
+
         self.__normal_style = self.__qss_piece(self.__style)
         self.__hover_style = self.__qss_piece(self.__style, ':hover')
         self.__pressed_style = self.__qss_piece(self.__style, ':pressed')
         self.__inactive_style = self.__qss_piece(
             self.__style, ':inactive', True)
 
-        # if self._main_parent:
-        #     self._main_parent.style.update(self.__style)
-
-    def __update_style(self) -> None:
-        self.style.update(self._main_parent.style)
-        self.style = self.style
-
+        self.__widget.set_style_sheet(self.__normal_style)
 
     def __str__(self):
         return f'<Widget: {id(self)}>'
