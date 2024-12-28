@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 from .align import Align
@@ -17,9 +17,6 @@ class Button(Widget):
         super().__init__(*args, **kwargs)
         self.style_id = 'Button'
         self.__focus = True
-        self.__default = False
-        self.__saved_style = None
-        self.__shadow = QtWidgets.QGraphicsDropShadowEffect()
 
         self.__base_box = self.insert(Box(orientation=Orientation.HORIZONTAL))
         self.__base_box.align = Align.CENTER
@@ -37,50 +34,6 @@ class Button(Widget):
             self.__on_mouse_button_press)
         self.signal(Event.MOUSE_BUTTON_RELEASE).connect(
             self.__on_mouse_button_release)
-
-    @property
-    def default(self) -> bool:
-        """..."""
-        return self.__default
-
-    @default.setter
-    def default(self, value: str) -> None:
-        self.__default = value
-        if self._main_parent:
-            if not self.__saved_style:
-                style = {
-                    f'[{self.style_id}]': self._main_parent.style[
-                        f'[{self.style_id}]'],
-                    f'[{self.style_id}:hover]': self._main_parent.style[
-                        f'[{self.style_id}:hover]'],
-                    f'[{self.style_id}:pressed]': self._main_parent.style[
-                        f'[{self.style_id}:pressed]'],
-                    f'[{self.style_id}:inactive]': self._main_parent.style[
-                        f'[{self.style_id}:inactive]']}
-                self.__saved_style = style
-
-            if self.__default:
-                rgb = [int(x) for x in self.accent]
-                self.__shadow = QtWidgets.QGraphicsDropShadowEffect()
-                self.__shadow.set_blur_radius(5)
-                self.__shadow.set_offset(0, 0)
-                self.__shadow.set_color(QtGui.QColor(rgb[0], rgb[1], rgb[2]))
-                self._obj.set_graphics_effect(self.__shadow)
-
-                self.style = {
-                    f'[{self.style_id}]': self._main_parent.style[
-                        '[Button-Default]'],
-                    f'[{self.style_id}:hover]': self._main_parent.style[
-                        '[Button-Default:hover]'],
-                    f'[{self.style_id}:pressed]': self._main_parent.style[
-                        '[Button-Default:pressed]'],
-                    f'[{self.style_id}:inactive]': self._main_parent.style[
-                        '[Button-Default:inactive]']}
-            else:
-                if self.__saved_style:
-                    self._obj.set_graphics_effect(None)
-                    self.style = self.__saved_style
-                    self.__saved_style = None
 
     @property
     def text(self) -> str:

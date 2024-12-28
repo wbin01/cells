@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import logging
 
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtGui
 from __feature__ import snake_case
 
 from .align import Align
@@ -116,6 +116,54 @@ class Widget(Widget):
         self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__on_press)
         self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__on_hover)
         self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__on_leave)
+
+        self.__style_class = False
+        self.__style_class_saved = None
+        self.__style_class_shadow = QtWidgets.QGraphicsDropShadowEffect()
+
+    @property
+    def style_class(self) -> bool:
+        """..."""
+        return self.__style_class
+
+    @style_class.setter
+    def style_class(self, value: str) -> None:
+        self.__style_class = value
+        if self._main_parent:
+            if not self.__style_class_saved:
+                style = {
+                    f'[{self.style_id}]': self._main_parent.style[
+                        f'[{self.style_id}]'],
+                    f'[{self.style_id}:hover]': self._main_parent.style[
+                        f'[{self.style_id}:hover]'],
+                    f'[{self.style_id}:pressed]': self._main_parent.style[
+                        f'[{self.style_id}:pressed]'],
+                    f'[{self.style_id}:inactive]': self._main_parent.style[
+                        f'[{self.style_id}:inactive]']}
+                self.__style_class_saved = style
+
+            if self.__style_class:
+                rgb = [int(x) for x in self.accent]
+                self.__style_class_shadow = QtWidgets.QGraphicsDropShadowEffect()
+                self.__style_class_shadow.set_blur_radius(5)
+                self.__style_class_shadow.set_offset(0, 0)
+                self.__style_class_shadow.set_color(QtGui.QColor(rgb[0], rgb[1], rgb[2]))
+                self._obj.set_graphics_effect(self.__style_class_shadow)
+
+                self.style = {
+                    f'[{self.style_id}]': self._main_parent.style[
+                        '[ClassDefault]'],
+                    f'[{self.style_id}:hover]': self._main_parent.style[
+                        '[ClassDefault:hover]'],
+                    f'[{self.style_id}:pressed]': self._main_parent.style[
+                        '[ClassDefault:pressed]'],
+                    f'[{self.style_id}:inactive]': self._main_parent.style[
+                        '[ClassDefault:inactive]']}
+            else:
+                if self.__style_class_saved:
+                    self._obj.set_graphics_effect(None)
+                    self.style = self.__style_class_saved
+                    self.__style_class_saved = None
 
     @property
     def accent(self) -> str:
