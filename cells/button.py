@@ -2,6 +2,7 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
+from .align import Align
 from .event import Event
 from .label import Label
 from .orientation import Orientation
@@ -17,6 +18,7 @@ class Button(Widget):
         self.style_id = 'Button'
 
         self.__base_box = self.insert(Box(orientation=Orientation.HORIZONTAL))
+        self.__base_box.align = Align.CENTER
         self.__label =  self.__base_box.insert(Label(text))
         self.__label.margin = 0, 5, 0, 5
         
