@@ -12,12 +12,26 @@ class StyleManager(object):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
+        self.__accent_red = '45'
+        self.__accent_green = '90'
+        self.__accent_blue = '165'
+        self.__accent = '45', '90', '165'
+
         self.__path = pathlib.Path(__file__).resolve().parent
         self.__url = os.path.join(self.__path, 'static', 'stylerc')
         self.__dict_style = None
         self.__qss_style = None
         self.__style_file = None
         self.stylesheet = None
+
+    @property
+    def accent(self) -> tuple:
+        """RGB tuple accent color"""
+        return self.__accent
+
+    @accent.setter
+    def accent(self, accent: tuple) -> None:
+        self.__accent = accent
 
     @property
     def stylesheet(self) -> dict:
@@ -74,7 +88,10 @@ class StyleManager(object):
                 continue  # disabled
 
             if 'background' in style[group_key]:
-                background = style[group_key]['background']
+                background = style[group_key]['background'].replace(
+                    'accent_red', self.__accent_red).replace(
+                    'accent_green', self.__accent_green).replace(
+                    'accent_blue', self.__accent_blue)
             if 'background_image' in style[group_key]:
                 if os.name == 'posix':
                     background_image = os.path.expanduser(
@@ -83,14 +100,20 @@ class StyleManager(object):
                     background_image = os.path.expandvars(
                         style[group_key]['background_image'])
             if 'border' in style[group_key]:
-                border = style[group_key]['border']
+                border = style[group_key]['border'].replace(
+                    'accent_red', self.__accent_red).replace(
+                    'accent_green', self.__accent_green).replace(
+                    'accent_blue', self.__accent_blue)
                 border = style_parser.border_str_to_list(border)
             if 'border_radius' in style[group_key]:
                 border_radius = style[group_key]['border_radius']
                 border_radius = style_parser.border_radius_str_to_list(
                     border_radius)
             if 'color' in style[group_key]:
-                color = style[group_key]['color']
+                color = style[group_key]['color'].replace(
+                    'accent_red', self.__accent_red).replace(
+                    'accent_green', self.__accent_green).replace(
+                    'accent_blue', self.__accent_blue)
             if 'margin' in style[group_key]:
                 margin = style[group_key]['margin']
                 margin = style_parser.margin_padding_str_to_list(margin)

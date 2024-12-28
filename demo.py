@@ -6,7 +6,7 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, Box, Orientation, Align,
-    Widget, WidgetBase, Button, Label)
+    Widget, WidgetBase, Button, DefaultButton, Label)
 
 
 class Window(MainFrame):
@@ -56,7 +56,7 @@ class Window(MainFrame):
 
         self.insert(Label('222'))
 
-        self.insert(Button('Last Button'))
+        self.insert(DefaultButton('Last Button'))
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()

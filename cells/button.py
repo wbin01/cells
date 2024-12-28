@@ -17,7 +17,9 @@ class Button(Widget):
         super().__init__(*args, **kwargs)
         self.style_id = 'Button'
         self.__focus = True
-        
+        self.__default = False
+        self.__default_style = self.__build_default_style()
+
         self.__base_box = self.insert(Box(orientation=Orientation.HORIZONTAL))
         self.__base_box.align = Align.CENTER
         self.__label =  self.__base_box.insert(Label(text))
@@ -36,6 +38,15 @@ class Button(Widget):
             self.__on_mouse_button_release)
 
     @property
+    def default(self) -> bool:
+        """..."""
+        return self.__default
+
+    @default.setter
+    def default(self, value: str) -> None:
+        self.__default = value
+
+    @property
     def text(self) -> str:
         """Button text.
         
@@ -46,6 +57,9 @@ class Button(Widget):
     @text.setter
     def text(self, text: str) -> None:
         self.__label.text = text
+
+    def __build_default_style(self) -> dict:
+        pass
 
     def __on_enabled_change(self) -> None:
         if self.enabled:
@@ -63,38 +77,49 @@ class Button(Widget):
         self.__focus = True
         if self.enabled:
             self.__label.style['[Label]']['color'] = self.style[
-                '[Button]']['color']
+                f'[{self.style_id}]']['color']
             self.__label.style = self.__label.style
 
     def __on_main_parent_focus_out(self) -> None:
         self.__focus = False
         self.__label.style['[Label]']['color'] = self.style[
-            '[Button:inactive]']['color']
+            f'[{self.style_id}:inactive]']['color']
         self.__label.style = self.__label.style
 
     def __on_mouse_hover_enter(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
-                '[Button:hover]']['color']
+                f'[{self.style_id}:hover]']['color']
             self.__label.style = self.__label.style
 
     def __on_mouse_hover_leave(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
-                '[Button]']['color']
+                f'[{self.style_id}]']['color']
             self.__label.style = self.__label.style
 
     def __on_mouse_button_press(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
-                '[Button:pressed]']['color']
+                f'[{self.style_id}:pressed]']['color']
             self.__label.style = self.__label.style
 
     def __on_mouse_button_release(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
-                '[Button:hover]']['color']
+                f'[{self.style_id}:hover]']['color']
             self.__label.style = self.__label.style
 
     def __str__(self) -> str:
         return f'<Button: {id(self)}>'
+
+
+class DefaultButton(Button):
+    """Button Widget."""
+    def __init__(self, *args, **kwargs) -> None:
+        """Class constructor."""
+        super().__init__(*args, **kwargs)
+        self.style_id = 'DefaultButton'
+
+    def __str__(self) -> str:
+        return f'<DefaultButton: {id(self)}>'

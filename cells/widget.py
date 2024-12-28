@@ -104,17 +104,27 @@ class Widget(Widget):
 
         self.__style_manager = StyleManager()
         self.__stylesheet = self.__style_manager.stylesheet
+        self.__accent = self.__style_manager.accent
         self.__style = {}
         self.__normal_style = None
         self.__hover_style = None
         self.__pressed_style = None
         self.__inactive_style = None
-        self.__style_state() 
+        self.__style_state()
 
         self.signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__on_release)
         self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__on_press)
         self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__on_hover)
         self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__on_leave)
+
+    @property
+    def accent(self) -> str:
+        """..."""
+        return self.__accent
+
+    @accent.setter
+    def accent(self, accent: str) -> None:
+        self.__accent = accent
 
     @property
     def enabled(self) -> bool:
