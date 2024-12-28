@@ -14,16 +14,23 @@ class Button(Widget):
     def __init__(self, text: str = '', *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.__text = text
         self.style_id = 'Button'
 
         self.__base_box = self.insert(Box(orientation=Orientation.HORIZONTAL))
-        self.__label =  self.__base_box.insert(
-            Label(self.__text))
+        self.__label =  self.__base_box.insert(Label(text))
         self.__label.margin = 0, 5, 0, 5
         
         self.signal(Event.MAIN_PARENT_ADDED).connect(self.__on_main_added)
         self.signal(Event.ENABLED_CHANGE).connect(self.__on_enabled_change)
+
+        self.signal(Event.MOUSE_HOVER_ENTER).connect(
+            self.__on_mouse_hover_enter)
+        self.signal(Event.MOUSE_HOVER_LEAVE).connect(
+            self.__on_mouse_hover_leave)
+        self.signal(Event.MOUSE_BUTTON_PRESS).connect(
+            self.__on_mouse_button_press)
+        self.signal(Event.MOUSE_BUTTON_RELEASE).connect(
+            self.__on_mouse_button_release)
 
     @property
     def text(self) -> str:
@@ -35,7 +42,6 @@ class Button(Widget):
 
     @text.setter
     def text(self, text: str) -> None:
-        self.__text = text
         self.__label.text = text
 
     def __on_enabled_change(self) -> None:
@@ -60,6 +66,30 @@ class Button(Widget):
         self.__label.style['[Label]']['color'] = self.style[
             '[Button:inactive]']['color']
         self.__label.style = self.__label.style
+
+    def __on_mouse_hover_enter(self) -> None:
+        if self.enabled:
+            self.__label.style['[Label]']['color'] = self.style[
+                '[Button:hover]']['color']
+            self.__label.style = self.__label.style
+
+    def __on_mouse_hover_leave(self) -> None:
+        if self.enabled:
+            self.__label.style['[Label]']['color'] = self.style[
+                '[Button]']['color']
+            self.__label.style = self.__label.style
+
+    def __on_mouse_button_press(self) -> None:
+        if self.enabled:
+            self.__label.style['[Label]']['color'] = self.style[
+                '[Button:pressed]']['color']
+            self.__label.style = self.__label.style
+
+    def __on_mouse_button_release(self) -> None:
+        if self.enabled:
+            self.__label.style['[Label]']['color'] = self.style[
+                '[Button:hover]']['color']
+            self.__label.style = self.__label.style
 
     def __str__(self) -> str:
         return f'<Button: {id(self)}>'

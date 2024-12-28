@@ -36,6 +36,18 @@ class Window(MainFrame):
         self.my_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
             lambda: print(self.my_button.text))
         self.my_button.margin = 5, 5, 5, 5
+        self.my_button.style['[Button]']['background'] = 'rgba(0, 200, 0, 0.30)'
+        self.my_button.style['[Button]']['border'] = '1px 1px 1px 1px rgba(0, 200, 0, 0.50)'
+        self.my_button.style['[Button]']['color'] = 'rgba(0, 200, 0, 1.00)'
+        self.my_button.style['[Button:hover]']['background'] = 'rgba(200, 0, 0, 0.30)'
+        self.my_button.style['[Button:hover]']['border'] = '1px 1px 1px 1px rgba(200, 0, 0, 0.50)'
+        self.my_button.style['[Button:hover]']['color'] = 'rgba(200, 0, 0, 1.00)'
+
+        self.my_button.style['[Button:pressed]']['background'] = 'rgba(0, 0, 200, 0.30)'
+        self.my_button.style['[Button:pressed]']['border'] = '1px 1px 1px 1px rgba(0, 0, 200, 0.50)'
+        self.my_button.style['[Button:pressed]']['color'] = 'rgba(0, 0, 200, 1.00)'
+
+        self.my_button.style = self.my_button.style
 
         self.block_my_button = self.insert(Button('Block My Button'))
         self.block_my_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
