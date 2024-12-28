@@ -49,12 +49,14 @@ class Window(MainFrame):
 
         self.my_button.style = self.my_button.style
 
-        self.block_my_button = self.insert(Button('Block My Button'))
+        self.block_my_button = self.insert(Button('Block greens'))
         self.block_my_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
             self.on_block_my_button)
         self.block_my_button.margin = 5, 5, 5, 5
 
         self.insert(Label('222'))
+
+        self.insert(Button('Last Button'))
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
@@ -75,11 +77,11 @@ class Window(MainFrame):
         if self.my_button.enabled:
             self.my_button.enabled = False
             self.ll.enabled = False
-            self.block_my_button.text = 'Unblock My Button'
+            self.block_my_button.text = 'Unblock greens'
         else:
             self.my_button.enabled = True
             self.ll.enabled = True
-            self.block_my_button.text = 'Block My Button'
+            self.block_my_button.text = 'Block greens'
 
 if __name__ == '__main__':
     # from PySide6 import QtCore, QtGui, QtWidgets

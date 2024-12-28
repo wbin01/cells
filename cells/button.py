@@ -16,7 +16,8 @@ class Button(Widget):
         """Class constructor."""
         super().__init__(*args, **kwargs)
         self.style_id = 'Button'
-
+        self.__focus = True
+        
         self.__base_box = self.insert(Box(orientation=Orientation.HORIZONTAL))
         self.__base_box.align = Align.CENTER
         self.__label =  self.__base_box.insert(Label(text))
@@ -59,36 +60,38 @@ class Button(Widget):
             self.__on_main_parent_focus_out)
 
     def __on_main_parent_focus_in(self) -> None:
+        self.__focus = True
         if self.enabled:
             self.__label.style['[Label]']['color'] = self.style[
                 '[Button]']['color']
             self.__label.style = self.__label.style
 
     def __on_main_parent_focus_out(self) -> None:
+        self.__focus = False
         self.__label.style['[Label]']['color'] = self.style[
             '[Button:inactive]']['color']
         self.__label.style = self.__label.style
 
     def __on_mouse_hover_enter(self) -> None:
-        if self.enabled:
+        if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 '[Button:hover]']['color']
             self.__label.style = self.__label.style
 
     def __on_mouse_hover_leave(self) -> None:
-        if self.enabled:
+        if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 '[Button]']['color']
             self.__label.style = self.__label.style
 
     def __on_mouse_button_press(self) -> None:
-        if self.enabled:
+        if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 '[Button:pressed]']['color']
             self.__label.style = self.__label.style
 
     def __on_mouse_button_release(self) -> None:
-        if self.enabled:
+        if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 '[Button:hover]']['color']
             self.__label.style = self.__label.style
