@@ -23,7 +23,7 @@ background=rgba(50, 50, 50, 1.00)
 color=rgba(200, 200, 200, 1.00)
 border=1px 1px 1px 1px rgba(55, 55, 55, 1.00)
 
-[DefaultButton]
+[Button-Default]
 background=rgba(accent_red, accent_green, accent_blue, 0.10)
 color=rgba(200, 200, 200, 1.00)
 border=1px 1px 1px 1px rgba(accent_red, accent_green, accent_blue, 0.30)
@@ -31,17 +31,17 @@ border_radius=3px 3px 3px 3px
 padding=5px 5px 5px 5px
 margin=0px 0px 0px 0px
 
-[DefaultButton:hover]
+[Button-Default:hover]
 background=rgba(accent_red, accent_green, accent_blue, 0.15)
 color=rgba(200, 200, 200, 1.00)
 border=1px 1px 1px 1px rgba(accent_red, accent_green, accent_blue, 0.30)
 
-[DefaultButton:inactive]
+[Button-Default:inactive]
 background=rgba(32, 32, 32, 0.50)
 color=rgba(200, 200, 200, 0.40)
 border=1px 1px 1px 1px rgba(45, 45, 45, 0.60)
 
-[DefaultButton:pressed]
+[Button-Default:pressed]
 background=rgba(accent_red, accent_green, accent_blue, 0.20)
 color=rgba(200, 200, 200, 1.00)
 border=1px 1px 1px 1px rgba(accent_red, accent_green, accent_blue, 0.30)

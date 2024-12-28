@@ -6,7 +6,7 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, Box, Orientation, Align,
-    Widget, WidgetBase, Button, DefaultButton, Label)
+    Widget, WidgetBase, Button, Label)
 
 
 class Window(MainFrame):
@@ -56,7 +56,9 @@ class Window(MainFrame):
 
         self.insert(Label('222'))
 
-        self.insert(DefaultButton('Last Button'))
+        self.def_btn = self.insert(Button('Last Button'))
+        self.def_btn.signal(Event.MOUSE_BUTTON_PRESS).connect(
+            lambda: print('Lol'))
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
@@ -78,10 +80,13 @@ class Window(MainFrame):
             self.my_button.enabled = False
             self.ll.enabled = False
             self.block_my_button.text = 'Unblock greens'
+            self.def_btn.default = True
         else:
             self.my_button.enabled = True
             self.ll.enabled = True
             self.block_my_button.text = 'Block greens'
+            self.def_btn.default = False
+
 
 if __name__ == '__main__':
     # from PySide6 import QtCore, QtGui, QtWidgets
