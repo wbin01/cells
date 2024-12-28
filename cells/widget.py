@@ -130,15 +130,16 @@ class Widget(Widget):
         self.__is_enabled = value
 
         if self.__is_enabled:
-            self.__is_enabled = True
             self._obj.set_style_sheet(self.__normal_style)
-            self._obj.mouse_button_press_signal.connect()
-            self._obj.mouse_button_release_signal.connect()
+            if hasattr(self._obj, 'mouse_button_press_signal'):
+                self._obj.mouse_button_press_signal.connect()
+                self._obj.mouse_button_release_signal.connect()
         else:
-            self.__is_enabled = False
             self._obj.set_style_sheet(self.__inactive_style)
-            self._obj.mouse_button_press_signal.disconnect()
-            self._obj.mouse_button_release_signal.disconnect()
+
+            if hasattr(self._obj, 'mouse_button_press_signal'):
+                self._obj.mouse_button_press_signal.disconnect()
+                self._obj.mouse_button_release_signal.disconnect()
 
         self.__enabled_change_signal.emit()
 

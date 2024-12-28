@@ -62,11 +62,11 @@ class Window(MainFrame):
     def on_block_my_button(self):
         if self.my_button.enabled:
             self.my_button.enabled = False
-            # self.ll.enabled = False
+            self.ll.enabled = False
             self.block_my_button.text = 'Unblock My Button'
         else:
             self.my_button.enabled = True
-            # self.ll.enabled = True
+            self.ll.enabled = True
             self.block_my_button.text = 'Block My Button'
 
 if __name__ == '__main__':
