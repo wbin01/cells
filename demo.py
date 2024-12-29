@@ -37,14 +37,15 @@ class Window(MainFrame):
         # self.btn.signal(Event.MOUSE_HOVER_MOVE).connect(lambda: print('Widget: MOUSE_HOVER_MOVE'))
         # self.btn.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(lambda: print('Widget: MOUSE_RIGHT_BUTTON_PRESS'))
         # self.btn.signal(Event.MOUSE_WHEEL).connect(lambda: print('Widget: MOUSE_WHEEL'))
-        # self.btn.signal(Event.INSERT_ITEM).connect(lambda: print('Widget: INSERT_ITEM'))
-        # self.btn.signal(Event.REMOVE_ITEM).connect(lambda: print('Widget: REMOVE_ITEM'))
+        self.btn.signal(Event.INSERT_ITEM).connect(lambda: print('Widget: INSERT_ITEM'))
+        self.btn.signal(Event.REMOVE_ITEM).connect(lambda: print('Widget: REMOVE_ITEM'))
+        self.btn.signal(Event.DELETE_ITEM).connect(lambda: print('Widget: DELETE_ITEM'))
         # self.btn.signal(Event.RESIZE).connect(lambda: print('Widget: RESIZE'))
         # self.btn.signal(Event.STYLE_CHANGE).connect(lambda: print('Widget: STYLE_CHANGE'))
         # self.btn.signal(Event.STYLE_ID_CHANGE).connect(lambda: print('Widget: STYLE_ID_CHANGE'))
         # self.btn.signal(Event.ENABLED_CHANGE).connect(lambda: print('Widget: ENABLED_CHANGE'))
         # self.btn.signal(Event.MAIN_PARENT_ADDED).connect(lambda: print('Widget: MAIN_PARENT_ADDED'))
-        self.btn.signal(Event.STYLE_CLASS_CHANGE).connect(lambda: print('Widget: STYLE_CLASS_CHANGE'))
+        # self.btn.signal(Event.STYLE_CLASS_CHANGE).connect(lambda: print('Widget: STYLE_CLASS_CHANGE'))
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
@@ -66,15 +67,16 @@ class Window(MainFrame):
             self.btn.style_id = 'Master'
             self.btn.style_class = 'Warning'
 
-            self.btn.height = 50
-            # self.btn.insert(self.label)
+            # self.btn.height = 50
+            self.btn.insert(self.label)
         else:
             self.button.enabled = True
             self.block_button.text = 'Block Button'
             self.btn.style_class = None
 
-            self.btn.height = 20
-            # self.btn.remove(self.label)
+            # self.btn.height = 20
+            self.btn.remove(self.label)
+            # self.btn.delete(self.label)
 
 
 if __name__ == '__main__':

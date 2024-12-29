@@ -109,6 +109,9 @@ class Widget(Widget):
         # Signals
         self.__sig = {}
 
+        self.__delete_item_signal = self.__box.signal(Event.DELETE_ITEM)
+        self.__sig[Event.DELETE_ITEM] = self.__delete_item_signal
+
         self.__enabled_change_signal = Signal()
         self.__sig[Event.ENABLED_CHANGE] = self.__enabled_change_signal
 
@@ -501,6 +504,17 @@ class Widget(Widget):
     def _obj(self, obj: QtWidgets) -> None:
         self.__widget = obj
 
+    def delete(self, item: Widget | Box) -> None:
+        """Delete a Widget or a Box.
+
+        When an item is deleted, the reference to it no longer exists. Using 
+        the old variable for this item causes an error. In order to use the 
+        old variable, the item will need to be instantiated again.
+
+        :param item: A Widget (Widget, Label, Button...) or a Box.
+        """
+        self.__box.delete(item)
+
     def events_available_for_signal(self) -> str:
         """String with all available events."""
         return ', '.join([f'Event.{x.value}' for x in self.__sig.keys()])
@@ -515,7 +529,6 @@ class Widget(Widget):
             (Default is -1)
         """
         self.__box.insert(item)
-        # self.__insert_item_signal.emit()
         return item
 
     def items(self) -> list:
@@ -525,10 +538,14 @@ class Widget(Widget):
     def remove(self, item: Widget | Box) -> None:
         """Removes a Widget or a Box.
 
+        This only removes the widget, but does not delete it. The variable 
+        referring to it still works and can be inserted again later. To 
+        completely delete the widget from the variable, use the 'delete()' 
+        method.
+
         :param item: A Widget (Widget, Label, Button...) or a Box.
         """
         self.__box.remove(item)
-        # self.__remove_item_signal.emit()
 
     def move(self, x: int, y: int) -> None:
         """Move the Widget.

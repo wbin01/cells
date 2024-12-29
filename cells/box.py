@@ -34,6 +34,7 @@ class Box(Box):
         :param orientation: Changes the orientation of the Box to horizontal
         """
         super().__init__(*args, **kwargs)
+        self.__delete_item_signal = Signal()
         self.__insert_item_signal = Signal()
         self.__remove_item_signal = Signal()
 
@@ -117,6 +118,19 @@ class Box(Box):
     def _obj(self, obj: QtWidgets) -> None:
         self.__box = obj
 
+    def delete(self, item: Widget | Box) -> None:
+        """Delete a Widget or a Box.
+
+        When an item is deleted, the reference to it no longer exists. Using 
+        the old variable for this item causes an error. In order to use the 
+        old variable, the item will need to be instantiated again.
+
+        :param item: A Widget (Widget, Label, Button...) or a Box.
+        """
+        item._obj.delete_later()
+        self.__items.remove(item)
+        self.__delete_item_signal.emit()
+
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
 
@@ -149,12 +163,21 @@ class Box(Box):
     def remove(self, item: Widget | Box) -> None:
         """Removes a Widget or a Box.
 
+        This only removes the widget, but does not delete it. The variable 
+        referring to it still works and can be inserted again later. To 
+        completely delete the widget from the variable, use the 'delete()' 
+        method.
+
         :param item: A Widget (Widget, Label, Button...) or a Box.
         """
-        self.__remove_item_signal.emit()
+        if isinstance(item, Box):
+            self.__box.remove_layout(item._obj)
+        else:
+            self.__box.remove_widget(item._obj)
+        item._obj.set_parent(None)
 
-        item._obj.delete_later()
         self.__items.remove(item)
+        self.__remove_item_signal.emit()
 
     def signal(self, event: Event) -> Signal:
         """Event Signals.
@@ -169,6 +192,8 @@ class Box(Box):
             
             NONE, INSERT_ITEM, REMOVE_ITEM
         """
+        if event == Event.DELETE_ITEM:
+            return self.__delete_item_signal
         if event == Event.INSERT_ITEM:
             return self.__insert_item_signal
         elif event == Event.REMOVE_ITEM:
