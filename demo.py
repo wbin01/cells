@@ -20,52 +20,16 @@ class Window(MainFrame):
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
 
         self.align = Align.TOP
-        self.insert(Label('Zeta 1'))
+        self.button = self.insert(Button('Button'))
+        self.button.signal(Event.MOUSE_BUTTON_PRESS).connect(
+            lambda: print(self.button.text))
 
-        self.ll = self.insert(Label('Zeta 2'))
-        self.ll.style_id = 'Zeta2'
-        self.ll.style['[Zeta2]']['color'] = 'rgba(0, 200, 0, 1.00)'
-        self.ll.style = self.ll.style
+        self.block_button = self.insert(Button('Block Button'))
+        self.block_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
+            self.on_block_button)
 
-        self.ooo = self.insert(Label('Zeta 3'))
-
-        self.top_wid = self.insert(Widget())
-        self.top_wid.height = 15
-
-        self.my_button = self.insert(Button('My Button'))
-        self.my_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
-            lambda: print(self.my_button.text))
-        self.my_button.margin = 5, 5, 5, 5
-        self.my_button.style['[Button]']['background'] = 'rgba(0, 200, 0, 0.30)'
-        self.my_button.style['[Button]']['border'] = '1px 1px 1px 1px rgba(0, 200, 0, 0.50)'
-        self.my_button.style['[Button]']['color'] = 'rgba(0, 200, 0, 1.00)'
-        self.my_button.style['[Button:hover]']['background'] = 'rgba(200, 0, 0, 0.30)'
-        self.my_button.style['[Button:hover]']['border'] = '1px 1px 1px 1px rgba(200, 0, 0, 0.50)'
-        self.my_button.style['[Button:hover]']['color'] = 'rgba(200, 0, 0, 1.00)'
-
-        self.my_button.style['[Button:pressed]']['background'] = 'rgba(0, 0, 200, 0.30)'
-        self.my_button.style['[Button:pressed]']['border'] = '1px 1px 1px 1px rgba(0, 0, 200, 0.50)'
-        self.my_button.style['[Button:pressed]']['color'] = 'rgba(0, 0, 200, 1.00)'
-
-        self.my_button.style = self.my_button.style
-
-        self.block_my_button = self.insert(Button('Block greens'))
-        self.block_my_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
-            self.on_block_my_button)
-        self.block_my_button.margin = 5, 5, 5, 5
-
-        self.accent_button = self.insert(Button('Accent'))
-        self.accent_button.style_class = 'Accent'
-        self.danger_button = self.insert(Button('Danger'))
-        self.danger_button.style_class = 'Danger'
-        self.success_button = self.insert(Button('Success'))
-        self.success_button.style_class = 'Success'
-        self.warning_button = self.insert(Button('Warning'))
-        self.warning_button.style_class = 'Warning'
-
-        self.def_btn = self.insert(Button('Last Button'))
-        self.def_btn.signal(Event.MOUSE_BUTTON_PRESS).connect(
-            lambda: print('Lol'))
+        self.btn = self.insert(Button('Last Button'))
+        self.btn.signal(Event.MOUSE_BUTTON_PRESS).connect(lambda: print('x'))
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
@@ -73,28 +37,20 @@ class Window(MainFrame):
         # self.style_from_file('stylerc')
         # pprint.pprint(self.style['[Button]'])
 
-    def fn_label(self):
-        self.label_count += 1
-        self.label.text = f'Clicked: {self.label_count}'
-
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP
         self.ctx_menu.show()
         self.ctx_menu.move(self.cursor.x() - 5, self.cursor.y() - 5)
 
-    def on_block_my_button(self):
-        if self.my_button.enabled:
-            self.my_button.enabled = False
-            self.ll.enabled = False
-            self.ooo.style_class = 'Warning'
-            self.block_my_button.text = 'Unblock greens'
-            self.def_btn.style_class = 'Warning'
+    def on_block_button(self):
+        if self.button.enabled:
+            self.button.enabled = False
+            self.block_button.text = 'Unblock Button'
+            self.btn.style_class = 'Warning'
         else:
-            self.my_button.enabled = True
-            self.ll.enabled = True
-            self.ooo.style_class = None
-            self.block_my_button.text = 'Block greens'
-            self.def_btn.style_class = None
+            self.button.enabled = True
+            self.block_button.text = 'Block Button'
+            self.btn.style_class = None
 
 
 if __name__ == '__main__':
