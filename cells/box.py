@@ -127,8 +127,8 @@ class Box(Box):
 
         :param item: A Widget (Widget, Label, Button...) or a Box.
         """
-        item._obj.delete_later()
         self.__items.remove(item)
+        item._obj.delete_later()
         self.__delete_item_signal.emit()
 
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:

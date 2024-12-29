@@ -9,7 +9,7 @@ from cells import (
     Widget, WidgetBase, Button, Label)
 
 
-class Window(MainFrame):
+class Window(Frame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         # self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
@@ -51,6 +51,8 @@ class Window(MainFrame):
         self.cursor = Cursor()
 
         self.label = Label('INSERT_ITEM')
+        for i in range(5):
+            self.insert(Label(str(i)))
 
         # self.style_from_file('stylerc')
         # pprint.pprint(self.style['[Button]'])
@@ -69,6 +71,7 @@ class Window(MainFrame):
 
             # self.btn.height = 50
             self.btn.insert(self.label)
+            # self.remove(self.btn)
         else:
             self.button.enabled = True
             self.block_button.text = 'Block Button'

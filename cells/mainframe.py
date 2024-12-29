@@ -241,6 +241,17 @@ class MainFrame(object):
     def _obj(self, obj: QtWidgets) -> None:
         self.__frame = obj
 
+    def delete(self, item: Widget | Box) -> None:
+        """Delete a Widget or a Box.
+
+        When an item is deleted, the reference to it no longer exists. Using 
+        the old variable for this item causes an error. In order to use the 
+        old variable, the item will need to be instantiated again.
+
+        :param item: A Widget (Widget, Label, Button...) or a Box.
+        """
+        self.__frame_box.delete(item)
+
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
 
@@ -250,17 +261,20 @@ class MainFrame(object):
         :param index: Index number where the item should be inserted 
             (Default is -1)
         """
-        _, item = setattr(self, str(item), item), getattr(self, str(item))
-        item._main_parent = self
-
-        if isinstance(item, Box):
-            self.__frame_box._obj.insert_layout(index, item._obj)
-        else:
-            item.style_id = item.style_id
-            item.visible = True
-            self.__frame_box._obj.insert_widget(index, item._obj)
-
+        self.__frame_box.insert(item)
         return item
+
+    def remove(self, item: Widget | Box) -> None:
+        """Removes a Widget or a Box.
+
+        This only removes the widget, but does not delete it. The variable 
+        referring to it still works and can be inserted again later. To 
+        completely delete the widget from the variable, use the 'delete()' 
+        method.
+
+        :param item: A Widget (Widget, Label, Button...) or a Box.
+        """
+        self.__frame_box.remove(item)
 
     def show(self) -> None:
         """Show the frame."""
