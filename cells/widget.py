@@ -300,13 +300,13 @@ class Widget(Widget):
         if self._main_parent:
             if not self.__style_class_saved:
                 style = {
-                    f'[{self.style_id}]': self._main_parent.style[
+                    f'[{self.style_id}]': self.style[
                         f'[{self.style_id}]'],
-                    f'[{self.style_id}:hover]': self._main_parent.style[
+                    f'[{self.style_id}:hover]': self.style[
                         f'[{self.style_id}:hover]'],
-                    f'[{self.style_id}:pressed]': self._main_parent.style[
+                    f'[{self.style_id}:pressed]': self.style[
                         f'[{self.style_id}:pressed]'],
-                    f'[{self.style_id}:inactive]': self._main_parent.style[
+                    f'[{self.style_id}:inactive]': self.style[
                         f'[{self.style_id}:inactive]']}
                 self.__style_class_saved = style
 

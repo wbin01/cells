@@ -86,11 +86,13 @@ class Window(MainFrame):
         if self.my_button.enabled:
             self.my_button.enabled = False
             self.ll.enabled = False
+            self.ooo.style_class = 'Warning'
             self.block_my_button.text = 'Unblock greens'
             self.def_btn.style_class = 'Warning'
         else:
             self.my_button.enabled = True
             self.ll.enabled = True
+            self.ooo.style_class = None
             self.block_my_button.text = 'Block greens'
             self.def_btn.style_class = None
 
