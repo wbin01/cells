@@ -80,12 +80,12 @@ class Window(MainFrame):
             self.my_button.enabled = False
             self.ll.enabled = False
             self.block_my_button.text = 'Unblock greens'
-            self.def_btn.style_class = True
+            self.def_btn.style_class = 'Accent'
         else:
             self.my_button.enabled = True
             self.ll.enabled = True
             self.block_my_button.text = 'Block greens'
-            self.def_btn.style_class = False
+            self.def_btn.style_class = None
 
 
 if __name__ == '__main__':
