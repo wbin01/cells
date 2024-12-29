@@ -54,7 +54,14 @@ class Window(MainFrame):
             self.on_block_my_button)
         self.block_my_button.margin = 5, 5, 5, 5
 
-        self.insert(Label('222'))
+        self.accent_button = self.insert(Button('Accent'))
+        self.accent_button.style_class = 'Accent'
+        self.danger_button = self.insert(Button('Danger'))
+        self.danger_button.style_class = 'Danger'
+        self.success_button = self.insert(Button('Success'))
+        self.success_button.style_class = 'Success'
+        self.warning_button = self.insert(Button('Warning'))
+        self.warning_button.style_class = 'Warning'
 
         self.def_btn = self.insert(Button('Last Button'))
         self.def_btn.signal(Event.MOUSE_BUTTON_PRESS).connect(
@@ -80,7 +87,7 @@ class Window(MainFrame):
             self.my_button.enabled = False
             self.ll.enabled = False
             self.block_my_button.text = 'Unblock greens'
-            self.def_btn.style_class = 'Accent'
+            self.def_btn.style_class = 'Warning'
         else:
             self.my_button.enabled = True
             self.ll.enabled = True
