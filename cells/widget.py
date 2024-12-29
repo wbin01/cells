@@ -386,7 +386,7 @@ class Widget(Widget):
 
             if (self.__style_class and
                     f'[{self.__style_class}]' in self._main_parent.style):
-                self.style = {
+                style = {
                     f'[{self.style_id}]': self._main_parent.style[
                         f'[{self.__style_class}]'],
                     f'[{self.style_id}:hover]': self._main_parent.style[
@@ -395,6 +395,7 @@ class Widget(Widget):
                         f'[{self.__style_class}:pressed]'],
                     f'[{self.style_id}:inactive]': self._main_parent.style[
                         f'[{self.__style_class}:inactive]']}
+                self.style = style
             else:
                 if self.__style_class_saved:
                     self.style = self.__style_class_saved
@@ -416,21 +417,31 @@ class Widget(Widget):
     @style_id.setter
     def style_id(self, style_id: str) -> None:
         # In order
+        style_id_key = f'[{style_id}]'
+        if self._main_parent and style_id_key in self._main_parent.style:
+            stylesheet = self._main_parent.style
+        elif style_id_key in self.__stylesheet:
+            stylesheet = self.__stylesheet
+        else:
+            stylesheet = self.style
+
         new_style = {
             f'[{style_id}]':
-                self.__stylesheet[f'[{self.__style_id}]'],
+                stylesheet[f'[{self.__style_id}]'],
             f'[{style_id}:inactive]':
-                self.__stylesheet[f'[{self.__style_id}:inactive]'],
+                stylesheet[f'[{self.__style_id}:inactive]'],
             f'[{style_id}:hover]':
-                self.__stylesheet[f'[{self.__style_id}:hover]'],
+                stylesheet[f'[{self.__style_id}:hover]'],
             f'[{style_id}:pressed]':
-                self.__stylesheet[f'[{self.__style_id}:pressed]']}
+                stylesheet[f'[{self.__style_id}:pressed]']}
 
         self.__widget.set_object_name(style_id)
         self.__style_id = style_id
 
         self.__style = new_style
         self.__style_state()
+
+        self.__style_class_saved = new_style
 
         self.__style_id_change_signal.emit()
 

@@ -67,16 +67,14 @@ class Window(MainFrame):
             self.btn.style_class = 'Warning'
 
             self.btn.height = 50
-            self.btn.insert(self.label)
-            print(self.btn.events_available_for_signal())
-
+            # self.btn.insert(self.label)
         else:
             self.button.enabled = True
             self.block_button.text = 'Block Button'
             self.btn.style_class = None
 
             self.btn.height = 20
-            self.btn.remove(self.label)
+            # self.btn.remove(self.label)
 
 
 if __name__ == '__main__':
