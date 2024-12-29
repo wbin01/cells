@@ -33,6 +33,59 @@ class MainFrame(object):
         self.__frame_box = Box(orientation=orientation)
         self.__frame_box._main_parent = self
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
+
+        # Signals
+        self.__sig = {}
+
+        self.__close_signal = self.__frame.close_signal
+        self.__sig[Event.CLOSE] = self.__close_signal
+
+        self.__focus_in_signal = self.__frame.focus_in_signal
+        self.__sig[Event.FOCUS_IN] = self.__focus_in_signal
+
+        self.__focus_out_signal = self.__frame.focus_out_signal
+        self.__sig[Event.FOCUS_OUT] = self.__focus_out_signal
+
+        self.__mouse_button_press_signal = self.__frame.mouse_button_press_signal
+        self.__sig[Event.MOUSE_BUTTON_PRESS] = self.__mouse_button_press_signal
+
+        self.__mouse_button_release_signal = self.__frame.mouse_button_release_signal
+        self.__sig[Event.MOUSE_BUTTON_RELEASE] = self.__mouse_button_release_signal
+
+        self.__mouse_double_click_signal = self.__frame.mouse_double_click_signal
+        self.__sig[Event.MOUSE_DOUBLE_CLICK] = self.__mouse_double_click_signal
+
+        self.__mouse_hover_enter_signal = self.__frame.mouse_hover_enter_signal
+        self.__sig[Event.MOUSE_HOVER_ENTER] = self.__mouse_hover_enter_signal
+
+        self.__mouse_hover_leave_signal = self.__frame.mouse_hover_leave_signal
+        self.__sig[Event.MOUSE_HOVER_LEAVE] = self.__mouse_hover_leave_signal
+
+        self.__mouse_hover_move_signal = self.__frame.mouse_hover_move_signal
+        self.__sig[Event.MOUSE_HOVER_MOVE] = self.__mouse_hover_move_signal
+
+        self.__mouse_right_button_press_signal = self.__frame.mouse_right_button_press_signal
+        self.__sig[Event.MOUSE_RIGHT_BUTTON_PRESS] = self.__mouse_right_button_press_signal
+
+        self.__mouse_wheel_signal = self.__frame.mouse_wheel_signal
+        self.__sig[Event.MOUSE_WHEEL] = self.__mouse_wheel_signal
+
+        self.__resize_signal = self.__frame.resize_signal
+        self.__sig[Event.RESIZE] = self.__resize_signal
+
+        self.__state_change_signal = self.__frame.state_change_signal
+        self.__sig[Event.STATE_CHANGE] = self.__state_change_signal
+
+        self.__title_change_signal = self.__frame.title_change_signal
+        self.__sig[Event.TITLE_CHANGE] = self.__title_change_signal
+
+        self.__style_change_signal = self.__frame.style_change_signal
+        self.__sig[Event.STYLE_CHANGE] = self.__style_change_signal
+
+        self.__style_id_change_signal = self.__frame.style_id_change_signal
+        self.__sig[Event.STYLE_ID_CHANGE] = self.__style_id_change_signal
+
+        # Style
         self.__icon = None
         self.__icon_path = None
         self.__user_settings()
@@ -283,59 +336,20 @@ class MainFrame(object):
     def signal(self, event: Event) -> Signal:
         """Event Signals.
 
-        Signals are connections to events. When an event such as a mouse click 
-        or other event occurs, a signal is sent. The signal can be assigned a 
-        function to be executed when the signal is sent.
+        Signals are connections to events. When an event such as a mouse 
+        click (Event.MOUSE_BUTTON_PRESS) or other event occurs, a signal is 
+        sent. The signal can be assigned a function to be executed when the 
+        signal is sent.
+
+        Use the 'events_available_for_signal()' method to see all available 
+        events.
 
         :param event:
             Event enumeration (Enum) corresponding to the requested event, 
-            such as Event.HOVER_ENTER . All possible names are:
-            
-            NONE, CLOSE, DRAG, DROP, FOCUS_IN, FOCUS_OUT, MOUSE_BUTTON_PRESS, 
-            MOUSE_BUTTON_RELEASE, MOUSE_DOUBLE_CLICK, MOUSE_HOVER_ENTER, 
-            MOUSE_HOVER_LEAVE, MOUSE_HOVER_MOVE, MOUSE_RIGHT_BUTTON_PRESS, 
-            MOUSE_WHEEL, RESIZE, STATE_CHANGE, TITLE_CHANGE.
+            such as Event.HOVER_ENTER. See: events_available_for_signal().
         """
-        if event == Event.CLOSE:
-            return self.__frame.close_signal
-        elif event == Event.DRAG:
-            return self.__frame.drag_signal
-        elif event == Event.DROP:
-            return self.__frame.drop_signal
-        
-        elif event == Event.FOCUS_IN:
-            return self.__frame.focus_in_signal
-        elif event == Event.FOCUS_OUT:
-            return self.__frame.focus_out_signal
-        elif event == Event.MOUSE_BUTTON_PRESS:
-            return self.__frame.mouse_button_press_signal
-        elif event == Event.MOUSE_BUTTON_RELEASE:
-            return self.__frame.mouse_button_release_signal
-        elif event == Event.MOUSE_DOUBLE_CLICK:
-            return self.__frame.mouse_double_click_signal
-        elif event == Event.MOUSE_HOVER_ENTER:
-            return self.__frame.mouse_hover_enter_signal
-        elif event == Event.MOUSE_HOVER_LEAVE:
-            return self.__frame.mouse_hover_leave_signal
-        elif event == Event.MOUSE_HOVER_MOVE:
-            return self.__frame.mouse_hover_move_signal
-        elif event == Event.MOUSE_RIGHT_BUTTON_PRESS:
-            return self.__frame.mouse_right_button_press_signal
-        elif event == Event.MOUSE_WHEEL:
-            return self.__frame.mouse_wheel_signal
-        elif event == Event.RESIZE:
-            return self.__frame.resize_signal
-        elif event == Event.STATE_CHANGE:
-            return self.__frame.state_change_signal
-        elif event == Event.TITLE_CHANGE:
-            return self.__frame.title_change_signal
-
-        elif event == Event.STYLE_CHANGE:
-            return self.__frame.style_change_signal
-        elif event == Event.STYLE_ID_CHANGE:
-            return self.__frame.style_id_change_signal
-        else:
-            return Signal(Event.NONE)
+        if event in self.__sig:
+            return self.__sig[event]
 
     def style_from_file(self, path: str) -> dict:
         """Convert the contents of a file into a valid dictionary style."""
