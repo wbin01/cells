@@ -151,6 +151,9 @@ class Widget(Widget):
         self.__style_change_signal = Signal()
         self.__sig[Event.STYLE_CHANGE] = self.__style_change_signal
 
+        self.__style_class_change_signal = Signal()
+        self.__sig[Event.STYLE_CLASS_CHANGE] = self.__style_class_change_signal
+
         self.__style_id_change_signal = Signal()
         self.__sig[Event.STYLE_ID_CHANGE] = self.__style_id_change_signal
 
@@ -350,13 +353,25 @@ class Widget(Widget):
 
     @property
     def style_class(self) -> str | None:
-        """..."""
+        """Changes the style to that of the desired class.
+        
+        Use appropriate generic classes, such as 'Success', 'Danger', 
+        'Warning' and 'Accent'.
+        
+            my_button.style_class = 'Danger'
+        
+        Use None to reset.
+
+        The style class will only be changed if the Widget already contains a 
+        _main_parent (The 'insert' method automatically sets the _main_parent).
+        """
         return self.__style_class
 
     @style_class.setter
     def style_class(self, value: str) -> None:
-        self.__style_class = value
         if self._main_parent:
+            self.__style_class = value
+
             if not self.__style_class_saved:
                 style = {
                     f'[{self.style_id}]': self.style[
@@ -384,6 +399,8 @@ class Widget(Widget):
                 if self.__style_class_saved:
                     self.style = self.__style_class_saved
                     self.__style_class_saved = None
+
+            self.__style_class_change_signal.emit()
 
     @property
     def style_id(self) -> str:
@@ -473,6 +490,10 @@ class Widget(Widget):
     def _obj(self, obj: QtWidgets) -> None:
         self.__widget = obj
 
+    def events_available_for_signal(self) -> str:
+        """String with all available events."""
+        return ', '.join([f'Event.{x.value}' for x in self.__sig.keys()])
+
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
 
@@ -512,17 +533,16 @@ class Widget(Widget):
         """Event Signals.
 
         Signals are connections to events. When an event such as a mouse 
-        click or other event occurs, a signal is sent. The signal can be 
-        assigned a function to be executed when the signal is sent.
+        click (Event.MOUSE_BUTTON_PRESS) or other event occurs, a signal is 
+        sent. The signal can be assigned a function to be executed when the 
+        signal is sent.
+
+        Use the 'events_available_for_signal()' method to see all available 
+        events.
 
         :param event:
             Event enumeration (Enum) corresponding to the requested event, 
-            such as Event.HOVER_ENTER . All possible names are:
-            
-            NONE, MOUSE_BUTTON_PRESS, MOUSE_BUTTON_RELEASE, 
-            MOUSE_DOUBLE_CLICK, MOUSE_HOVER_ENTER, MOUSE_HOVER_LEAVE, 
-            MOUSE_HOVER_MOVE, MOUSE_RIGHT_BUTTON_PRESS, MOUSE_WHEEL, RESIZE, 
-            STYLE_CHANGE, STYLE_ID_CHANGE.
+            such as Event.HOVER_ENTER. See: events_available_for_signal().
         """
         if event in self.__sig:
             return self.__sig[event]

@@ -43,7 +43,8 @@ class Window(MainFrame):
         # self.btn.signal(Event.STYLE_CHANGE).connect(lambda: print('Widget: STYLE_CHANGE'))
         # self.btn.signal(Event.STYLE_ID_CHANGE).connect(lambda: print('Widget: STYLE_ID_CHANGE'))
         # self.btn.signal(Event.ENABLED_CHANGE).connect(lambda: print('Widget: ENABLED_CHANGE'))
-        self.btn.signal(Event.MAIN_PARENT_ADDED).connect(lambda: print('Widget: MAIN_PARENT_ADDED'))
+        # self.btn.signal(Event.MAIN_PARENT_ADDED).connect(lambda: print('Widget: MAIN_PARENT_ADDED'))
+        self.btn.signal(Event.STYLE_CLASS_CHANGE).connect(lambda: print('Widget: STYLE_CLASS_CHANGE'))
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
@@ -67,6 +68,7 @@ class Window(MainFrame):
 
             self.btn.height = 50
             self.btn.insert(self.label)
+            print(self.btn.events_available_for_signal())
 
         else:
             self.button.enabled = True
