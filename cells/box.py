@@ -34,7 +34,7 @@ class Box(Box):
         :param orientation: Changes the orientation of the Box to horizontal
         """
         super().__init__(*args, **kwargs)
-        # Args
+        # Param
         if orientation == Orientation.HORIZONTAL:
             self.__box = QtWidgets.QHBoxLayout()
         else:

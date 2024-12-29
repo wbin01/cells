@@ -28,6 +28,7 @@ class MainFrame(object):
             *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
+        # Param
         self.__frame_flags = []
         self.__frame = CoreMainFrame()
         self.__frame_box = Box(orientation=orientation)
