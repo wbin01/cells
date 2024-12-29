@@ -34,8 +34,8 @@ class Box(Box):
         :param orientation: Changes the orientation of the Box to horizontal
         """
         super().__init__(*args, **kwargs)
-        self.insert_item_signal = Signal()
-        self.remove_item_signal = Signal()
+        self.__insert_item_signal = Signal()
+        self.__remove_item_signal = Signal()
 
         if orientation == Orientation.HORIZONTAL:
             self.__box = QtWidgets.QHBoxLayout()
@@ -138,7 +138,7 @@ class Box(Box):
             self.__box.insert_widget(index, item._obj)
 
         self.__items.append(item)
-        self.insert_item_signal.emit()
+        self.__insert_item_signal.emit()
 
         return item
 
@@ -151,7 +151,7 @@ class Box(Box):
 
         :param item: A Widget (Widget, Label, Button...) or a Box.
         """
-        self.remove_item_signal.emit()
+        self.__remove_item_signal.emit()
 
         item._obj.delete_later()
         self.__items.remove(item)
@@ -170,9 +170,9 @@ class Box(Box):
             NONE, INSERT_ITEM, REMOVE_ITEM
         """
         if event == Event.INSERT_ITEM:
-            return self.insert_item_signal
+            return self.__insert_item_signal
         elif event == Event.REMOVE_ITEM:
-            return self.remove_item_signal
+            return self.__remove_item_signal
         else:
             return Signal(Event.NONE)
 

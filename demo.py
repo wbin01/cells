@@ -12,7 +12,7 @@ from cells import (
 class Window(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
+        # self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
         # self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
         # self.signal(Event.TITLE_CHANGE).connect(lambda: print('TITLE_CHANGE'))
         # self.signal(Event.STATE_CHANGE).connect(lambda: print('STATE_CHANGE'))
@@ -29,10 +29,26 @@ class Window(MainFrame):
             self.on_block_button)
 
         self.btn = self.insert(Button('Last Button'))
-        self.btn.signal(Event.MOUSE_BUTTON_PRESS).connect(lambda: print('x'))
+        # self.btn.signal(Event.MOUSE_BUTTON_PRESS).connect(lambda: print('Widget: MOUSE_BUTTON_PRESS'))
+        # self.btn.signal(Event.MOUSE_BUTTON_RELEASE).connect(lambda: print('Widget: MOUSE_BUTTON_RELEASE'))
+        # self.btn.signal(Event.MOUSE_DOUBLE_CLICK).connect(lambda: print('Widget: MOUSE_DOUBLE_CLICK'))
+        # self.btn.signal(Event.MOUSE_HOVER_ENTER).connect(lambda: print('Widget: MOUSE_HOVER_ENTER'))
+        # self.btn.signal(Event.MOUSE_HOVER_LEAVE).connect(lambda: print('Widget: MOUSE_HOVER_LEAVE'))
+        # self.btn.signal(Event.MOUSE_HOVER_MOVE).connect(lambda: print('Widget: MOUSE_HOVER_MOVE'))
+        # self.btn.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(lambda: print('Widget: MOUSE_RIGHT_BUTTON_PRESS'))
+        # self.btn.signal(Event.MOUSE_WHEEL).connect(lambda: print('Widget: MOUSE_WHEEL'))
+        # self.btn.signal(Event.INSERT_ITEM).connect(lambda: print('Widget: INSERT_ITEM'))
+        # self.btn.signal(Event.REMOVE_ITEM).connect(lambda: print('Widget: REMOVE_ITEM'))
+        # self.btn.signal(Event.RESIZE).connect(lambda: print('Widget: RESIZE'))
+        # self.btn.signal(Event.STYLE_CHANGE).connect(lambda: print('Widget: STYLE_CHANGE'))
+        # self.btn.signal(Event.STYLE_ID_CHANGE).connect(lambda: print('Widget: STYLE_ID_CHANGE'))
+        # self.btn.signal(Event.ENABLED_CHANGE).connect(lambda: print('Widget: ENABLED_CHANGE'))
+        self.btn.signal(Event.MAIN_PARENT_ADDED).connect(lambda: print('Widget: MAIN_PARENT_ADDED'))
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
+
+        self.label = Label('INSERT_ITEM')
 
         # self.style_from_file('stylerc')
         # pprint.pprint(self.style['[Button]'])
@@ -46,11 +62,19 @@ class Window(MainFrame):
         if self.button.enabled:
             self.button.enabled = False
             self.block_button.text = 'Unblock Button'
+            self.btn.style_id = 'Master'
             self.btn.style_class = 'Warning'
+
+            self.btn.height = 50
+            self.btn.insert(self.label)
+
         else:
             self.button.enabled = True
             self.block_button.text = 'Block Button'
             self.btn.style_class = None
+
+            self.btn.height = 20
+            self.btn.remove(self.label)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import logging
 
-from PySide6 import QtWidgets, QtGui
+from PySide6 import QtWidgets, QtGui, QtCore
 from __feature__ import snake_case
 
 from .align import Align
@@ -17,36 +17,60 @@ class CoreWidget(QtWidgets.QFrame):
     def __init__(self, *args, **kwargs):
         """Class constructor."""
         super().__init__(*args, **kwargs)
+        self.set_object_name('Widget')
+        self.__press = False
+
         self.mouse_button_press_signal = Signal()
         self.mouse_button_release_signal = Signal()
         self.mouse_double_click_signal = Signal()
         self.mouse_hover_enter_signal = Signal()
         self.mouse_hover_leave_signal = Signal()
         self.mouse_hover_move_signal = Signal()
-
         self.mouse_right_button_press_signal = Signal()
         self.mouse_wheel_signal = Signal()
         self.resize_signal = Signal()
-        self.set_object_name('Widget')
 
-    def mouse_press_event(self, e):
-        self.mouse_button_press_signal.emit()
+        self.install_event_filter(self)
 
-    def mouse_release_event(self, e):
-        self.mouse_button_release_signal.emit()
+    def event_filter(
+            self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
+        # if event.type() == QtCore.QEvent.FocusIn:
+        #     self.focus_in_signal.emit()
 
-    def mouse_double_click_event(self, e):
-        self.mouse_double_click_signal.emit()
+        # elif event.type() == QtCore.QEvent.FocusOut:
+        #     self.focus_out_signal.emit()
 
-    def enter_event(self, e):
-        self.mouse_hover_enter_signal.emit()
+        if event.type() == QtCore.QEvent.HoverMove:
+            self.mouse_hover_move_signal.emit()
 
-    def leave_event(self, e):
-        self.mouse_hover_leave_signal.emit()
+        elif event.type() == QtCore.QEvent.Type.HoverEnter:
+            self.mouse_hover_enter_signal.emit()
 
-    def mouse_move_event(self, e):
-        self.mouse_hover_move_signal.emit()
+        elif event.type() == QtCore.QEvent.Type.HoverLeave:
+            self.mouse_hover_leave_signal.emit()
 
+        elif event.type() == QtCore.QEvent.MouseButtonPress:
+            if 'RightButton' in event.__str__():
+                self.mouse_right_button_press_signal.emit()
+            else:
+                self.mouse_button_press_signal.emit()
+
+        elif event.type() == QtCore.QEvent.MouseButtonRelease:
+            self.mouse_button_release_signal.emit()
+
+        elif event.type() == QtCore.QEvent.MouseButtonDblClick:
+            self.mouse_double_click_signal.emit()
+
+        elif event.type() == QtCore.QEvent.Wheel:
+            self.mouse_wheel_signal.emit()
+
+        elif event.type() == QtCore.QEvent.Resize:
+            self.resize_signal.emit()
+
+        elif event.type() == QtCore.QEvent.Close:
+            self.close_signal.emit()
+
+        return QtWidgets.QMainWindow.event_filter(self, watched, event)
 
 class Widget(object):
     """Widget."""
@@ -74,31 +98,66 @@ class Widget(Widget):
         # Param
         self.__main_parent = main_parent
 
-        # Signals | TODO: for all properties and methods
-        self.__alignment_signal = Signal()
-        self.__enabled_change_signal = Signal()
-        self.__insert_item_signal = Signal()
-        self.__main_parent_added_signal = Signal()
-        self.__remove_item_signal = Signal()
-        self.__style_change_signal = Signal()
-        self.__style_id_change_signal = Signal()
-
-        # Flags
-        self.__is_enabled = True
-        self.__is_inactive = False
-        self.__visible = False  # Hack: Fix aways is False | Box active this
-
         # Obj
         self.__widget = CoreWidget()
         self.__widget.set_object_name('Widget')
         self.__style_id = 'Widget'
 
         self.__box = Box(orientation=orientation)
-        self.__box.signal(Event.INSERT_ITEM).connect(
-            lambda: self.__insert_item_signal.emit())
-        self.__box.signal(Event.REMOVE_ITEM).connect(
-            lambda: self.self.__remove_item_signal.emit())
         self.__widget.set_layout(self.__box._obj)
+
+        # Signals
+        self.__sig = {}
+
+        self.__enabled_change_signal = Signal()
+        self.__sig[Event.ENABLED_CHANGE] = self.__enabled_change_signal
+
+        self.__insert_item_signal = self.__box.signal(Event.INSERT_ITEM)
+        self.__sig[Event.INSERT_ITEM] = self.__insert_item_signal
+
+        self.__main_parent_added_signal = Signal()
+        self.__sig[Event.MAIN_PARENT_ADDED] = self.__main_parent_added_signal
+
+        self.__mouse_button_press_signal = self.__widget.mouse_button_press_signal
+        self.__sig[Event.MOUSE_BUTTON_PRESS] = self.__mouse_button_press_signal
+
+        self.__mouse_button_release_signal = self.__widget.mouse_button_release_signal
+        self.__sig[Event.MOUSE_BUTTON_RELEASE] = self.__mouse_button_release_signal
+
+        self.__mouse_double_click_signal = self.__widget.mouse_double_click_signal
+        self.__sig[Event.MOUSE_DOUBLE_CLICK] = self.__mouse_double_click_signal
+
+        self.__mouse_hover_enter_signal = self.__widget.mouse_hover_enter_signal
+        self.__sig[Event.MOUSE_HOVER_ENTER] = self.__mouse_hover_enter_signal
+
+        self.__mouse_hover_leave_signal = self.__widget.mouse_hover_leave_signal
+        self.__sig[Event.MOUSE_HOVER_LEAVE] = self.__mouse_hover_leave_signal
+
+        self.__mouse_hover_move_signal = self.__widget.mouse_hover_move_signal
+        self.__sig[Event.MOUSE_HOVER_MOVE] = self.__mouse_hover_move_signal
+
+        self.__mouse_right_button_press_signal = self.__widget.mouse_right_button_press_signal
+        self.__sig[Event.MOUSE_RIGHT_BUTTON_PRESS] = self.__mouse_right_button_press_signal
+
+        self.__mouse_wheel_signal = self.__widget.mouse_wheel_signal
+        self.__sig[Event.MOUSE_WHEEL] = self.__mouse_wheel_signal
+
+        self.__remove_item_signal = self.__box.signal(Event.REMOVE_ITEM)
+        self.__sig[Event.REMOVE_ITEM] = self.__remove_item_signal
+
+        self.__resize_signal = self.__widget.resize_signal
+        self.__sig[Event.RESIZE] = self.__resize_signal
+
+        self.__style_change_signal = Signal()
+        self.__sig[Event.STYLE_CHANGE] = self.__style_change_signal
+
+        self.__style_id_change_signal = Signal()
+        self.__sig[Event.STYLE_ID_CHANGE] = self.__style_id_change_signal
+
+        # Flags
+        self.__is_enabled = True
+        self.__is_inactive = False
+        self.__visible = False  # Hack: Fix aways is False | Box active this
 
         # Style
         self.__style_manager = StyleManager()
@@ -423,18 +482,21 @@ class Widget(Widget):
         :param index: Index number where the item should be inserted 
             (Default is -1)
         """
-        _, item = setattr(self, str(item), item), getattr(self, str(item))
-        if self.__main_parent:
-            item._main_parent = self.__main_parent
-
-        if isinstance(item, Box):
-            self.__box._obj.insert_layout(index, item._obj)
-        else:
-            item.style_id = item.style_id
-            item.visible = True
-            self.__box._obj.insert_widget(index, item._obj)
-
+        self.__box.insert(item)
+        # self.__insert_item_signal.emit()
         return item
+
+    def items(self) -> list:
+        """List with added widgets."""
+        return self.__box.items
+
+    def remove(self, item: Widget | Box) -> None:
+        """Removes a Widget or a Box.
+
+        :param item: A Widget (Widget, Label, Button...) or a Box.
+        """
+        self.__box.remove(item)
+        # self.__remove_item_signal.emit()
 
     def move(self, x: int, y: int) -> None:
         """Move the Widget.
@@ -462,42 +524,8 @@ class Widget(Widget):
             MOUSE_HOVER_MOVE, MOUSE_RIGHT_BUTTON_PRESS, MOUSE_WHEEL, RESIZE, 
             STYLE_CHANGE, STYLE_ID_CHANGE.
         """
-        if event == Event.MOUSE_BUTTON_PRESS:
-            return self.__widget.mouse_button_press_signal
-        elif event == Event.MOUSE_BUTTON_RELEASE:
-            return self.__widget.mouse_button_release_signal
-        elif event == Event.MOUSE_DOUBLE_CLICK:
-            return self.__widget.mouse_double_click_signal
-        elif event == Event.MOUSE_HOVER_ENTER:
-            return self.__widget.mouse_hover_enter_signal
-        elif event == Event.MOUSE_HOVER_LEAVE:
-            return self.__widget.mouse_hover_leave_signal
-        elif event == Event.MOUSE_HOVER_MOVE:
-            return self.__widget.mouse_hover_move_signal
-        # elif event == Event.MOUSE_RIGHT_BUTTON_PRESS:
-        #     return self.__widget.mouse_right_button_press_signal
-        elif event == Event.MOUSE_WHEEL:
-            return self.__widget.mouse_wheel_signal
-        elif event == Event.RESIZE:
-            return self.__widget.resize_signal
-
-        # self.__widget -> self
-        elif event == Event.ALIGNMENT_CHANGE:
-            return self.__alignment_signal
-        elif event == Event.ENABLED_CHANGE:
-            return self.__enabled_change_signal
-        elif event == Event.INSERT_ITEM:
-            return self.__insert_item_signal
-        elif event == Event.MAIN_PARENT_ADDED:
-            return self.__main_parent_added_signal
-        elif event == Event.REMOVE_ITEM:
-            return self.__remove_item_signal
-        elif event == Event.STYLE_CHANGE:
-            return self.__style_change_signal
-        elif event == Event.STYLE_ID_CHANGE:
-            return self.__style_id_change_signal
-        else:
-            return Signal(Event.NONE)
+        if event in self.__sig:
+            return self.__sig[event]
 
     def __focus_in(self) -> None:
         self.__is_inactive = False
