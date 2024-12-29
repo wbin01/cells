@@ -34,14 +34,23 @@ class Box(Box):
         :param orientation: Changes the orientation of the Box to horizontal
         """
         super().__init__(*args, **kwargs)
-        self.__delete_item_signal = Signal()
-        self.__insert_item_signal = Signal()
-        self.__remove_item_signal = Signal()
-
+        # Args
         if orientation == Orientation.HORIZONTAL:
             self.__box = QtWidgets.QHBoxLayout()
         else:
             self.__box = QtWidgets.QVBoxLayout()
+
+        # Signals
+        self.__sig = {}
+
+        self.__delete_item_signal = Signal()
+        self.__sig[Event.DELETE_ITEM] = self.__delete_item_signal
+
+        self.__insert_item_signal = Signal()
+        self.__sig[Event.INSERT_ITEM] = self.__insert_item_signal
+
+        self.__remove_item_signal = Signal()
+        self.__sig[Event.REMOVE_ITEM] = self.__remove_item_signal
 
         self.__box.set_contents_margins(0, 0, 0, 0)
         self.__box.set_spacing(0)
@@ -183,23 +192,19 @@ class Box(Box):
         """Event Signals.
 
         Signals are connections to events. When an event such as a mouse 
-        click or other event occurs, a signal is sent. The signal can be 
-        assigned a function to be executed when the signal is sent.
+        click (Event.MOUSE_BUTTON_PRESS) or other event occurs, a signal is 
+        sent. The signal can be assigned a function to be executed when the 
+        signal is sent.
+
+        Use the 'events_available_for_signal()' method to see all available 
+        events.
 
         :param event:
             Event enumeration (Enum) corresponding to the requested event, 
-            such as Event.HOVER_ENTER . All possible names are:
-            
-            NONE, INSERT_ITEM, REMOVE_ITEM
+            such as Event.HOVER_ENTER. See: events_available_for_signal().
         """
-        if event == Event.DELETE_ITEM:
-            return self.__delete_item_signal
-        if event == Event.INSERT_ITEM:
-            return self.__insert_item_signal
-        elif event == Event.REMOVE_ITEM:
-            return self.__remove_item_signal
-        else:
-            return Signal(Event.NONE)
+        if event in self.__sig:
+            return self.__sig[event]
 
     def __str__(self):
         return f'<Box: {id(self)}>'

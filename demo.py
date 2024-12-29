@@ -9,7 +9,7 @@ from cells import (
     Widget, WidgetBase, Button, Label)
 
 
-class Window(Frame):
+class Window(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         # self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
