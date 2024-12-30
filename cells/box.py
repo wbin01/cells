@@ -41,16 +41,10 @@ class Box(Box):
             self.__box = QtWidgets.QVBoxLayout()
 
         # Signals
-        self.__sig = {}
-
-        self.__delete_item_signal = Signal()
-        self.__sig[Event.DELETE_ITEM] = self.__delete_item_signal
-
-        self.__insert_item_signal = Signal()
-        self.__sig[Event.INSERT_ITEM] = self.__insert_item_signal
-
-        self.__remove_item_signal = Signal()
-        self.__sig[Event.REMOVE_ITEM] = self.__remove_item_signal
+        self.__sig = {
+            Event.DELETE_ITEM: Signal(),
+            Event.INSERT_ITEM: Signal(),
+            Event.REMOVE_ITEM: Signal()}
 
         self.__box.set_contents_margins(0, 0, 0, 0)
         self.__box.set_spacing(0)
@@ -138,7 +132,7 @@ class Box(Box):
         """
         self.__items.remove(item)
         item._obj.delete_later()
-        self.__delete_item_signal.emit()
+        self.__sig[Event.DELETE_ITEM].emit()
 
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
@@ -161,7 +155,7 @@ class Box(Box):
             self.__box.insert_widget(index, item._obj)
 
         self.__items.append(item)
-        self.__insert_item_signal.emit()
+        self.__sig[Event.INSERT_ITEM].emit()
 
         return item
 
@@ -186,7 +180,7 @@ class Box(Box):
         item._obj.set_parent(None)
 
         self.__items.remove(item)
-        self.__remove_item_signal.emit()
+        self.__sig[Event.REMOVE_ITEM].emit()
 
     def signal(self, event: Event) -> Signal:
         """Event Signals.

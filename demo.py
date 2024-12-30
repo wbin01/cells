@@ -78,7 +78,7 @@ class Window(MainFrame):
             self.btn.style_class = None
 
             # self.btn.height = 20
-            self.btn.remove(self.label)
+            # self.btn.remove(self.label)
             # self.btn.delete(self.label)
 
 
