@@ -455,7 +455,13 @@ class Widget(Widget):
     @_main_parent.setter
     def _main_parent(self, parent) -> None:
         self.__main_parent = parent
-        self.__on_main_added()
+        self.__main_parent.signal(Event.FOCUS_IN).connect(self.__focus_in)
+        self.__main_parent.signal(Event.FOCUS_OUT).connect(self.__focus_out)
+
+        for item in self.__box.items():
+            if not item._main_parent:
+                item._main_parent = self.__main_parent
+
         self.__signals[Event.MAIN_PARENT].emit()
 
     @property
@@ -562,13 +568,6 @@ class Widget(Widget):
         # self.__label._obj.set_style_sheet('')
         if not self.__is_inactive and self.__is_enabled:
             self._obj.set_style_sheet(self.__normal_style)
-
-    def __on_main_added(self) -> None:
-        self.__main_parent.signal(Event.FOCUS_IN).connect(self.__focus_in)
-        self.__main_parent.signal(Event.FOCUS_OUT).connect(self.__focus_out)
-        for item in self.__box.items():
-            if not item._main_parent:
-                item._main_parent = self._main_parent
 
     def __on_press(self) -> None:
         if self.__is_enabled:

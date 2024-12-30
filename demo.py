@@ -50,9 +50,13 @@ class Window(MainFrame):
         self.ctx_menu = Frame()
         self.cursor = Cursor()
 
-        self.label = Label('INSERT')
         for i in range(5):
             self.insert(Label(str(i)))
+
+        self.wid = self.insert(Box())
+
+        self.label = Label('INSERT')
+        self.wid.insert(Label('INSERT_x x'))
 
         # self.style_from_file('stylerc')
         # pprint.pprint(self.style['[Button]'])
@@ -70,7 +74,7 @@ class Window(MainFrame):
             self.btn.style_class = 'Warning'
 
             # self.btn.height = 50
-            self.btn.insert(self.label)
+            self.wid.insert(self.label)
             # self.remove(self.btn)
         else:
             self.button.enabled = True
@@ -78,7 +82,7 @@ class Window(MainFrame):
             self.btn.style_class = None
 
             # self.btn.height = 20
-            self.btn.remove(self.label)
+            self.wid.remove(self.label)
             # self.btn.delete(self.label)
 
 
