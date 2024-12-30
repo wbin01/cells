@@ -107,58 +107,26 @@ class Widget(Widget):
         self.__widget.set_layout(self.__box._obj)
 
         # Signals
-        self.__sig = {}
-
-        self.__delete_item_signal = self.__box.signal(Event.DELETE_ITEM)
-        self.__sig[Event.DELETE_ITEM] = self.__delete_item_signal
-
-        self.__enabled_change_signal = Signal()
-        self.__sig[Event.ENABLED_CHANGE] = self.__enabled_change_signal
-
-        self.__insert_item_signal = self.__box.signal(Event.INSERT_ITEM)
-        self.__sig[Event.INSERT_ITEM] = self.__insert_item_signal
-
-        self.__main_parent_added_signal = Signal()
-        self.__sig[Event.MAIN_PARENT_ADDED] = self.__main_parent_added_signal
-
-        self.__mouse_button_press_signal = self.__widget.mouse_button_press_signal
-        self.__sig[Event.MOUSE_BUTTON_PRESS] = self.__mouse_button_press_signal
-
-        self.__mouse_button_release_signal = self.__widget.mouse_button_release_signal
-        self.__sig[Event.MOUSE_BUTTON_RELEASE] = self.__mouse_button_release_signal
-
-        self.__mouse_double_click_signal = self.__widget.mouse_double_click_signal
-        self.__sig[Event.MOUSE_DOUBLE_CLICK] = self.__mouse_double_click_signal
-
-        self.__mouse_hover_enter_signal = self.__widget.mouse_hover_enter_signal
-        self.__sig[Event.MOUSE_HOVER_ENTER] = self.__mouse_hover_enter_signal
-
-        self.__mouse_hover_leave_signal = self.__widget.mouse_hover_leave_signal
-        self.__sig[Event.MOUSE_HOVER_LEAVE] = self.__mouse_hover_leave_signal
-
-        self.__mouse_hover_move_signal = self.__widget.mouse_hover_move_signal
-        self.__sig[Event.MOUSE_HOVER_MOVE] = self.__mouse_hover_move_signal
-
-        self.__mouse_right_button_press_signal = self.__widget.mouse_right_button_press_signal
-        self.__sig[Event.MOUSE_RIGHT_BUTTON_PRESS] = self.__mouse_right_button_press_signal
-
-        self.__mouse_wheel_signal = self.__widget.mouse_wheel_signal
-        self.__sig[Event.MOUSE_WHEEL] = self.__mouse_wheel_signal
-
-        self.__remove_item_signal = self.__box.signal(Event.REMOVE_ITEM)
-        self.__sig[Event.REMOVE_ITEM] = self.__remove_item_signal
-
-        self.__resize_signal = self.__widget.resize_signal
-        self.__sig[Event.RESIZE] = self.__resize_signal
-
-        self.__style_change_signal = Signal()
-        self.__sig[Event.STYLE_CHANGE] = self.__style_change_signal
-
-        self.__style_class_change_signal = Signal()
-        self.__sig[Event.STYLE_CLASS_CHANGE] = self.__style_class_change_signal
-
-        self.__style_id_change_signal = Signal()
-        self.__sig[Event.STYLE_ID_CHANGE] = self.__style_id_change_signal
+        self.__sig = {
+            Event.DELETE_ITEM:self.__box.signal(Event.DELETE_ITEM),
+            Event.ENABLED_CHANGE: Signal(),
+            Event.INSERT_ITEM: self.__box.signal(Event.INSERT_ITEM),
+            Event.MAIN_PARENT_ADDED: Signal(),
+            Event.MOUSE_BUTTON_PRESS: self.__widget.mouse_button_press_signal,
+            Event.MOUSE_BUTTON_RELEASE:
+                self.__widget.mouse_button_release_signal,
+            Event.MOUSE_DOUBLE_CLICK: self.__widget.mouse_double_click_signal,
+            Event.MOUSE_HOVER_ENTER: self.__widget.mouse_hover_enter_signal,
+            Event.MOUSE_HOVER_LEAVE: self.__widget.mouse_hover_leave_signal,
+            Event.MOUSE_HOVER_MOVE: self.__widget.mouse_hover_move_signal,
+            Event.MOUSE_RIGHT_BUTTON_PRESS:
+                self.__widget.mouse_right_button_press_signal,
+            Event.MOUSE_WHEEL: self.__widget.mouse_wheel_signal,
+            Event.REMOVE_ITEM: self.__box.signal(Event.REMOVE_ITEM),
+            Event.RESIZE: self.__widget.resize_signal,
+            Event.STYLE_CHANGE: Signal(),
+            Event.STYLE_CLASS_CHANGE: Signal(),
+            Event.STYLE_ID_CHANGE: Signal()}
 
         # Flags
         self.__is_enabled = True
@@ -218,7 +186,7 @@ class Widget(Widget):
                 self._obj.mouse_button_press_signal.disconnect()
                 self._obj.mouse_button_release_signal.disconnect()
 
-        self.__enabled_change_signal.emit()
+        self.__sig[Event.ENABLED_CHANGE].emit()
 
     @property
     def height(self) -> int:
@@ -352,7 +320,7 @@ class Widget(Widget):
     def style(self, style: dict) -> None:
         self.__style = style
         self.__style_state()
-        self.__style_change_signal.emit()
+        self.__sig[Event.STYLE_CHANGE].emit()
 
     @property
     def style_class(self) -> str | None:
@@ -404,7 +372,7 @@ class Widget(Widget):
                     self.style = self.__style_class_saved
                     self.__style_class_saved = None
 
-            self.__style_class_change_signal.emit()
+            self.__sig[Event.STYLE_CLASS_CHANGE].emit()
 
     @property
     def style_id(self) -> str:
@@ -446,7 +414,7 @@ class Widget(Widget):
 
         self.__style_class_saved = new_style
 
-        self.__style_id_change_signal.emit()
+        self.__sig[Event.STYLE_ID_CHANGE].emit()
 
     @property
     def visible(self) -> bool:
@@ -488,7 +456,7 @@ class Widget(Widget):
     def _main_parent(self, parent) -> None:
         self.__main_parent = parent
         self.__on_main_added()
-        self.__main_parent_added_signal.emit()
+        self.__sig[Event.MAIN_PARENT_ADDED].emit()
 
     @property
     def _obj(self):
