@@ -24,12 +24,9 @@ class CoreFrame(CoreFrameShadow):
     mouse_hover_move_signal = Signal()
     mouse_right_button_press_signal = Signal()
     mouse_wheel_signal = Signal()
-    resize_signal = Signal()
-    # state_change_signal = Signal()
-    # title_change_signal = Signal()
-
-    style_change_signal = Signal()
-    style_id_change_signal = Signal()
+    size_signal = Signal()
+    # state_signal = Signal()
+    # title_signal = Signal()
 
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
@@ -99,7 +96,7 @@ class CoreFrame(CoreFrameShadow):
             self.mouse_wheel_signal.emit()
 
         elif event.type() == QtCore.QEvent.Resize:
-            self.resize_signal.emit()
+            self.size_signal.emit()
 
         elif event.type() == QtCore.QEvent.Close:
             self.close_signal.emit()

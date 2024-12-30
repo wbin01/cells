@@ -560,11 +560,6 @@ class Widget(Widget):
     def __on_leave(self) -> None:
         # self._obj.set_style_sheet('')
         # self.__label._obj.set_style_sheet('')
-
-        # if self.__is_inactive:
-        #     self.__focus_out()
-        # else:
-        #     self._obj.set_style_sheet(self.__normal_style)
         if not self.__is_inactive and self.__is_enabled:
             self._obj.set_style_sheet(self.__normal_style)
 

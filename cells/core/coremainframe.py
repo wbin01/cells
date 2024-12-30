@@ -26,14 +26,9 @@ class CoreMainFrame(CoreMainFrameShadow):
     mouse_hover_move_signal = Signal()
     mouse_right_button_press_signal = Signal()
     mouse_wheel_signal = Signal()
-    resize_signal = Signal()
-    state_change_signal = Signal()
-    title_change_signal = Signal()
-
-    style_change_signal = Signal()
-    style_id_change_signal = Signal()
-
-    boxes = []
+    size_signal = Signal()
+    state_signal = Signal()
+    title_signal = Signal()
 
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
@@ -230,7 +225,7 @@ class CoreMainFrame(CoreMainFrameShadow):
             self.mouse_wheel_signal.emit()
 
         elif event.type() == QtCore.QEvent.Resize:
-            self.resize_signal.emit()
+            self.size_signal.emit()
 
             if self.__is_csd:
                 if self.is_maximized() or self.is_full_screen():
@@ -241,10 +236,10 @@ class CoreMainFrame(CoreMainFrameShadow):
                     self.__window_shadow_visible(True)
 
         elif event.type() == QtCore.QEvent.WindowStateChange:
-            self.state_change_signal.emit()
+            self.state_signal.emit()
 
         elif event.type() == QtCore.QEvent.WindowTitleChange:
-            self.title_change_signal.emit()
+            self.title_signal.emit()
 
         elif event.type() == QtCore.QEvent.Close:
             self.close_signal.emit()

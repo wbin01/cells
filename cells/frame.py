@@ -38,49 +38,31 @@ class Frame(object):
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
 
         # Signals
-        self.__sig = {}
-
-        self.__close_signal = self.__frame.close_signal
-        self.__sig[Event.CLOSE] = self.__close_signal
-
-        self.__focus_in_signal = self.__frame.focus_in_signal
-        self.__sig[Event.FOCUS_IN] = self.__focus_in_signal
-
-        self.__focus_out_signal = self.__frame.focus_out_signal
-        self.__sig[Event.FOCUS_OUT] = self.__focus_out_signal
-
-        self.__mouse_button_press_signal = self.__frame.mouse_button_press_signal
-        self.__sig[Event.MOUSE_BUTTON_PRESS] = self.__mouse_button_press_signal
-
-        self.__mouse_button_release_signal = self.__frame.mouse_button_release_signal
-        self.__sig[Event.MOUSE_BUTTON_RELEASE] = self.__mouse_button_release_signal
-
-        self.__mouse_double_click_signal = self.__frame.mouse_double_click_signal
-        self.__sig[Event.MOUSE_DOUBLE_CLICK] = self.__mouse_double_click_signal
-
-        self.__mouse_hover_enter_signal = self.__frame.mouse_hover_enter_signal
-        self.__sig[Event.MOUSE_HOVER_ENTER] = self.__mouse_hover_enter_signal
-
-        self.__mouse_hover_leave_signal = self.__frame.mouse_hover_leave_signal
-        self.__sig[Event.MOUSE_HOVER_LEAVE] = self.__mouse_hover_leave_signal
-
-        self.__mouse_hover_move_signal = self.__frame.mouse_hover_move_signal
-        self.__sig[Event.MOUSE_HOVER_MOVE] = self.__mouse_hover_move_signal
-
-        self.__mouse_right_button_press_signal = self.__frame.mouse_right_button_press_signal
-        self.__sig[Event.MOUSE_RIGHT_BUTTON_PRESS] = self.__mouse_right_button_press_signal
-
-        self.__mouse_wheel_signal = self.__frame.mouse_wheel_signal
-        self.__sig[Event.MOUSE_WHEEL] = self.__mouse_wheel_signal
-
-        self.__resize_signal = self.__frame.resize_signal
-        self.__sig[Event.SIZE] = self.__resize_signal
-
-        self.__style_change_signal = self.__frame.style_change_signal
-        self.__sig[Event.STYLE] = self.__style_change_signal
-
-        self.__style_id_change_signal = self.__frame.style_id_change_signal
-        self.__sig[Event.STYLE_ID] = self.__style_id_change_signal
+        self.__sig = {
+            Event.CLOSE: self.__frame.close_signal,
+            Event.FOCUS_IN: self.__frame.focus_in_signal,
+            Event.FOCUS_OUT: self.__frame.focus_out_signal,
+            Event.DELETE: self.__frame_box.signal(Event.DELETE),
+            # Event.ENABLED: Signal(),
+            Event.INSERT: self.__frame_box.signal(Event.INSERT),
+            # Event.MAIN_PARENT: Signal(),
+            Event.MOUSE_BUTTON_PRESS: self.__frame.mouse_button_press_signal,
+            Event.MOUSE_BUTTON_RELEASE:
+                self.__frame.mouse_button_release_signal,
+            Event.MOUSE_DOUBLE_CLICK: self.__frame.mouse_double_click_signal,
+            Event.MOUSE_HOVER_ENTER: self.__frame.mouse_hover_enter_signal,
+            Event.MOUSE_HOVER_LEAVE: self.__frame.mouse_hover_leave_signal,
+            Event.MOUSE_HOVER_MOVE: self.__frame.mouse_hover_move_signal,
+            Event.MOUSE_RIGHT_BUTTON_PRESS:
+                self.__frame.mouse_right_button_press_signal,
+            Event.MOUSE_WHEEL: self.__frame.mouse_wheel_signal,
+            Event.REMOVE: self.__frame_box.signal(Event.REMOVE),
+            Event.SIZE: self.__frame.size_signal,
+            # Event.STATE: self.__frame.state_signal,
+            # Event.TITLE: self.__frame.title_signal,
+            Event.STYLE: Signal(),
+            # Event.STYLE_CLASS: Signal(),
+            Event.STYLE_ID: Signal()}
 
         # Style
         self.__user_settings()
