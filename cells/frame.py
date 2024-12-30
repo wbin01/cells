@@ -240,6 +240,10 @@ class Frame(object):
         """
         self.__frame_box.delete(item)
 
+    def events_available_for_signal(self) -> str:
+        """String with all available events."""
+        return ', '.join([f'Event.{x.value}' for x in self.__signals.keys()])
+
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
 

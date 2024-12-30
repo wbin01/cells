@@ -123,45 +123,45 @@ class MainFrame(object):
         self.__frame.set_window_icon(self.__icon._obj)
 
     @property
-    def is_fullscreen(self) -> bool:
+    def fullscreen(self) -> bool:
         """If the Frame is full screen.
 
         Use a boolean value to change the state of the Frame.
         """
         return self.__frame.is_full_screen()
 
-    @is_fullscreen.setter
-    def is_fullscreen(self, value: bool) -> None:
+    @fullscreen.setter
+    def fullscreen(self, value: bool) -> None:
         if value:
             self.__frame.show_full_screen()
         else:
             self.__frame.show_normal()
 
     @property
-    def is_maximized(self) -> bool:
+    def maximized(self) -> bool:
         """If the Frame is maximized.
 
         Use a boolean value to change the state of the Frame.
         """
         return self.__frame.is_maximized()
 
-    @is_maximized.setter
-    def is_maximized(self, value: bool) -> None:
+    @maximized.setter
+    def maximized(self, value: bool) -> None:
         if value:
             self.__frame.show_maximized()
         else:
             self.__frame.show_normal()
 
     @property
-    def is_minimized(self) -> bool:
+    def minimized(self) -> bool:
         """If the Frame is minimized.
 
         Use a boolean value to change the state of the Frame.
         """
         return self.__frame.is_minimized()
 
-    @is_minimized.setter
-    def is_minimized(self, value: bool) -> None:
+    @minimized.setter
+    def minimized(self, value: bool) -> None:
         if value:
             self.__frame.show_minimized()
         else:
@@ -297,6 +297,10 @@ class MainFrame(object):
         :param item: A Widget (Widget, Label, Button...) or a Box.
         """
         self.__frame_box.delete(item)
+
+    def events_available_for_signal(self) -> str:
+        """String with all available events."""
+        return ', '.join([f'Event.{x.value}' for x in self.__signals.keys()])
 
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
