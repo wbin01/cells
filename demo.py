@@ -6,7 +6,7 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, Box, Orientation, Align,
-    Widget, WidgetBase, Button, Label)
+    Widget, Button, Label)
 
 
 class Window(MainFrame):
@@ -18,7 +18,7 @@ class Window(MainFrame):
         # self.signal(Event.STATE_CHANGE).connect(lambda: print('STATE_CHANGE'))
         # self.signal(Event.FOCUS_IN).connect(lambda: print('FOCUS_IN'))
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
-
+        self.spacing = 5
         self.align = Align.TOP
         self.button = self.insert(Button('Button'))
         self.button.signal(Event.MOUSE_BUTTON_PRESS).connect(

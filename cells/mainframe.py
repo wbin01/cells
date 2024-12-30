@@ -220,6 +220,22 @@ class MainFrame(object):
         self.__frame.set_minimum_width(width)
 
     @property
+    def spacing(self) -> int:
+        """
+        The space between widgets inside the Frame box.
+
+        This property takes precedence over the margins of the widgets that 
+        are added (add_widgets), so if the Box is vertical, then only the side 
+        margins of the widgets will be respected. The Box does not activate 
+        the spacing with a single isolated widget.
+        """
+        return self.__frame_box.spacing
+
+    @spacing.setter
+    def spacing(self, spacing: int) -> None:
+        self.__frame_box.spacing = spacing
+
+    @property
     def style(self) -> dict:
         """Style as dict.
 

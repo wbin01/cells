@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import logging
 
-from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets, QtCore
 from __feature__ import snake_case
 
 from .align import Align
@@ -18,8 +18,6 @@ class CoreWidget(QtWidgets.QFrame):
         """Class constructor."""
         super().__init__(*args, **kwargs)
         self.set_object_name('Widget')
-        self.__press = False
-
         self.mouse_button_press_signal = Signal()
         self.mouse_button_release_signal = Signal()
         self.mouse_double_click_signal = Signal()
@@ -280,6 +278,22 @@ class Widget(Widget):
     @minimum_width.setter
     def minimum_width(self, width: int) -> None:
         self.__widget.set_minimum_width(width)
+
+    @property
+    def spacing(self) -> int:
+        """
+        The space between widgets inside the Widget box.
+
+        This property takes precedence over the margins of the widgets that 
+        are added (add_widgets), so if the Box is vertical, then only the side 
+        margins of the widgets will be respected. The Box does not activate 
+        the spacing with a single isolated widget.
+        """
+        return self.__box.spacing
+
+    @spacing.setter
+    def spacing(self, spacing: int) -> None:
+        self.__box.spacing = spacing
 
     @property
     def style(self) -> str:

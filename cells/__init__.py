@@ -12,4 +12,3 @@ from .mainframe import MainFrame
 from .orientation import Orientation
 from .signal import Signal
 from .widget import Widget
-from .widgetbase import WidgetBase
