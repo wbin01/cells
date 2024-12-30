@@ -23,7 +23,6 @@ class Window(MainFrame):
         self.button = self.insert(Button('Button'))
         self.button.signal(Event.MOUSE_BUTTON_PRESS).connect(
             lambda: print(self.button.text))
-        print(self.events_available_for_signal())
 
         self.block_button = self.insert(Button('Block Button'))
         self.block_button.signal(Event.MOUSE_BUTTON_PRESS).connect(

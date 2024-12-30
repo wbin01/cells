@@ -16,13 +16,13 @@ class CoreFrame(CoreFrameShadow):
     close_signal = Signal()
     focus_in_signal = Signal()
     focus_out_signal = Signal()
-    mouse_button_press_signal = Signal()
-    mouse_button_release_signal = Signal()
+    mouse_press_signal = Signal()
+    mouse_release_signal = Signal()
     mouse_double_click_signal = Signal()
     mouse_hover_enter_signal = Signal()
     mouse_hover_leave_signal = Signal()
     mouse_hover_move_signal = Signal()
-    mouse_right_button_press_signal = Signal()
+    mouse_r_press_signal = Signal()
     mouse_wheel_signal = Signal()
     size_signal = Signal()
     # state_signal = Signal()
@@ -73,7 +73,7 @@ class CoreFrame(CoreFrameShadow):
         elif event.type() == QtCore.QEvent.Type.HoverEnter:
             self.mouse_hover_enter_signal.emit()
             if self.__press:
-                self.mouse_button_release_signal.emit()
+                self.mouse_release_signal.emit()
                 self.__press = False
 
         elif event.type() == QtCore.QEvent.Type.HoverLeave:
@@ -82,9 +82,9 @@ class CoreFrame(CoreFrameShadow):
         # elif event.type() == QtCore.QEvent.MouseButtonPress:
         elif event.type() == QtCore.QEvent.MouseButtonRelease:
             if 'RightButton' in event.__str__():
-                self.mouse_right_button_press_signal.emit()
+                self.mouse_r_press_signal.emit()
             else:
-                self.mouse_button_press_signal.emit()
+                self.mouse_press_signal.emit()
 
             self.__press = True
             self.set_cursor(QtCore.Qt.CursorShape.ArrowCursor)
