@@ -74,13 +74,13 @@ class Frame(object):
         self.__sig[Event.MOUSE_WHEEL] = self.__mouse_wheel_signal
 
         self.__resize_signal = self.__frame.resize_signal
-        self.__sig[Event.RESIZE] = self.__resize_signal
+        self.__sig[Event.SIZE] = self.__resize_signal
 
         self.__style_change_signal = self.__frame.style_change_signal
-        self.__sig[Event.STYLE_CHANGE] = self.__style_change_signal
+        self.__sig[Event.STYLE] = self.__style_change_signal
 
         self.__style_id_change_signal = self.__frame.style_id_change_signal
-        self.__sig[Event.STYLE_ID_CHANGE] = self.__style_id_change_signal
+        self.__sig[Event.STYLE_ID] = self.__style_id_change_signal
 
         # Style
         self.__user_settings()

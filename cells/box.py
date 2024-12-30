@@ -42,9 +42,9 @@ class Box(Box):
 
         # Signals
         self.__sig = {
-            Event.DELETE_ITEM: Signal(),
-            Event.INSERT_ITEM: Signal(),
-            Event.REMOVE_ITEM: Signal()}
+            Event.DELETE: Signal(),
+            Event.INSERT: Signal(),
+            Event.REMOVE: Signal()}
 
         self.__box.set_contents_margins(0, 0, 0, 0)
         self.__box.set_spacing(0)
@@ -132,7 +132,7 @@ class Box(Box):
         """
         self.__items.remove(item)
         item._obj.delete_later()
-        self.__sig[Event.DELETE_ITEM].emit()
+        self.__sig[Event.DELETE].emit()
 
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
@@ -155,7 +155,7 @@ class Box(Box):
             self.__box.insert_widget(index, item._obj)
 
         self.__items.append(item)
-        self.__sig[Event.INSERT_ITEM].emit()
+        self.__sig[Event.INSERT].emit()
 
         return item
 
@@ -180,7 +180,7 @@ class Box(Box):
         item._obj.set_parent(None)
 
         self.__items.remove(item)
-        self.__sig[Event.REMOVE_ITEM].emit()
+        self.__sig[Event.REMOVE].emit()
 
     def signal(self, event: Event) -> Signal:
         """Event Signals.

@@ -72,19 +72,19 @@ class MainFrame(object):
         self.__sig[Event.MOUSE_WHEEL] = self.__mouse_wheel_signal
 
         self.__resize_signal = self.__frame.resize_signal
-        self.__sig[Event.RESIZE] = self.__resize_signal
+        self.__sig[Event.SIZE] = self.__resize_signal
 
         self.__state_change_signal = self.__frame.state_change_signal
-        self.__sig[Event.STATE_CHANGE] = self.__state_change_signal
+        self.__sig[Event.STATE] = self.__state_change_signal
 
         self.__title_change_signal = self.__frame.title_change_signal
-        self.__sig[Event.TITLE_CHANGE] = self.__title_change_signal
+        self.__sig[Event.TITLE] = self.__title_change_signal
 
         self.__style_change_signal = self.__frame.style_change_signal
-        self.__sig[Event.STYLE_CHANGE] = self.__style_change_signal
+        self.__sig[Event.STYLE] = self.__style_change_signal
 
         self.__style_id_change_signal = self.__frame.style_id_change_signal
-        self.__sig[Event.STYLE_ID_CHANGE] = self.__style_id_change_signal
+        self.__sig[Event.STYLE_ID] = self.__style_id_change_signal
 
         # Style
         self.__icon = None

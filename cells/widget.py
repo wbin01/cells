@@ -28,7 +28,7 @@ class CoreWidget(QtWidgets.QFrame):
         self.mouse_hover_move_signal = Signal()
         self.mouse_right_button_press_signal = Signal()
         self.mouse_wheel_signal = Signal()
-        self.resize_signal = Signal()
+        self.size_signal = Signal()
 
         self.install_event_filter(self)
 
@@ -65,7 +65,7 @@ class CoreWidget(QtWidgets.QFrame):
             self.mouse_wheel_signal.emit()
 
         elif event.type() == QtCore.QEvent.Resize:
-            self.resize_signal.emit()
+            self.size_signal.emit()
 
         elif event.type() == QtCore.QEvent.Close:
             self.close_signal.emit()
@@ -108,10 +108,10 @@ class Widget(Widget):
 
         # Signals
         self.__sig = {
-            Event.DELETE_ITEM:self.__box.signal(Event.DELETE_ITEM),
-            Event.ENABLED_CHANGE: Signal(),
-            Event.INSERT_ITEM: self.__box.signal(Event.INSERT_ITEM),
-            Event.MAIN_PARENT_ADDED: Signal(),
+            Event.DELETE: self.__box.signal(Event.DELETE),
+            Event.ENABLED: Signal(),
+            Event.INSERT: self.__box.signal(Event.INSERT),
+            Event.MAIN_PARENT: Signal(),
             Event.MOUSE_BUTTON_PRESS: self.__widget.mouse_button_press_signal,
             Event.MOUSE_BUTTON_RELEASE:
                 self.__widget.mouse_button_release_signal,
@@ -122,11 +122,11 @@ class Widget(Widget):
             Event.MOUSE_RIGHT_BUTTON_PRESS:
                 self.__widget.mouse_right_button_press_signal,
             Event.MOUSE_WHEEL: self.__widget.mouse_wheel_signal,
-            Event.REMOVE_ITEM: self.__box.signal(Event.REMOVE_ITEM),
-            Event.RESIZE: self.__widget.resize_signal,
-            Event.STYLE_CHANGE: Signal(),
-            Event.STYLE_CLASS_CHANGE: Signal(),
-            Event.STYLE_ID_CHANGE: Signal()}
+            Event.REMOVE: self.__box.signal(Event.REMOVE),
+            Event.SIZE: self.__widget.size_signal,
+            Event.STYLE: Signal(),
+            Event.STYLE_CLASS: Signal(),
+            Event.STYLE_ID: Signal()}
 
         # Flags
         self.__is_enabled = True
@@ -186,7 +186,7 @@ class Widget(Widget):
                 self._obj.mouse_button_press_signal.disconnect()
                 self._obj.mouse_button_release_signal.disconnect()
 
-        self.__sig[Event.ENABLED_CHANGE].emit()
+        self.__sig[Event.ENABLED].emit()
 
     @property
     def height(self) -> int:
@@ -320,7 +320,7 @@ class Widget(Widget):
     def style(self, style: dict) -> None:
         self.__style = style
         self.__style_state()
-        self.__sig[Event.STYLE_CHANGE].emit()
+        self.__sig[Event.STYLE].emit()
 
     @property
     def style_class(self) -> str | None:
@@ -372,7 +372,7 @@ class Widget(Widget):
                     self.style = self.__style_class_saved
                     self.__style_class_saved = None
 
-            self.__sig[Event.STYLE_CLASS_CHANGE].emit()
+            self.__sig[Event.STYLE_CLASS].emit()
 
     @property
     def style_id(self) -> str:
@@ -414,7 +414,7 @@ class Widget(Widget):
 
         self.__style_class_saved = new_style
 
-        self.__sig[Event.STYLE_ID_CHANGE].emit()
+        self.__sig[Event.STYLE_ID].emit()
 
     @property
     def visible(self) -> bool:
@@ -456,7 +456,7 @@ class Widget(Widget):
     def _main_parent(self, parent) -> None:
         self.__main_parent = parent
         self.__on_main_added()
-        self.__sig[Event.MAIN_PARENT_ADDED].emit()
+        self.__sig[Event.MAIN_PARENT].emit()
 
     @property
     def _obj(self):

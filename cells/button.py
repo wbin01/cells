@@ -23,8 +23,8 @@ class Button(Widget):
         self.__label =  self.__base_box.insert(Label(text))
         self.__label.margin = 0, 5, 0, 5
         
-        self.signal(Event.MAIN_PARENT_ADDED).connect(self.__on_main_added)
-        self.signal(Event.ENABLED_CHANGE).connect(self.__on_enabled_change)
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.ENABLED).connect(self.__on_enabled_change)
 
         self.signal(Event.MOUSE_HOVER_ENTER).connect(
             self.__on_mouse_hover_enter)
