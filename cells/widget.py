@@ -107,7 +107,7 @@ class Widget(Widget):
         self.__widget.set_layout(self.__box._obj)
 
         # Signals
-        self.__sig = {
+        self.__signals = {
             Event.DELETE: self.__box.signal(Event.DELETE),
             Event.ENABLED: Signal(),
             Event.INSERT: self.__box.signal(Event.INSERT),
@@ -186,7 +186,7 @@ class Widget(Widget):
                 self._obj.mouse_button_press_signal.disconnect()
                 self._obj.mouse_button_release_signal.disconnect()
 
-        self.__sig[Event.ENABLED].emit()
+        self.__signals[Event.ENABLED].emit()
 
     @property
     def height(self) -> int:
@@ -320,7 +320,7 @@ class Widget(Widget):
     def style(self, style: dict) -> None:
         self.__style = style
         self.__style_state()
-        self.__sig[Event.STYLE].emit()
+        self.__signals[Event.STYLE].emit()
 
     @property
     def style_class(self) -> str | None:
@@ -372,7 +372,7 @@ class Widget(Widget):
                     self.style = self.__style_class_saved
                     self.__style_class_saved = None
 
-            self.__sig[Event.STYLE_CLASS].emit()
+            self.__signals[Event.STYLE_CLASS].emit()
 
     @property
     def style_id(self) -> str:
@@ -414,7 +414,7 @@ class Widget(Widget):
 
         self.__style_class_saved = new_style
 
-        self.__sig[Event.STYLE_ID].emit()
+        self.__signals[Event.STYLE_ID].emit()
 
     @property
     def visible(self) -> bool:
@@ -456,7 +456,7 @@ class Widget(Widget):
     def _main_parent(self, parent) -> None:
         self.__main_parent = parent
         self.__on_main_added()
-        self.__sig[Event.MAIN_PARENT].emit()
+        self.__signals[Event.MAIN_PARENT].emit()
 
     @property
     def _obj(self):
@@ -485,7 +485,7 @@ class Widget(Widget):
 
     def events_available_for_signal(self) -> str:
         """String with all available events."""
-        return ', '.join([f'Event.{x.value}' for x in self.__sig.keys()])
+        return ', '.join([f'Event.{x.value}' for x in self.__signals.keys()])
 
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
@@ -540,8 +540,8 @@ class Widget(Widget):
             Event enumeration (Enum) corresponding to the requested event, 
             such as Event.HOVER_ENTER. See: events_available_for_signal().
         """
-        if event in self.__sig:
-            return self.__sig[event]
+        if event in self.__signals:
+            return self.__signals[event]
 
     def __focus_in(self) -> None:
         self.__is_inactive = False

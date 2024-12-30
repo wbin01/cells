@@ -41,7 +41,7 @@ class Box(Box):
             self.__box = QtWidgets.QVBoxLayout()
 
         # Signals
-        self.__sig = {
+        self.__signals = {
             Event.DELETE: Signal(),
             Event.INSERT: Signal(),
             Event.REMOVE: Signal()}
@@ -132,7 +132,7 @@ class Box(Box):
         """
         self.__items.remove(item)
         item._obj.delete_later()
-        self.__sig[Event.DELETE].emit()
+        self.__signals[Event.DELETE].emit()
 
     def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
@@ -155,7 +155,7 @@ class Box(Box):
             self.__box.insert_widget(index, item._obj)
 
         self.__items.append(item)
-        self.__sig[Event.INSERT].emit()
+        self.__signals[Event.INSERT].emit()
 
         return item
 
@@ -180,7 +180,7 @@ class Box(Box):
         item._obj.set_parent(None)
 
         self.__items.remove(item)
-        self.__sig[Event.REMOVE].emit()
+        self.__signals[Event.REMOVE].emit()
 
     def signal(self, event: Event) -> Signal:
         """Event Signals.
@@ -197,8 +197,8 @@ class Box(Box):
             Event enumeration (Enum) corresponding to the requested event, 
             such as Event.HOVER_ENTER. See: events_available_for_signal().
         """
-        if event in self.__sig:
-            return self.__sig[event]
+        if event in self.__signals:
+            return self.__signals[event]
 
     def __str__(self):
         return f'<Box: {id(self)}>'

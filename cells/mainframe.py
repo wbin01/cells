@@ -36,7 +36,7 @@ class MainFrame(object):
         self.__frame.central_widget().set_layout(self.__frame_box._obj)
 
         # Signals
-        self.__sig = {
+        self.__signals = {
             Event.CLOSE: self.__frame.close_signal,
             Event.FOCUS_IN: self.__frame.focus_in_signal,
             Event.FOCUS_OUT: self.__frame.focus_out_signal,
@@ -325,8 +325,8 @@ class MainFrame(object):
             Event enumeration (Enum) corresponding to the requested event, 
             such as Event.HOVER_ENTER. See: events_available_for_signal().
         """
-        if event in self.__sig:
-            return self.__sig[event]
+        if event in self.__signals:
+            return self.__signals[event]
 
     def style_from_file(self, path: str) -> dict:
         """Convert the contents of a file into a valid dictionary style."""
