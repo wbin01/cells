@@ -53,13 +53,10 @@ class Window(MainFrame):
         for i in range(5):
             self.insert(Label(str(i)))
 
-        self.wid = self.insert(Box())
+        self.wid = self.insert(Widget())
 
         self.label = Label('INSERT')
         self.wid.insert(Label('INSERT_x x'))
-
-        # self.style_from_file('stylerc')
-        # pprint.pprint(self.style['[Button]'])
 
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP
@@ -75,6 +72,9 @@ class Window(MainFrame):
 
             # self.btn.height = 50
             self.wid.insert(self.label)
+            self.label.style_class = 'Danger'
+            self.label.style['[Label]']['border'] = '0px 0px 0px 0px rgba(0, 0, 0, 0.0)'
+            self.label.style = self.label.style
             # self.remove(self.btn)
         else:
             self.button.enabled = True
@@ -82,7 +82,8 @@ class Window(MainFrame):
             self.btn.style_class = None
 
             # self.btn.height = 20
-            self.wid.remove(self.label)
+            self.label.style_class = None
+            # self.wid.remove(self.label)
             # self.btn.delete(self.label)
 
 

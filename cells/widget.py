@@ -502,6 +502,7 @@ class Widget(Widget):
         :param index: Index number where the item should be inserted 
             (Default is -1)
         """
+        item._main_parent = self._main_parent
         self.__box.insert(item)
         return item
 
