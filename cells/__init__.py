@@ -7,6 +7,7 @@ from .event import Event
 from .flag import Flag
 from .frame import Frame
 from .icon import Icon
+from .image import Image
 from .label import Label
 from .mainframe import MainFrame
 from .orientation import Orientation

@@ -6,7 +6,7 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, Box, Orientation, Align,
-    Widget, Button, Label)
+    Widget, Button, Label, Image)
 
 
 class Window(MainFrame):
@@ -57,6 +57,7 @@ class Window(MainFrame):
 
         self.label = Label('INSERT')
         self.wid.insert(Label('INSERT_x x'))
+        self.insert(Image())
 
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP

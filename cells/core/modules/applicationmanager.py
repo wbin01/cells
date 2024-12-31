@@ -2,6 +2,7 @@
 import os
 import string
 import sys
+from pathlib import Path
 
 from .platformselector import PlatformSelector
 
@@ -15,8 +16,7 @@ class ApplicationManager(object):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
         self.__args = args[0][0]
-        self.__path = os.path.dirname(os.path.abspath(__file__))
-
+        self.__path = Path(__file__).resolve().parent.parent
         self.__platform = PlatformSelector()
         self.__frame_id = None
         self.__filename_ext = None

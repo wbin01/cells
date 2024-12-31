@@ -17,7 +17,7 @@ class StyleManager(object):
         self.__accent_blue = '165'
         self.__accent = '45', '90', '165'
 
-        self.__path = pathlib.Path(__file__).resolve().parent
+        self.__path = pathlib.Path(__file__).resolve().parent.parent
         self.__url = os.path.join(self.__path, 'static', 'stylerc')
         self.__dict_style = None
         self.__qss_style = None
