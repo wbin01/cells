@@ -6,7 +6,7 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, Box, Orientation, Align,
-    Widget, Button, Label, Image)
+    Widget, Button, Label, Image, Icon)
 
 
 class Window(MainFrame):
@@ -57,7 +57,12 @@ class Window(MainFrame):
 
         self.label = Label('INSERT')
         self.wid.insert(Label('INSERT_x x'))
-        self.insert(Image())
+
+        img = self.insert(Image('icon_mono.svg'))
+        img.style_class = 'Success'
+        img.style_id = 'NewImage'
+        img.style['[NewImage]']['border'] = '0px 0px 0px 0px rgba(0,0,0,0)'
+        img.style = img.style
 
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP

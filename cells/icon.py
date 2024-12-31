@@ -5,9 +5,21 @@ from __feature__ import snake_case
 
 class Icon(object):
     """Icon."""
-    def __init__(self, path: str = None) -> None:
+    def __init__(self, path: str = None, *args, **kwargs) -> None:
         """Class constructor."""
-        self.__icon = QtGui.QIcon(path)
+        super().__init__(*args, **kwargs)
+        self.__path = path
+        self.__icon = QtGui.QIcon(self.__path)
+
+    @property
+    def path(self) -> str:
+        """..."""
+        return self.__path
+
+    @path.setter
+    def path(self, path: str) -> None:
+        self.__path = path
+        self.__icon = QtGui.QIcon(self.__path)
 
     @property
     def _obj(self):

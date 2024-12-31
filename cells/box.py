@@ -151,7 +151,8 @@ class Box(Box):
             self.__box.insert_layout(index, item._obj)
         else:
             item.style_id = item.style_id
-            item.visible = True
+            if hasattr(item, 'visible'):
+                item.visible = True
             self.__box.insert_widget(index, item._obj)
 
         self.__items.append(item)
