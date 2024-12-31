@@ -205,8 +205,8 @@ class CoreMainFrame(CoreMainFrameShadow):
                 self.window_handle().start_system_resize(
                     self.__edge_cursor_position)
 
-            # elif self.under_mouse():
-            #     self.window_handle().start_system_move()
+            elif self.under_mouse():
+                self.window_handle().start_system_move()
 
         elif event.type() == QtCore.QEvent.MouseButtonRelease:
             if 'RightButton' in event.__str__():

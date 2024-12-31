@@ -12,7 +12,6 @@ from cells import (
 class Window(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        # self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
         # self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
         # self.signal(Event.TITLE_CHANGE).connect(lambda: print('TITLE_CHANGE'))
         # self.signal(Event.STATE_CHANGE).connect(lambda: print('STATE_CHANGE'))
@@ -49,6 +48,7 @@ class Window(MainFrame):
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
+        self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
 
         for i in range(5):
             self.insert(Label(str(i)))
