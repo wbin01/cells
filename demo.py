@@ -59,7 +59,7 @@ class Window(MainFrame):
         self.label = Label('INSERT')
         # self.wid.insert(Label('INSERT_x x'))
 
-        img = self.insert(Image(Icon('folder-download-symbolic')))
+        img = self.insert(Image('icon_mono.svg', width=50, height=100))
         # img.style_class = 'Success'
         # img.style_id = 'NewImage'
         # img.style['[NewImage]']['border'] = '0px 0px 0px 0px rgba(0,0,0,0)'

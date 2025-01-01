@@ -28,6 +28,7 @@ class Icon(object):
         rendered use a file path as a fallback (fallback_path).
 
         :param path: Icon path or icon name from system, like "folder-download"
+        :param fallback_path: fallback icon path.
         :param width: Integer with the value of the icon width.
         :param height: Integer with the value of the icon height.
         """
@@ -42,8 +43,12 @@ class Icon(object):
 
             if not self.__icon.has_theme_icon(self.__path):
                 self.__icon = QtGui.QIcon(self.__fallback_path)
+                self.__icon.pixmap(self.__width, self.__height)
+            else:
+                self.__icon.pixmap(self.__width, self.__height)
         else:
             self.__icon = QtGui.QIcon(self.__path)
+            self.__icon.pixmap(self.__width, self.__height)
 
     @property
     def height(self) -> int:
@@ -56,6 +61,7 @@ class Icon(object):
     @height.setter
     def height(self, height) -> None:
         self.__height = height
+        self.__icon.pixmap(self.__width, self.__height)
 
     @property
     def path(self) -> str:
@@ -75,13 +81,14 @@ class Icon(object):
     def width(self) -> int:
         """Returns the Widget width.
 
-        Pass a new integer value to update the Icon.
+        Pass a new integer value to update the width.
         """
         return self.__width
 
     @width.setter
     def width(self, width) -> None:
         self.__width = width
+        self.__icon.pixmap(self.__width, self.__height)
 
     @property
     def _obj(self):
