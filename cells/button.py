@@ -1,28 +1,35 @@
 #!/usr/bin/env python3
-from PySide6 import QtWidgets
-from __feature__ import snake_case
-
 from .align import Align
+from .box import Box
 from .event import Event
+from .icon import Icon
+from .image import Image
 from .label import Label
 from .orientation import Orientation
 from .widget import Widget
-from .box import Box
 
 
 class Button(Widget):
     """Button Widget."""
-    def __init__(self, text: str = '', *args, **kwargs) -> None:
+    def __init__(
+            self, text: str = None, icon: Icon = None,
+            *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
+        self.__text = text if text else ''
+        self.__icon = icon
         self.style_id = 'Button'
         self.__focus = True
 
         self.__base_box = self.insert(Box(orientation=Orientation.HORIZONTAL))
         self.__base_box.align = Align.CENTER
-        self.__label =  self.__base_box.insert(Label(text))
-        self.__label.margin = 0, 5, 0, 5
-        
+
+        self.__label = Label(self.__text)
+        self.__base_box.insert(self.__label)
+
+        if self.__icon:
+            self.__icon = self.__base_box.insert(Image(self.__icon))
+
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
 
@@ -45,6 +52,7 @@ class Button(Widget):
 
     @text.setter
     def text(self, text: str) -> None:
+        self.__text = text
         self.__label.text = text
 
     def __on_enabled_change(self) -> None:
@@ -58,6 +66,9 @@ class Button(Widget):
             self.__on_main_parent_focus_in)
         self._main_parent.signal(Event.FOCUS_OUT).connect(
             self.__on_main_parent_focus_out)
+        
+        if self.__icon:
+            self.__icon._main_parent = self._main_parent
 
     def __on_main_parent_focus_in(self) -> None:
         self.__focus = True

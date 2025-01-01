@@ -99,6 +99,7 @@ class Widget(Widget):
         # Obj
         self.__widget = CoreWidget()
         self.__widget.set_object_name('Widget')
+        self.__widget.set_contents_margins(0, 0, 0, 0)
         self.__style_id = 'Widget'
 
         self.__box = Box(orientation=orientation)

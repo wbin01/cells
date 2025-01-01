@@ -51,14 +51,17 @@ class Image(Widget):
         self.__smooth = (QtCore.Qt.SmoothTransformation if smooth else
             QtCore.Qt.FastTransformation)
 
+        self.__focus = True
+
         self._obj = QtWidgets.QLabel()
+        self._obj.set_contents_margins(0, 0, 0, 0)
         self.style_id = 'Image'
 
         if isinstance(self.__path, Icon):
             pixmap = QtGui.QPixmap(
-                self.__path._obj.pixmap(self.__path.width, self.__path.height))
+                self.__path._obj.pixmap(self.__path.width, self.__path.height, mode=QtGui.QIcon.Disabled))
         else:
-            pixmap = QtGui.QPixmap(self.__path)
+            pixmap = QtGui.QPixmap(self.__path, mode=QtGui.QIcon.Disabled)
 
         if not self.__width:
             self.__width = pixmap.width()
@@ -71,6 +74,13 @@ class Image(Widget):
 
         self._obj.set_pixmap(self.__pixmap)
         # self._obj.set_scaled_contents(True)
+
+        self.__effect = QtWidgets.QGraphicsOpacityEffect(self._obj)
+        self.__effect.set_opacity(1.0)
+        self._obj.set_graphics_effect(self.__effect)
+
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.ENABLED).connect(self.__on_enabled_change)
 
     @property
     def path(self) -> str:
@@ -85,6 +95,27 @@ class Image(Widget):
         self.__path = path
         self.__pixmap = QtGui.QPixmap(self.__path)
         self._obj.set_pixmap(self.__pixmap)
+
+    def __on_enabled_change(self) -> None:
+        if self.enabled:
+            self.__on_main_parent_focus_in()
+        else:
+            self.__on_main_parent_focus_out()
+
+    def __on_main_added(self) -> None:
+        self._main_parent.signal(Event.FOCUS_IN).connect(
+            self.__on_main_parent_focus_in)
+        self._main_parent.signal(Event.FOCUS_OUT).connect(
+            self.__on_main_parent_focus_out)
+
+    def __on_main_parent_focus_in(self) -> None:
+        self.__focus = True
+        if self.enabled:
+            self.__effect.set_opacity(1.0)
+
+    def __on_main_parent_focus_out(self) -> None:
+        self.__focus = False
+        self.__effect.set_opacity(0.3)
 
     def __str__(self):
         return f'<Image: {id(self)}>'
