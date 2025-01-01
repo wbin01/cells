@@ -45,8 +45,10 @@ class Application(object):
     def icon(self, path: str) -> None:
         self.__icon_path = path
         if self.__frame:
-            self.__icon = QtGui.QIcon(QtGui.QPixmap(path))
-            self.__frame.icon = self.__icon
+            if not self.__frame.icon:
+                self.__frame.icon = path
+            
+            self.__icon = self.__frame.icon
             self.__devel.icon = path
 
     @property

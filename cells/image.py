@@ -17,24 +17,15 @@ class Image(Widget):
         super().__init__(*args, **kwargs)
         self.__path = path if path else os.path.join(
                 os.path.dirname(__file__), 'core', 'static', 'icon.svg')
-        self.__icon = None
 
         self._obj = QtWidgets.QLabel()
         self.style_id = 'Image'
 
-        self.__pixmap = QtGui.QPixmap(self.__path)
-        self._obj.set_pixmap(self.__pixmap)
-
-    @property
-    def icon(self) -> Icon:
-        """..."""
-        return self.__icon
-
-    @icon.setter
-    def icon(self, icon: Icon) -> None:
-        self.__icon = icon
-        self.__path = icon.path
-        self.__pixmap = QtGui.QPixmap(self.__path)
+        if isinstance(self.__path, Icon):
+            self.__pixmap = QtGui.QPixmap(
+                self.__path._obj.pixmap(self.__path.width, self.__path.height))
+        else:
+            self.__pixmap = QtGui.QPixmap(self.__path)
         self._obj.set_pixmap(self.__pixmap)
 
     @property

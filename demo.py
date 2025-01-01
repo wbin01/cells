@@ -54,15 +54,16 @@ class Window(MainFrame):
             self.insert(Label(str(i)))
 
         self.wid = self.insert(Widget())
+        self.wid.height = 30
 
         self.label = Label('INSERT')
-        self.wid.insert(Label('INSERT_x x'))
+        # self.wid.insert(Label('INSERT_x x'))
 
-        img = self.insert(Image('icon_mono.svg'))
-        img.style_class = 'Success'
-        img.style_id = 'NewImage'
-        img.style['[NewImage]']['border'] = '0px 0px 0px 0px rgba(0,0,0,0)'
-        img.style = img.style
+        img = self.insert(Image(Icon('folder-download-symbolic')))
+        # img.style_class = 'Success'
+        # img.style_id = 'NewImage'
+        # img.style['[NewImage]']['border'] = '0px 0px 0px 0px rgba(0,0,0,0)'
+        # img.style = img.style
 
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP
@@ -77,7 +78,7 @@ class Window(MainFrame):
             self.btn.style_class = 'Warning'
 
             # self.btn.height = 50
-            self.wid.insert(self.label)
+            # self.wid.insert(self.label)
             self.label.style_class = 'Danger'
             self.label.style['[Label]']['border'] = '0px 0px 0px 0px rgba(0, 0, 0, 0.0)'
             self.label.style = self.label.style

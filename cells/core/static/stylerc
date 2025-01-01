@@ -102,7 +102,7 @@ color=rgba(200, 200, 200, 0.40)
 [Icon:pressed]
 
 [Image]
-background=rgba(200, 0, 0, 1.00)
+background=rgba(0, 0, 0, 0.00)
 color=rgba(200, 200, 200, 1.00)
 border=0px 0px 0px 0px rgba(0, 0, 0, 0.00)
 border_radius=0px 0px 0px 0px
@@ -199,7 +199,7 @@ color=rgba(200, 200, 200, 1.00)
 border=1px 1px 1px 1px rgba(180, 145, 20, 0.30)
 
 [Widget]
-background=rgba(255, 0, 0, 0.10)
+background=rgba(0, 0, 0, 0.00)
 border=1px 1px 1px 1px rgba(0, 0, 0, 0.00)
 border_radius=0px 0px 0px 0px
 padding=0px 0px 0px 0px
@@ -207,8 +207,8 @@ margin=0px 0px 0px 0px
 color=rgba(200, 200, 200, 1.00)
 
 [Widget:inactive]
-background=rgba(0, 0, 0, 0.0)
-border=1px 1px 1px 1px rgba(255, 255, 255, 0.10)
+background=rgba(0, 0, 0, 0.00)
+border=1px 1px 1px 1px rgba(0, 0, 0, 0.00)
 color=rgba(200, 200, 200, 0.40)
 
 [Widget:hover]
