@@ -25,7 +25,7 @@ class Image(Widget):
         The Image is rendered from the path of a passed file.
 
         :param path: 
-            Image path.
+            Image path or Icon() object.
         :param width: 
             Integer with the value of the image width.
         :param height: 

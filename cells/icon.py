@@ -23,14 +23,15 @@ class Icon(object):
             https://specifications.freedesktop.org/icon-naming-spec/latest/
 
         Although the Freedesk specification is for Linux, we are making it 
-        compatible with Windows. If an icon is not found, it will not give an 
-        error, but it will also not render any image, so to ensure an image is 
-        rendered use a file path as a fallback (fallback_path).
+        compatible with Windows (Aesthetically compatible alternative icons). 
+        If an icon is not found, it will not give an error, but it will also 
+        not render any image, so to ensure an image is rendered use a file 
+        path as a fallback (fallback_path).
 
         :param path: Icon path or icon name from system, like "folder-download"
         :param fallback_path: fallback icon path.
-        :param width: Integer with the value of the icon width.
-        :param height: Integer with the value of the icon height.
+        :param width: Integer with the value of the icon width. Default is 22
+        :param height: Integer with the value of the icon height. Default is 22
         """
         super().__init__(*args, **kwargs)
         self.__path = path
@@ -39,6 +40,7 @@ class Icon(object):
         self.__height = height
 
         if not os.path.isfile(self.__path):
+            # TODO: Not Linux alternative here ...
             self.__icon = QtGui.QIcon.from_theme(self.__path)
 
             if not self.__icon.has_theme_icon(self.__path):

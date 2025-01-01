@@ -59,8 +59,8 @@ class Window(MainFrame):
         self.label = Label('INSERT')
         # self.wid.insert(Label('INSERT_x x'))
 
-        img = self.insert(Image('icon_mono.svg', 100, 200, False))
-        img.style_class = 'Success'
+        img = self.insert(Image(Icon('document-open')))
+        # img.style_class = 'Success'
         # img.style_id = 'NewImage'
         # img.style['[NewImage]']['border'] = '0px 0px 0px 0px rgba(0,0,0,0)'
         # img.style = img.style
