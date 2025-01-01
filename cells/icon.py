@@ -9,8 +9,8 @@ class Icon(object):
     """Icon."""
     def __init__(
             self,
-            path: str = None,
-            fallback_path: str = None,
+            path: str = 'document-new',
+            fallback_path: str = 'document-new',
             width: int = 22,
             height: int = 22,
             *args, **kwargs) -> None:
@@ -35,7 +35,7 @@ class Icon(object):
         """
         super().__init__(*args, **kwargs)
         self.__path = path
-        self.__fallback_path = fallback_path if fallback_path else ''
+        self.__fallback_path = fallback_path
         self.__width = width
         self.__height = height
 
@@ -44,13 +44,14 @@ class Icon(object):
             self.__icon = QtGui.QIcon.from_theme(self.__path)
 
             if not self.__icon.has_theme_icon(self.__path):
-                self.__icon = QtGui.QIcon(self.__fallback_path)
-                self.__icon.pixmap(self.__width, self.__height)
-            else:
-                self.__icon.pixmap(self.__width, self.__height)
+                self.__icon = QtGui.QIcon.from_theme(self.__fallback_path)
+
+                if not self.__icon.has_theme_icon(self.__fallback_path):
+                    self.__icon = QtGui.QIcon.from_theme('document-new')
         else:
             self.__icon = QtGui.QIcon(self.__path)
-            self.__icon.pixmap(self.__width, self.__height)
+        
+        self.__icon.pixmap(self.__width, self.__height)
 
     @property
     def height(self) -> int:

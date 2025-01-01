@@ -12,7 +12,9 @@ from .widget import Widget
 class Button(Widget):
     """Button Widget."""
     def __init__(
-            self, text: str = None, icon: Icon = None,
+            self,
+            text: str = None,
+            icon: Icon = None,
             *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
@@ -20,18 +22,27 @@ class Button(Widget):
         self.__icon = icon
         self.style_id = 'Button'
         self.__focus = True
+        self.__icon_on_right = False
+        self.__tool = True
 
         self.__base_box = self.insert(Box(orientation=Orientation.HORIZONTAL))
+        self.__base_box.spacing = 2
+        self.__base_box.margin = 0, 5, 0, 5
         self.__base_box.align = Align.CENTER
 
+        if self.__icon and not self.__icon_on_right:
+            self.__icon = self.__base_box.insert(Image(self.__icon))
+        
         self.__label = Label(self.__text)
-        self.__base_box.insert(self.__label)
+        if self.__text:
+            self.__base_box.insert(self.__label)
 
-        if self.__icon:
+        if self.__icon and self.__icon_on_right:
             self.__icon = self.__base_box.insert(Image(self.__icon))
 
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
+        self.signal(Event.STYLE_CLASS).connect(self.style_id_tool)
 
         self.signal(Event.MOUSE_HOVER_ENTER).connect(
             self.__on_mouse_hover_enter)
@@ -41,6 +52,13 @@ class Button(Widget):
             self.__on_mouse_button_press)
         self.signal(Event.MOUSE_BUTTON_RELEASE).connect(
             self.__on_mouse_button_release)
+
+    def style_id_tool(self):
+        if self.style_class == 'ToolButton':
+            self.__label.visible = False
+            self.__base_box.margin = 0, 0, 0, 0
+            self.height = self.__icon.height + 10
+            self.width = self.__icon.width + 10
 
     @property
     def text(self) -> str:
@@ -60,6 +78,9 @@ class Button(Widget):
             self.__on_main_parent_focus_in()
         else:
             self.__on_main_parent_focus_out()
+
+        if self.__icon:
+            self.__icon.enabled = self.enabled
 
     def __on_main_added(self) -> None:
         self._main_parent.signal(Event.FOCUS_IN).connect(
