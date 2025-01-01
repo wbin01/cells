@@ -18,7 +18,7 @@ class Window(MainFrame):
         # self.signal(Event.FOCUS_IN).connect(lambda: print('FOCUS_IN'))
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
         self.spacing = 5
-        self.align = Align.TOP
+        # self.align = Align.TOP
         self.button = self.insert(Button('Button'))
         self.button.signal(Event.MOUSE_BUTTON_PRESS).connect(
             lambda: print(self.button.text))
@@ -59,8 +59,8 @@ class Window(MainFrame):
         self.label = Label('INSERT')
         # self.wid.insert(Label('INSERT_x x'))
 
-        img = self.insert(Image('icon_mono.svg', width=50, height=100))
-        # img.style_class = 'Success'
+        img = self.insert(Image('icon_mono.svg', 100, 200, False))
+        img.style_class = 'Success'
         # img.style_id = 'NewImage'
         # img.style['[NewImage]']['border'] = '0px 0px 0px 0px rgba(0,0,0,0)'
         # img.style = img.style
