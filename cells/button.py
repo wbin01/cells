@@ -14,12 +14,12 @@ class Button(Widget):
     def __init__(
             self,
             text: str = None,
-            icon: Icon = None,
+            icon: str = None,
             *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
         self.__text = text if text else ''
-        self.__icon = icon
+        self.__icon = Icon(icon) if icon else icon
         self.style_id = 'Button'
         self.__focus = True
         self.__icon_on_right = False

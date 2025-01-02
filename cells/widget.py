@@ -161,6 +161,18 @@ class Widget(Widget):
         self.__accent = accent
 
     @property
+    def align(self) -> Align:
+        """Align enum.
+
+        Sets the Box alignment.
+        """
+        return self.__box.align
+
+    @align.setter
+    def align(self, align: Align) -> None:
+        self.__box.align = align
+
+    @property
     def enabled(self) -> bool:
         """Enables the Widget.
 
