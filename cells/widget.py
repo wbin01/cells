@@ -481,15 +481,16 @@ class Widget(Widget):
     
     @_main_parent.setter
     def _main_parent(self, parent) -> None:
-        self.__main_parent = parent
-        self.__main_parent.signal(Event.FOCUS_IN).connect(self.__focus_in)
-        self.__main_parent.signal(Event.FOCUS_OUT).connect(self.__focus_out)
+        if parent:
+            self.__main_parent = parent
+            self.__main_parent.signal(Event.FOCUS_IN).connect(self.__focus_in)
+            self.__main_parent.signal(Event.FOCUS_OUT).connect(self.__focus_out)
 
-        for item in self.__box.items():
-            if not item._main_parent:
-                item._main_parent = self.__main_parent
+            for item in self.__box.items():
+                if not item._main_parent:
+                    item._main_parent = self.__main_parent
 
-        self.__signals[Event.MAIN_PARENT].emit()
+            self.__signals[Event.MAIN_PARENT].emit()
 
     @property
     def _obj(self):

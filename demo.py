@@ -19,9 +19,10 @@ class Window(MainFrame):
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
         self.spacing = 5
         # self.align = Align.TOP
-        self.button = self.insert(Button('Text', 'document-open'))  # 'Text', 'document-open'
+        self.button = self.insert(Button('Text', 'document-open'))
+        # self.button.insert(Image(Icon()))
         # self.button.align = Align.LEFT
-        # self.button.style_class = 'ToolButton'
+        self.button.style_class = 'ToolButton'
         self.button.signal(Event.MOUSE_BUTTON_PRESS).connect(
             lambda: print(self.button.text))
 

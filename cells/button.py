@@ -15,9 +15,10 @@ class Button(Widget):
             self,
             text: str = None,
             icon: str = None,
+            orientation: Orientation = Orientation.HORIZONTAL,
             *args, **kwargs) -> None:
         """Class constructor."""
-        super().__init__(*args, **kwargs)
+        super().__init__(orientation=orientation, *args, **kwargs)
         self.__text = text if text else ''
         self.__icon = Icon(icon) if icon else icon
         self.style_id = 'Button'
@@ -25,20 +26,19 @@ class Button(Widget):
         self.__icon_on_right = False
         self.__tool = True
 
-        self.__base_box = self.insert(Box(orientation=Orientation.HORIZONTAL))
-        self.__base_box.spacing = 2
-        self.__base_box.margin = 0, 5, 0, 5
-        self.__base_box.align = Align.CENTER
+        self.spacing = 2
+        self.margin = 0, 5, 0, 5
+        self.align = Align.CENTER
 
         if self.__icon and not self.__icon_on_right:
-            self.__icon = self.__base_box.insert(Image(self.__icon))
+            self.__icon = self.insert(Image(self.__icon))
         
         self.__label = Label(self.__text)
         if self.__text:
-            self.__base_box.insert(self.__label)
+            self.insert(self.__label)
 
         if self.__icon and self.__icon_on_right:
-            self.__icon = self.__base_box.insert(Image(self.__icon))
+            self.__icon = self.insert(Image(self.__icon))
 
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
@@ -56,7 +56,7 @@ class Button(Widget):
     def style_id_tool(self):
         if self.style_class == 'ToolButton':
             self.__label.visible = False
-            self.__base_box.margin = 0, 0, 0, 0
+            self.margin = 0, 0, 0, 0
             self.height = self.__icon.height + 10
             self.width = self.__icon.width + 10
 
