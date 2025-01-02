@@ -23,22 +23,32 @@ class Button(Widget):
         self.__icon = Icon(icon) if icon else icon
         self.style_id = 'Button'
         self.__focus = True
-        self.__icon_on_right = False
+        self.__icon_on_right = True
         self.__tool = True
 
         self.spacing = 2
-        self.margin = 0, 5, 0, 5
         self.align = Align.CENTER
 
         if self.__icon and not self.__icon_on_right:
             self.__icon = self.insert(Image(self.__icon))
+            self.__icon.margin = 0, 0, 0, 5
         
         self.__label = Label(self.__text)
         if self.__text:
             self.insert(self.__label)
+            if self.__icon_on_right:
+                self.__label.margin = 0, 0, 0, 5
+            else:
+                self.__label.margin = 0, 5, 0, 0
 
         if self.__icon and self.__icon_on_right:
             self.__icon = self.insert(Image(self.__icon))
+            self.__icon.margin = 0, 5, 0, 0
+
+        if not self.__text and self.__icon:
+                self.__icon.margin = 0, 5, 0, 5
+        elif self.__text and not self.__icon:
+                self.__label.margin = 0, 5, 0, 5
 
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
