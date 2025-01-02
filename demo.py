@@ -5,7 +5,7 @@ import pprint
 
 from cells import (
     Application, Cursor, Flag, Signal, Event,
-    MainFrame, Frame, Box, Orientation, Align,
+    MainFrame, Frame, MoveFrame, Box, Orientation, Align,
     Widget, Button, Label, Image, Icon)
 
 
@@ -19,6 +19,7 @@ class Window(MainFrame):
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
         self.spacing = 5
         # self.align = Align.TOP
+        self.insert(MoveFrame())
         self.button = self.insert(Button('Button text', 'document-open'))
         # self.button.insert(Image(Icon()))
         # self.button.align = Align.LEFT

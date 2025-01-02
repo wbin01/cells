@@ -10,6 +10,7 @@ from .icon import Icon
 from .image import Image
 from .label import Label
 from .mainframe import MainFrame
+from .moveframe import MoveFrame
 from .orientation import Orientation
 from .signal import Signal
 from .widget import Widget
