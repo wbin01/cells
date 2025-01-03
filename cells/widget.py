@@ -24,7 +24,7 @@ class CoreWidget(QtWidgets.QFrame):
         self.mouse_hover_enter_signal = Signal()
         self.mouse_hover_leave_signal = Signal()
         self.mouse_hover_move_signal = Signal()
-        self.mouse_right_button_press_signal = Signal()
+        self.mouse_right_press_signal = Signal()
         self.mouse_wheel_signal = Signal()
         self.size_signal = Signal()
 
@@ -49,7 +49,7 @@ class CoreWidget(QtWidgets.QFrame):
 
         elif event.type() == QtCore.QEvent.MouseButtonPress:
             if 'RightButton' in event.__str__():
-                self.mouse_right_button_press_signal.emit()
+                self.mouse_right_press_signal.emit()
             else:
                 self.mouse_button_press_signal.emit()
 
@@ -111,15 +111,13 @@ class Widget(Widget):
             Event.ENABLED: Signal(),
             Event.INSERT: self.__box.signal(Event.INSERT),
             Event.MAIN_PARENT: Signal(),
-            Event.MOUSE_BUTTON_PRESS: self.__widget.mouse_button_press_signal,
-            Event.MOUSE_BUTTON_RELEASE:
-                self.__widget.mouse_button_release_signal,
-            Event.MOUSE_DOUBLE_CLICK: self.__widget.mouse_double_click_signal,
+            Event.MOUSE_PRESS: self.__widget.mouse_button_press_signal,
+            Event.MOUSE_RELEASE: self.__widget.mouse_button_release_signal,
+            Event.MOUSE_DOUBLE_PRESS: self.__widget.mouse_double_click_signal,
             Event.MOUSE_HOVER_ENTER: self.__widget.mouse_hover_enter_signal,
             Event.MOUSE_HOVER_LEAVE: self.__widget.mouse_hover_leave_signal,
             Event.MOUSE_HOVER_MOVE: self.__widget.mouse_hover_move_signal,
-            Event.MOUSE_RIGHT_BUTTON_PRESS:
-                self.__widget.mouse_right_button_press_signal,
+            Event.MOUSE_RIGHT_PRESS: self.__widget.mouse_right_press_signal,
             Event.MOUSE_WHEEL: self.__widget.mouse_wheel_signal,
             Event.REMOVE: self.__box.signal(Event.REMOVE),
             Event.SIZE: self.__widget.size_signal,
@@ -146,8 +144,8 @@ class Widget(Widget):
         self.__style_class_saved = None
 
         # Settings
-        self.signal(Event.MOUSE_BUTTON_RELEASE).connect(self.__on_release)
-        self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__on_press)
+        self.signal(Event.MOUSE_RELEASE).connect(self.__on_release)
+        self.signal(Event.MOUSE_PRESS).connect(self.__on_press)
         self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__on_hover)
         self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__on_leave)
 
@@ -177,7 +175,7 @@ class Widget(Widget):
         """Enables the Widget.
 
         When False, the Widget is inactive both in appearance and in the 
-        Event.MOUSE_BUTTON_PRESS and Event.MOUSE_BUTTON_RELEASE events.
+        Event.MOUSE_PRESS and Event.MOUSE_RELEASE events.
         """
         return self.__is_enabled
 
@@ -564,9 +562,9 @@ class Widget(Widget):
         """Event Signals.
 
         Signals are connections to events. When an event such as a mouse 
-        click (Event.MOUSE_BUTTON_PRESS) or other event occurs, a signal is 
-        sent. The signal can be assigned a function to be executed when the 
-        signal is sent.
+        click (Event.MOUSE_PRESS) or other event occurs, a signal is sent. The 
+        signal can be assigned a function to be executed when the signal is 
+        sent.
 
         Use the 'events_available_for_signal()' method to see all available 
         events.

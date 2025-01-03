@@ -58,9 +58,9 @@ class Button(Widget):
             self.__on_mouse_hover_enter)
         self.signal(Event.MOUSE_HOVER_LEAVE).connect(
             self.__on_mouse_hover_leave)
-        self.signal(Event.MOUSE_BUTTON_PRESS).connect(
+        self.signal(Event.MOUSE_PRESS).connect(
             self.__on_mouse_button_press)
-        self.signal(Event.MOUSE_BUTTON_RELEASE).connect(
+        self.signal(Event.MOUSE_RELEASE).connect(
             self.__on_mouse_button_release)
 
     def style_id_tool(self):

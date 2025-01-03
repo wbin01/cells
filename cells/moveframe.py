@@ -23,8 +23,8 @@ class MoveFrame(Widget):
             self._main_parent.maximized = True
 
     def __on_main_added(self):
-        self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.__on_press)
-        self.signal(Event.MOUSE_DOUBLE_CLICK).connect(self.__on_double_click)
+        self.signal(Event.MOUSE_PRESS).connect(self.__on_press)
+        self.signal(Event.MOUSE_DOUBLE_PRESS).connect(self.__on_double_click)
 
     def __on_press(self) -> None:
         if self._obj.under_mouse():

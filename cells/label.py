@@ -2,8 +2,6 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
-from .event import Event
-from .signal import Signal
 from .widget import Widget
 
 

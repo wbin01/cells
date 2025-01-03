@@ -42,13 +42,13 @@ class MainFrame(object):
             Event.FOCUS_OUT: self.__frame.focus_out_signal,
             Event.DELETE: self.__frame_box.signal(Event.DELETE),
             Event.INSERT: self.__frame_box.signal(Event.INSERT),
-            Event.MOUSE_BUTTON_PRESS: self.__frame.mouse_press_signal,
-            Event.MOUSE_BUTTON_RELEASE: self.__frame.mouse_release_signal,
-            Event.MOUSE_DOUBLE_CLICK: self.__frame.mouse_double_click_signal,
+            Event.MOUSE_DOUBLE_PRESS: self.__frame.mouse_double_click_signal,
             Event.MOUSE_HOVER_ENTER: self.__frame.mouse_hover_enter_signal,
             Event.MOUSE_HOVER_LEAVE: self.__frame.mouse_hover_leave_signal,
             Event.MOUSE_HOVER_MOVE: self.__frame.mouse_hover_move_signal,
-            Event.MOUSE_RIGHT_BUTTON_PRESS: self.__frame.mouse_r_press_signal,
+            Event.MOUSE_PRESS: self.__frame.mouse_press_signal,
+            Event.MOUSE_RELEASE: self.__frame.mouse_release_signal,
+            Event.MOUSE_RIGHT_PRESS: self.__frame.mouse_r_press_signal,
             Event.MOUSE_WHEEL: self.__frame.mouse_wheel_signal,
             Event.REMOVE: self.__frame_box.signal(Event.REMOVE),
             Event.SIZE: self.__frame.size_signal,
@@ -330,7 +330,7 @@ class MainFrame(object):
         """Event Signals.
 
         Signals are connections to events. When an event such as a mouse 
-        click (Event.MOUSE_BUTTON_PRESS) or other event occurs, a signal is 
+        click (Event.MOUSE_PRESS) or other event occurs, a signal is 
         sent. The signal can be assigned a function to be executed when the 
         signal is sent.
 

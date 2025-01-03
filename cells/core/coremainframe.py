@@ -5,7 +5,6 @@ from __feature__ import snake_case
 from .coreshadow import CoreMainFrameShadow
 from .modules import colorconverter
 from .modules import StyleManager
-from ..event import Event
 from ..signal import Signal
 
 

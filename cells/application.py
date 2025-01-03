@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 
-from PySide6 import QtWidgets, QtGui
+from PySide6 import QtWidgets
 from __feature__ import snake_case
 
 from .core import ApplicationManager

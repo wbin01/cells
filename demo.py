@@ -14,9 +14,9 @@ from cells import (
 class Window(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        # self.signal(Event.MOUSE_BUTTON_PRESS).connect(self.fn_label)
-        # self.signal(Event.TITLE_CHANGE).connect(lambda: print('TITLE_CHANGE'))
-        # self.signal(Event.STATE_CHANGE).connect(lambda: print('STATE_CHANGE'))
+        # self.signal(Event.MOUSE_PRESS).connect(self.fn_label)
+        # self.signal(Event.TITLE).connect(lambda: print('TITLE_CHANGE'))
+        # self.signal(Event.STATE).connect(lambda: print('STATE_CHANGE'))
         # self.signal(Event.FOCUS_IN).connect(lambda: print('FOCUS_IN'))
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
         self.move_frame = self.insert(MoveFrame())
@@ -29,21 +29,21 @@ class Window(MainFrame):
         # self.button.insert(Image(Icon()))
         # self.button.align = Align.LEFT
         # self.button.style_class = 'ToolButton'
-        self.button.signal(Event.MOUSE_BUTTON_PRESS).connect(
+        self.button.signal(Event.MOUSE_PRESS).connect(
             lambda: print(self.button.text))
 
         self.block_button = self.insert(Button('Block Button'))
-        self.block_button.signal(Event.MOUSE_BUTTON_PRESS).connect(
+        self.block_button.signal(Event.MOUSE_PRESS).connect(
             self.on_block_button)
 
         self.btn = self.insert(Button('Last Button'))
-        # self.btn.signal(Event.MOUSE_BUTTON_PRESS).connect(lambda: print('Widget: MOUSE_BUTTON_PRESS'))
-        # self.btn.signal(Event.MOUSE_BUTTON_RELEASE).connect(lambda: print('Widget: MOUSE_BUTTON_RELEASE'))
-        # self.btn.signal(Event.MOUSE_DOUBLE_CLICK).connect(lambda: print('Widget: MOUSE_DOUBLE_CLICK'))
+        # self.btn.signal(Event.MOUSE_PRESS).connect(lambda: print('Widget: MOUSE_BUTTON_PRESS'))
+        # self.btn.signal(Event.MOUSE_RELEASE).connect(lambda: print('Widget: MOUSE_BUTTON_RELEASE'))
+        # self.btn.signal(Event.MOUSE_DOUBLE_PRESS).connect(lambda: print('Widget: MOUSE_DOUBLE_CLICK'))
         # self.btn.signal(Event.MOUSE_HOVER_ENTER).connect(lambda: print('Widget: MOUSE_HOVER_ENTER'))
         # self.btn.signal(Event.MOUSE_HOVER_LEAVE).connect(lambda: print('Widget: MOUSE_HOVER_LEAVE'))
         # self.btn.signal(Event.MOUSE_HOVER_MOVE).connect(lambda: print('Widget: MOUSE_HOVER_MOVE'))
-        # self.btn.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(lambda: print('Widget: MOUSE_RIGHT_BUTTON_PRESS'))
+        # self.btn.signal(Event.MOUSE_RIGHT_PRESS).connect(lambda: print('Widget: MOUSE_RIGHT_BUTTON_PRESS'))
         # self.btn.signal(Event.MOUSE_WHEEL).connect(lambda: print('Widget: MOUSE_WHEEL'))
         self.btn.signal(Event.INSERT).connect(lambda: print('Widget: INSERT'))
         self.btn.signal(Event.REMOVE).connect(lambda: print('Widget: REMOVE'))
@@ -57,7 +57,7 @@ class Window(MainFrame):
 
         self.ctx_menu = Frame()
         self.cursor = Cursor()
-        self.signal(Event.MOUSE_RIGHT_BUTTON_PRESS).connect(self.ctx)
+        self.signal(Event.MOUSE_RIGHT_PRESS).connect(self.ctx)
 
         for i in range(5):
             self.insert(Label(str(i)))
