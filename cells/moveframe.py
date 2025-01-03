@@ -24,4 +24,4 @@ class MoveFrame(Widget):
             self._main_parent._obj.window_handle().start_system_move()
 
     def __str__(self):
-        return f'<Label: {id(self)}>'
+        return f'<MoveFrame: {id(self)}>'

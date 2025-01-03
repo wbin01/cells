@@ -243,7 +243,7 @@ class MainFrame(object):
     @style.setter
     def style(self, style: dict) -> None:
         self.__frame.stylesheet = style
-        self.__frame.style_change_signal.emit()
+        self.__signals[Event.STYLE].emit()
 
     @property
     def title(self) -> str:

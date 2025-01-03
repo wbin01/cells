@@ -1,3 +1,4 @@
+from .add import DiffuseBlur
 from .align import Align
 from .application import Application
 from .box import Box
