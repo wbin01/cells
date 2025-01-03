@@ -13,7 +13,7 @@ class MoveFrame(Widget):
         """Class constructor."""
         super().__init__(*args, **kwargs)
         self.style_id = 'MoveFrame'
-        self.minimum_height = 20
+        self.min_height = 20
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
 
     def __on_double_click(self) -> None:

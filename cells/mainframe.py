@@ -164,7 +164,7 @@ class MainFrame(object):
             self.__frame.show_normal()
 
     @property
-    def maximum_height(self) -> int:
+    def max_height(self) -> int:
         """Returns the Frame maximum height.
 
         Pass a new integer value to update the maximum height the Frame can 
@@ -172,12 +172,12 @@ class MainFrame(object):
         """
         return self.__frame.maximum_height()
 
-    @maximum_height.setter
-    def maximum_height(self, height: int) -> None:
+    @max_height.setter
+    def max_height(self, height: int) -> None:
         self.__frame.set_maximum_height(height)
 
     @property
-    def maximum_width(self) -> int:
+    def max_width(self) -> int:
         """Returns the Frame maximum width.
 
         Pass a new integer value to update the maximum width the Frame can 
@@ -185,12 +185,12 @@ class MainFrame(object):
         """
         return self.__frame.maximum_width()
 
-    @maximum_width.setter
-    def maximum_width(self, width: int) -> None:
+    @max_width.setter
+    def max_width(self, width: int) -> None:
         self.__frame.set_maximum_width(width)
 
     @property
-    def minimum_height(self) -> int:
+    def min_height(self) -> int:
         """Returns the Frame minimum height.
 
         Pass a new integer value to update the minimum height the Frame can 
@@ -198,12 +198,12 @@ class MainFrame(object):
         """
         return self.__frame.minimum_height()
 
-    @minimum_height.setter
-    def minimum_height(self, height: int) -> None:
+    @min_height.setter
+    def min_height(self, height: int) -> None:
         self.__frame.set_minimum_height(height)
 
     @property
-    def minimum_width(self) -> int:
+    def min_width(self) -> int:
         """Returns the Frame minimum width.
 
         Pass a new integer value to update the minimum width the Frame can 
@@ -211,8 +211,8 @@ class MainFrame(object):
         """
         return self.__frame.minimum_width()
 
-    @minimum_width.setter
-    def minimum_width(self, width: int) -> None:
+    @min_width.setter
+    def min_width(self, width: int) -> None:
         self.__frame.set_minimum_width(width)
 
     @property

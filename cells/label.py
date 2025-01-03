@@ -12,7 +12,7 @@ class Label(Widget):
         super().__init__(*args, **kwargs)
         self._obj = QtWidgets.QLabel(text)
         self.style_id = 'Label'
-        self.height = 22  # Remove on stylerc | follow icon height
+        self.min_height = 22  # Remove on stylerc | follow icon height
 
     @property
     def text(self) -> str:
