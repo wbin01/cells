@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import os
+# os.environ["QT_QPA_PLATFORM"] = "xcb"
+
 import sys
 import pprint
 
@@ -17,11 +19,12 @@ class Window(MainFrame):
         # self.signal(Event.STATE_CHANGE).connect(lambda: print('STATE_CHANGE'))
         # self.signal(Event.FOCUS_IN).connect(lambda: print('FOCUS_IN'))
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
+        self.move_frame = self.insert(MoveFrame())
+        # DiffuseBlur(self, self.move_frame)
+
         self.spacing = 5
         # self.align = Align.TOP
-        self.move_frame = self.insert(MoveFrame())
-
-        self.d = DiffuseBlur(self, self.move_frame)
+        
         self.button = self.insert(Button('Button text', 'document-open'))
         # self.button.insert(Image(Icon()))
         # self.button.align = Align.LEFT
@@ -104,15 +107,19 @@ if __name__ == '__main__':
     # from PySide6 import QtCore, QtGui, QtWidgets
     # from __feature__ import snake_case
     # import cells.core.coreshadow as shadow
+    
+    # from PySide6.QtGui import QGuiApplication
+    # print(QGuiApplication.platformName())
 
     app = Application(sys.argv)
 
     # s = shadow.CoreMainFrameShadow()
     # s.set_window_flags(
     #     QtCore.Qt.FramelessWindowHint | QtCore.Qt.Window)
-
+    
     app.frame = Window()
     app.frame_id = [__file__, 'my_app', 'My App']
     app.icon = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 'icon.svg')
     app.exec()
+    

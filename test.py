@@ -1,147 +1,114 @@
-# import random
-# import pyautogui
-# import cv2
-# import numpy as np
+# https://wayland.app/protocols/wlr-screencopy-unstable-v1
+# from PySide6.QtCore import QPropertyAnimation, QEasingCurve
+# from PySide6.QtGui import QColor
+# from PySide6.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget
+# from PySide6.QtWidgets import QGraphicsColorizeEffect
 
-# import pyscreenshot as ImageGrab
-# from PIL import Image, ImageFilter, ImageEnhance
-
-# from PySide6.QtWidgets import QApplication, QWidget
-# from PySide6.QtGui import QPainter, QPixmap, QPaintEvent
-# from PySide6 import QtWidgets, QtGui, QtCore
-
-# class CustomWidget(QWidget):
+# class AnimatedColorButton(QWidget):
 #     def __init__(self):
 #         super().__init__()
-#         self.resize(400, 300)
-#         self.background_image = QPixmap("/home/user/fullscreen.png")
-#         self.installEventFilter(self)
+        
+#         # Configuração do layout e botão
+#         self.layout = QVBoxLayout(self)
+#         self.button = QPushButton("Clique para animar", self)
+#         self.layout.addWidget(self.button)
+        
+#         # Configurar o efeito de coloração
+#         self.color_effect = QGraphicsColorizeEffect(self.button)
+#         self.button.setGraphicsEffect(self.color_effect)
+        
+#         # Conectar o clique do botão
+#         self.button.clicked.connect(self.animate_color)
 
-#     def paintEvent(self, event: QPaintEvent):
-#         painter = QPainter(self)
-#         painter.drawPixmap(self.rect(), self.background_image)
-#         painter.end()
-
-#     def eventFilter(
-#             self, watched: QtCore.QObject, event: QtCore.QEvent) -> bool:
-#         if event.type() == QtCore.QEvent.MouseButtonPress:
-#             def add_gaussian_noise(mean=0, var=0.01):
-#                 image = ImageGrab.grab()
-#                 image = np.array(image)
-#                 sigma = var ** 0.5
-#                 gaussian_noise = np.random.normal(mean, sigma, image.shape)
-#                 noisy_image = np.clip(image + gaussian_noise, 0, 255)
-#                 noisy_image.astype(np.uint8)
-#                 cv2.imwrite("/home/user/fullscreen.jpg", noisy_image)
-
-#             def add_gaussian_blur():
-#                 screenshot = ImageGrab.grab()
-#                 screenshot = np.array(screenshot)
-#                 screenshot = cv2.cvtColor(screenshot, cv2.COLOR_RGB2BGR)
-#                 blurred_image = cv2.GaussianBlur(screenshot, (315, 315), 0)
-#                 cv2.imwrite("/home/user/fullscreen.jpg", blurred_image)
-
-#             def add_pillow_gaussian_blur():
-#                 im = ImageGrab.grab()
-#                 # im = im.filter(ImageFilter.GaussianBlur(radius=100))
-
-#                 im = im.convert("RGB")
-#                 imagem_borrada = im.filter(ImageFilter.GaussianBlur(radius=100))
-#                 realce = Image.new("RGB", im.size, (32, 32, 32))
-#                 realce = ImageEnhance.Brightness(realce).enhance(0.9)
-#                 im = Image.blend(imagem_borrada, realce, alpha=0.1)
-                
-#                 # enhancer = ImageEnhance.Brightness(im)
-#                 # im = enhancer.enhance(0.9)
-
-#                 # im = im.convert("RGB")
-#                 # pixels = im.load()
-#                 # largura, altura = im.size
-#                 # for _ in range(100000):
-#                 #     x = random.randint(1, largura - 5)
-#                 #     y = random.randint(1, altura - 5)
-#                 #     r, g, b = pixels[x, y]
-#                 #     ruido = lambda valor: max(0, min(255, valor + random.randint(-20, 20)))
-#                 #     pixels[x, y] = (ruido(r), ruido(g), ruido(b))
-
-#                 im.save("/home/user/fullscreen.png")
-            
-#             add_pillow_gaussian_blur()
-#             # add_gaussian_blur()
-#             self.background_image = QPixmap("/home/user/fullscreen.png")
-#             self.update()
-            
-#         return QtWidgets.QMainWindow.eventFilter(self, watched, event)
+#     def animate_color(self):
+#         # Configuração inicial e final da cor
+#         self.animation = QPropertyAnimation(self.color_effect, b"color")
+#         self.animation.setDuration(1000)  # Duração em milissegundos
+#         self.animation.setStartValue(QColor(0, 0, 255))  # Azul
+#         self.animation.setEndValue(QColor(0, 255, 0))    # Verde
+#         self.animation.setEasingCurve(QEasingCurve.InOutQuad)  # Suavização
+        
+#         self.animation.start()
 
 # if __name__ == "__main__":
 #     app = QApplication([])
-#     widget = CustomWidget()
-#     widget.resize(400, 300)
-#     widget.show()
+#     window = AnimatedColorButton()
+#     window.resize(300, 200)
+#     window.show()
 #     app.exec()
-# # https://wayland.app/protocols/wlr-screencopy-unstable-v1
-import time
+from PySide6.QtCore import QPropertyAnimation, QObject, Property, Signal, QParallelAnimationGroup
+# from PySide6.QtGui import 
+from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsOpacityEffect
 
-from PySide6.QtCore import Slot, QThreadPool, QTimer
-from PySide6.QtWidgets import (
-    QLabel,
-    QWidget,
-    QMainWindow,
-    QPushButton,
-    QVBoxLayout,
-    QApplication,
-)
+class BackgroundAnimator(QObject):
+    progress_changed = Signal(float)
 
+    def __init__(self):
+        super().__init__()
+        self._progress = 0.0
 
-class MainWindow(QMainWindow):
+    def get_progress(self):
+        return self._progress
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def set_progress(self, progress):
+        self._progress = progress
+        self.progress_changed.emit(progress)
 
-        self.setFixedSize(250, 100)
-        self.setWindowTitle("Sheep Picker")
+    # Registrar como uma propriedade do Qt
+    progress = Property(float, get_progress, set_progress)
 
-        self.sheep_number = 1
-        self.timer = QTimer()
-        self.picked_sheep_label = QLabel()
-        self.counted_sheep_label = QLabel()
+class AnimatedMainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Transição de Fundo")
+        self.setGeometry(100, 100, 800, 600)
 
-        self.layout = QVBoxLayout()
-        self.main_widget = QWidget()
-        self.thread_manager = QThreadPool()
-        self.pick_sheep_button = QPushButton("Pick a sheep!")
+        # Configuração inicial do estilo
+        self.setStyleSheet("""
+            QMainWindow {
+                background-image: url('/home/user/imagem1.jpeg');
+            }
+        """)
 
-        self.layout.addWidget(self.counted_sheep_label)
-        self.layout.addWidget(self.pick_sheep_button)
-        self.layout.addWidget(self.picked_sheep_label)
+        # Configurar o animador
+        self.animator = BackgroundAnimator()
+        self.animator.progress_changed.connect(self.update_background)
 
-        self.main_widget.setLayout(self.layout)
-        self.setCentralWidget(self.main_widget)
+        # Clique para iniciar a animação
+        self.mousePressEvent = self.animate_transition
 
-        self.timer.timeout.connect(self.count_sheep)
-        self.pick_sheep_button.pressed.connect(self.pick_sheep_safely)
+    def update_background(self, progress):
+        # Atualiza o estilo dinamicamente
+        self.setStyleSheet("""
+            QMainWindow {
+                background-image: url('/home/user/imagem2.jpg');
+            }
+        """)
 
-        self.timer.start()
+    def animate_transition(self, event):
+        # Configurar a animação
+        self.animation = QPropertyAnimation(self.animator, b"progress")
+        self.animation.setDuration(2000)  # Duração em milissegundos
+        self.animation.setStartValue(0.0)
+        self.animation.setEndValue(1.0)
+        # self.animation.start()
 
-    @Slot()
-    def count_sheep(self):
-        self.sheep_number += 1
-        self.counted_sheep_label.setText(f"Counted {self.sheep_number} sheep.")
+        effect = QGraphicsOpacityEffect(self)
+        self.anim_2 = QPropertyAnimation(effect, b"opacity")
+        self.anim_2.setStartValue(0)
+        self.anim_2.setEndValue(1)
+        self.anim_2.setDuration(2500)
 
-    @Slot()
-    def pick_sheep(self):
-        self.picked_sheep_label.setText(f"Sheep {self.sheep_number} picked!")
-        time.sleep(5)  # This function doesn't affect GUI responsiveness anymore...
-
-    @Slot()
-    def pick_sheep_safely(self):
-        self.thread_manager.start(self.pick_sheep)  # ...since .start() is used!
-
+        self.anim_group = QParallelAnimationGroup()
+        self.anim_group.addAnimation(self.animation)
+        self.anim_group.addAnimation(self.anim_2)
+        self.anim_group.start()
 
 if __name__ == "__main__":
     app = QApplication([])
 
-    main_window = MainWindow()
-    main_window.show()
+    # Certifique-se de ter 'imagem1.jpg' e 'imagem2.jpg' no mesmo diretório
+    window = AnimatedMainWindow()
+    window.show()
 
     app.exec()
