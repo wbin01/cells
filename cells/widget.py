@@ -132,7 +132,7 @@ class Widget(Widget):
 
         # Style
         self.__style_manager = StyleManager()
-        self.__stylesheet = self.__style_manager.stylesheet
+        # self.__stylesheet = self.__style_manager.stylesheet
         self.__accent = self.__style_manager.accent
         self.__style = {}
         self.__normal_style = None
@@ -416,8 +416,8 @@ class Widget(Widget):
         style_id_key = f'[{style_id}]'
         if self._main_parent and style_id_key in self._main_parent.style:
             stylesheet = self._main_parent.style
-        elif style_id_key in self.__stylesheet:
-            stylesheet = self.__stylesheet
+        # elif style_id_key in self.__stylesheet:
+        #     stylesheet = self.__stylesheet
         else:
             stylesheet = self.style
 
@@ -617,15 +617,32 @@ class Widget(Widget):
             self._obj.set_style_sheet(self.__hover_style)
 
     def __style_state(self) -> None:
+        if not self.__style and self.__main_parent:
+            self.__style = self.__main_parent.style
+
         if not self.__style:
-            self.__style[f'[{self.__style_id}]'] = self.__stylesheet[
-                f'[{self.__style_id}]']
-            self.__style[f'[{self.__style_id}:hover]'] = self.__stylesheet[
-                f'[{self.__style_id}:hover]']
-            self.__style[f'[{self.__style_id}:pressed]'] = self.__stylesheet[
-                f'[{self.__style_id}:pressed]']
-            self.__style[f'[{self.__style_id}:inactive]'] = self.__stylesheet[
-                f'[{self.__style_id}:inactive]']
+            base = {
+                'background': 'rgba(0, 0, 0, 0.00)',
+                'color': 'rgba(0, 0, 0, 0.00)',
+                'border': '1px rgba(0, 0, 0, 0.00)',
+                'border_bottom': '1px rgba(0, 0, 0, 0.00)',
+                'border_radius': '1px',
+                'padding': '1px',
+                'margin': '0px'}
+            self.__style[f'[{self.__style_id}]'] = base
+            self.__style[f'[{self.__style_id}:hover]'] = base
+            self.__style[f'[{self.__style_id}:pressed]'] = base
+            self.__style[f'[{self.__style_id}:inactive]'] = base
+
+        # if not self.__style:
+        #     self.__style[f'[{self.__style_id}]'] = self.__stylesheet[
+        #         f'[{self.__style_id}]']
+        #     self.__style[f'[{self.__style_id}:hover]'] = self.__stylesheet[
+        #         f'[{self.__style_id}:hover]']
+        #     self.__style[f'[{self.__style_id}:pressed]'] = self.__stylesheet[
+        #         f'[{self.__style_id}:pressed]']
+        #     self.__style[f'[{self.__style_id}:inactive]'] = self.__stylesheet[
+        #         f'[{self.__style_id}:inactive]']
 
         self.__normal_style = self.__qss_piece(self.__style)
         self.__hover_style = self.__qss_piece(self.__style, ':hover')
