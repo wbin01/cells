@@ -69,10 +69,12 @@ class MyApp(MainFrame):
         # self.wid.insert(Label('INSERT_x x'))
 
         img = self.insert(Image(Icon('document-open')))
-        # img.style_class = 'Success'
-        # img.style_id = 'NewImage'
-        # img.style['[NewImage]']['border'] = '0px 0px 0px 0px rgba(0,0,0,0)'
-        # img.style = img.style
+        img.style_class = 'Success'
+        img.style_id = 'NewImage'
+        img.style['[NewImage]']['border'] = '1px rgba(0, 0, 0, 0.00)'
+        img.style = img.style
+
+        # self.style_from_file('stylerc')
 
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP

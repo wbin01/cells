@@ -14,7 +14,31 @@ class IniParse(object):
         :param url: String from a desktop file like: "/path/inifile"
         """
         self.__url = os.path.abspath(url)
-        self.__content = None
+        self.__content_full = False
+        self.__content = {
+        '[Frame-Border]': {
+            'background': 'rgba(0, 0, 0, 0.00)',
+            'border': '1px rgba(50, 50, 50, 0.80)',
+            'border_radius': '10px',
+            'padding': '0px',
+            'margin': '0px'},
+        '[Frame-Shadow]': {
+            'background': 'rgba(0, 0, 0, 0.00)',
+            'border': '1px rgba(0, 0, 0, 0.20)',
+            'border_radius': '10px',
+            'padding': '0px'},
+        '[MainFrame-Border]': {
+            'background': 'rgba(0, 0, 0, 0.00)',
+            'border': '1px rgba(50, 50, 50, 0.80)',
+            'border_radius': '10px',
+            'padding': '0px'},
+        '[MainFrame-Shadow]': {
+            'background': 'rgba(0, 0, 0, 0.00)',
+            'border': '1px rgba(0, 0, 0, 0.20)',
+            'border_radius': '10px',
+            'padding': '0px',
+            'margin': '0px'}
+        }
 
     @property
     def content(self) -> dict:
@@ -37,8 +61,9 @@ class IniParse(object):
         >>> ini_file.content['[Desktop Action new-window]']['Name']
         'Open a New Window'
         """
-        if not self.__content:
+        if not self.__content_full:
             self.__parse_file_to_dict()
+            self.__content_full = True
         return self.__content
 
     @property
@@ -53,7 +78,6 @@ class IniParse(object):
         with open(self.__url, 'r') as ini_file:
             ini_text = ini_file.read()
 
-        self.__content = {}
         for scope in ini_text.split('['):
             if not scope.strip().startswith('#'):
                 scope = f'[{scope.strip()}'

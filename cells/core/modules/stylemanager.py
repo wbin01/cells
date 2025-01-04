@@ -22,7 +22,7 @@ class StyleManager(object):
         self.__dict_style = None
         self.__qss_style = None
         self.__style_file = None
-        self.stylesheet = None
+        # self.stylesheet = None
 
     @property
     def accent(self) -> tuple:
@@ -162,9 +162,9 @@ class StyleManager(object):
             qss += f'#{group_key.replace(':inactive', '')[1:-1]} ' + '{\n'
             
             if 'background' in style[group_key]:
-                qss += f'  background-color: {background};\n'
+                qss += f' background-color: {background};\n'
             if 'background_image' in style[group_key]:
-                qss += f'background: url({background_image});'  # no-repeat
+                qss += f' background: url({background_image});'  # no-repeat
             if 'border' in style[group_key]:
                 qss += (
                     f' border-top: {border[0]}px solid {border[4]};\n'
@@ -194,7 +194,7 @@ class StyleManager(object):
                     f' border-bottom-left-radius: {border_radius[3]}px;\n'
                     f' border-bottom-right-radius: {border_radius[2]}px;\n')
             if 'color' in style[group_key]:
-                qss += f'  color: {color};\n'
+                qss += f' color: {color};\n'
             if 'margin' in style[group_key] or 'Frame' in group_key:
                 qss += (
                     f' margin-top: {margin[0]}px;\n'
@@ -208,19 +208,7 @@ class StyleManager(object):
                     f' padding-bottom: {padding[2]}px;\n'
                     f' padding-left: {padding[3]}px;\n')
             qss += '}\n'
-
-
-        # top_qss = (
-        #     'QWidget {\n'
-        #     '  margin-top: 0px;\n'
-        #     '  margin-right: 0px;\n'
-        #     '  margin-bottom: 0px;\n'
-        #     '  margin-left: 0px;\n'
-        #     '  padding-top: 0px;\n'
-        #     '  padding-right: 0px;\n'
-        #     '  padding-bottom: 0px;\n'
-        #     '  padding-left: 0px;\n'
-        #     '}\n')
+        
         return qss
 
     @staticmethod

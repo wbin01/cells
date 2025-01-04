@@ -1,0 +1,25 @@
+[Frame-Border]
+background=rgba(0, 0, 0, 0.00)
+border=1px rgba(50, 50, 50, 0.80)
+border_radius=10px
+padding=0px
+margin=0px
+
+[Frame-Shadow]
+background=rgba(0, 0, 0, 0.00)
+border=1px rgba(0, 0, 0, 0.20)
+border_radius=10px
+padding=0px
+margin=0px
+
+[MainFrame-Border]
+background=rgba(0, 0, 0, 0.00)
+border=1px rgba(50, 50, 50, 0.80)
+border_radius=10px
+padding=0px
+
+[MainFrame-Shadow]
+background=rgba(0, 0, 0, 0.00)
+border=1px rgba(0, 0, 0, 0.20)
+border_radius=10px
+padding=0px
