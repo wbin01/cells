@@ -10,6 +10,7 @@ from .box import Box
 from .core import CoreFrame
 from .event import Event
 from .flag import Flag
+from .icon import Icon
 from .core.modules import IniParse
 from .orientation import Orientation
 from .signal import Signal
@@ -59,6 +60,8 @@ class Frame(object):
             # rm ENABLED MAIN_PARENT STATE TITLE STYLE_CLASS
 
         # Style
+        self.__icon = None
+        self.__icon_path = None
         self.__user_settings()
 
     @property
@@ -100,6 +103,19 @@ class Frame(object):
     @height.setter
     def height(self, height: int) -> None:
         self.__frame.set_fixed_height(height)
+
+    @property
+    def icon(self) -> Icon:
+        """Frame icon.
+        
+        Application Icon.
+        """
+        return self.__icon
+
+    @icon.setter
+    def icon(self, path: str) -> None:
+        self.__icon = Icon(path)
+        self.__frame.set_window_icon(self.__icon._obj)
 
     @property
     def max_height(self) -> int:

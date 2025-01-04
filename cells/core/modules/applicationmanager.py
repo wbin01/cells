@@ -95,7 +95,8 @@ class ApplicationManager(object):
 
     def clear_tmp(self):
         """Clear temp configs"""
-        if os.path.isfile(self.__linux_desktop_file_url):
+        if (self.__linux_desktop_file_url and
+                os.path.isfile(self.__linux_desktop_file_url)):
             os.remove(self.__linux_desktop_file_url)
 
     def __linux_wayland_tmp_desktop_for_icon(self) -> None:

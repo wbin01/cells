@@ -11,7 +11,7 @@ from cells import (
     Widget, Button, Label, Image, Icon, DiffuseBlur)
 
 
-class Window(MainFrame):
+class MyApp(MainFrame):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         # self.signal(Event.MOUSE_PRESS).connect(self.fn_label)
@@ -117,7 +117,7 @@ if __name__ == '__main__':
     # s.set_window_flags(
     #     QtCore.Qt.FramelessWindowHint | QtCore.Qt.Window)
     
-    app.frame = Window()
+    app.frame = MyApp()
     app.frame_id = [__file__, 'my_app', 'My App']
     app.icon = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 'icon.svg')
