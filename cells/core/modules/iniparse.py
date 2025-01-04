@@ -99,5 +99,34 @@ class IniParse(object):
                         value = self.__content[header][key] + ' ' + line
                         self.__content[header][key] = value
 
+        if '[MainFrame]' in self.__content:
+            border_radius = self.__border_radius_str_to_list(
+                self.__content['[MainFrame]']['border_radius'])
+            bd_radius = '{}px {}px {}px {}px'.format(
+                int(border_radius[0]) + 1, int(border_radius[1]) + 1,
+                int(border_radius[2]) + 1, int(border_radius[3]) + 1)
+
+            self.__content['[MainFrame-Shadow]']['border_radius'] = bd_radius
+            self.__content['[MainFrame-Border]']['border_radius'] = bd_radius
+
+        if '[Frame]' in self.__content:
+            border_radius = self.__border_radius_str_to_list(
+                self.__content['[Frame]']['border_radius'])
+            bd_radius = '{}px {}px {}px {}px'.format(
+                int(border_radius[0]) + 1, int(border_radius[1]) + 1,
+                int(border_radius[2]) + 1, int(border_radius[3]) + 1)
+            self.__content['[Frame-Shadow]']['border_radius'] = bd_radius
+            self.__content['[Frame-Border]']['border_radius'] = bd_radius
+
+    @staticmethod
+    def __border_radius_str_to_list(border: str) -> list:
+        bd = border.strip().replace('  ', ' ').split('px')
+        if len(bd) == 2:
+            n1, n2, n3, n4 = bd[0], bd[0], bd[0], bd[0]
+        else:
+            n1, n2, n3, n4, _ = bd
+
+        return [n1, n2, n3, n4]
+
     def __str__(self) -> str:
         return f'<IniParse: {self.__url_basename}>'

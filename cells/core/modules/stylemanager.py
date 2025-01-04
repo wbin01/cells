@@ -145,13 +145,13 @@ class StyleManager(object):
                 padding = style[group_key]['padding']
                 padding = style_parser.margin_padding_str_to_list(padding)
 
-            if 'Frame' in group_key:
-                if 'border_radius' in style[group_key]:
-                    border_radius = [
-                        int(border_radius[0]) -1,
-                        int(border_radius[1]) -1,
-                        int(border_radius[2]) -1,
-                        int(border_radius[3]) -1]
+            # if 'Frame' in group_key and '-' not in group_key:
+            #     if 'border_radius' in style[group_key]:
+            #         border_radius = [
+            #             int(border_radius[0]) -1,
+            #             int(border_radius[1]) -1,
+            #             int(border_radius[2]) -1,
+            #             int(border_radius[3]) -1]
                 if 'margin' in style[group_key]:
                     margin = [0, 0, 0, 0]
 
@@ -208,7 +208,7 @@ class StyleManager(object):
                     f' padding-bottom: {padding[2]}px;\n'
                     f' padding-left: {padding[3]}px;\n')
             qss += '}\n'
-        
+
         return qss
 
     @staticmethod
