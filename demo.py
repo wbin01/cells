@@ -19,11 +19,9 @@ class MyApp(MainFrame):
         # self.signal(Event.STATE).connect(lambda: print('STATE_CHANGE'))
         # self.signal(Event.FOCUS_IN).connect(lambda: print('FOCUS_IN'))
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
-        self.move_frame = self.insert(MoveFrame())
-        # DiffuseBlur(self, self.move_frame)
-
         self.spacing = 5
         # self.align = Align.TOP
+        self.move_frame = self.insert(MoveFrame())
         
         self.button = self.insert(Button('Button text', 'document-open'))
         # self.button.insert(Image(Icon()))
@@ -37,9 +35,9 @@ class MyApp(MainFrame):
             self.on_block_button)
 
         self.btn = self.insert(Button('Last Button'))
-        # self.btn.signal(Event.MOUSE_PRESS).connect(lambda: print('Widget: MOUSE_BUTTON_PRESS'))
-        # self.btn.signal(Event.MOUSE_RELEASE).connect(lambda: print('Widget: MOUSE_BUTTON_RELEASE'))
-        # self.btn.signal(Event.MOUSE_DOUBLE_PRESS).connect(lambda: print('Widget: MOUSE_DOUBLE_CLICK'))
+        # self.btn.signal(Event.MOUSE_PRESS).connect(lambda: print('Widget: MOUSE_PRESS'))
+        # self.btn.signal(Event.MOUSE_RELEASE).connect(lambda: print('Widget: MOUSE_RELEASE'))
+        # self.btn.signal(Event.MOUSE_DOUBLE_PRESS).connect(lambda: print('Widget: MOUSE_DOUBLE_PRESS'))
         # self.btn.signal(Event.MOUSE_HOVER_ENTER).connect(lambda: print('Widget: MOUSE_HOVER_ENTER'))
         # self.btn.signal(Event.MOUSE_HOVER_LEAVE).connect(lambda: print('Widget: MOUSE_HOVER_LEAVE'))
         # self.btn.signal(Event.MOUSE_HOVER_MOVE).connect(lambda: print('Widget: MOUSE_HOVER_MOVE'))
@@ -74,7 +72,7 @@ class MyApp(MainFrame):
         img.style['[NewImage]']['border'] = '1px rgba(0, 0, 0, 0.00)'
         img.style = img.style
 
-        self.style_from_file('stylerc')
+        # self.style_from_file('stylerc')
 
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP

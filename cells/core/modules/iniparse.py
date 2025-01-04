@@ -102,9 +102,12 @@ class IniParse(object):
         if '[MainFrame]' in self.__content:
             border_radius = self.__border_radius_str_to_list(
                 self.__content['[MainFrame]']['border_radius'])
+
+            border = int(self.__content['[MainFrame]']['border'
+                ].split()[0].replace('px', '').strip())
             bd_radius = '{}px {}px {}px {}px'.format(
-                int(border_radius[0]) + 1, int(border_radius[1]) + 1,
-                int(border_radius[2]) + 1, int(border_radius[3]) + 1)
+                int(border_radius[0]) + border, int(border_radius[1]) + border,
+                int(border_radius[2]) + border, int(border_radius[3]) + border)
 
 
             self.__content['[MainFrame-Shadow]']['border_radius'] = bd_radius

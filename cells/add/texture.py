@@ -23,7 +23,7 @@ class DiffuseBlur(object):
         self.__main_parent = main_parent
         self.__move_frame = move_frame
 
-        self.__move_frame.signal(Event.MOUSE_BUTTON_RELEASE).connect(
+        self.__move_frame.signal(Event.MOUSE_RELEASE).connect(
             lambda: self.__add_texture_thread())
         self.__main_parent.signal(Event.FOCUS_IN).connect(
             lambda: self.__add_texture_thread())
