@@ -74,7 +74,7 @@ class MyApp(MainFrame):
         img.style['[NewImage]']['border'] = '1px rgba(0, 0, 0, 0.00)'
         img.style = img.style
 
-        # self.style_from_file('stylerc')
+        self.style_from_file('stylerc')
 
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP

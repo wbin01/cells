@@ -106,8 +106,11 @@ class IniParse(object):
                 int(border_radius[0]) + 1, int(border_radius[1]) + 1,
                 int(border_radius[2]) + 1, int(border_radius[3]) + 1)
 
+
             self.__content['[MainFrame-Shadow]']['border_radius'] = bd_radius
             self.__content['[MainFrame-Border]']['border_radius'] = bd_radius
+            self.__content['[MainFrame-Border]']['border'] = self.__content['[MainFrame]']['border']
+            self.__content['[MainFrame]']['border'] = '0px'
 
         if '[Frame]' in self.__content:
             border_radius = self.__border_radius_str_to_list(
@@ -117,6 +120,8 @@ class IniParse(object):
                 int(border_radius[2]) + 1, int(border_radius[3]) + 1)
             self.__content['[Frame-Shadow]']['border_radius'] = bd_radius
             self.__content['[Frame-Border]']['border_radius'] = bd_radius
+            self.__content['[Frame-Border]']['border'] = self.__content['[Frame]']['border']
+            self.__content['[Frame]']['border'] = '0px'
 
     @staticmethod
     def __border_radius_str_to_list(border: str) -> list:
