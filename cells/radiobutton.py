@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import pathlib
+import pprint
 
 from PySide6 import QtCore, QtSvgWidgets
 from __feature__ import snake_case
@@ -22,67 +23,106 @@ class Svg(Widget):
         super().__init__(*args, **kwargs)
         self.__path = path
         self._obj = QtSvgWidgets.QSvgWidget()
-        self._obj.set_fixed_size(16, 16)
+        self.style_id = 'Svg'
+        self.height, self.width = 16, 16
+
+        self.__selectable = False
+        self.__selected = False
         self.__state = None
-        self.style_id = 'Radio'
 
         self.__normal_style = None
         self.__hover_style = None
         self.__pressed_style = None
         self.__inactive_style = None
-        self.__on_style_id()
-
-        if self.__path:
-            self._obj.state = None
 
         self.signal(Event.STYLE_ID).connect(self.__on_style_id)
-
-        # print('1px #fff:       ',
-        #     self.__border_or_color_to_rgba_list('1px #fff'))
-        # print('1px #ffffff:    ',
-        #     self.__border_or_color_to_rgba_list('1px #ffffff'))
-        # print('1px #ffffff88:  ',
-        #     self.__border_or_color_to_rgba_list('1px #ffffff88'))
-        # print()
-        # print('1px rgb(255, 0, 0):       ',
-        #     self.__border_or_color_to_rgba_list('1px rgb(255, 0, 0)'))
-        # print('1px rgb(255, 0, 0, 0.5):  ',
-        #     self.__border_or_color_to_rgba_list('1px rgb(255, 0, 0, 0.5)'))
-        # print('1px rgb(255, 0, 0, 0.55): ',
-        #     self.__border_or_color_to_rgba_list('1px rgb(255, 0, 0, 0.55)'))
+        self.signal(Event.STYLE_CLASS).connect(self.__on_style_id)
 
     def __on_style_id(self):
+        if not self._main_parent:
+            return
+
         self.__normal_style = {
-            'background': self.style[f'[{self.style_id}]']['background'],
-            'color': self.style[f'[{self.style_id}]']['color'],
-            'border': self.style[f'[{self.style_id}]']['border']}
+            'background': self.style[f'[{self.style_id}]']['svg_background'],
+            'color': self.style[f'[{self.style_id}]']['svg_color'],
+            'border': self.style[f'[{self.style_id}]']['svg_border']}
         self.__hover_style = {
-            'background': self.style[f'[{self.style_id}:hover]']['background'],
-            'color': self.style[f'[{self.style_id}:hover]']['color'],
-            'border': self.style[f'[{self.style_id}:hover]']['border']}
+            'background': self.style[f'[{self.style_id}:hover]']['svg_background'],
+            'color': self.style[f'[{self.style_id}:hover]']['svg_color'],
+            'border': self.style[f'[{self.style_id}:hover]']['svg_border']}
         self.__pressed_style = {
             'background':
-                self.style[f'[{self.style_id}:pressed]']['background'],
-            'color': self.style[f'[{self.style_id}:pressed]']['color'],
-            'border': self.style[f'[{self.style_id}:pressed]']['border']}
+                self.style[f'[{self.style_id}:pressed]']['svg_background'],
+            'color': self.style[f'[{self.style_id}:pressed]']['svg_color'],
+            'border': self.style[f'[{self.style_id}:pressed]']['svg_border']}
         self.__inactive_style = {
             'background':
-                self.style[f'[{self.style_id}:inactive]']['background'],
-            'color': self.style[f'[{self.style_id}:inactive]']['color'],
-            'border': self.style[f'[{self.style_id}:inactive]']['border']}
+                self.style[f'[{self.style_id}:inactive]']['svg_background'],
+            'color': self.style[f'[{self.style_id}:inactive]']['svg_color'],
+            'border': self.style[f'[{self.style_id}:inactive]']['svg_border']}
 
-        self.style[f'[{self.style_id}]']['background'] = 'rgba(0, 0, 0, 0.0)'
-        self.style[f'[{self.style_id}]']['border'] = '1px rgba(0, 0, 0, 0.0)'
-        self.style[f'[{self.style_id}]']['margin'] = '0px'
-        self.style[f'[{self.style_id}]']['padding'] = '0px'
-        self.style = self.style
+    @property
+    def selectable(self) -> bool:
+        """..."""
+        return self.__selectable
+
+    @selectable.setter
+    def selectable(self, value: bool) -> None:
+        self.__selectable = value
+
+    @property
+    def selected(self) -> bool:
+        """..."""
+        return self.__selected
+
+    @selected.setter
+    def selected(self, value: bool) -> None:
+        self.__selected = value
+
+    @property
+    def state(self) -> str:
+        """..."""
+        return self.__state
+
+    @state.setter
+    def state(self, state: str = None) -> None:
+        self.__state = state
+        state = '' if not state else ':' + state
+
+        if not self.__path or not self._main_parent:
+            return
+
+        if not self.__state:
+            style = self.__normal_style
+        elif self.__state == 'hover':
+            style = self.__hover_style
+        elif self.__state == 'pressed':
+            style = self.__pressed_style
+        elif self.__state == 'inactive':
+            style = self.__inactive_style
+        else:
+            style = self.__selected_style
+
+        r, g, b, b_a = self.__border_or_color_to_rgba_list(style['border'])
+        border = f'#{int(r):02X}{int(g):02X}{int(b):02X}'
+
+        r, g, b, a = self.__border_or_color_to_rgba_list(style['color'])
+        center = f'#{int(r):02X}{int(g):02X}{int(b):02X}'
+
+        with open(self.__path, "r") as f:
+            cont = f.read()
+        cont = cont.replace(
+            'fill="#1a1a1a"', f'fill="{border}" fill-opacity="{b_a}"').replace(
+            'fill="#e5e5e5"', f'fill="{center}" fill-opacity="{a}"')
+
+        self._obj.load(QtCore.QByteArray(cont.encode('utf-8')))
 
     @staticmethod
     def __border_or_color_to_rgba_list(border: str) -> list:
         # 1 rgb 0 0 0 0.00 | 1 rgb 0 0 0 | 1 #000000
         # rgb 0 0 0 0.00   | rgb 0 0 0   | #000000
-        bd = border.replace('accent_red', '45').replace('accent_green', '90'
-            ).replace('accent_blue', '165').replace('px', '').replace('a(', ' '
+        bd = border.replace('accent_red', '60').replace('accent_green', '140'
+            ).replace('accent_blue', '189').replace('px', '').replace('a(', ' '
             ).replace('(', ' ').replace(')', '').replace(',', '')
 
         # ['1 ', '0 0 0 0.00'] | ['1 ', '0 0 0'] | ['1 ', '000000']
@@ -112,42 +152,6 @@ class Svg(Widget):
 
         return [r, g, b, a]
 
-    @property
-    def state(self) -> str:
-        """..."""
-        return self.__state
-
-    @state.setter
-    def state(self, state: str = None) -> None:
-        self.__state = state
-        state = '' if not state else ':' + state
-
-        if not self.__path or not self._main_parent:
-            return
-
-        if not self.__state:
-            style = self.__normal_style
-        elif self.__state == 'hover':
-            style = self.__hover_style
-        elif self.__state == 'pressed':
-            style = self.__pressed_style
-        else:
-            style = self.__inactive_style
-
-        r, g, b, b_a = self.__border_or_color_to_rgba_list(style['border'])
-        border = f'#{int(r):02X}{int(g):02X}{int(b):02X}'
-
-        r, g, b, a = self.__border_or_color_to_rgba_list(style['color'])
-        center = f'#{int(r):02X}{int(g):02X}{int(b):02X}'
-
-        with open(self.__path, "r") as f:
-            cont = f.read()
-        cont = cont.replace(
-            'fill="#1a1a1a"', f'fill="{border}" fill-opacity="{b_a}"').replace(
-            'fill="#e5e5e5"', f'fill="{center}" fill-opacity="{a}"')
-
-        self._obj.load(QtCore.QByteArray(cont.encode('utf-8')))
-
 
 class RadioButton(Widget):
     """Radio Button Widget."""
@@ -160,13 +164,12 @@ class RadioButton(Widget):
         super().__init__(orientation=orientation, *args, **kwargs)
         self.__text = text if text else ''
         self.style_id = 'RadioButton'
+        self.spacing = 2
 
         self.__focus = True
-        self.__icon_on_right = True
+        self.__icon_on_right = False
         self.__tool = True
-
-        self.spacing = 2
-        self.align = Align.CENTER
+        self.__selected = False
 
         self.__icon = Svg(os.path.join(pathlib.Path(__file__).resolve().parent,
             'core', 'static', 'radio.svg'))
@@ -184,6 +187,8 @@ class RadioButton(Widget):
 
         if self.__icon_on_right:
             self.insert(self.__icon)
+        
+        self.__icon.style_id = 'Radio'
 
         if not self.__text and self.__icon:
                 self.__icon.margin = 0, 5, 0, 5
@@ -268,6 +273,13 @@ class RadioButton(Widget):
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}:pressed]']['color']
             self.__label.style = self.__label.style
+
+            self.__selected = False if self.__selected else True
+            if self.__selected:
+                self.__icon.style_class = 'RadioOn'
+            else:
+                self.__icon.style_class = None
+
             self.__icon.state = 'pressed'
 
     def __on_mouse_button_release(self) -> None:
@@ -279,4 +291,3 @@ class RadioButton(Widget):
 
     def __str__(self) -> str:
         return f'<RadioButton: {id(self)}>'
-

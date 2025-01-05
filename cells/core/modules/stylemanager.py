@@ -234,6 +234,21 @@ class StyleManager(object):
                         if ('padding' not in style[key] and
                             'padding' in style[main_key]):
                             style[key]['padding'] = style[main_key]['padding']
+
+                        if ('svg_background' not in style[key] and
+                            'svg_background' in style[main_key]):
+                            style[key]['svg_background'] = style[
+                                main_key]['svg_background']
+
+                        if ('svg_color' not in style[key] and
+                            'svg_color' in style[main_key]):
+                            style[key]['svg_color'] = style[
+                                main_key]['svg_color']
+
+                        if ('svg_border' not in style[key] and
+                            'svg_border' in style[main_key]):
+                            style[key]['svg_border'] = style[
+                                main_key]['svg_border']
         return style
 
 
