@@ -23,7 +23,6 @@ class Svg(Widget):
         super().__init__(*args, **kwargs)
         self.__path = path
         self._obj = QtSvgWidgets.QSvgWidget()
-        self.style_id = 'Svg'
         self.height, self.width = 16, 16
 
         self.__selectable = False
@@ -43,11 +42,13 @@ class Svg(Widget):
             return
 
         self.__normal_style = {
-            'background': self.style[f'[{self.style_id}]']['svg_background'],
+            'background':
+                self.style[f'[{self.style_id}]']['svg_background'],
             'color': self.style[f'[{self.style_id}]']['svg_color'],
             'border': self.style[f'[{self.style_id}]']['svg_border']}
         self.__hover_style = {
-            'background': self.style[f'[{self.style_id}:hover]']['svg_background'],
+            'background':
+                self.style[f'[{self.style_id}:hover]']['svg_background'],
             'color': self.style[f'[{self.style_id}:hover]']['svg_color'],
             'border': self.style[f'[{self.style_id}:hover]']['svg_border']}
         self.__pressed_style = {

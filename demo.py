@@ -94,6 +94,8 @@ class MyApp(MainFrame):
             self.label.style['[Label]']['border'] = '0px 0px 0px 0px rgba(0, 0, 0, 0.0)'
             self.label.style = self.label.style
             # self.remove(self.btn)
+
+            self.radio_1.enabled = False
         else:
             self.button.enabled = True
             self.block_button.text = 'Block Button'
@@ -103,6 +105,7 @@ class MyApp(MainFrame):
             self.label.style_class = None
             # self.wid.remove(self.label)
             # self.btn.delete(self.label)
+            self.radio_1.enabled = True
 
 
 if __name__ == '__main__':

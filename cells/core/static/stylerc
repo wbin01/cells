@@ -224,7 +224,7 @@ margin=0px
 
 [RadioButton:inactive]
 background=rgba(0, 0, 0, 0.0)
-color=rgba(200, 200, 200, 1.0)
+color=rgba(200, 200, 200, 0.40)
 border=1px rgba(0, 0, 0, 0.0)
 border_radius=0px
 padding=5px
@@ -260,23 +260,6 @@ border=1px rgba(45, 45, 45, 0.60)
 background=rgba(25, 180, 60, 0.20)
 color=rgba(200, 200, 200, 1.00)
 border=1px rgba(25, 180, 60, 0.30)
-
-[Svg]
-background=rgba(0, 0, 0, 0.0)
-color=rgba(0, 0, 0, 0.0)
-border=0px rgba(0, 0, 0, 0.0)
-border_radius=0px
-padding=0px
-margin=0px
-svg_background=rgba(0, 0, 0, 0.0)
-svg_color=rgba(0, 0, 0, 0.0)
-svg_border=0px rgba(0, 0, 0, 0.0)
-
-[Svg:hover]
-
-[Svg:inactive]
-
-[Svg:pressed]
 
 [ToolButton]
 background=rgba(0, 0, 0, 0.00)
