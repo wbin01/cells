@@ -12,10 +12,10 @@ class StyleManager(object):
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
-        self.__accent_red = '45'
-        self.__accent_green = '90'
-        self.__accent_blue = '165'
-        self.__accent = '45', '90', '165'
+        self.__accent_red = '60'
+        self.__accent_green = '140'
+        self.__accent_blue = '189'
+        self.__accent = '60', '140', '189'
 
         self.__path = pathlib.Path(__file__).resolve().parent.parent
         self.__url = os.path.join(self.__path, 'static', 'stylerc')
