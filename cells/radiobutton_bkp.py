@@ -2,16 +2,21 @@
 from PySide6 import QtWidgets
 from __feature__ import snake_case
 
+from .orientation import Orientation
 from .widget import Widget
 
 
-class Label(Widget):
-    """Label Widget."""
-    def __init__(self, text: str = '', *args, **kwargs) -> None:
+class RadioButton(Widget):
+    """Radio Button Widget."""
+    def __init__(
+        self,
+        text: str = '',
+        orientation: Orientation = Orientation.HORIZONTAL,
+        *args, **kwargs) -> None:
         """Class constructor."""
-        super().__init__(*args, **kwargs)
-        self._obj = QtWidgets.QLabel(text)
-        self.style_id = 'Label'
+        super().__init__(orientation=orientation, *args, **kwargs)
+        self.__text = text if text else ''
+        self.style_id = 'RadioButton'
         self.min_height = 22
 
     @property
@@ -27,4 +32,4 @@ class Label(Widget):
         self._obj.set_text(text)
 
     def __str__(self):
-        return f'<Label: {id(self)}>'
+        return f'<RadioButton: {id(self)}>'

@@ -1,114 +1,113 @@
-# https://wayland.app/protocols/wlr-screencopy-unstable-v1
-# from PySide6.QtCore import QPropertyAnimation, QEasingCurve
-# from PySide6.QtGui import QColor
-# from PySide6.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget
-# from PySide6.QtWidgets import QGraphicsColorizeEffect
+# from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel
+# from PySide6.QtSvgWidgets import QSvgWidget
+# from PySide6.QtCore import Qt
 
-# class AnimatedColorButton(QWidget):
+
+# class HoverSVGExample(QMainWindow):
 #     def __init__(self):
 #         super().__init__()
-        
-#         # Configuração do layout e botão
-#         self.layout = QVBoxLayout(self)
-#         self.button = QPushButton("Clique para animar", self)
-#         self.layout.addWidget(self.button)
-        
-#         # Configurar o efeito de coloração
-#         self.color_effect = QGraphicsColorizeEffect(self.button)
-#         self.button.setGraphicsEffect(self.color_effect)
-        
-#         # Conectar o clique do botão
-#         self.button.clicked.connect(self.animate_color)
+#         self.setWindowTitle("Alterar cor do SVG no hover")
 
-#     def animate_color(self):
-#         # Configuração inicial e final da cor
-#         self.animation = QPropertyAnimation(self.color_effect, b"color")
-#         self.animation.setDuration(1000)  # Duração em milissegundos
-#         self.animation.setStartValue(QColor(0, 0, 255))  # Azul
-#         self.animation.setEndValue(QColor(0, 255, 0))    # Verde
-#         self.animation.setEasingCurve(QEasingCurve.InOutQuad)  # Suavização
-        
-#         self.animation.start()
+#         # Widget central e layout
+#         central_widget = QWidget()
+#         layout = QVBoxLayout(central_widget)
+#         self.setCentralWidget(central_widget)
 
-# if __name__ == "__main__":
+#         # SVG Widget
+#         self.svg_orig = QSvgWidget()
+#         self.svg_orig.load("data/radio.svg")
+#         self.svg_orig.setFixedSize(200, 200)
+
+#         self.svg_hover = QSvgWidget()
+#         self.svg_hover.load("data/radio.svg")
+#         self.svg_hover.setFixedSize(200, 200)
+
+#         self.svg_widget = self.svg_orig
+#         layout.addWidget(self.svg_widget, alignment=Qt.AlignCenter)
+
+#         # Adiciona eventos de mouse para hover
+#         self.svg_widget.setAttribute(Qt.WA_Hover, True)
+#         self.svg_widget.enterEvent = self.on_hover_enter
+#         self.svg_widget.leaveEvent = self.on_hover_leave
+
+#     def modify_svg(self, svg_content, stroke_color):
+#         """Modifica a cor da borda do SVG."""
+#         return svg_content.replace('stroke="black"', f'stroke="{stroke_color}"')
+
+#     def on_hover_enter(self, event):
+#         """Altera para o SVG modificado no estado hover."""
+#         self.svg_widget.load(self.hover_svg)
+
+#     def on_hover_leave(self, event):
+#         """Restaura o SVG original."""
+#         self.svg_widget.load("data/radio.svg")
+
+
+# # Executa a aplicação
+# def main():
 #     app = QApplication([])
-#     window = AnimatedColorButton()
-#     window.resize(300, 200)
+#     window = HoverSVGExample()
 #     window.show()
 #     app.exec()
-from PySide6.QtCore import QPropertyAnimation, QObject, Property, Signal, QParallelAnimationGroup
-# from PySide6.QtGui import 
-from PySide6.QtWidgets import QApplication, QMainWindow, QGraphicsOpacityEffect
 
-class BackgroundAnimator(QObject):
-    progress_changed = Signal(float)
 
+# if __name__ == "__main__":
+#     main()
+
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+from PySide6.QtSvgWidgets import QSvgWidget
+from PySide6.QtCore import QByteArray
+
+
+class SvgFromMemoryExample(QMainWindow):
     def __init__(self):
         super().__init__()
-        self._progress = 0.0
+        self.setWindowTitle("QSvgWidget com QByteArray")
 
-    def get_progress(self):
-        return self._progress
+        # Widget central e layout
+        central_widget = QWidget()
+        layout = QVBoxLayout(central_widget)
+        self.setCentralWidget(central_widget)
 
-    def set_progress(self, progress):
-        self._progress = progress
-        self.progress_changed.emit(progress)
+        # Conteúdo SVG como string
+        svg_content = self.load_svg("data/radio.svg")
+        print(svg_content)
 
-    # Registrar como uma propriedade do Qt
-    progress = Property(float, get_progress, set_progress)
+        # Converte o conteúdo SVG para QByteArray
+        svg_data = QByteArray(svg_content.encode('utf-8'))
 
-class AnimatedMainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Transição de Fundo")
-        self.setGeometry(100, 100, 800, 600)
+        # Cria o QSvgWidget e carrega o SVG do QByteArray
+        svg_widget = QSvgWidget()
+        svg_widget.load(svg_data)
+        svg_widget.setFixedSize(16, 16)
 
-        # Configuração inicial do estilo
-        self.setStyleSheet("""
-            QMainWindow {
-                background-image: url('/home/user/imagem1.jpeg');
-            }
-        """)
+        # Adiciona o QSvgWidget ao layout
+        layout.addWidget(svg_widget)
 
-        # Configurar o animador
-        self.animator = BackgroundAnimator()
-        self.animator.progress_changed.connect(self.update_background)
+    def load_svg(self, path):
+        """Carrega o conteúdo do arquivo SVG."""
+        center = self.rgba_to_hex(45, 90, 165)
+        border = self.rgba_to_hex(45, 90, 165)
+        with open(path, "r") as f:
+            cont = f.read()
+        cont = cont.replace(
+            'fill="#1a1a1a"', f'fill="{border}" fill-opacity=".9"').replace(
+            'fill="#e5e5e5"', f'fill="{center}" fill-opacity=".5"')
+            
+        return cont
 
-        # Clique para iniciar a animação
-        self.mousePressEvent = self.animate_transition
+    def rgba_to_hex(self, r, g, b):
+        """Converte valores RGBA para o formato hexadecimal."""
+        return f"#{r:02X}{g:02X}{b:02X}".lower()
 
-    def update_background(self, progress):
-        # Atualiza o estilo dinamicamente
-        self.setStyleSheet("""
-            QMainWindow {
-                background-image: url('/home/user/imagem2.jpg');
-            }
-        """)
 
-    def animate_transition(self, event):
-        # Configurar a animação
-        self.animation = QPropertyAnimation(self.animator, b"progress")
-        self.animation.setDuration(2000)  # Duração em milissegundos
-        self.animation.setStartValue(0.0)
-        self.animation.setEndValue(1.0)
-        # self.animation.start()
+# Executa a aplicação
+def main():
+    app = QApplication([])
+    window = SvgFromMemoryExample()
+    window.show()
+    app.exec()
 
-        effect = QGraphicsOpacityEffect(self)
-        self.anim_2 = QPropertyAnimation(effect, b"opacity")
-        self.anim_2.setStartValue(0)
-        self.anim_2.setEndValue(1)
-        self.anim_2.setDuration(2500)
-
-        self.anim_group = QParallelAnimationGroup()
-        self.anim_group.addAnimation(self.animation)
-        self.anim_group.addAnimation(self.anim_2)
-        self.anim_group.start()
 
 if __name__ == "__main__":
-    app = QApplication([])
-
-    # Certifique-se de ter 'imagem1.jpg' e 'imagem2.jpg' no mesmo diretório
-    window = AnimatedMainWindow()
-    window.show()
-
-    app.exec()
+    main()

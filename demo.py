@@ -8,7 +8,7 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, MoveFrame, Box, Orientation, Align,
-    Widget, Button, Label, Image, Icon, DiffuseBlur)
+    Widget, Button, Label, Image, Icon, RadioButton)
 
 
 class MyApp(MainFrame):
@@ -22,6 +22,8 @@ class MyApp(MainFrame):
         self.spacing = 5
         # self.align = Align.TOP
         self.move_frame = self.insert(MoveFrame())
+
+        self.radio_1 = self.insert(RadioButton('Radio'))
         
         self.button = self.insert(Button('Button text', 'document-open'))
         # self.button.insert(Image(Icon()))

@@ -1,0 +1,6 @@
+<svg id="svg1" width="16" height="16" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+<g id="g1">
+<path id="border" d="m8 0a8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8 8 8 0 0 0-8-8zm0 1a7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7 7 7 0 0 1 7-7z" fill="#1a1a1a" style="paint-order:stroke fill markers"/>
+<circle id="center" cx="8" cy="8" r="3.5" fill="#e5e5e5" style="paint-order:stroke fill markers"/>
+</g>
+</svg>

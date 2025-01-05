@@ -13,5 +13,6 @@ from .label import Label
 from .mainframe import MainFrame
 from .moveframe import MoveFrame
 from .orientation import Orientation
+from .radiobutton import RadioButton
 from .signal import Signal
 from .widget import Widget
