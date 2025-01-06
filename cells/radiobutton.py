@@ -24,9 +24,6 @@ class Svg(Widget):
         self.__path = path
         self._obj = QtSvgWidgets.QSvgWidget()
         self.height, self.width = 16, 16
-
-        self.__selectable = False
-        self.__selected = False
         self.__state = None
 
         self.__normal_style = None
@@ -63,24 +60,6 @@ class Svg(Widget):
             'border': self.style[f'[{self.style_id}:inactive]']['svg_border']}
 
     @property
-    def selectable(self) -> bool:
-        """..."""
-        return self.__selectable
-
-    @selectable.setter
-    def selectable(self, value: bool) -> None:
-        self.__selectable = value
-
-    @property
-    def selected(self) -> bool:
-        """..."""
-        return self.__selected
-
-    @selected.setter
-    def selected(self, value: bool) -> None:
-        self.__selected = value
-
-    @property
     def state(self) -> str:
         """..."""
         return self.__state
@@ -104,19 +83,22 @@ class Svg(Widget):
         else:
             style = self.__selected_style
 
-        r, g, b, b_a = self.__border_or_color_to_rgba_list(style['border'])
+        with open(self.__path, "r") as f:
+            content = f.read()
+
+        r, g, b, a = self.__border_or_color_to_rgba_list(style['border'])
         border = f'#{int(r):02X}{int(g):02X}{int(b):02X}'
+        content = self.__replace_color('border', border, a, content)
 
         r, g, b, a = self.__border_or_color_to_rgba_list(style['color'])
-        center = f'#{int(r):02X}{int(g):02X}{int(b):02X}'
+        color = f'#{int(r):02X}{int(g):02X}{int(b):02X}'
+        content = self.__replace_color('color', color, a, content)
 
-        with open(self.__path, "r") as f:
-            cont = f.read()
-        cont = cont.replace(
-            'fill="#1a1a1a"', f'fill="{border}" fill-opacity="{b_a}"').replace(
-            'fill="#e5e5e5"', f'fill="{center}" fill-opacity="{a}"')
+        r, g, b, a = self.__border_or_color_to_rgba_list(style['background'])
+        background = f'#{int(r):02X}{int(g):02X}{int(b):02X}'
+        content = self.__replace_color('background', background, a, content)
 
-        self._obj.load(QtCore.QByteArray(cont.encode('utf-8')))
+        self._obj.load(QtCore.QByteArray(content.encode('utf-8')))
 
     @staticmethod
     def __border_or_color_to_rgba_list(border: str) -> list:
@@ -152,6 +134,43 @@ class Svg(Widget):
                 a = 1.0
 
         return [r, g, b, a]
+
+    @staticmethod
+    def __replace_color(id_color, color, alpha, content) -> str:
+        scopes = content.split('>')
+        new_scopes = []
+        for scope in scopes:
+            if f'id="{id_color}"' in scope:
+
+                new_props = []
+                found_color = False
+                found_alpha = False
+                for prop in scope.split():
+
+                    if prop.startswith('fill="'):
+                        prop = f'fill="{color}"'
+                        found_color = True
+
+                    elif prop.startswith('fill-opacity="'):
+                        prop = f'fill-opacity="{alpha}"' 
+                        found_alpha = True
+                        
+                    new_props.append(prop)
+
+                if not found_color:
+                    new_props[1] = new_props[1] + f' fill="{color}"'
+
+                if not found_alpha:
+                    new_props[1] = new_props[1] + f' fill-opacity="{alpha}"'
+
+
+                new_scopes.append(' '.join(new_props))
+            else:
+                new_scopes.append(scope)
+
+        break_mark = '-///*Bilbo_Baggins*///-'
+        new_content = f'>{break_mark}'.join(new_scopes).replace('\n', '')
+        return new_content.replace(break_mark, '\n')
 
 
 class RadioButton(Widget):
