@@ -68,10 +68,8 @@ class SvgIcon(Widget):
             style = self.__hover_style
         elif self.__state == 'pressed':
             style = self.__pressed_style
-        elif self.__state == 'inactive':
-            style = self.__inactive_style
         else:
-            style = self.__selected_style
+            style = self.__inactive_style
 
         with open(self.__path, "r") as f:
             content = f.read()
@@ -127,9 +125,8 @@ class SvgIcon(Widget):
 
     @staticmethod
     def __replace_color(id_color, color, alpha, content) -> str:
-        scopes = content.split('>')
         new_scopes = []
-        for scope in scopes:
+        for scope in content.split('>'):
             if f'id="{id_color}"' in scope:
 
                 new_props = []

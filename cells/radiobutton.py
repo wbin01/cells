@@ -26,8 +26,9 @@ class RadioButton(Widget):
         self.__tool = True
         self.__selected = False
 
-        self.__icon = SvgIcon(os.path.join(pathlib.Path(__file__).resolve().parent,
-            'core', 'static', 'radio.svg'))
+        self.__icon = SvgIcon(
+            os.path.join(pathlib.Path(__file__).resolve().parent,
+                'core', 'static', 'radio.svg'))
         
         if not self.__icon_on_right:
             self.insert(self.__icon)
@@ -43,6 +44,7 @@ class RadioButton(Widget):
 
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
+        self.signal(Event.STATE).connect(self.__on_state_change)
 
         self.signal(Event.MOUSE_HOVER_ENTER).connect(
             self.__on_mouse_hover_enter)
@@ -134,6 +136,19 @@ class RadioButton(Widget):
                 f'[{self.style_id}:hover]']['color']
             self.__label.style = self.__label.style
             self.__icon.state = 'hover'
+
+    def __on_state_change(self) -> None:
+        if not self._main_parent:
+            return
+
+        if not self.state:
+            self.__icon.state = None
+        elif self.state == 'hover':
+            self.__icon.state = 'hover'
+        elif self.state == 'pressed':
+            self.__icon.state = 'pressed'
+        else:
+            self.__icon.state = 'inactive'
 
     def __str__(self) -> str:
         return f'<RadioButton: {id(self)}>'

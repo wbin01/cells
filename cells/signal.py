@@ -25,6 +25,10 @@ class Signal(object):
         self.__callback = None
 
     @property
+    def _callback(self) -> callable:
+        return self.__callback
+
+    @property
     def value(self) -> any:
         """Signal value.
 
@@ -61,7 +65,10 @@ class Signal(object):
 
         :param callback: Function to be disconnect.
         """
-        self.__signal.remove_callback(self.__callback)
+        if not callback:
+            self.__signal.remove_callback(self.__callback)
+        else:
+            self.__signal.remove_callback(callback)
 
     def emit(self) -> None:
         """Send this signal.

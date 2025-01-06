@@ -24,6 +24,8 @@ class MyApp(MainFrame):
         self.move_frame = self.insert(MoveFrame())
 
         self.radio_1 = self.insert(RadioButton('Radio'))
+        self.radio_1.signal(Event.MOUSE_PRESS).connect(lambda: print(222))
+        # self.radio_1.style_class = 'Warning'
         
         self.button = self.insert(Button('Button text', 'document-open'))
         # self.button.insert(Image(Icon()))
@@ -84,9 +86,11 @@ class MyApp(MainFrame):
     def on_block_button(self):
         if self.button.enabled:
             self.button.enabled = False
+            self.button.state = 'hover'
             self.block_button.text = 'Unblock Button'
-            self.btn.style_id = 'Master'
-            self.btn.style_class = 'Warning'
+            # self.btn.style_id = 'Master'
+            # self.btn.style_class = 'Warning'
+            self.btn.state = 'hover'
 
             # self.btn.height = 50
             # self.wid.insert(self.label)
@@ -95,17 +99,23 @@ class MyApp(MainFrame):
             self.label.style = self.label.style
             # self.remove(self.btn)
 
-            self.radio_1.enabled = False
+            # self.radio_1.enabled = False
+            self.radio_1.state = 'hover'
+            # self.radio_1.style_class = 'Danger'
         else:
             self.button.enabled = True
+            self.button.state = None
             self.block_button.text = 'Block Button'
-            self.btn.style_class = None
+            # self.btn.style_class = None
+            self.btn.state = None
 
             # self.btn.height = 20
             self.label.style_class = None
             # self.wid.remove(self.label)
             # self.btn.delete(self.label)
-            self.radio_1.enabled = True
+            # self.radio_1.enabled = True
+            self.radio_1.state = None
+            # self.radio_1.style_class = None
 
 
 if __name__ == '__main__':

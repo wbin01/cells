@@ -121,9 +121,12 @@ class Widget(Widget):
             Event.MOUSE_WHEEL: self.__widget.mouse_wheel_signal,
             Event.REMOVE: self.__box.signal(Event.REMOVE),
             Event.SIZE: self.__widget.size_signal,
+            Event.STATE: Signal(),
             Event.STYLE: Signal(),
             Event.STYLE_CLASS: Signal(),
             Event.STYLE_ID: Signal()}
+
+        self.__signal_blocker = QtCore.QSignalBlocker(self._obj)
 
         # Flags
         self.__is_enabled = True
@@ -131,6 +134,7 @@ class Widget(Widget):
         self.__visible = False  # Hack: Fix aways is False | Box active this
 
         # Style
+        self.__state = None
         self.__style_manager = StyleManager()
         # self.__stylesheet = self.__style_manager.stylesheet
         self.__accent = self.__style_manager.accent
@@ -182,15 +186,15 @@ class Widget(Widget):
     @enabled.setter
     def enabled(self, value: bool) -> None:
         self.__is_enabled = value
-
         if self.__is_enabled:
             self._obj.set_style_sheet(self.__normal_style)
+
             if hasattr(self._obj, 'mouse_button_press_signal'):
                 self._obj.mouse_button_press_signal.connect()
                 self._obj.mouse_button_release_signal.connect()
         else:
             self._obj.set_style_sheet(self.__inactive_style)
-
+            
             if hasattr(self._obj, 'mouse_button_press_signal'):
                 self._obj.mouse_button_press_signal.disconnect()
                 self._obj.mouse_button_release_signal.disconnect()
@@ -305,6 +309,31 @@ class Widget(Widget):
     @spacing.setter
     def spacing(self, spacing: int) -> None:
         self.__box.spacing = spacing
+
+    @property
+    def state(self) -> str:
+        """..."""
+        return self.__state
+
+    @state.setter
+    def state(self, state: str = None) -> None:
+        self.__state = state
+        state = '' if not state else ':' + state
+
+        if not self._main_parent:
+            return
+
+        if not self.__state:
+            style = self.__normal_style
+        elif self.__state == 'hover':
+            style = self.__hover_style
+        elif self.__state == 'pressed':
+            style = self.__pressed_style
+        else:
+            style = self.__inactive_style
+
+        self._obj.set_style_sheet(style)
+        self.__signals[Event.STATE].emit()
 
     @property
     def style(self) -> str:

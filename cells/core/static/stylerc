@@ -72,7 +72,7 @@ border=1px rgba(215, 30, 50, 0.30)
 [Frame]
 background=rgba(32, 32, 32, 1.00)
 border=0px rgba(50, 50, 50, 0.80)
-border_radius=10px
+border_radius=8px
 padding=5px
 
 [Icon]
@@ -123,7 +123,7 @@ color=rgba(200, 200, 200, 0.40)
 [MainFrame]
 background=rgba(32, 32, 32, 1.00)
 border=1px rgba(45, 45, 45, 0.70)
-border_radius=15px
+border_radius=8px
 padding=5px
 
 [MainFrame:inactive]
