@@ -15,4 +15,5 @@ from .moveframe import MoveFrame
 from .orientation import Orientation
 from .radiobutton import RadioButton
 from .signal import Signal
+from .svgicon import SvgIcon
 from .widget import Widget

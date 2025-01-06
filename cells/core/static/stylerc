@@ -146,6 +146,8 @@ margin=0px
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
 svg_background=rgba(35, 35, 35, 1.00)
 svg_color=rgba(0, 0, 0, 0.0)
 svg_border=0px rgba(128, 128, 128, 0.5)
@@ -178,6 +180,8 @@ svg_border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
 svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
 svg_color=rgba(200, 200, 200, 1.0)
 svg_border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
@@ -211,7 +215,7 @@ background=rgba(0, 0, 0, 0.0)
 color=rgba(200, 200, 200, 1.0)
 border=1px rgba(0, 0, 0, 0.0)
 border_radius=0px
-padding=5px
+padding=0px
 margin=0px
 
 [RadioButton:hover]
@@ -219,7 +223,7 @@ background=rgba(0, 0, 0, 0.0)
 color=rgba(200, 200, 200, 1.0)
 border=1px rgba(0, 0, 0, 0.0)
 border_radius=0px
-padding=5px
+padding=0px
 margin=0px
 
 [RadioButton:inactive]
@@ -227,7 +231,7 @@ background=rgba(0, 0, 0, 0.0)
 color=rgba(200, 200, 200, 0.40)
 border=1px rgba(0, 0, 0, 0.0)
 border_radius=0px
-padding=5px
+padding=0px
 margin=0px
 
 [RadioButton:pressed]
@@ -235,7 +239,7 @@ background=rgba(0, 0, 0, 0.0)
 color=rgba(200, 200, 200, 1.0)
 border=1px rgba(0, 0, 0, 0.0)
 border_radius=0px
-padding=5px
+padding=0px
 margin=0px
 
 [Success]
