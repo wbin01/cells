@@ -46,6 +46,106 @@ background=rgba(accent_red, accent_green, accent_blue, 0.20)
 color=rgba(200, 200, 200, 1.00)
 border=1px rgba(accent_red, accent_green, accent_blue, 0.50)
 
+[Check]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
+svg_background=rgba(35, 35, 35, 1.00)
+svg_color=rgba(0, 0, 0, 0.0)
+svg_border=0px rgba(128, 128, 128, 0.5)
+
+[Check:hover]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(35, 35, 35, 1.00)
+svg_color=rgba(0, 0, 0, 0.0)
+svg_border=0px rgba(accent_red, accent_green, accent_blue, 0.6)
+
+[Check:inactive]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(0, 0, 0, 0.0)
+svg_color=rgba(0, 0, 0, 0.0)
+svg_border=0px rgba(45, 45, 45, 0.60)
+
+[Check:pressed]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
+
+[CheckOn]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
+
+[CheckOn:hover]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=0px rgba(accent_red, accent_green, accent_blue, 1.0)
+
+[CheckOn:inactive]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(0, 0, 0, 0.0)
+svg_color=rgba(200, 200, 200, 0.40)
+svg_border=0px rgba(45, 45, 45, 0.60)
+
+[CheckOn:pressed]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
+
+[CheckButton]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(200, 200, 200, 1.0)
+border=1px rgba(0, 0, 0, 0.0)
+border_radius=0px
+padding=0px
+margin=0px
+
+[CheckButton:hover]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(200, 200, 200, 1.0)
+border=1px rgba(0, 0, 0, 0.0)
+border_radius=0px
+padding=0px
+margin=0px
+
+[CheckButton:inactive]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(200, 200, 200, 0.40)
+border=1px rgba(0, 0, 0, 0.0)
+border_radius=0px
+padding=0px
+margin=0px
+
+[CheckButton:pressed]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(200, 200, 200, 1.0)
+border=1px rgba(0, 0, 0, 0.0)
+border_radius=0px
+padding=0px
+margin=0px
+
 [Danger]
 background=rgba(215, 30, 50, 0.10)
 color=rgba(200, 200, 200, 1.00)

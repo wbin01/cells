@@ -1,0 +1,7 @@
+<svg id="svg1" width="16" height="16" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+<g id="g1" stroke-linecap="round" stroke-linejoin="round">
+<path id="border" d="m4 0c-2.216 0-4 1.784-4 4v8c0 2.216 1.784 4 4 4h8c2.216 0 4-1.784 4-4v-8c0-2.216-1.784-4-4-4h-8zm0.5 1h7c1.939 0 3.5 1.5609999 3.5 3.5v7c0 1.939-1.561 3.5-3.5 3.5h-7c-1.9390001 0-3.5-1.561-3.5-3.5v-7c0-1.9390001 1.5609999-3.5 3.5-3.5z" fill="#2c3c55" stroke-dasharray="30, 30" stroke-width="5" style="paint-order:stroke fill markers"/>
+<rect id="background" x=".9999994" y=".9999994" width="14.000001" height="14.000001" ry="3.5000002" fill="#a2c5e5" stroke-dasharray="26.25, 26.25" stroke-width="4.375" style="paint-order:stroke fill markers"/>
+<path id="color" d="m12 4-5 5-2.5-2.5-1.5 1.5 4 4 6.5-6.5-1.5-1.5z" fill="#e5e5e5" stroke-dasharray="30, 30" stroke-width="5" style="paint-order:stroke fill markers"/>
+</g>
+</svg>
