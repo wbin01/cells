@@ -77,11 +77,13 @@ class MyApp(MainFrame):
             self.button.enabled = False
             self.radio_1.selected = True
             self.check_1.selected = True
+            self.check_1.style_class = 'Danger'
         else:
             self.button.enabled = True
             self.button.state = None
             self.radio_1.selected = False
             self.check_1.selected = False
+            self.check_1.style_class = None
 
 
 if __name__ == '__main__':

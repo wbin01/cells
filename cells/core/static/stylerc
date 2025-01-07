@@ -80,40 +80,6 @@ svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
 svg_color=rgba(200, 200, 200, 1.0)
 svg_border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
 
-[CheckOn]
-background=rgba(0, 0, 0, 0.0)
-color=rgba(0, 0, 0, 0.0)
-border=0px rgba(0, 0, 0, 0.0)
-padding=0px
-margin=0px
-svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
-svg_color=rgba(200, 200, 200, 1.0)
-svg_border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
-
-[CheckOn:hover]
-background=rgba(0, 0, 0, 0.0)
-color=rgba(0, 0, 0, 0.0)
-border=0px rgba(0, 0, 0, 0.0)
-svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
-svg_color=rgba(200, 200, 200, 1.0)
-svg_border=0px rgba(accent_red, accent_green, accent_blue, 1.0)
-
-[CheckOn:inactive]
-background=rgba(0, 0, 0, 0.0)
-color=rgba(0, 0, 0, 0.0)
-border=0px rgba(0, 0, 0, 0.0)
-svg_background=rgba(0, 0, 0, 0.0)
-svg_color=rgba(200, 200, 200, 0.40)
-svg_border=0px rgba(45, 45, 45, 0.60)
-
-[CheckOn:pressed]
-background=rgba(0, 0, 0, 0.0)
-color=rgba(0, 0, 0, 0.0)
-border=0px rgba(0, 0, 0, 0.0)
-svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
-svg_color=rgba(200, 200, 200, 1.0)
-svg_border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
-
 [CheckButton]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(200, 200, 200, 1.0)
@@ -145,6 +111,40 @@ border=1px rgba(0, 0, 0, 0.0)
 border_radius=0px
 padding=0px
 margin=0px
+
+[CheckSelected]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
+
+[CheckSelected:hover]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=0px rgba(accent_red, accent_green, accent_blue, 1.0)
+
+[CheckSelected:inactive]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(0, 0, 0, 0.0)
+svg_color=rgba(200, 200, 200, 0.40)
+svg_border=0px rgba(45, 45, 45, 0.60)
+
+[CheckSelected:pressed]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
 
 [Danger]
 background=rgba(215, 30, 50, 0.10)
@@ -276,40 +276,6 @@ svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
 svg_color=rgba(200, 200, 200, 1.0)
 svg_border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
 
-[RadioOn]
-background=rgba(0, 0, 0, 0.0)
-color=rgba(0, 0, 0, 0.0)
-border=0px rgba(0, 0, 0, 0.0)
-padding=0px
-margin=0px
-svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
-svg_color=rgba(200, 200, 200, 1.0)
-svg_border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
-
-[RadioOn:hover]
-background=rgba(0, 0, 0, 0.0)
-color=rgba(0, 0, 0, 0.0)
-border=0px rgba(0, 0, 0, 0.0)
-svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
-svg_color=rgba(200, 200, 200, 1.0)
-svg_border=0px rgba(accent_red, accent_green, accent_blue, 1.0)
-
-[RadioOn:inactive]
-background=rgba(0, 0, 0, 0.0)
-color=rgba(0, 0, 0, 0.0)
-border=0px rgba(0, 0, 0, 0.0)
-svg_background=rgba(0, 0, 0, 0.0)
-svg_color=rgba(200, 200, 200, 0.40)
-svg_border=0px rgba(45, 45, 45, 0.60)
-
-[RadioOn:pressed]
-background=rgba(0, 0, 0, 0.0)
-color=rgba(0, 0, 0, 0.0)
-border=0px rgba(0, 0, 0, 0.0)
-svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
-svg_color=rgba(200, 200, 200, 1.0)
-svg_border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
-
 [RadioButton]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(200, 200, 200, 1.0)
@@ -341,6 +307,40 @@ border=1px rgba(0, 0, 0, 0.0)
 border_radius=0px
 padding=0px
 margin=0px
+
+[RadioSelected]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
+
+[RadioSelected:hover]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=0px rgba(accent_red, accent_green, accent_blue, 1.0)
+
+[RadioSelected:inactive]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(0, 0, 0, 0.0)
+svg_color=rgba(200, 200, 200, 0.40)
+svg_border=0px rgba(45, 45, 45, 0.60)
+
+[RadioSelected:pressed]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(0, 0, 0, 0.0)
+svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
+svg_color=rgba(200, 200, 200, 1.0)
+svg_border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
 
 [Success]
 background=rgba(25, 180, 60, 0.10)

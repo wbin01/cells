@@ -46,9 +46,9 @@ class Button(Widget):
             self.__icon.margin = 0, 5, 0, 0
 
         if not self.__text and self.__icon:
-                self.__icon.margin = 0, 5, 0, 5
+            self.__icon.margin = 0, 5, 0, 5
         elif self.__text and not self.__icon:
-                self.__label.margin = 0, 5, 0, 5
+            self.__label.margin = 0, 5, 0, 5
 
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
