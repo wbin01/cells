@@ -100,6 +100,7 @@ class Button(Widget):
         
         if self.__icon:
             self.__icon._main_parent = self._main_parent
+            self.__label._main_parent = self._main_parent
 
     def __on_main_parent_focus_in(self) -> None:
         self.__focus = True
@@ -140,22 +141,3 @@ class Button(Widget):
 
     def __str__(self) -> str:
         return f'<Button: {id(self)}>'
-
-# setShortcut(QKeySequence(Qt::Key_Enter))
-# setShortcut(QKeySequence(Qt::Key_Enter));
-# setShortcut(QKeySequence::StandardKey::)
-
-# QKeySequence(QKeySequence.Print)
-# QKeySequence(tr("Ctrl+P"))
-# QKeySequence(tr("Ctrl+p"))
-
-# https://doc.qt.io/qtforpython-6/PySide6/
-# QtGui/QKeySequence.html#PySide6.QtGui.QKeySequence
-
-# https://doc.qt.io/qtforpython-6/PySide6/QtGui/
-# QKeySequence.html#PySide6.QtGui.QKeySequence.StandardKey
-
-
-# self._obj.set_shortcut(QtGui.QKeySequence('Enter'))
-# # QtCore.Qt.Key_Return
-# self._obj.set_default(True)

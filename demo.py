@@ -77,6 +77,7 @@ class MyApp(MainFrame):
         img.style = img.style
 
         # self.style_from_file('stylerc')
+        self.lbl = self.insert(Label('7777'))
 
     def ctx(self):
         self.ctx_menu.flag = Flag.POPUP
@@ -95,14 +96,17 @@ class MyApp(MainFrame):
             # self.btn.height = 50
             # self.wid.insert(self.label)
             self.label.style_class = 'Danger'
-            self.label.style['[Label]']['border'] = '0px 0px 0px 0px rgba(0, 0, 0, 0.0)'
+            self.label.style[
+                '[Label]']['border'] = '0px 0px 0px 0px rgba(0, 0, 0, 0.0)'
             self.label.style = self.label.style
             # self.remove(self.btn)
 
             # self.radio_1.enabled = False
             self.radio_1.state = 'hover'
             # self.radio_1.style_class = 'Danger'
+            self.lbl.state = 'inactive'
         else:
+            self.lbl.state = None
             self.button.enabled = True
             self.button.state = None
             self.block_button.text = 'Block Button'
