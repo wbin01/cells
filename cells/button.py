@@ -23,8 +23,7 @@ class Button(Widget):
         self.__icon = Icon(icon) if icon else icon
         self.style_id = 'Button'
         self.__focus = True
-        self.__icon_on_right = True
-        self.__tool = True
+        self.__icon_on_right = False
 
         self.spacing = 2
         self.align = Align.CENTER
@@ -50,9 +49,22 @@ class Button(Widget):
         elif self.__text and not self.__icon:
             self.__label.margin = 0, 5, 0, 5
 
+        self.min_height = 32
+
+        self.__saved_label_margin = None
+        if self.__label:
+            self.__saved_label_margin = self.__label.margin
+
+        self.__saved_icon_margin = None
+        if self.__icon:
+            self.__saved_icon_margin = self.__icon.margin
+
+        self.__saved_height = self.height
+        self.__saved_width = self.width
+
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
-        self.signal(Event.STYLE_CLASS).connect(self.style_id_tool)
+        self.signal(Event.STYLE_CLASS).connect(self.__on_style_class)
 
         self.signal(Event.MOUSE_HOVER_ENTER).connect(
             self.__on_mouse_hover_enter)
@@ -62,13 +74,6 @@ class Button(Widget):
             self.__on_mouse_button_press)
         self.signal(Event.MOUSE_RELEASE).connect(
             self.__on_mouse_button_release)
-
-    def style_id_tool(self):
-        if self.style_class == 'ToolButton':
-            self.__label.visible = False
-            self.margin = 0, 0, 0, 0
-            self.height = self.__icon.height + 10
-            self.width = self.__icon.width + 10
 
     @property
     def text(self) -> str:
@@ -138,6 +143,26 @@ class Button(Widget):
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}:hover]']['color']
             self.__label.style = self.__label.style
+
+    def __on_style_class(self):
+        if self.style_class == 'ToolButton':
+            self.__label.visible = False
+
+            self.__saved_label_margin = self.__label.margin
+            self.__saved_icon_margin = self.__icon.margin
+            self.__saved_height = self.height
+            self.__saved_width = self.width
+
+            self.__label.margin = 0, 0, 0, 0
+            self.__icon.margin = 0, 0, 0, 0
+            self.height = self.min_height
+            self.width = self.min_height
+
+        elif not self.style_class:
+            self.__label.margin = self.__saved_label_margin
+            self.__icon.margin = self.__saved_icon_margin
+            self.height = self.__saved_height
+            self.width = self.__saved_width
 
     def __str__(self) -> str:
         return f'<Button: {id(self)}>'

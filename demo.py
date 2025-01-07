@@ -28,6 +28,7 @@ class MyApp(MainFrame):
         self.check_1 = self.insert(CheckButton('Check 1'))
         self.check_2 = self.insert(CheckButton('Check 2'))
         
+        self.button_t = self.insert(Button('Button text', 'document-open'))
         self.button = self.insert(Button('Button text', 'document-open'))
         self.button.signal(Event.MOUSE_PRESS).connect(
             lambda: print(self.button.text))
@@ -74,11 +75,13 @@ class MyApp(MainFrame):
 
     def on_block_button(self):
         if self.button.enabled:
+            self.button_t.style_class = 'ToolButton'
             self.button.enabled = False
             self.radio_1.selected = True
             self.check_1.selected = True
             self.check_1.style_class = 'Danger'
         else:
+            self.button_t.style_class = None
             self.button.enabled = True
             self.button.state = None
             self.radio_1.selected = False
