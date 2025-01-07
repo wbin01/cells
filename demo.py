@@ -75,9 +75,13 @@ class MyApp(MainFrame):
     def on_block_button(self):
         if self.button.enabled:
             self.button.enabled = False
+            self.radio_1.selected = True
+            self.check_1.selected = True
         else:
             self.button.enabled = True
             self.button.state = None
+            self.radio_1.selected = False
+            self.check_1.selected = False
 
 
 if __name__ == '__main__':

@@ -68,6 +68,22 @@ class CheckButton(Widget):
         self.__text = text
         self.__label.text = text
 
+    @property
+    def selected(self) -> bool:
+        """..."""
+        return self.__selected
+
+    @selected.setter
+    def selected(self, value: bool) -> None:
+        self.__selected = value
+
+        if self.__selected:
+            self.__icon.style_class = 'RadioOn'
+        else:
+            self.__icon.style_class = None
+
+        self.__icon.state = None
+
     def __on_enabled_change(self) -> None:
         if self.enabled:
             self.__on_main_parent_focus_in()
