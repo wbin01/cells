@@ -1,56 +1,51 @@
-#!/usr/bin/env python3
-
-def __replace_color(id_color, color, alpha, content) -> str:
-    scopes = content.split('>')
-    new_scopes = []
-    for scope in scopes:
-        if f'id="{id_color}"' in scope:
-
-            new_props = []
-            found_color = False
-            found_alpha = False
-            for prop in scope.split():
-
-                if prop.startswith('fill="'):
-                    prop = f'fill="{color}"'
-                    found_color = True
-
-                elif prop.startswith('fill-opacity="'):
-                    prop = f'fill-opacity="{alpha}"' 
-                    found_alpha = True
-                    
-                new_props.append(prop)
-
-            if not found_color:
-                new_props[1] = new_props[1] + f' fill="{color}"'
-
-            if not found_alpha:
-                new_props[1] = new_props[1] + f' fill-opacity="{alpha}"'
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QRadioButton, QButtonGroup, QLabel
 
 
-            new_scopes.append(' '.join(new_props))
-        else:
-            new_scopes.append(scope)
+class RadioButtonExample(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Exemplo de Botões de Rádio")
 
-    break_mark = '-///*Bilbo_Baggins*///-'
-    new_content = f'>{break_mark}'.join(new_scopes).replace('\n', '')
-    return new_content.replace(break_mark, '\n')
+        # Layout principal
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        layout = QVBoxLayout(central_widget)
+
+        # Label para exibir a opção selecionada
+        self.label = QLabel("Nenhuma opção selecionada")
+        layout.addWidget(self.label)
+
+        # Grupo de botões de rádio
+        self.button_group = QButtonGroup(self)
+        self.button_group.buttonToggled.connect(self.on_button_toggled)
+
+        # Cria os botões de rádio
+        radio_button1 = QRadioButton("Opção 1")
+        radio_button2 = QRadioButton("Opção 2")
+        radio_button3 = QRadioButton("Opção 3")
+
+        # Adiciona os botões ao grupo
+        self.button_group.addButton(radio_button1)
+        self.button_group.addButton(radio_button2)
+        self.button_group.addButton(radio_button3)
+
+        # Adiciona os botões ao layout
+        layout.addWidget(radio_button1)
+        layout.addWidget(radio_button2)
+        layout.addWidget(radio_button3)
+
+    def on_button_toggled(self, button, checked):
+        if checked:
+            self.label.setText(f"Selecionado: {button.text()}")
 
 
+# Inicializa a aplicação
+def main():
+    app = QApplication([])
+    window = RadioButtonExample()
+    window.show()
+    app.exec()
 
-if __name__ == '__main__':
-    import pathlib
-    import os
 
-
-    path = (os.path.join(pathlib.Path(__file__).resolve().parent,
-            'cells', 'core', 'static', 'radio.svg'))
-    with open(path, 'r') as file_:
-        content = file_.read()
-
-    content = __replace_color('background', '#ff0000', '0.1', content)
-    content = __replace_color('color', '#00ff00', '0.2', content)
-    content = __replace_color('border', '#0000ff', '0.3', content)
-
-    print('FINAL:\n------')
-    print(content)
+if __name__ == "__main__":
+    main()

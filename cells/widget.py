@@ -648,10 +648,10 @@ class Widget(Widget):
 
         if not self.__style:
             base = {
-                'background': 'rgba(0, 0, 0, 0.00)',
-                'color': 'rgba(0, 0, 0, 0.00)',
-                'border': '1px rgba(0, 0, 0, 0.00)',
-                'border_bottom': '1px rgba(0, 0, 0, 0.00)',
+                'background': 'rgba(0, 0, 0, 0.0)',
+                'color': 'rgba(0, 0, 0, 0.0)',
+                'border': '1px rgba(0, 0, 0, 0.0)',
+                'border_bottom': '1px rgba(0, 0, 0, 0.0)',
                 'border_radius': '1px',
                 'padding': '1px',
                 'margin': '0px'}
