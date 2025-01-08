@@ -19,12 +19,10 @@ class ToolButton(Widget):
 
         # Obj
         self.style_id = 'ToolButton'
-        self.__focus = True
         self.__icon = self.insert(Image(self.__icon))
 
         # Signals
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
-        self.signal(Event.ENABLED).connect(self.__on_enabled_change)
         self.signal(Event.MOUSE_PRESS).connect(self.__on_mouse_button_press)
 
         # Flags
@@ -63,30 +61,11 @@ class ToolButton(Widget):
                 self.style_class = None
                 self.state = None
 
-    def __on_enabled_change(self) -> None:
-        if self.enabled:
-            self.__on_main_parent_focus_in()
-        else:
-            self.__on_main_parent_focus_out()
-
-        self.__icon.enabled = self.enabled
-
     def __on_main_added(self) -> None:
-        self._main_parent.signal(Event.FOCUS_IN).connect(
-            self.__on_main_parent_focus_in)
-        self._main_parent.signal(Event.FOCUS_OUT).connect(
-            self.__on_main_parent_focus_out)
-
         self.__icon._main_parent = self._main_parent
 
-    def __on_main_parent_focus_in(self) -> None:
-        self.__focus = True
-
-    def __on_main_parent_focus_out(self) -> None:
-        self.__focus = False
-
     def __on_mouse_button_press(self) -> None:
-        if self.enabled and self.__focus:
+        if self.enabled:
             if self.__selectable:
                 if self.__selected:
                     self.__selected = False

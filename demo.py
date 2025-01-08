@@ -31,6 +31,7 @@ class MyApp(MainFrame):
         self.button_t = self.insert(ToolButton('document-open'))
         self.button_t.selectable = True
         self.button = self.insert(Button('Button text', 'document-open'))
+        self.button.selectable = True
         self.button.signal(Event.MOUSE_PRESS).connect(
             lambda: print(self.button.text))
 
