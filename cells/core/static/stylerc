@@ -134,7 +134,7 @@ border_radius=0px
 padding=0px
 margin=0px
 
-[CheckSelected]
+[CheckButton.selected]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)
@@ -144,7 +144,7 @@ svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
 svg_color=rgba(200, 200, 200, 1.0)
 svg_border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
 
-[CheckSelected:hover]
+[CheckButton.selected:hover]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)
@@ -152,7 +152,7 @@ svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
 svg_color=rgba(200, 200, 200, 1.0)
 svg_border=0px rgba(accent_red, accent_green, accent_blue, 1.0)
 
-[CheckSelected:inactive]
+[CheckButton.selected:inactive]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)
@@ -160,7 +160,7 @@ svg_background=rgba(0, 0, 0, 0.0)
 svg_color=rgba(200, 200, 200, 0.4)
 svg_border=0px rgba(45, 45, 45, 0.6)
 
-[CheckSelected:pressed]
+[CheckButton.selected:pressed]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)
@@ -330,7 +330,7 @@ border_radius=0px
 padding=0px
 margin=0px
 
-[RadioSelected]
+[RadioButton.selected]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)
@@ -340,7 +340,7 @@ svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
 svg_color=rgba(200, 200, 200, 1.0)
 svg_border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
 
-[RadioSelected:hover]
+[RadioButton.selected:hover]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)
@@ -348,7 +348,7 @@ svg_background=rgba(accent_red, accent_green, accent_blue, 0.2)
 svg_color=rgba(200, 200, 200, 1.0)
 svg_border=0px rgba(accent_red, accent_green, accent_blue, 1.0)
 
-[RadioSelected:inactive]
+[RadioButton.selected:inactive]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)
@@ -356,7 +356,7 @@ svg_background=rgba(0, 0, 0, 0.0)
 svg_color=rgba(200, 200, 200, 0.4)
 svg_border=0px rgba(45, 45, 45, 0.6)
 
-[RadioSelected:pressed]
+[RadioButton.selected:pressed]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(0, 0, 0, 0.0)
 border=0px rgba(0, 0, 0, 0.0)

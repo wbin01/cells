@@ -78,7 +78,7 @@ class CheckButton(Widget):
         self.__selected = value
 
         if self.__selected:
-            self.__icon.style_class = 'CheckSelected'
+            self.__icon.style_class = 'CheckButton.selected'
         else:
             self.__icon.style_class = None
 
@@ -140,7 +140,7 @@ class CheckButton(Widget):
 
             self.__selected = False if self.__selected else True
             if self.__selected:
-                self.__icon.style_class = 'CheckSelected'
+                self.__icon.style_class = 'CheckButton.selected'
             else:
                 self.__icon.style_class = None
 
