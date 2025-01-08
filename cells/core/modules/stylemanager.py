@@ -82,16 +82,26 @@ class StyleManager(object):
         style = self.__dict_style if not style else style
         style = self.__expand_style(style)
 
+        if fullscreen:
+            for frame in [
+                '[MainFrame]', '[MainFrame-Border]', '[MainFrame-Shadow]',
+                '[Frame]', '[Frame-Border]', '[Frame-Shadow]']:
+                style[frame]['border'] = '0px rgba(0, 0, 0, 0.0)'
+                style[frame]['border_radius'] = '0px'
+
         qss = ''
         for group_key in style.keys():
             if ':inactive]' in group_key and not inactive:
                 continue  # disabled
+
+            qss += f'#{group_key.replace(':inactive', '')[1:-1]} ' + '{\n'
 
             if 'background' in style[group_key]:
                 background = style[group_key]['background'].replace(
                     'accent_red', self.__accent_red).replace(
                     'accent_green', self.__accent_green).replace(
                     'accent_blue', self.__accent_blue)
+                qss += f' background-color: {background};\n'
             if 'background_image' in style[group_key]:
                 if os.name == 'posix':
                     background_image = os.path.expanduser(
@@ -99,99 +109,80 @@ class StyleManager(object):
                 else:
                     background_image = os.path.expandvars(
                         style[group_key]['background_image'])
+                qss += f' background: url({background_image});'  # no-repeat
             if 'border' in style[group_key]:
                 border = style[group_key]['border'].replace(
                     'accent_red', self.__accent_red).replace(
                     'accent_green', self.__accent_green).replace(
                     'accent_blue', self.__accent_blue)
                 border = style_parser.border_str_to_list(border)
-            if 'border_top' in style[group_key]:
-                border_top = style[group_key]['border_top'].replace(
-                    'accent_red', self.__accent_red).replace(
-                    'accent_green', self.__accent_green).replace(
-                    'accent_blue', self.__accent_blue)
-                border_top = border_top.split('px')
-            if 'border_right' in style[group_key]:
-                border_right = style[group_key]['border_right'].replace(
-                    'accent_red', self.__accent_red).replace(
-                    'accent_green', self.__accent_green).replace(
-                    'accent_blue', self.__accent_blue)
-                border_right = border_right.split('px')
-            if 'border_bottom' in style[group_key]:
-                border_bottom = style[group_key]['border_bottom'].replace(
-                    'accent_red', self.__accent_red).replace(
-                    'accent_green', self.__accent_green).replace(
-                    'accent_blue', self.__accent_blue)
-                border_bottom = border_bottom.split('px')
-            if 'border_left' in style[group_key]:
-                border_left = style[group_key]['border_left'].replace(
-                    'accent_red', self.__accent_red).replace(
-                    'accent_green', self.__accent_green).replace(
-                    'accent_blue', self.__accent_blue)
-                border_left = border_left.split('px')
-            if 'border_radius' in style[group_key]:
-                border_radius = style[group_key]['border_radius']
-                border_radius = style_parser.border_radius_str_to_list(
-                    border_radius)
-            if 'color' in style[group_key]:
-                color = style[group_key]['color'].replace(
-                    'accent_red', self.__accent_red).replace(
-                    'accent_green', self.__accent_green).replace(
-                    'accent_blue', self.__accent_blue)
-            if 'margin' in style[group_key]:
-                margin = style[group_key]['margin']
-                margin = style_parser.margin_padding_str_to_list(margin)
-            if 'padding' in style[group_key]:
-                padding = style[group_key]['padding']
-                padding = style_parser.margin_padding_str_to_list(padding)
-
-            if fullscreen and group_key.startswith('[MainFrame'):
-                border = ['0', '0', '0', '0', 'rgba(0, 0, 0, 0.00)']
-                border_radius = ['0', '0', '0', '0']
-
-            qss += f'#{group_key.replace(':inactive', '')[1:-1]} ' + '{\n'
-            
-            if 'background' in style[group_key]:
-                qss += f' background-color: {background};\n'
-            if 'background_image' in style[group_key]:
-                qss += f' background: url({background_image});'  # no-repeat
-            if 'border' in style[group_key]:
                 qss += (
                     f' border-top: {border[0]}px solid {border[4]};\n'
                     f' border-right: {border[1]}px solid {border[4]};\n'
                     f' border-bottom: {border[2]}px solid {border[4]};\n'
                     f' border-left: {border[3]}px solid {border[4]};\n')
             if 'border_top' in style[group_key]:
+                border_top = style[group_key]['border_top'].replace(
+                    'accent_red', self.__accent_red).replace(
+                    'accent_green', self.__accent_green).replace(
+                    'accent_blue', self.__accent_blue)
+                border_top = border_top.split('px')
                 qss += (
                     f' border-top: {border_top[0].strip()}px'
                     f' solid {border_top[1].strip()};\n')
             if 'border_right' in style[group_key]:
+                border_right = style[group_key]['border_right'].replace(
+                    'accent_red', self.__accent_red).replace(
+                    'accent_green', self.__accent_green).replace(
+                    'accent_blue', self.__accent_blue)
+                border_right = border_right.split('px')
                 qss += (
                     f' border-right: {border_right[0].strip()}px'
                     f' solid {border_right[1].strip()};\n')
             if 'border_bottom' in style[group_key]:
+                border_bottom = style[group_key]['border_bottom'].replace(
+                    'accent_red', self.__accent_red).replace(
+                    'accent_green', self.__accent_green).replace(
+                    'accent_blue', self.__accent_blue)
+                border_bottom = border_bottom.split('px')
                 qss += (
                     f' border-bottom: {border_bottom[0].strip()}px'
                     f' solid {border_bottom[1].strip()};\n')
             if 'border_left' in style[group_key]:
+                border_left = style[group_key]['border_left'].replace(
+                    'accent_red', self.__accent_red).replace(
+                    'accent_green', self.__accent_green).replace(
+                    'accent_blue', self.__accent_blue)
+                border_left = border_left.split('px')
                 qss += (
                     f' border-left: {border_left[0].strip()}px'
                     f' solid {border_left[1].strip()};\n')
             if 'border_radius' in style[group_key]:
+                border_radius = style[group_key]['border_radius']
+                border_radius = style_parser.border_radius_str_to_list(
+                    border_radius)
                 qss += (
                     f' border-top-left-radius: {border_radius[0]}px;\n'
                     f' border-top-right-radius: {border_radius[1]}px;\n'
                     f' border-bottom-left-radius: {border_radius[3]}px;\n'
                     f' border-bottom-right-radius: {border_radius[2]}px;\n')
             if 'color' in style[group_key]:
+                color = style[group_key]['color'].replace(
+                    'accent_red', self.__accent_red).replace(
+                    'accent_green', self.__accent_green).replace(
+                    'accent_blue', self.__accent_blue)
                 qss += f' color: {color};\n'
-            if 'margin' in style[group_key] or 'Frame' in group_key:
+            if 'margin' in style[group_key]:
+                margin = style[group_key]['margin']
+                margin = style_parser.margin_padding_str_to_list(margin)
                 qss += (
                     f' margin-top: {margin[0]}px;\n'
                     f' margin-right: {margin[1]}px;\n'
                     f' margin-bottom: {margin[2]}px;\n'
                     f' margin-left: {margin[3]}px;\n')
             if 'padding' in style[group_key]:
+                padding = style[group_key]['padding']
+                padding = style_parser.margin_padding_str_to_list(padding)
                 qss += (
                     f' padding-top: {padding[0]}px;\n'
                     f' padding-right: {padding[1]}px;\n'

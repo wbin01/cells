@@ -126,8 +126,6 @@ class Widget(Widget):
             Event.STYLE_CLASS: Signal(),
             Event.STYLE_ID: Signal()}
 
-        self.__signal_blocker = QtCore.QSignalBlocker(self._obj)
-
         # Flags
         self.__is_enabled = True
         self.__is_inactive = False
@@ -136,7 +134,6 @@ class Widget(Widget):
         # Style
         self.__state = None
         self.__style_manager = StyleManager()
-        # self.__stylesheet = self.__style_manager.stylesheet
         self.__accent = self.__style_manager.accent
         self.__style = {}
         self.__normal_style = None
