@@ -22,7 +22,6 @@ class StyleManager(object):
         self.__dict_style = None
         self.__qss_style = None
         self.__style_file = None
-        # self.stylesheet = None
 
     @property
     def accent(self) -> tuple:

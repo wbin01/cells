@@ -59,7 +59,10 @@ class Image(Widget):
 
         if isinstance(self.__path, Icon):
             pixmap = QtGui.QPixmap(
-                self.__path._obj.pixmap(self.__path.width, self.__path.height, mode=QtGui.QIcon.Disabled))
+                self.__path._obj.pixmap(
+                    self.__path.width,
+                    self.__path.height,
+                    mode=QtGui.QIcon.Disabled))
         else:
             pixmap = QtGui.QPixmap(self.__path, mode=QtGui.QIcon.Disabled)
 

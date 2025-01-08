@@ -129,7 +129,7 @@ class Widget(Widget):
         # Flags
         self.__is_enabled = True
         self.__is_inactive = False
-        self.__visible = False  # Hack: Fix aways is False | Box active this
+        self.__visible = False
 
         # Style
         self.__state = None
@@ -507,8 +507,10 @@ class Widget(Widget):
     def _main_parent(self, parent) -> None:
         if parent:
             self.__main_parent = parent
-            self.__main_parent.signal(Event.FOCUS_IN).connect(self.__focus_in)
-            self.__main_parent.signal(Event.FOCUS_OUT).connect(self.__focus_out)
+            self.__main_parent.signal(Event.FOCUS_IN).connect(
+                self.__on_focus_in)
+            self.__main_parent.signal(Event.FOCUS_OUT).connect(
+                self.__on_focus_out)
 
             for item in self.__box.items():
                 if not item._main_parent:
@@ -602,19 +604,19 @@ class Widget(Widget):
         if event in self.__signals:
             return self.__signals[event]
 
-    def __focus_in(self) -> None:
+    def __on_focus_in(self) -> None:
         self.__is_inactive = False
         if self.__is_enabled:
             self._obj.set_style_sheet(self.__normal_style)
 
-    def __focus_out(self) -> None:
+    def __on_focus_out(self) -> None:
         self.__is_inactive = True
         if self.__is_enabled:
             self._obj.set_style_sheet(self.__inactive_style)
 
     def __on_hover(self) -> None:
         if not self.__is_inactive and self.__is_enabled:
-                self._obj.set_style_sheet(self.__hover_style)
+            self._obj.set_style_sheet(self.__hover_style)
 
     def __on_leave(self) -> None:
         # self._obj.set_style_sheet('')
@@ -625,6 +627,10 @@ class Widget(Widget):
     def __on_press(self) -> None:
         if self.__is_enabled:
             self.__widget.set_style_sheet(self.__pressed_style)
+
+    def __on_release(self) -> None:
+        if not self.__is_inactive and self.__is_enabled:
+            self._obj.set_style_sheet(self.__hover_style)
 
     def __qss_piece(
             self,
@@ -638,10 +644,6 @@ class Widget(Widget):
             },
             inactive=inactive).split('{')[1].replace('}', '').strip()
 
-    def __on_release(self) -> None:
-        if not self.__is_inactive and self.__is_enabled:
-            self._obj.set_style_sheet(self.__hover_style)
-
     def __style_state(self) -> None:
         if not self.__style and self.__main_parent:
             self.__style = self.__main_parent.style
@@ -651,24 +653,14 @@ class Widget(Widget):
                 'background': 'rgba(0, 0, 0, 0.0)',
                 'color': 'rgba(0, 0, 0, 0.0)',
                 'border': '1px rgba(0, 0, 0, 0.0)',
-                'border_bottom': '1px rgba(0, 0, 0, 0.0)',
-                'border_radius': '1px',
-                'padding': '1px',
+                'border_bottom': '0px rgba(0, 0, 0, 0.0)',
+                'border_radius': '0px',
+                'padding': '0px',
                 'margin': '0px'}
             self.__style[f'[{self.__style_id}]'] = base
             self.__style[f'[{self.__style_id}:hover]'] = base
             self.__style[f'[{self.__style_id}:pressed]'] = base
             self.__style[f'[{self.__style_id}:inactive]'] = base
-
-        # if not self.__style:
-        #     self.__style[f'[{self.__style_id}]'] = self.__stylesheet[
-        #         f'[{self.__style_id}]']
-        #     self.__style[f'[{self.__style_id}:hover]'] = self.__stylesheet[
-        #         f'[{self.__style_id}:hover]']
-        #     self.__style[f'[{self.__style_id}:pressed]'] = self.__stylesheet[
-        #         f'[{self.__style_id}:pressed]']
-        #     self.__style[f'[{self.__style_id}:inactive]'] = self.__stylesheet[
-        #         f'[{self.__style_id}:inactive]']
 
         self.__normal_style = self.__qss_piece(self.__style)
         self.__hover_style = self.__qss_piece(self.__style, ':hover')

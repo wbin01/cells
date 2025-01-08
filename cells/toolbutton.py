@@ -74,22 +74,13 @@ class Button(Widget):
             self.__on_mouse_button_release)
 
         # Flags
-        self.__selectable = False
+        self.__selectable = True
         self.__selected = False
 
         # Style
         self.spacing = 2
         self.align = Align.CENTER
         self.min_height = 32
-
-    @property
-    def selectable(self) -> bool:
-        """..."""
-        return self.__selectable
-
-    @selectable.setter
-    def selectable(self, value: bool) -> None:
-        self.__selectable = value
 
     @property
     def selected(self) -> bool:
@@ -189,6 +180,34 @@ class Button(Widget):
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}:hover]']['color']
             self.__label.style = self.__label.style
+
+    # def __on_style_class(self):
+    #     if self.style_class == 'ToolButton':
+    #         self.__label.visible = False
+
+    #         self.__saved_label_margin = self.__label.margin
+    #         self.__saved_icon_margin = self.__icon.margin
+    #         self.__saved_height = self.height
+    #         self.__saved_width = self.width
+
+    #         self.__label.margin = 0, 0, 0, 0
+    #         self.__icon.margin = 0, 0, 0, 0
+    #         self.height = self.min_height
+    #         self.width = self.min_height
+
+    #         self.__last_style_class = 'ToolButton'
+
+    #     elif not self.style_class:
+    #         self.__label.visible = True
+
+    #         if self.__icon and self.__saved_icon_margin:
+    #             self.__icon.margin = self.__saved_icon_margin
+
+    #         self.__label.margin = self.__saved_label_margin
+    #         self.height = self.__saved_height
+    #         self.width = self.__saved_width
+
+    #         self.__last_style_class = None
 
     def __str__(self) -> str:
         return f'<Button: {id(self)}>'
