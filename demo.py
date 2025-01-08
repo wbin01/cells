@@ -8,7 +8,7 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, MoveFrame, Box, Orientation, Align,
-    Widget, Button, Label, Image, Icon, RadioButton, CheckButton)
+    Widget, Button, ToolButton, Label, Image, Icon, RadioButton, CheckButton)
 
 
 class MyApp(MainFrame):
@@ -28,7 +28,7 @@ class MyApp(MainFrame):
         self.check_1 = self.insert(CheckButton('Check 1'))
         self.check_2 = self.insert(CheckButton('Check 2'))
         
-        self.button_t = self.insert(Button('Button text', 'document-open'))
+        self.button_t = self.insert(ToolButton('document-open'))
         self.button_t.selectable = True
         self.button = self.insert(Button('Button text', 'document-open'))
         self.button.signal(Event.MOUSE_PRESS).connect(

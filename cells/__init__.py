@@ -17,4 +17,5 @@ from .orientation import Orientation
 from .radiobutton import RadioButton
 from .signal import Signal
 from .svgicon import SvgIcon
+from .toolbutton import ToolButton
 from .widget import Widget
