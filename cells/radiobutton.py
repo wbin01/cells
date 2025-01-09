@@ -70,7 +70,10 @@ class RadioButton(Widget):
 
     @property
     def selected(self) -> bool:
-        """..."""
+        """If Widget is selected.
+
+        Use True or False to select or deselect the widget.
+        """
         return self.__selected
 
     @selected.setter
@@ -78,7 +81,7 @@ class RadioButton(Widget):
         self.__selected = value
 
         if self.__selected:
-            self.__icon.style_class = 'RadioButton.selected'
+            self.__icon.style_class = 'Radio.selected'
         else:
             self.__icon.style_class = None
 
@@ -140,7 +143,7 @@ class RadioButton(Widget):
 
             self.__selected = False if self.__selected else True
             if self.__selected:
-                self.__icon.style_class = 'RadioButton.selected'
+                self.__icon.style_class = 'Radio.selected'
             else:
                 self.__icon.style_class = None
 

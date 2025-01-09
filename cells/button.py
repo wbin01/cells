@@ -17,7 +17,23 @@ class Button(Widget):
             icon: str = None,
             orientation: Orientation = Orientation.HORIZONTAL,
             *args, **kwargs) -> None:
-        """Class constructor."""
+        """Class constructor.
+
+        The icon is rendered from the path of a passed file, or from the name 
+        of an icon in the current operating system, such as "folder-download". 
+        To find out all the system icon names, see the "freedesktop.org" 
+        specification:
+            https://specifications.freedesktop.org/icon-naming-spec/latest/
+
+        Although the Freedesk specification is for Linux, we are making it 
+        compatible with Windows (Aesthetically compatible alternative icons). 
+        If an icon is not found, it will not give an error, but it will also 
+        not render any image, so to ensure an image is rendered use a file 
+        path as a fallback (fallback_path).
+
+        :param text: Button text string.
+        :param icon: Icon path or icon name from system, like "folder-download".
+        """
         super().__init__(orientation=orientation, *args, **kwargs)
         # Param
         self.__text = text if text else ''
@@ -84,7 +100,10 @@ class Button(Widget):
 
     @property
     def selectable(self) -> bool:
-        """..."""
+        """If it is selectable.
+
+        Whether the widget is selectable as a toggle button.
+        """
         return self.__selectable
 
     @selectable.setter
@@ -93,7 +112,11 @@ class Button(Widget):
 
     @property
     def selected(self) -> bool:
-        """..."""
+        """If Widget is selected.
+
+        Only works if the 'selectable' property is True.
+        Use True or False to select or deselect the widget.
+        """
         return self.__selected
 
     @selected.setter

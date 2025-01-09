@@ -21,6 +21,8 @@ class SvgIcon(Widget):
         self.__pressed_style = None
         self.__inactive_style = None
 
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.STYLE).connect(self.__on_style)
         self.signal(Event.STYLE_ID).connect(self.__on_style_id)
         self.signal(Event.STYLE_CLASS).connect(self.__on_style_id)
 
@@ -30,24 +32,24 @@ class SvgIcon(Widget):
 
         self.__normal_style = {
             'background':
-                self.style[f'[{self.style_id}]']['svg_background'],
-            'color': self.style[f'[{self.style_id}]']['svg_color'],
-            'border': self.style[f'[{self.style_id}]']['svg_border']}
+                self.style[f'[{self.style_id}]']['background'],
+            'color': self.style[f'[{self.style_id}]']['color'],
+            'border': self.style[f'[{self.style_id}]']['border']}
         self.__hover_style = {
             'background':
-                self.style[f'[{self.style_id}:hover]']['svg_background'],
-            'color': self.style[f'[{self.style_id}:hover]']['svg_color'],
-            'border': self.style[f'[{self.style_id}:hover]']['svg_border']}
+                self.style[f'[{self.style_id}:hover]']['background'],
+            'color': self.style[f'[{self.style_id}:hover]']['color'],
+            'border': self.style[f'[{self.style_id}:hover]']['border']}
         self.__pressed_style = {
             'background':
-                self.style[f'[{self.style_id}:pressed]']['svg_background'],
-            'color': self.style[f'[{self.style_id}:pressed]']['svg_color'],
-            'border': self.style[f'[{self.style_id}:pressed]']['svg_border']}
+                self.style[f'[{self.style_id}:pressed]']['background'],
+            'color': self.style[f'[{self.style_id}:pressed]']['color'],
+            'border': self.style[f'[{self.style_id}:pressed]']['border']}
         self.__inactive_style = {
             'background':
-                self.style[f'[{self.style_id}:inactive]']['svg_background'],
-            'color': self.style[f'[{self.style_id}:inactive]']['svg_color'],
-            'border': self.style[f'[{self.style_id}:inactive]']['svg_border']}
+                self.style[f'[{self.style_id}:inactive]']['background'],
+            'color': self.style[f'[{self.style_id}:inactive]']['color'],
+            'border': self.style[f'[{self.style_id}:inactive]']['border']}
 
     @property
     def state(self) -> str:
@@ -122,6 +124,24 @@ class SvgIcon(Widget):
                 a = 1.0
 
         return [r, g, b, a]
+
+    def __on_main_added(self) -> None:
+        self._main_parent.signal(Event.FOCUS_IN).connect(self.__on_style)
+        self._main_parent.signal(Event.FOCUS_OUT).connect(self.__on_style)
+
+    def __on_style(self):
+        if not self._main_parent:
+            return
+        qss = ''
+        for state in ['', ':hover', ':pressed', ':inactive']:
+            qss += (
+                f'#{self.style_id}{state} ' '{\n'
+                ' background: rgba(0, 0, 0, 0.0);\n'
+                ' margin: 0px;\n'
+                ' padding: 0px;\n'
+                ' color: rgba(0, 0, 0, 0.0);\n'
+                ' border: 1px rgba(0, 0, 0, 0.0);\n}\n')
+        self._obj.set_style_sheet(qss)
 
     @staticmethod
     def __replace_color(id_color, color, alpha, content) -> str:
