@@ -6,13 +6,14 @@ from .event import Event
 from .widget import Widget
 
 
-class SvgIcon(Widget):
+class SvgWidget(Widget):
     """Svg Widget."""
     def __init__(self, path: str = None, *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(*args, **kwargs)
         self.__path = path
         self._obj = QtSvgWidgets.QSvgWidget()
+        self.style_id = 'SvgWidget'
         self.height, self.width = 16, 16
         self.__state = None
 
@@ -178,3 +179,6 @@ class SvgIcon(Widget):
         break_mark = '-///*Bilbo_Baggins*///-'
         new_content = f'>{break_mark}'.join(new_scopes).replace('\n', '')
         return new_content.replace(break_mark, '\n')
+
+    def __str__(self) -> str:
+        return f'<SvgWidget: {id(self)}>'

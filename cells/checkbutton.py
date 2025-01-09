@@ -5,7 +5,7 @@ import pathlib
 from .event import Event
 from .label import Label
 from .orientation import Orientation
-from .svgicon import SvgIcon
+from .svgwidget import SvgWidget
 from .widget import Widget
 
 
@@ -26,7 +26,7 @@ class CheckButton(Widget):
         self.__tool = True
         self.__selected = False
 
-        self.__icon = SvgIcon(
+        self.__icon = SvgWidget(
             os.path.join(pathlib.Path(__file__).resolve().parent,
                 'core', 'static', 'check.svg'))
         
