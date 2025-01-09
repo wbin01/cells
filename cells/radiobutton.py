@@ -14,17 +14,23 @@ class RadioButton(Widget):
     def __init__(
             self,
             text: str = None,
+            selected: bool = False,
+            value: any = None,
             orientation: Orientation = Orientation.HORIZONTAL,
             *args, **kwargs) -> None:
         """Class constructor."""
         super().__init__(orientation=orientation, *args, **kwargs)
+        # Param
         self.__text = text if text else ''
-        self.style_id = 'RadioButton'
+        self.__selected = selected
+        self.__value = value
 
+        # Flags
         self.__focus = True
         self.__icon_on_right = False
-        self.__tool = True
-        self.__selected = False
+
+        # Obj
+        self.style_id = 'RadioButton'
 
         self.__icon = SvgWidget(
             os.path.join(pathlib.Path(__file__).resolve().parent,
@@ -42,6 +48,7 @@ class RadioButton(Widget):
         
         self.__icon.style_id = 'Radio'
 
+        # Signals
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
         self.signal(Event.STATE).connect(self.__on_state_change)
