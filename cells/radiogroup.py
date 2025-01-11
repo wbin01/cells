@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from .event import Event
+from .radiobutton import RadioButton
 from .widget import Widget
 
 
@@ -12,29 +13,27 @@ class RadioGroup(Widget):
             List with all radio buttons configured to display.
         """
         super().__init__(*args, **kwargs)
-        # Param
         self.__radio_buttons = radio_buttons
 
+        self.style_id = 'RadioGroup'
+
         self.__value = None
-        self.__selected_item = None
+        self.__selected_button = None
         self.__items = []
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
 
-    def value(self) -> any:
-        """Button value.
-        
-        Pass a new value to update.
-        """
-        return self.__value
+    def selected_button(self) -> RadioButton:
+        """Selected RadioButton."""
+        return self.__selected_button
 
-    def __on_main_added(self) -> None:        
+    def __add_buttons(self) -> None:
         for radio_button in self.__radio_buttons:
             radio_button._main_parent = self._main_parent
 
             if not self.__value:
                 if radio_button.selected:
                     self.__value = radio_button.value
-                    self.__selected_item = radio_button
+                    self.__selected_button = radio_button
             else:
                 radio_button.selected = False
 
@@ -45,10 +44,14 @@ class RadioGroup(Widget):
             item.signal(Event.MOUSE_PRESS).connect(self.__on_value)
             self.__items.append(item)
 
+    def __on_main_added(self) -> None:        
+        self.__add_buttons()
+
     def __on_value(self) -> None:
         for item in self.__items:
             if item.selected and item.value != self.__value:
                 self.__value = item.value
+                self.__selected_button = item
                 break
 
         for item in self.__items:

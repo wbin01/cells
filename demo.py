@@ -23,11 +23,15 @@ class MyApp(MainFrame):
         self.spacing = 5
         self.move_frame = self.insert(MoveFrame())
 
-        # self.radio_1 = self.insert(RadioButton('Radio 1'))
-        # self.radio_2 = self.insert(RadioButton('Radio 2', True))
+        self.lbl_radio = self.insert(Label('Radio'))
+        self.rd = RadioButton('Radio 0', 'radio0')
+        self.rd.signal(Event.MOUSE_RELEASE).connect(self.on_radio)
         self.radio_group = self.insert(RadioGroup([
+            self.rd,
             RadioButton('Radio 1', 'radio1'),
             RadioButton('Radio 2', 'radio2', True)]))
+        self.btnx = self.insert(Button('Radio value'))
+        self.btnx.signal(Event.MOUSE_PRESS).connect(self.on_radio)
 
         self.check_1 = self.insert(CheckButton('Check 1'))
         self.check_2 = self.insert(CheckButton('Check 2', True))
@@ -72,9 +76,6 @@ class MyApp(MainFrame):
         img.style['[NewImage]']['border'] = '1px rgba(0, 0, 0, 0.00)'
         img.style = img.style
 
-        self.btnx = self.insert(Button('Radio value'))
-        self.btnx.signal(Event.MOUSE_PRESS).connect(lambda: print(self.radio_group.value()))
-
         # self.style_from_file('stylerc')
 
     def ctx(self):
@@ -82,17 +83,18 @@ class MyApp(MainFrame):
         self.ctx_menu.show()
         self.ctx_menu.move(self.cursor.x() - 5, self.cursor.y() - 5)
 
+    def on_radio(self):
+        self.lbl_radio.text = self.radio_group.selected_button().value
+
     def on_block_button(self):
         if self.button.enabled:
             self.button.enabled = False
-            # self.radio_1.selected = True
             self.check_1.selected = True
             self.check_1.style_class = 'Danger'
             self.btnx.selected = True
         else:
             self.button.enabled = True
             self.button.state = None
-            # self.radio_1.selected = False
             self.check_1.selected = False
             self.check_1.style_class = None
             self.btnx.selected = False
