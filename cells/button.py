@@ -77,17 +77,12 @@ class Button(Widget):
         self.__saved_width = self.width
 
         # Signals
-        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
-        # self.signal(Event.STYLE_CLASS).connect(self.__on_style_class)
-        self.signal(Event.MOUSE_HOVER_ENTER).connect(
-            self.__on_mouse_hover_enter)
-        self.signal(Event.MOUSE_HOVER_LEAVE).connect(
-            self.__on_mouse_hover_leave)
-        self.signal(Event.MOUSE_PRESS).connect(
-            self.__on_mouse_button_press)
-        self.signal(Event.MOUSE_RELEASE).connect(
-            self.__on_mouse_button_release)
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__on_hover_enter)
+        self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__on_hover_leave)
+        self.signal(Event.MOUSE_PRESS).connect(self.__on_press)
+        self.signal(Event.MOUSE_RELEASE).connect(self.__on_release)
 
         # Flags
         self.__selectable = False
@@ -176,19 +171,19 @@ class Button(Widget):
             f'[{self.style_id}:inactive]']['color']
         self.__label.style = self.__label.style
 
-    def __on_mouse_hover_enter(self) -> None:
+    def __on_hover_enter(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}:hover]']['color']
             self.__label.style = self.__label.style
 
-    def __on_mouse_hover_leave(self) -> None:
+    def __on_hover_leave(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}]']['color']
             self.__label.style = self.__label.style
 
-    def __on_mouse_button_press(self) -> None:
+    def __on_press(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}:pressed]']['color']
@@ -207,7 +202,7 @@ class Button(Widget):
                     self.__selected = False
                     self.style_class = None
 
-    def __on_mouse_button_release(self) -> None:
+    def __on_release(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}:hover]']['color']

@@ -49,18 +49,13 @@ class RadioButton(Widget):
         self.__icon.style_id = 'Radio'
 
         # Signals
-        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
-        self.signal(Event.STATE).connect(self.__on_state_change)
-
-        self.signal(Event.MOUSE_HOVER_ENTER).connect(
-            self.__on_mouse_hover_enter)
-        self.signal(Event.MOUSE_HOVER_LEAVE).connect(
-            self.__on_mouse_hover_leave)
-        self.signal(Event.MOUSE_PRESS).connect(
-            self.__on_mouse_button_press)
-        self.signal(Event.MOUSE_RELEASE).connect(
-            self.__on_mouse_button_release)
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__on_hover_enter)
+        self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__on_hover_leave)
+        self.signal(Event.MOUSE_PRESS).connect(self.__on_press)
+        self.signal(Event.MOUSE_RELEASE).connect(self.__on_release)
+        self.signal(Event.STATE).connect(self.__on_state)
 
     @property
     def text(self) -> str:
@@ -128,21 +123,21 @@ class RadioButton(Widget):
         self.__label.style = self.__label.style
         self.__icon.state = 'inactive'
 
-    def __on_mouse_hover_enter(self) -> None:
+    def __on_hover_enter(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}:hover]']['color']
             self.__label.style = self.__label.style
             self.__icon.state = 'hover'
 
-    def __on_mouse_hover_leave(self) -> None:
+    def __on_hover_leave(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}]']['color']
             self.__label.style = self.__label.style
             self.__icon.state = None
 
-    def __on_mouse_button_press(self) -> None:
+    def __on_press(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}:pressed]']['color']
@@ -156,14 +151,14 @@ class RadioButton(Widget):
 
             self.__icon.state = 'pressed'
 
-    def __on_mouse_button_release(self) -> None:
+    def __on_release(self) -> None:
         if self.enabled and self.__focus:
             self.__label.style['[Label]']['color'] = self.style[
                 f'[{self.style_id}:hover]']['color']
             self.__label.style = self.__label.style
             self.__icon.state = 'hover'
 
-    def __on_state_change(self) -> None:
+    def __on_state(self) -> None:
         if not self._main_parent:
             return
 
