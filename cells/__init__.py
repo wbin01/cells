@@ -15,6 +15,7 @@ from .mainframe import MainFrame
 from .moveframe import MoveFrame
 from .orientation import Orientation
 from .radiobutton import RadioButton
+from .radiogroup import RadioGroup
 from .signal import Signal
 from .svgwidget import SvgWidget
 from .toolbutton import ToolButton

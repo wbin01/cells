@@ -8,7 +8,8 @@ import pprint
 from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, MoveFrame, Box, Orientation, Align,
-    Widget, Button, ToolButton, Label, Image, Icon, RadioButton, CheckButton)
+    Widget, Button, ToolButton, Label, Image, Icon, RadioButton, RadioGroup,
+    CheckButton)
 
 
 class MyApp(MainFrame):
@@ -22,11 +23,14 @@ class MyApp(MainFrame):
         self.spacing = 5
         self.move_frame = self.insert(MoveFrame())
 
-        self.radio_1 = self.insert(RadioButton('Radio 1'))
-        self.radio_2 = self.insert(RadioButton('Radio 2'))
+        # self.radio_1 = self.insert(RadioButton('Radio 1'))
+        # self.radio_2 = self.insert(RadioButton('Radio 2', True))
+        self.radio_group = self.insert(RadioGroup([
+            RadioButton('Radio 1', 'radio1'),
+            RadioButton('Radio 2', 'radio2', True)]))
 
         self.check_1 = self.insert(CheckButton('Check 1'))
-        self.check_2 = self.insert(CheckButton('Check 2'))
+        self.check_2 = self.insert(CheckButton('Check 2', True))
         
         self.button_t = self.insert(ToolButton('document-open'))
         self.button_t.selectable = True
@@ -68,7 +72,8 @@ class MyApp(MainFrame):
         img.style['[NewImage]']['border'] = '1px rgba(0, 0, 0, 0.00)'
         img.style = img.style
 
-        self.btnx = self.insert(Button('X'))
+        self.btnx = self.insert(Button('Radio value'))
+        self.btnx.signal(Event.MOUSE_PRESS).connect(lambda: print(self.radio_group.value()))
 
         # self.style_from_file('stylerc')
 
@@ -80,14 +85,14 @@ class MyApp(MainFrame):
     def on_block_button(self):
         if self.button.enabled:
             self.button.enabled = False
-            self.radio_1.selected = True
+            # self.radio_1.selected = True
             self.check_1.selected = True
             self.check_1.style_class = 'Danger'
             self.btnx.selected = True
         else:
             self.button.enabled = True
             self.button.state = None
-            self.radio_1.selected = False
+            # self.radio_1.selected = False
             self.check_1.selected = False
             self.check_1.style_class = None
             self.btnx.selected = False

@@ -414,7 +414,5 @@ border=1px rgba(0, 0, 0, 0.0)
 color=rgba(200, 200, 200, 0.4)
 
 [Widget:hover]
-background=rgba(0, 255, 0, 0.1)
 
 [Widget:pressed]
-background=rgba(0, 0, 255, 0.1)

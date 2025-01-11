@@ -14,11 +14,16 @@ class RadioButton(Widget):
     def __init__(
             self,
             text: str = None,
-            selected: bool = False,
             value: any = None,
+            selected: bool = False,
             orientation: Orientation = Orientation.HORIZONTAL,
             *args, **kwargs) -> None:
-        """Class constructor."""
+        """Class constructor.
+        
+        :param text: RadioButton text label.
+        :param value: Value of any type to capture as an identifier.
+        :param selected: True to start already selected.
+        """
         super().__init__(orientation=orientation, *args, **kwargs)
         # Param
         self.__text = text if text else ''
@@ -89,6 +94,18 @@ class RadioButton(Widget):
 
         self.__icon.state = None
 
+    @property
+    def value(self) -> any:
+        """Button value.
+        
+        Pass a new value to update.
+        """
+        return self.__value
+
+    @value.setter
+    def value(self, value: any) -> None:
+        self.__value = value
+
     def __on_enabled_change(self) -> None:
         if self.enabled:
             self.__on_main_parent_focus_in()
@@ -107,6 +124,8 @@ class RadioButton(Widget):
         if self.__icon:
             self.__icon._main_parent = self._main_parent
             self.__icon.style_id = 'Radio'
+            if self.__selected:
+                self.__icon.style_class = 'Radio.selected'
 
     def __on_main_parent_focus_in(self) -> None:
         self.__focus = True
