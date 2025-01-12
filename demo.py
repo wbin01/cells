@@ -9,7 +9,7 @@ from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, MoveFrame, Box, Orientation, Align,
     Widget, Button, ToolButton, Label, Image, Icon, RadioButton, RadioGroup,
-    CheckButton)
+    CheckButton, CheckGroup)
 
 
 class MyApp(MainFrame):
@@ -30,11 +30,18 @@ class MyApp(MainFrame):
             self.rd,
             RadioButton('Radio 1', 'radio1'),
             RadioButton('Radio 2', 'radio2', True)]))
-        self.btnx = self.insert(Button('Radio value'))
-        self.btnx.signal(Event.MOUSE_PRESS).connect(self.on_radio)
+        self.btnr = self.insert(Button('Radio value'))
+        self.btnr.signal(Event.MOUSE_PRESS).connect(self.on_radio)
 
-        self.check_1 = self.insert(CheckButton('Check 1'))
-        self.check_2 = self.insert(CheckButton('Check 2', True))
+        self.lbl_check = self.insert(Label('Radio'))
+        self.cc = CheckButton('Check 0', 'check0')
+        self.cc.signal(Event.MOUSE_RELEASE).connect(self.on_check)
+        self.check_group = self.insert(CheckGroup([
+            self.cc,
+            CheckButton('Check 1', 'check1'),
+            CheckButton('Check 2', 'check2', True)]))
+        self.btnc = self.insert(Button('Check values'))
+        self.btnc.signal(Event.MOUSE_PRESS).connect(self.on_check)
         
         self.button_t = self.insert(ToolButton('document-open'))
         self.button_t.selectable = True
@@ -86,18 +93,16 @@ class MyApp(MainFrame):
     def on_radio(self):
         self.lbl_radio.text = self.radio_group.selected_button().value
 
+    def on_check(self):
+        self.lbl_check.text = ', '.join([
+            x.value for x in self.check_group.selected_buttons()])
+
     def on_block_button(self):
         if self.button.enabled:
             self.button.enabled = False
-            self.check_1.selected = True
-            self.check_1.style_class = 'Danger'
-            self.btnx.selected = True
         else:
             self.button.enabled = True
             self.button.state = None
-            self.check_1.selected = False
-            self.check_1.style_class = None
-            self.btnx.selected = False
 
 
 if __name__ == '__main__':

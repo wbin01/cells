@@ -23,7 +23,7 @@ class RadioGroup(Widget):
 
     @property
     def buttons(self) -> list:
-        """..."""
+        """List with all RadioButton's configured to display."""
         return self.__buttons
 
     @buttons.setter
@@ -53,7 +53,7 @@ class RadioGroup(Widget):
             item.signal(Event.MOUSE_PRESS).connect(self.__on_value)
             self.__items.append(item)
 
-    def __on_main_added(self) -> None:        
+    def __on_main_added(self) -> None:
         self.__add_buttons()
 
     def __on_value(self) -> None:
