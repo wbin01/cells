@@ -6,14 +6,13 @@ from .widget import Widget
 
 class RadioGroup(Widget):
     """Radio Buttons Group Widget."""
-    def __init__(self, radio_buttons: list, *args, **kwargs) -> None:
+    def __init__(self, buttons: list, *args, **kwargs) -> None:
         """Class constructor.
 
-        :param radio_buttons:
-            List with all radio buttons configured to display.
+        :param buttons: List with all RadioButton's configured to display.
         """
         super().__init__(*args, **kwargs)
-        self.__radio_buttons = radio_buttons
+        self.__buttons = buttons
 
         self.style_id = 'RadioGroup'
 
@@ -22,12 +21,22 @@ class RadioGroup(Widget):
         self.__items = []
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
 
+    @property
+    def buttons(self) -> list:
+        """..."""
+        return self.__buttons
+
+    @buttons.setter
+    def buttons(self, buttons: list) -> None:
+        self.__buttons = buttons
+        self.__add_buttons()
+
     def selected_button(self) -> RadioButton:
         """Selected RadioButton."""
         return self.__selected_button
 
     def __add_buttons(self) -> None:
-        for radio_button in self.__radio_buttons:
+        for radio_button in self.__buttons:
             radio_button._main_parent = self._main_parent
 
             if not self.__value:
