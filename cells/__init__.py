@@ -19,5 +19,6 @@ from .radiobutton import RadioButton
 from .radiogroup import RadioGroup
 from .signal import Signal
 from .svgwidget import SvgWidget
+from .switchbutton import SwitchButton
 from .toolbutton import ToolButton
 from .widget import Widget

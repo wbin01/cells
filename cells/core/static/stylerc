@@ -331,6 +331,78 @@ background=rgba(25, 180, 60, 0.2)
 color=rgba(200, 200, 200, 1.0)
 border=1px rgba(25, 180, 60, 0.3)
 
+[Switch]
+background=rgba(35, 35, 35, 1.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(128, 128, 128, 0.5)
+padding=0px
+margin=0px
+
+[Switch:hover]
+background=rgba(35, 35, 35, 1.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(accent_red, accent_green, accent_blue, 0.6)
+
+[Switch:inactive]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(0, 0, 0, 0.0)
+border=0px rgba(45, 45, 45, 0.6)
+
+[Switch:pressed]
+background=rgba(accent_red, accent_green, accent_blue, 0.2)
+color=rgba(200, 200, 200, 1.0)
+border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
+
+[Switch.selected]
+background=rgba(accent_red, accent_green, accent_blue, 0.2)
+color=rgba(200, 200, 200, 1.0)
+border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
+padding=0px
+margin=0px
+
+[Switch.selected:hover]
+background=rgba(accent_red, accent_green, accent_blue, 0.2)
+color=rgba(200, 200, 200, 1.0)
+border=0px rgba(accent_red, accent_green, accent_blue, 1.0)
+
+[Switch.selected:inactive]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(200, 200, 200, 0.4)
+border=0px rgba(45, 45, 45, 0.6)
+
+[Switch.selected:pressed]
+background=rgba(accent_red, accent_green, accent_blue, 0.2)
+color=rgba(200, 200, 200, 1.0)
+border=1px rgba(accent_red, accent_green, accent_blue, 1.0)
+
+[SwitchButton]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(200, 200, 200, 1.0)
+border=1px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
+
+[SwitchButton:hover]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(200, 200, 200, 1.0)
+border=1px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
+
+[SwitchButton:inactive]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(200, 200, 200, 0.4)
+border=1px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
+
+[SwitchButton:pressed]
+background=rgba(0, 0, 0, 0.0)
+color=rgba(200, 200, 200, 1.0)
+border=1px rgba(0, 0, 0, 0.0)
+padding=0px
+margin=0px
+
 [ToolButton]
 background=rgba(0, 0, 0, 0.0)
 color=rgba(200, 200, 200, 1.0)

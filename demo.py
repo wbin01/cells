@@ -9,7 +9,7 @@ from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, MoveFrame, Box, Orientation, Align,
     Widget, Button, ToolButton, Label, Image, Icon, RadioButton, RadioGroup,
-    CheckButton, CheckGroup)
+    CheckButton, CheckGroup, SwitchButton)
 
 
 class MyApp(MainFrame):
@@ -22,6 +22,8 @@ class MyApp(MainFrame):
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
         self.spacing = 5
         self.move_frame = self.insert(MoveFrame())
+
+        self.sw = self.insert(SwitchButton('Switch 0', 'switch0'))
 
         self.lbl_radio = self.insert(Label('Radio'))
         self.rd = RadioButton('Radio 0', 'radio0')

@@ -1,0 +1,7 @@
+<svg id="svg1" width="32" height="16" version="1.1" viewBox="0 0 32 16" xmlns="http://www.w3.org/2000/svg">
+<g>
+<path id="border" d="m8 16a8 8 0 0 0 5.285156-2h12.714844a6 6 0 0 0 6-6 6 6 0 0 0-6-6h-12.714844a8 8 0 0 0-5.285156-2 8 8 0 0 0-8 8 8 8 0 0 0 8 8z" fill="#2c3c55" style="paint-order:stroke fill markers"/>
+<path id="background" d="M 26,13 V 12.9902 A 4.8754649,5 0 0 0 30.75,8 4.8754649,5 0 0 0 26,3.009766 V 3 H 14.224609 A 8,8 0 0 1 16,8 8,8 0 0 1 14.224609,13 Z" fill="#a2c5e5" style="paint-order:stroke fill markers"/>
+<circle id="color" transform="scale(-1)" cx="-8" cy="-8" r="7" fill="#e5e5e5" style="paint-order:stroke fill markers"/>
+</g>
+</svg>

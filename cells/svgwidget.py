@@ -27,31 +27,6 @@ class SvgWidget(Widget):
         self.signal(Event.STYLE_ID).connect(self.__on_style_id)
         self.signal(Event.STYLE_CLASS).connect(self.__on_style_id)
 
-    def __on_style_id(self):
-        if not self._main_parent:
-            return
-
-        self.__normal_style = {
-            'background':
-                self.style[f'[{self.style_id}]']['background'],
-            'color': self.style[f'[{self.style_id}]']['color'],
-            'border': self.style[f'[{self.style_id}]']['border']}
-        self.__hover_style = {
-            'background':
-                self.style[f'[{self.style_id}:hover]']['background'],
-            'color': self.style[f'[{self.style_id}:hover]']['color'],
-            'border': self.style[f'[{self.style_id}:hover]']['border']}
-        self.__pressed_style = {
-            'background':
-                self.style[f'[{self.style_id}:pressed]']['background'],
-            'color': self.style[f'[{self.style_id}:pressed]']['color'],
-            'border': self.style[f'[{self.style_id}:pressed]']['border']}
-        self.__inactive_style = {
-            'background':
-                self.style[f'[{self.style_id}:inactive]']['background'],
-            'color': self.style[f'[{self.style_id}:inactive]']['color'],
-            'border': self.style[f'[{self.style_id}:inactive]']['border']}
-
     @property
     def state(self) -> str:
         """..."""
@@ -90,6 +65,10 @@ class SvgWidget(Widget):
         content = self.__replace_color('background', background, a, content)
 
         self._obj.load(QtCore.QByteArray(content.encode('utf-8')))
+
+    def load(self, path: str) -> None:
+        self.__path = path
+        self._obj.load(QtCore.QByteArray(self.__path.encode('utf-8')))
 
     @staticmethod
     def __border_or_color_to_rgba_list(border: str) -> list:
@@ -143,6 +122,31 @@ class SvgWidget(Widget):
                 ' color: rgba(0, 0, 0, 0.0);\n'
                 ' border: 1px rgba(0, 0, 0, 0.0);\n}\n')
         self._obj.set_style_sheet(qss)
+
+    def __on_style_id(self):
+        if not self._main_parent:
+            return
+
+        self.__normal_style = {
+            'background':
+                self.style[f'[{self.style_id}]']['background'],
+            'color': self.style[f'[{self.style_id}]']['color'],
+            'border': self.style[f'[{self.style_id}]']['border']}
+        self.__hover_style = {
+            'background':
+                self.style[f'[{self.style_id}:hover]']['background'],
+            'color': self.style[f'[{self.style_id}:hover]']['color'],
+            'border': self.style[f'[{self.style_id}:hover]']['border']}
+        self.__pressed_style = {
+            'background':
+                self.style[f'[{self.style_id}:pressed]']['background'],
+            'color': self.style[f'[{self.style_id}:pressed]']['color'],
+            'border': self.style[f'[{self.style_id}:pressed]']['border']}
+        self.__inactive_style = {
+            'background':
+                self.style[f'[{self.style_id}:inactive]']['background'],
+            'color': self.style[f'[{self.style_id}:inactive]']['color'],
+            'border': self.style[f'[{self.style_id}:inactive]']['border']}
 
     @staticmethod
     def __replace_color(id_color, color, alpha, content) -> str:

@@ -9,8 +9,8 @@ from .svgwidget import SvgWidget
 from .widget import Widget
 
 
-class CheckButton(Widget):
-    """Check Button Widget."""
+class SwitchButton(Widget):
+    """Switch Button Widget."""
     def __init__(
             self,
             text: str = None,
@@ -20,7 +20,7 @@ class CheckButton(Widget):
             *args, **kwargs) -> None:
         """Class constructor.
         
-        :param text: CheckButton text label.
+        :param text: SwitchButton text label.
         :param selected: True to start already selected.
         :param value: Value of any type to capture as an identifier.
         """
@@ -35,12 +35,19 @@ class CheckButton(Widget):
         self.__focus = True
 
         # Obj
-        self.style_id = 'CheckButton'
+        self.style_id = 'SwitchButton'
 
-        self.__icon = SvgWidget(
-            os.path.join(pathlib.Path(__file__).resolve().parent,
-                'core', 'static', 'check.svg'))
+        self.__switch = os.path.join(
+            pathlib.Path(__file__).resolve().parent,
+            'core', 'static', 'switch.svg')
+
+        self.__switch_selected = os.path.join(
+            pathlib.Path(__file__).resolve().parent,
+            'core', 'static', 'switchselected.svg')
         
+        self.__icon = SvgWidget(self.__switch)
+        self.__icon.width = 32
+
         if not self.__icon_on_right:
             self.insert(self.__icon)
         
@@ -51,7 +58,7 @@ class CheckButton(Widget):
         if self.__icon_on_right:
             self.insert(self.__icon)
         
-        self.__icon.style_id = 'Check'
+        self.__icon.style_id = 'Switch'
 
         # Signals
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
@@ -88,7 +95,7 @@ class CheckButton(Widget):
         self.__selected = value
 
         if self.__selected:
-            self.__icon.style_class = 'Check.selected'
+            self.__icon.style_class = 'Switch.selected'
         else:
             self.__icon.style_class = None
 
@@ -123,9 +130,9 @@ class CheckButton(Widget):
         
         if self.__icon:
             self.__icon._main_parent = self._main_parent
-            self.__icon.style_id = 'Check'
+            self.__icon.style_id = 'Switch'
             if self.__selected:
-                self.__icon.style_class = 'Check.selected'
+                self.__icon.style_class = 'Switch.selected'
 
     def __on_main_parent_focus_in(self) -> None:
         self.__focus = True
@@ -164,8 +171,10 @@ class CheckButton(Widget):
 
             self.__selected = False if self.__selected else True
             if self.__selected:
-                self.__icon.style_class = 'Check.selected'
+                self.__icon.load(self.__switch_selected)
+                self.__icon.style_class = 'Switch.selected'
             else:
+                self.__icon.load(self.__switch)
                 self.__icon.style_class = None
 
             self.__icon.state = 'pressed'
@@ -191,4 +200,4 @@ class CheckButton(Widget):
             self.__icon.state = 'inactive'
 
     def __str__(self) -> str:
-        return f'<CheckButton: {id(self)}>'
+        return f'<SwitchButton: {id(self)}>'
