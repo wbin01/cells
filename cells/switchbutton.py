@@ -95,8 +95,10 @@ class SwitchButton(Widget):
         self.__selected = value
 
         if self.__selected:
+            self.__icon.load(self.__switch_selected)
             self.__icon.style_class = 'Switch.selected'
         else:
+            self.__icon.load(self.__switch)
             self.__icon.style_class = None
 
         self.__icon.state = None
@@ -132,6 +134,7 @@ class SwitchButton(Widget):
             self.__icon._main_parent = self._main_parent
             self.__icon.style_id = 'Switch'
             if self.__selected:
+                self.__icon.load(self.__switch_selected)
                 self.__icon.style_class = 'Switch.selected'
 
     def __on_main_parent_focus_in(self) -> None:

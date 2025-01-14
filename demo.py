@@ -9,7 +9,7 @@ from cells import (
     Application, Cursor, Flag, Signal, Event,
     MainFrame, Frame, MoveFrame, Box, Orientation, Align,
     Widget, Button, ToolButton, Label, Image, Icon, RadioButton, RadioGroup,
-    CheckButton, CheckGroup, SwitchButton)
+    CheckButton, CheckGroup, SwitchButton, SwitchGroup)
 
 
 class MyApp(MainFrame):
@@ -23,7 +23,15 @@ class MyApp(MainFrame):
         self.spacing = 5
         self.move_frame = self.insert(MoveFrame())
 
-        self.sw = self.insert(SwitchButton('Switch 0', 'switch0'))
+        self.lbl_sw = self.insert(Label('Switch'))
+        self.sw = SwitchButton('Switch 0', 'switch0')
+        self.sw.signal(Event.MOUSE_RELEASE).connect(self.on_switch)
+        self.switch_group = self.insert(SwitchGroup([
+            self.sw,
+            SwitchButton('Switch 1', 'switch1'),
+            SwitchButton('Switch 2', 'switch2', True)]))
+        self.btns = self.insert(Button('Switch values'))
+        self.btns.signal(Event.MOUSE_PRESS).connect(self.on_switch)
 
         self.lbl_radio = self.insert(Label('Radio'))
         self.rd = RadioButton('Radio 0', 'radio0')
@@ -98,6 +106,10 @@ class MyApp(MainFrame):
     def on_check(self):
         self.lbl_check.text = ', '.join([
             x.value for x in self.check_group.selected_buttons()])
+
+    def on_switch(self):
+        self.lbl_sw.text = ', '.join([
+            x.value for x in self.switch_group.selected_buttons()])
 
     def on_block_button(self):
         if self.button.enabled:
