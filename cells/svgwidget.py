@@ -22,7 +22,7 @@ class SvgWidget(Widget):
         self.__pressed_style = None
         self.__inactive_style = None
 
-        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
         self.signal(Event.STYLE).connect(self.__on_style)
         self.signal(Event.STYLE_ID).connect(self.__on_style_id)
         self.signal(Event.STYLE_CLASS).connect(self.__on_style_id)
@@ -105,7 +105,7 @@ class SvgWidget(Widget):
 
         return [r, g, b, a]
 
-    def __on_main_added(self) -> None:
+    def __on_main_parent(self) -> None:
         self._main_parent.signal(Event.FOCUS_IN).connect(self.__on_style)
         self._main_parent.signal(Event.FOCUS_OUT).connect(self.__on_style)
 

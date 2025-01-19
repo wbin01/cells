@@ -82,7 +82,7 @@ class Image(Widget):
         self.__effect.set_opacity(1.0)
         self._obj.set_graphics_effect(self.__effect)
 
-        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
 
     @property
@@ -105,7 +105,7 @@ class Image(Widget):
         else:
             self.__on_main_parent_focus_out()
 
-    def __on_main_added(self) -> None:
+    def __on_main_parent(self) -> None:
         self._main_parent.signal(Event.FOCUS_IN).connect(
             self.__on_main_parent_focus_in)
         self._main_parent.signal(Event.FOCUS_OUT).connect(

@@ -17,7 +17,7 @@ class CheckGroup(Widget):
 
         self.__selected_buttons = []
         self.__items = []
-        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
 
     @property
     def buttons(self) -> list:
@@ -46,7 +46,7 @@ class CheckGroup(Widget):
             item.signal(Event.MOUSE_PRESS).connect(self.__on_value)
             self.__items.append(item)
 
-    def __on_main_added(self) -> None:
+    def __on_main_parent(self) -> None:
         self.__add_buttons()
 
     def __on_value(self) -> None:

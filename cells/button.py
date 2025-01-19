@@ -78,7 +78,7 @@ class Button(Widget):
 
         # Signals
         self.signal(Event.ENABLED).connect(self.__on_enabled_change)
-        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
         self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__on_hover_enter)
         self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__on_hover_leave)
         self.signal(Event.MOUSE_PRESS).connect(self.__on_press)
@@ -148,7 +148,7 @@ class Button(Widget):
         if self.__icon:
             self.__icon.enabled = self.enabled
 
-    def __on_main_added(self) -> None:
+    def __on_main_parent(self) -> None:
         self._main_parent.signal(Event.FOCUS_IN).connect(
             self.__on_main_parent_focus_in)
         self._main_parent.signal(Event.FOCUS_OUT).connect(

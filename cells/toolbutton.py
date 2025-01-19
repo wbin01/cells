@@ -22,7 +22,7 @@ class ToolButton(Widget):
         self.__icon = self.insert(Image(self.__icon))
 
         # Signals
-        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
         self.signal(Event.MOUSE_PRESS).connect(self.__on_mouse_button_press)
 
         # Flags
@@ -61,7 +61,7 @@ class ToolButton(Widget):
                 self.style_class = None
                 self.state = None
 
-    def __on_main_added(self) -> None:
+    def __on_main_parent(self) -> None:
         self.__icon._main_parent = self._main_parent
 
     def __on_mouse_button_press(self) -> None:

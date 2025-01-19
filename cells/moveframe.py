@@ -14,7 +14,7 @@ class MoveFrame(Widget):
         super().__init__(*args, **kwargs)
         self.style_id = 'MoveFrame'
         self.min_height = 20
-        self.signal(Event.MAIN_PARENT).connect(self.__on_main_added)
+        self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
 
     def __on_double_click(self) -> None:
         if self._main_parent.maximized or self._main_parent.fullscreen:
@@ -22,7 +22,7 @@ class MoveFrame(Widget):
         else:
             self._main_parent.maximized = True
 
-    def __on_main_added(self):
+    def __on_main_parent(self):
         self.signal(Event.MOUSE_PRESS).connect(self.__on_press)
         self.signal(Event.MOUSE_DOUBLE_PRESS).connect(self.__on_double_click)
 
