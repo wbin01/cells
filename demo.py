@@ -21,50 +21,50 @@ class MyApp(MainFrame):
         # self.signal(Event.FOCUS_IN).connect(lambda: print('FOCUS_IN'))
         # self.signal(Event.FOCUS_OUT).connect(lambda: print('FOCUS_OUT'))
         self.spacing = 5
-        self.move_frame = self.insert(MoveFrame())
+        self.move_frame = self.add(MoveFrame())
 
-        self.lbl_sw = self.insert(Label('Switch'))
+        self.lbl_sw = self.add(Label('Switch'))
         self.sw = SwitchButton('Switch 0', 'switch0')
         self.sw.signal(Event.MOUSE_RELEASE).connect(self.on_switch)
-        self.switch_group = self.insert(SwitchGroup([
+        self.switch_group = self.add(SwitchGroup([
             self.sw,
             SwitchButton('Switch 1', 'switch1'),
             SwitchButton('Switch 2', 'switch2', True)]))
-        self.btns = self.insert(Button('Switch values'))
+        self.btns = self.add(Button('Switch values'))
         self.btns.signal(Event.MOUSE_PRESS).connect(self.on_switch)
 
-        self.lbl_radio = self.insert(Label('Radio'))
+        self.lbl_radio = self.add(Label('Radio'))
         self.rd = RadioButton('Radio 0', 'radio0')
         self.rd.signal(Event.MOUSE_RELEASE).connect(self.on_radio)
-        self.radio_group = self.insert(RadioGroup([
+        self.radio_group = self.add(RadioGroup([
             self.rd,
             RadioButton('Radio 1', 'radio1'),
             RadioButton('Radio 2', 'radio2', True)]))
-        self.btnr = self.insert(Button('Radio value'))
+        self.btnr = self.add(Button('Radio value'))
         self.btnr.signal(Event.MOUSE_PRESS).connect(self.on_radio)
 
-        self.lbl_check = self.insert(Label('Radio'))
+        self.lbl_check = self.add(Label('Radio'))
         self.cc = CheckButton('Check 0', 'check0')
         self.cc.signal(Event.MOUSE_RELEASE).connect(self.on_check)
-        self.check_group = self.insert(CheckGroup([
+        self.check_group = self.add(CheckGroup([
             self.cc,
             CheckButton('Check 1', 'check1'),
             CheckButton('Check 2', 'check2', True)]))
-        self.btnc = self.insert(Button('Check values'))
+        self.btnc = self.add(Button('Check values'))
         self.btnc.signal(Event.MOUSE_PRESS).connect(self.on_check)
         
-        self.button_t = self.insert(ToolButton('document-open'))
+        self.button_t = self.add(ToolButton('document-open'))
         self.button_t.selectable = True
-        self.button = self.insert(Button('Button text', 'document-open'))
+        self.button = self.add(Button('Button text', 'document-open'))
         self.button.selectable = True
         self.button.signal(Event.MOUSE_PRESS).connect(
             lambda: print(self.button.text))
 
-        self.block_button = self.insert(Button('Block Button'))
+        self.block_button = self.add(Button('Block Button'))
         self.block_button.signal(Event.MOUSE_PRESS).connect(
             self.on_block_button)
 
-        # self.btn = self.insert(Button('Button'))
+        # self.btn = self.add(Button('Button'))
         # self.btn.signal(Event.MOUSE_PRESS).connect(lambda: print('Widget: MOUSE_PRESS'))
         # self.btn.signal(Event.MOUSE_RELEASE).connect(lambda: print('Widget: MOUSE_RELEASE'))
         # self.btn.signal(Event.MOUSE_DOUBLE_PRESS).connect(lambda: print('Widget: MOUSE_DOUBLE_PRESS'))
@@ -87,7 +87,7 @@ class MyApp(MainFrame):
         self.cursor = Cursor()
         self.signal(Event.MOUSE_RIGHT_PRESS).connect(self.ctx)
 
-        img = self.insert(Image(Icon('document-open')))
+        img = self.add(Image(Icon('document-open')))
         img.style_class = 'Success'
         img.style_id = 'NewImage'
         img.style['[NewImage]']['border'] = '1px rgba(0, 0, 0, 0.00)'

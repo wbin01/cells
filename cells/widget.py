@@ -385,7 +385,7 @@ class Widget(Widget):
         Use None to reset.
 
         The style class will only be changed if the Widget already contains a 
-        _main_parent (The 'insert' method automatically sets the _main_parent).
+        _main_parent (The 'add' method automatically sets the _main_parent).
         """
         return self.__style_class
 
@@ -547,17 +547,17 @@ class Widget(Widget):
         """String with all available events."""
         return ', '.join([f'Event.{x.value}' for x in self.__signals.keys()])
 
-    def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+    def add(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
 
-        Returns the reference to the inserted item.
+        Returns the reference to the added item.
         
         :param item: It can be a Widget (Widget, Label, Button...) or a Box.
-        :param index: Index number where the item should be inserted 
+        :param index: Index number where the item should be added 
             (Default is -1)
         """
         item._main_parent = self._main_parent
-        self.__box.insert(item)
+        self.__box.add(item)
         return item
 
     def items(self) -> list:
@@ -568,7 +568,7 @@ class Widget(Widget):
         """Removes a Widget or a Box.
 
         This only removes the widget, but does not delete it. The variable 
-        referring to it still works and can be inserted again later. To 
+        referring to it still works and can be added again later. To 
         completely delete the widget from the variable, use the 'delete()' 
         method.
 

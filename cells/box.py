@@ -134,13 +134,13 @@ class Box(Box):
         item._obj.delete_later()
         self.__signals[Event.DELETE].emit()
 
-    def insert(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+    def add(self, item: Widget | Box, index: int = -1) -> Widget | Box:
         """Inserts a Widget or a Box.
 
-        Returns the reference to the inserted item.
+        Returns the reference to the added item.
         
         :param item: It can be a Widget (Widget, Label, Button...) or a Box.
-        :param index: Index number where the item should be inserted 
+        :param index: Index number where the item should be added 
             (Default is -1)
         """
         _, item = setattr(self, str(item), item), getattr(self, str(item))
@@ -168,7 +168,7 @@ class Box(Box):
         """Removes a Widget or a Box.
 
         This only removes the widget, but does not delete it. The variable 
-        referring to it still works and can be inserted again later. To 
+        referring to it still works and can be added again later. To 
         completely delete the widget from the variable, use the 'delete()' 
         method.
 

@@ -19,7 +19,7 @@ class ToolButton(Widget):
 
         # Obj
         self.style_id = 'ToolButton'
-        self.__icon = self.insert(Image(self.__icon))
+        self.__icon = self.add(Image(self.__icon))
 
         # Signals
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)

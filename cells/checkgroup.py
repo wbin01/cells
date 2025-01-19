@@ -40,7 +40,7 @@ class CheckGroup(Widget):
             if check_button.selected:
                 self.__selected_buttons.append(check_button)
 
-            item = self.insert(check_button)
+            item = self.add(check_button)
             _, item = setattr(self, str(item), item), getattr(self, str(item))
 
             item.signal(Event.MOUSE_PRESS).connect(self.__on_value)

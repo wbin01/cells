@@ -49,14 +49,14 @@ class SwitchButton(Widget):
         self.__icon.width = 32
 
         if not self.__icon_on_right:
-            self.insert(self.__icon)
+            self.add(self.__icon)
         
         self.__label = Label(self.__text)
         if self.__text:
-            self.insert(self.__label)
+            self.add(self.__label)
 
         if self.__icon_on_right:
-            self.insert(self.__icon)
+            self.add(self.__icon)
         
         self.__icon.style_id = 'Switch'
 

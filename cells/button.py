@@ -45,19 +45,19 @@ class Button(Widget):
         self.__icon_on_right = False
 
         if self.__icon and not self.__icon_on_right:
-            self.__icon = self.insert(Image(self.__icon))
+            self.__icon = self.add(Image(self.__icon))
             self.__icon.margin = 0, 0, 0, 5
         
         self.__label = Label(self.__text)
         if self.__text:
-            self.insert(self.__label)
+            self.add(self.__label)
             if self.__icon_on_right:
                 self.__label.margin = 0, 0, 0, 5
             else:
                 self.__label.margin = 0, 5, 0, 0
 
         if self.__icon and self.__icon_on_right:
-            self.__icon = self.insert(Image(self.__icon))
+            self.__icon = self.add(Image(self.__icon))
             self.__icon.margin = 0, 5, 0, 0
 
         if not self.__text and self.__icon:

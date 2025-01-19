@@ -47,7 +47,7 @@ class RadioGroup(Widget):
                 radio_button.selected = False
 
             
-            item = self.insert(radio_button)
+            item = self.add(radio_button)
             _, item = setattr(self, str(item), item), getattr(self, str(item))
 
             item.signal(Event.MOUSE_PRESS).connect(self.__on_value)
