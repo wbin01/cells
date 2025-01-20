@@ -83,7 +83,7 @@ class Image(Widget):
         self._obj.set_graphics_effect(self.__effect)
 
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
-        self.signal(Event.ENABLED).connect(self.__on_enabled_change)
+        self.signal(Event.ENABLED).connect(self.__on_enabled)
 
     @property
     def path(self) -> str:
@@ -99,7 +99,7 @@ class Image(Widget):
         self.__pixmap = QtGui.QPixmap(self.__path)
         self._obj.set_pixmap(self.__pixmap)
 
-    def __on_enabled_change(self) -> None:
+    def __on_enabled(self) -> None:
         if self.enabled:
             self.__on_main_parent_focus_in()
         else:

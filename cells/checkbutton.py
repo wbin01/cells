@@ -54,7 +54,7 @@ class CheckButton(Widget):
         self.__icon.style_id = 'Check'
 
         # Signals
-        self.signal(Event.ENABLED).connect(self.__on_enabled_change)
+        self.signal(Event.ENABLED).connect(self.__on_enabled)
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
         self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__on_hover_enter)
         self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__on_hover_leave)
@@ -106,7 +106,7 @@ class CheckButton(Widget):
     def value(self, value: any) -> None:
         self.__value = value
 
-    def __on_enabled_change(self) -> None:
+    def __on_enabled(self) -> None:
         if self.enabled:
             self.__on_main_parent_focus_in()
         else:

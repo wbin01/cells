@@ -77,7 +77,7 @@ class Button(Widget):
         self.__saved_width = self.width
 
         # Signals
-        self.signal(Event.ENABLED).connect(self.__on_enabled_change)
+        self.signal(Event.ENABLED).connect(self.__on_enabled)
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
         self.signal(Event.MOUSE_HOVER_ENTER).connect(self.__on_hover_enter)
         self.signal(Event.MOUSE_HOVER_LEAVE).connect(self.__on_hover_leave)
@@ -139,7 +139,7 @@ class Button(Widget):
         self.__text = text
         self.__label.text = text
 
-    def __on_enabled_change(self) -> None:
+    def __on_enabled(self) -> None:
         if self.enabled:
             self.__on_main_parent_focus_in()
         else:

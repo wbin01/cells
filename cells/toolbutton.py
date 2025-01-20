@@ -23,7 +23,7 @@ class ToolButton(Widget):
 
         # Signals
         self.signal(Event.MAIN_PARENT).connect(self.__on_main_parent)
-        self.signal(Event.MOUSE_PRESS).connect(self.__on_mouse_button_press)
+        self.signal(Event.MOUSE_PRESS).connect(self.__on_mouse_press)
 
         # Flags
         self.__selectable = True
@@ -64,7 +64,7 @@ class ToolButton(Widget):
     def __on_main_parent(self) -> None:
         self.__icon._main_parent = self._main_parent
 
-    def __on_mouse_button_press(self) -> None:
+    def __on_mouse_press(self) -> None:
         if self.enabled:
             if self.__selectable:
                 if self.__selected:

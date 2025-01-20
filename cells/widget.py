@@ -18,8 +18,8 @@ class CoreWidget(QtWidgets.QFrame):
         """Class constructor."""
         super().__init__(*args, **kwargs)
         self.set_object_name('Widget')
-        self.mouse_button_press_signal = Signal()
-        self.mouse_button_release_signal = Signal()
+        self.mouse_press_signal = Signal()
+        self.mouse_release_signal = Signal()
         self.mouse_double_click_signal = Signal()
         self.mouse_hover_enter_signal = Signal()
         self.mouse_hover_leave_signal = Signal()
@@ -51,10 +51,10 @@ class CoreWidget(QtWidgets.QFrame):
             if 'RightButton' in event.__str__():
                 self.mouse_right_press_signal.emit()
             else:
-                self.mouse_button_press_signal.emit()
+                self.mouse_press_signal.emit()
 
         elif event.type() == QtCore.QEvent.MouseButtonRelease:
-            self.mouse_button_release_signal.emit()
+            self.mouse_release_signal.emit()
 
         elif event.type() == QtCore.QEvent.MouseButtonDblClick:
             self.mouse_double_click_signal.emit()
@@ -111,8 +111,8 @@ class Widget(Widget):
             Event.ENABLED: Signal(),
             Event.INSERT: self.__box.signal(Event.INSERT),
             Event.MAIN_PARENT: Signal(),
-            Event.MOUSE_PRESS: self.__widget.mouse_button_press_signal,
-            Event.MOUSE_RELEASE: self.__widget.mouse_button_release_signal,
+            Event.MOUSE_PRESS: self.__widget.mouse_press_signal,
+            Event.MOUSE_RELEASE: self.__widget.mouse_release_signal,
             Event.MOUSE_DOUBLE_PRESS: self.__widget.mouse_double_click_signal,
             Event.MOUSE_HOVER_ENTER: self.__widget.mouse_hover_enter_signal,
             Event.MOUSE_HOVER_LEAVE: self.__widget.mouse_hover_leave_signal,
@@ -186,15 +186,15 @@ class Widget(Widget):
         if self.__is_enabled:
             self._obj.set_style_sheet(self.__normal_style)
 
-            if hasattr(self._obj, 'mouse_button_press_signal'):
-                self._obj.mouse_button_press_signal.connect()
-                self._obj.mouse_button_release_signal.connect()
+            if hasattr(self._obj, 'mouse_press_signal'):
+                self._obj.mouse_press_signal.connect()
+                self._obj.mouse_release_signal.connect()
         else:
             self._obj.set_style_sheet(self.__inactive_style)
             
-            if hasattr(self._obj, 'mouse_button_press_signal'):
-                self._obj.mouse_button_press_signal.disconnect()
-                self._obj.mouse_button_release_signal.disconnect()
+            if hasattr(self._obj, 'mouse_press_signal'):
+                self._obj.mouse_press_signal.disconnect()
+                self._obj.mouse_release_signal.disconnect()
 
         self.__signals[Event.ENABLED].emit()
 
