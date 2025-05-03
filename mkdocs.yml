@@ -1,0 +1,18 @@
+site_name: Cells Docs
+
+theme:
+  name: readthedocs
+
+nav:
+  - Home: index.md
+  - Button: button.md
+
+plugins:
+- search
+- mkdocstrings:
+    enabled: !ENV [ENABLE_MKDOCSTRINGS, true]
+    default_handler: python
+    handlers:
+      python:
+        options:
+          show_source: false
