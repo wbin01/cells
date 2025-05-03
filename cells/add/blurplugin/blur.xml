@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="org_kde_kwin_blur">
+    <interface name="org_kde_kwin_blur_manager" version="1">
+        <request name="create">
+            <arg name="id" type="new_id" interface="org_kde_kwin_blur"/>
+            <arg name="surface" type="object" interface="wl_surface"/>
+        </request>
+    </interface>
+
+    <interface name="org_kde_kwin_blur" version="1">
+        <request name="release" type="destructor"/>
+    </interface>
+</protocol>

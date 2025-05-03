@@ -61,7 +61,7 @@ border=1px rgba(accent_red, accent_green, accent_blue, 0.5)
 [Button.selected:inactive]
 background=rgba(32, 32, 32, 0.9)
 color=rgba(200, 200, 200, 0.4)
-border=1px rgba(32, 32, 32, 0.9)
+border=1px rgba(55, 55, 55, 0.4)
 
 [Button.selected:pressed]
 background=rgba(55, 55, 55, 0.5)

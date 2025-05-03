@@ -1,0 +1,47 @@
+# cmake_minimum_required(VERSION 3.10)
+# project(blurplugin LANGUAGES CXX)
+#
+# find_package(Qt6 COMPONENTS Core Gui REQUIRED) # Ou Qt5 se usar PySide2
+#
+# add_library(blurplugin SHARED
+#     blurplugin.cpp
+#     blurplugin.h
+# )
+#
+# target_link_libraries(blurplugin PRIVATE Qt6::Core Qt6::Gui) # ou Qt5
+# set_target_properties(blurplugin PROPERTIES
+#     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+# )
+
+cmake_minimum_required(VERSION 3.16)
+project(blurplugin LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Encontra os módulos necessários do Qt6
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick)
+
+# Adiciona o plugin como biblioteca compartilhada
+add_library(blurplugin SHARED
+    blurplugin.cpp
+)
+
+# Inclui os diretórios de cabeçalhos do Qt6
+target_include_directories(blurplugin PRIVATE
+    ${Qt6Core_INCLUDE_DIRS}
+    ${Qt6Gui_INCLUDE_DIRS}
+    ${Qt6Quick_INCLUDE_DIRS}
+)
+
+# Liga as bibliotecas necessárias do Qt6
+target_link_libraries(blurplugin PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Quick
+)
+
+# Define o diretório de saída
+set_target_properties(blurplugin PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+)
