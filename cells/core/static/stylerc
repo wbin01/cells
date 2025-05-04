@@ -356,14 +356,14 @@ border=0px rgba(accent_red, accent_green, accent_blue, 0.6)
 [Switch.selected]
 background=rgba(accent_red, accent_green, accent_blue, 0.2)
 color=rgba(35, 35, 35, 1.0)
-border=0px rgba(accent_red, accent_green, accent_blue, 0.5)
+border=0px rgba(128, 128, 128, 0.5)
 padding=0px
 margin=0px
 
 [Switch.selected:hover]
 background=rgba(accent_red, accent_green, accent_blue, 0.2)
 color=rgba(35, 35, 35, 1.0)
-border=0px rgba(accent_red, accent_green, accent_blue, 1.0)
+border=0px rgba(accent_red, accent_green, accent_blue, 0.6)
 
 [Switch.selected:inactive]
 background=rgba(45, 45, 45, 0.6)
