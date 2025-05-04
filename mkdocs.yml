@@ -5,7 +5,11 @@ theme:
 
 nav:
   - Home: index.md
+  - Align: align.md
+  - Application: application.md
+  - Box: box.md
   - Button: button.md
+  - CheckButton: checkbutton.md
 
 plugins:
 - search
