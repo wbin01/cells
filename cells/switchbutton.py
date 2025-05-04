@@ -46,7 +46,8 @@ class SwitchButton(Widget):
             'core', 'static', 'switchselected.svg')
         
         self.__icon = SvgWidget(self.__switch)
-        self.__icon.width = 32
+        self.__icon.width = 38
+        self.__icon.height = 23
 
         if not self.__icon_on_right:
             self.add(self.__icon)
