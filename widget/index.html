@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://wbin01.github.io/widget/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Widget - Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Widget";
+        var mkdocs_page_input_path = "widget.md";
+        var mkdocs_page_url = "/widget/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../align/">Align</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../application/">Application</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../box/">Box</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../button/">Button</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../checkbutton/">CheckButton</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../checkgroup/">CheckGroup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cursor/">Cursor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../event/">Event</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../flag/">Flag</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../frame/">Frame</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../icon/">Icon</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../image/">Image</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../label/">Label</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../mainframe/">MainFrame</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../moveframe/">MoveFrame</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../orientation/">Orientation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../radiobutton/">RadioButton</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../radiogroup/">RadioGroup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../signal/">Signal</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../svgwidget/">SvgWidget</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../switchbutton/">SwitchButton</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../switchgroup/">SwitchGroup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../toolbutton/">ToolButton</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Widget</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#class-corewidget">class CoreWidget</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#signature">Signature</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#class-widget">class Widget</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#signature_1">Signature</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#properties">Properties</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#accent">accent</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#align">align</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#enabled">enabled</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#height">height</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#margin">margin</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#max_height">max_height</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#max_width">max_width</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#min_height">min_height</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#min_width">min_width</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#spacing">spacing</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#state">state</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#style">style</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#style_class">style_class</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#style_id">style_id</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#visible">visible</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#width">width</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_main_parent">_main_parent</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_obj">_obj</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#events_available_for_signal">events_available_for_signal</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#add">add</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#items">items</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#remove">remove</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#move">move</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#signal">signal</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../widgetbase/">WidgetBase</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Widget</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"></h1>
+<h2 id="class-corewidget"><h2 style="color: #4d7c99;">class CoreWidget</h2></h2>
+<p><strong>Inherits from: <em>QtWidgets.QFrame</em></strong></p>
+<p>Core Widget.</p>
+<h3 id="signature">Signature</h3>
+<pre><code class="language-python">__init__(self, *args, **kwargs):
+</code></pre>
+<p>Class constructor.</p>
+<h2 id="class-widget"><h2 style="color: #4d7c99;">class Widget</h2></h2>
+<p><strong>Inherits from: <em>object</em></strong></p>
+<p>Widget.</p>
+<p>Tip: The base widget is an empty object, with no margins or spacing, and 
+ is visually imperceptible, as it does not take up a single pixel. Adding 
+ height, width or background color will help to make it noticeable.</p>
+<h3 id="signature_1">Signature</h3>
+<pre><code class="language-python">__init__(
+            self,
+            main_parent = None,
+            orientation: Orientation = Orientation.VERTICAL,
+            *args, **kwargs) -&gt; None:
+</code></pre>
+<p>Class constructor.</p>
+<p>:main_parent: MainFrame object</p>
+<h3 id="properties">Properties</h3>
+<h4 id="accent">accent</h4>
+<p><code>python accent(self) -&gt; str:</code></p>
+<p>...</p>
+<h4 id="align">align</h4>
+<p><code>python align(self) -&gt; Align:</code></p>
+<p>Align enum.</p>
+<p>Sets the Box alignment.</p>
+<h4 id="enabled">enabled</h4>
+<p><code>python enabled(self) -&gt; bool:</code></p>
+<p>Enables the Widget.</p>
+<p>When False, the Widget is inactive both in appearance and in the 
+  Event.MOUSE_PRESS and Event.MOUSE_RELEASE events.</p>
+<h4 id="height">height</h4>
+<p><code>python height(self) -&gt; int:</code></p>
+<p>Returns the height of the Widget.</p>
+<p>Pass a new integer value to update the height.</p>
+<h4 id="margin">margin</h4>
+<p><code>python margin(self) -&gt; tuple:</code></p>
+<p>Utility to set widget margins using a simple int tuple.</p>
+<p>Will affect all widget states, such as pressed, hover and inactive.</p>
+<p>Note: The Box's 'spacing' property takes precedence over the widget's 
+  margins, unless the widget is the only one isolated within a Box. If 
+  the Box is vertical, then only the side margins of the widgets will be 
+  respected. The Box does not activate the spacing with a single 
+  isolated widget.</p>
+<h4 id="max_height">max_height</h4>
+<p><code>python max_height(self) -&gt; int:</code></p>
+<p>Returns the Widget maximum height.</p>
+<p>Pass a new integer value to update the maximum height the Widget can 
+  have.</p>
+<h4 id="max_width">max_width</h4>
+<p><code>python max_width(self) -&gt; int:</code></p>
+<p>Returns the Widget maximum width.</p>
+<p>Pass a new integer value to update the maximum width the Widget can 
+  have.</p>
+<h4 id="min_height">min_height</h4>
+<p><code>python min_height(self) -&gt; int:</code></p>
+<p>Returns the Widget minimum height.</p>
+<p>Pass a new integer value to update the minimum height the Widget can 
+  have.</p>
+<h4 id="min_width">min_width</h4>
+<p><code>python min_width(self) -&gt; int:</code></p>
+<p>Returns the Widget minimum width.</p>
+<p>Pass a new integer value to update the minimum width the Widget can 
+  have.</p>
+<h4 id="spacing">spacing</h4>
+<p><code>python spacing(self) -&gt; int:</code></p>
+<p>The space between widgets inside the Widget box.</p>
+<p>This property takes precedence over the margins of the widgets that 
+  are added (add_widgets), so if the Box is vertical, then only the side 
+  margins of the widgets will be respected. The Box does not activate 
+  the spacing with a single isolated widget.</p>
+<h4 id="state">state</h4>
+<p><code>python state(self) -&gt; str:</code></p>
+<p>...</p>
+<h4 id="style">style</h4>
+<p><code>python style(self) -&gt; str:</code></p>
+<p>Style as dict.</p>
+<p>The style is a 'dict' that goes back to the style INI file. The 
+  contents of this file are something like:</p>
+<p>[Widget]
+   background=rgba(200, 0, 0, 1.00)
+   margin=5px 5px 5px 5px</p>
+<p>So the dictionary will be:</p>
+<p>{'[Widget]': {
+    'background': 'rgba(200, 0, 0, 1.00)',
+    'margin': '5px 5px 5px 5px',}
+   }</p>
+<p>Simply changing the existing dictionary does not update the style, 
+  the property actually needs to be updated with a new dictionary:</p>
+<p>new_style = my_widget.style
+   new_style['[Widget]']['margin'] = '05px 05px 05px 05px'
+   my_widget.style = new_style</p>
+<p>Shortened:</p>
+<p>my_widget.style['[Widget]']['margin'] = '05px 05px 05px 05px'
+   my_widget.style = my_widget.style</p>
+<p>Note: The Box's 'spacing' property takes precedence over the widget's 
+  margins, unless the widget is the only one isolated within a Box.</p>
+<h4 id="style_class">style_class</h4>
+<p><code>python style_class(self) -&gt; str | None:</code></p>
+<p>Changes the style to that of the desired class.</p>
+<p>Use appropriate generic classes, such as 'Success', 'Danger', 
+  'Warning' and 'Accent'.</p>
+<p>my_button.style_class = 'Danger'</p>
+<p>Use None to reset.</p>
+<p>The style class will only be changed if the Widget already contains a 
+  _main_parent (The 'add' method automatically sets the _main_parent).</p>
+<h4 id="style_id">style_id</h4>
+<p><code>python style_id(self) -&gt; str:</code></p>
+<p>Style ID.</p>
+<p>An ID allows you to define a unique style that does not distort 
+  parent objects of the same type that inherit from the class.</p>
+<p>Send a string with a unique ID to set the style for this Widget only.</p>
+<h4 id="visible">visible</h4>
+<p><code>python visible(self) -&gt; bool:</code></p>
+<p>Widget Visibility.</p>
+<p>Qt has minor issues when calculating pixels to render areas that are 
+  repeatedly hidden and visible, so clearly define the sizes and spacing 
+  to avoid minor visual discomforts.</p>
+<h4 id="width">width</h4>
+<p><code>python width(self) -&gt; int:</code></p>
+<p>Returns the Widget width.</p>
+<p>Pass a new integer value to update the width.</p>
+<h4 id="_main_parent">_main_parent</h4>
+<p><code>python _main_parent(self):</code></p>
+<p>Main frame of the application.</p>
+<p>Use only to access properties and methods of the Main Frame, defining 
+  a new frame will break the application.</p>
+<h4 id="_obj">_obj</h4>
+<p><code>python _obj(self):</code></p>
+<p>Direct access to Qt classes.</p>
+<p>Warning: Direct access is discouraged and may break the project. 
+  This access is considered a hacking for complex Qt implementations, 
+  and should only be used for testing and analysis purposes.</p>
+<h3 id="methods">Methods</h3>
+<h4 id="events_available_for_signal">events_available_for_signal</h4>
+<p><code>python events_available_for_signal(self) -&gt; str:</code></p>
+<p>String with all available events.</p>
+<h4 id="add">add</h4>
+<p><code>python add(self, item: Widget | Box, index: int = -1) -&gt; Widget | Box:</code></p>
+<p>Inserts a Widget or a Box.</p>
+<p>Returns the reference to the added item.</p>
+<p>:param item: It can be a Widget (Widget, Label, Button...) or a Box.
+  :param index: Index number where the item should be added 
+   (Default is -1)</p>
+<h4 id="items">items</h4>
+<p><code>python items(self) -&gt; list:</code></p>
+<p>List with added widgets.</p>
+<h4 id="remove">remove</h4>
+<p><code>python remove(self, item: Widget | Box) -&gt; None:</code></p>
+<p>Removes a Widget or a Box.</p>
+<p>This only removes the widget, but does not delete it. The variable 
+  referring to it still works and can be added again later. To 
+  completely delete the widget from the variable, use the 'delete()' 
+  method.</p>
+<p>:param item: A Widget (Widget, Label, Button...) or a Box.</p>
+<h4 id="move">move</h4>
+<p><code>python move(self, x: int, y: int) -&gt; None:</code></p>
+<p>Move the Widget.</p>
+<p>The X and Y positions are relative to the main parent.</p>
+<p>:param x: Horizontal position relative to the main parent.
+  :param y: Vertical position relative to the main parent.</p>
+<h4 id="signal">signal</h4>
+<p><code>python signal(self, event: Event) -&gt; Signal:</code></p>
+<p>Event Signals.</p>
+<p>Signals are connections to events. When an event such as a mouse 
+  click (Event.MOUSE_PRESS) or other event occurs, a signal is sent. The 
+  signal can be assigned a function to be executed when the signal is 
+  sent.</p>
+<p>Use the 'events_available_for_signal()' method to see all available 
+  events.</p>
+<p>:param event:
+   Event enumeration (Enum) corresponding to the requested event, 
+   such as Event.HOVER_ENTER. See: events_available_for_signal().</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../toolbutton/" class="btn btn-neutral float-left" title="ToolButton"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../widgetbase/" class="btn btn-neutral float-right" title="WidgetBase">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../toolbutton/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../widgetbase/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

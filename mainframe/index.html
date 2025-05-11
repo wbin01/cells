@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://wbin01.github.io/mainframe/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>MainFrame - Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "MainFrame";
+        var mkdocs_page_input_path = "mainframe.md";
+        var mkdocs_page_url = "/mainframe/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../align/">Align</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../application/">Application</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../box/">Box</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../button/">Button</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../checkbutton/">CheckButton</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../checkgroup/">CheckGroup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../cursor/">Cursor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../event/">Event</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../flag/">Flag</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../frame/">Frame</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../icon/">Icon</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../image/">Image</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../label/">Label</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">MainFrame</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#class-mainframe">class MainFrame</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#signature">Signature</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#properties">Properties</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#align">align</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#flag">flag</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#height">height</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#icon">icon</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fullscreen">fullscreen</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#maximized">maximized</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#minimized">minimized</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#max_height">max_height</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#max_width">max_width</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#min_height">min_height</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#min_width">min_width</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#spacing">spacing</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#style">style</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#title">title</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#width">width</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_obj">_obj</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#events_available_for_signal">events_available_for_signal</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#add">add</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#remove">remove</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#show">show</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#signal">signal</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#style_from_file">style_from_file</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../moveframe/">MoveFrame</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../orientation/">Orientation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../radiobutton/">RadioButton</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../radiogroup/">RadioGroup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../signal/">Signal</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../svgwidget/">SvgWidget</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../switchbutton/">SwitchButton</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../switchgroup/">SwitchGroup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../toolbutton/">ToolButton</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../widget/">Widget</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../widgetbase/">WidgetBase</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">MainFrame</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="_1"></h1>
+<h2 id="class-mainframe"><h2 style="color: #4d7c99;">class MainFrame</h2></h2>
+<p><strong>Inherits from: <em>object</em></strong></p>
+<p>Main frame.</p>
+<p>That is, the main application window.</p>
+<h3 id="signature">Signature</h3>
+<pre><code class="language-python">__init__(
+            self,
+            orientation: Orientation = Orientation.VERTICAL,
+            *args, **kwargs) -&gt; None:
+</code></pre>
+<p>Class constructor.</p>
+<h3 id="properties">Properties</h3>
+<h4 id="align">align</h4>
+<p><code>python align(self) -&gt; Align:</code></p>
+<p>Alignment enum.</p>
+<p>Sets the alignment of the Box.</p>
+<h4 id="flag">flag</h4>
+<p><code>python flag(self) -&gt; list:</code></p>
+<p>Frame flags.</p>
+<p>They are used to configure the native behavior of the Frame.
+  For example, the POPUP flag configures that the frame can appear on 
+  the indicated position on the X and Y axes, and also that the Frame 
+  closes by itself.</p>
+<h4 id="height">height</h4>
+<p><code>python height(self) -&gt; int:</code></p>
+<p>Returns the height of the Frame.</p>
+<p>Pass a new integer value to update the height.</p>
+<h4 id="icon">icon</h4>
+<p><code>python icon(self) -&gt; Icon:</code></p>
+<p>Frame icon.</p>
+<p>Application Icon.</p>
+<h4 id="fullscreen">fullscreen</h4>
+<p><code>python fullscreen(self) -&gt; bool:</code></p>
+<p>If the Frame is full screen.</p>
+<p>Use a boolean value to change the state of the Frame.</p>
+<h4 id="maximized">maximized</h4>
+<p><code>python maximized(self) -&gt; bool:</code></p>
+<p>If the Frame is maximized.</p>
+<p>Use a boolean value to change the state of the Frame.</p>
+<h4 id="minimized">minimized</h4>
+<p><code>python minimized(self) -&gt; bool:</code></p>
+<p>If the Frame is minimized.</p>
+<p>Use a boolean value to change the state of the Frame.</p>
+<h4 id="max_height">max_height</h4>
+<p><code>python max_height(self) -&gt; int:</code></p>
+<p>Returns the Frame maximum height.</p>
+<p>Pass a new integer value to update the maximum height the Frame can 
+  have.</p>
+<h4 id="max_width">max_width</h4>
+<p><code>python max_width(self) -&gt; int:</code></p>
+<p>Returns the Frame maximum width.</p>
+<p>Pass a new integer value to update the maximum width the Frame can 
+  have.</p>
+<h4 id="min_height">min_height</h4>
+<p><code>python min_height(self) -&gt; int:</code></p>
+<p>Returns the Frame minimum height.</p>
+<p>Pass a new integer value to update the minimum height the Frame can 
+  have.</p>
+<h4 id="min_width">min_width</h4>
+<p><code>python min_width(self) -&gt; int:</code></p>
+<p>Returns the Frame minimum width.</p>
+<p>Pass a new integer value to update the minimum width the Frame can 
+  have.</p>
+<h4 id="spacing">spacing</h4>
+<p><code>python spacing(self) -&gt; int:</code></p>
+<p>The space between widgets inside the Frame box.</p>
+<p>This property takes precedence over the margins of the widgets that 
+  are added (add_widgets), so if the Box is vertical, then only the side 
+  margins of the widgets will be respected. The Box does not activate 
+  the spacing with a single isolated widget.</p>
+<h4 id="style">style</h4>
+<p><code>python style(self) -&gt; dict:</code></p>
+<p>Style as dict.</p>
+<p>Get the style as a dictionary or submit a new dictionary style to 
+  update it.</p>
+<h4 id="title">title</h4>
+<p><code>python title(self) -&gt; str:</code></p>
+<p>Returns the Frame title.</p>
+<p>Pass a new integer value to update the title.</p>
+<h4 id="width">width</h4>
+<p><code>python width(self) -&gt; int:</code></p>
+<p>Returns the Frame width.</p>
+<p>Pass a new integer value to update the width.</p>
+<h4 id="_obj">_obj</h4>
+<p><code>python _obj(self):</code></p>
+<p>Direct access to Qt classes.</p>
+<p>Warning: Direct access is discouraged and may break the project. 
+  This access is considered a hacking for complex Qt implementations, 
+  and should only be used for testing and analysis purposes.</p>
+<h3 id="methods">Methods</h3>
+<h4 id="events_available_for_signal">events_available_for_signal</h4>
+<p><code>python events_available_for_signal(self) -&gt; str:</code></p>
+<p>String with all available events.</p>
+<h4 id="add">add</h4>
+<p><code>python add(self, item: Widget | Box, index: int = -1) -&gt; Widget | Box:</code></p>
+<p>Inserts a Widget or a Box.</p>
+<p>Returns the reference to the added item.</p>
+<p>:param item: It can be a Widget (Widget, Label, Button...) or a Box.
+  :param index: Index number where the item should be added 
+   (Default is -1)</p>
+<h4 id="remove">remove</h4>
+<p><code>python remove(self, item: Widget | Box) -&gt; None:</code></p>
+<p>Removes a Widget or a Box.</p>
+<p>This only removes the widget, but does not delete it. The variable 
+  referring to it still works and can be added again later. To 
+  completely delete the widget from the variable, use the 'delete()' 
+  method.</p>
+<p>:param item: A Widget (Widget, Label, Button...) or a Box.</p>
+<h4 id="show">show</h4>
+<p><code>python show(self) -&gt; None:</code></p>
+<p>Show the frame.</p>
+<h4 id="signal">signal</h4>
+<p><code>python signal(self, event: Event) -&gt; Signal:</code></p>
+<p>Event Signals.</p>
+<p>Signals are connections to events. When an event such as a mouse 
+  click (Event.MOUSE_PRESS) or other event occurs, a signal is 
+  sent. The signal can be assigned a function to be executed when the 
+  signal is sent.</p>
+<p>Use the 'events_available_for_signal()' method to see all available 
+  events.</p>
+<p>:param event:
+   Event enumeration (Enum) corresponding to the requested event, 
+   such as Event.HOVER_ENTER. See: events_available_for_signal().</p>
+<h4 id="style_from_file">style_from_file</h4>
+<p><code>python style_from_file(self, path: str) -&gt; dict:</code></p>
+<p>Convert the contents of a file into a valid dictionary style.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../label/" class="btn btn-neutral float-left" title="Label"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../moveframe/" class="btn btn-neutral float-right" title="MoveFrame">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../label/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../moveframe/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
