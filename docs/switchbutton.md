@@ -29,3 +29,34 @@ Class constructor.
   
 **:param value:** Value of any type to capture as an identifier.
   
+
+
+### Properties
+
+
+#### text
+
+```python text(self) -> str:```
+
+Button text.
+  
+  Pass a new string to update the text.
+  
+
+#### selected
+
+```python selected(self) -> bool:```
+
+If Widget is selected.
+
+  Use True or False to select or deselect the widget.
+  
+
+#### value
+
+```python value(self) -> any:```
+
+Button value.
+  
+  Pass a new value to update.
+  

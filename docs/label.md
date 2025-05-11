@@ -15,3 +15,16 @@ __init__(self, text: str = '', *args, **kwargs) -> None:
 ```
 
 Class constructor.
+
+
+### Properties
+
+
+#### text
+
+```python text(self) -> str:```
+
+Label text.
+  
+  Pass a new string to update the text.
+  

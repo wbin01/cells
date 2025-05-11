@@ -194,6 +194,9 @@ class ClassParse():
                 continue
 
             method_name = re.findall(r'def ([^\(]+)\(', meth)
+            if method_name[0] in self.__properties:
+                continue
+
             method_sig = re.findall(r'def ([^\)]+\)[^\:]*:)', meth)
 
             func = None
@@ -220,6 +223,9 @@ class ClassParse():
             r'class ([^:]+):', self.__code_scope, re.DOTALL)[0].split('(')
         inher = name[1].replace(')', '') if len(name) > 1 else None
         self.__inheritance = inher if inher else None
+
+        if self.__inheritance == name[0]:
+            self.__inheritance = 'object'
 
         return name[0] if name else None
 
@@ -280,7 +286,11 @@ class MdFiles(object):
 
                     if cl.name():
                         txt += f'\n\n## <h2 {color}">class {cl.name()}</h2>\n\n'
-                        name = cl.name()
+
+                        item_path_ = pathlib.Path(item_path)
+                        if cl.name().lower() == item_path_.name.replace(
+                                item_path_.suffix, ''):
+                            name = cl.name()
 
                     if cl.inheritance():
                         txt += f'\n**Inherits from: _{cl.inheritance()}_**\n'
@@ -302,25 +312,36 @@ class MdFiles(object):
                             text = re.sub(p, f'\n**{p}**', text)
 
                         txt += f'\n{text}\n'
-                    
-                    # print('\nClass @property:')
-                    # pprint.pprint(cl.properties())
-                    # if cl.properties():
-                    #     '## Properties\n'
-                    #     txt += f'{cl.properties()}\n'
-                    
-                    # print('\nClass metods:')
-                    # pprint.pprint(cl.methods())
 
+                    if cl.properties():
+                        txt += '\n\n### Properties\n\n'
+
+                        for k, v in cl.properties().items():
+                            txt += (
+                                f'\n#### {k}\n'
+                                f'\n```python {v['signature']}```\n')
+
+                            if v['docstring']:
+                                txt += f'\n{v['docstring'].replace(
+                                    '    ', ' ')}\n'
+
+                    if cl.methods():
+                        txt += '\n\n### Methods\n\n'
+
+                        for k, v in cl.methods().items():
+                            txt += (
+                                f'\n#### {k}\n'
+                                f'\n```python {v['signature']}```\n')
+
+                            if v['docstring']:
+                                txt += f'\n{v['docstring'].replace(
+                                    '    ', ' ')}\n'
                 else:
                     pass
                     
             item_path = pathlib.Path(item_path)
             item_name = item_path.name.replace(item_path.suffix, '.md')
             dock_path = self.__documentation_path / item_name
-
-            # txt = txt.replace(
-            #     '**TITLE**', 'class ' + name if name else item_name)
 
             with open(dock_path,
                     'w', encoding='utf-8') as f:
@@ -344,12 +365,6 @@ class MdFiles(object):
 
         with open(self.__yml_path, 'w', encoding='utf-8') as f:
             f.write(yml_content)
-
-        # print(self.__documentation_path / 'index.md')
-        # print(index_content)
-        # print('----')
-        # print(self.__yml_path)
-        # print(yml_content)
 
 
 if __name__ == '__main__':

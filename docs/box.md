@@ -3,7 +3,7 @@
 ## <h2 style="color: #4d7c99;">class Box</h2>
 
 
-**Inherits from: _Box_**
+**Inherits from: _object_**
 
 Box layout
 
@@ -24,6 +24,115 @@ Class constructor.
 
   
 **:param orientation:** Changes the orientation of the Box to horizontal
+  
+
+
+### Properties
+
+
+#### align
+
+```python align(self) -> Align:```
+
+Align enum.
+
+  Sets the Box alignment.
+  
+
+#### margin
+
+```python margin(self) -> tuple:```
+
+Box Margins
+
+#### spacing
+
+```python spacing(self) -> int:```
+
+
+  The space between widgets inside the box.
+
+  This property takes precedence over the margins of the widgets that 
+  are added (add_widgets), so if the Box is vertical, then only the side 
+  margins of the widgets will be respected. The Box does not activate 
+  the spacing with a single isolated widget.
+  
+
+#### _main_parent
+
+```python _main_parent(self) -> Widget | Box:```
+
+Main frame of the application.
+
+  Use only to access properties and methods of the Main Frame, defining a 
+  new frame will break the application.
+  
+
+#### _obj
+
+```python _obj(self):```
+
+Direct access to Qt classes.
+
+  Warning: Direct access is discouraged and may break the project. 
+  This access is considered a hacking for complex Qt implementations, 
+  and should only be used for testing and analysis purposes.
+  
+
+
+### Methods
+
+
+#### add
+
+```python add(self, item: Widget | Box, index: int = -1) -> Widget | Box:```
+
+Inserts a Widget or a Box.
+
+  Returns the reference to the added item.
+  
+  :param item: It can be a Widget (Widget, Label, Button...) or a Box.
+  :param index: Index number where the item should be added 
+   (Default is -1)
+  
+
+#### items
+
+```python items(self) -> list:```
+
+List with added widgets.
+
+#### remove
+
+```python remove(self, item: Widget | Box) -> None:```
+
+Removes a Widget or a Box.
+
+  This only removes the widget, but does not delete it. The variable 
+  referring to it still works and can be added again later. To 
+  completely delete the widget from the variable, use the 'delete()' 
+  method.
+
+  :param item: A Widget (Widget, Label, Button...) or a Box.
+  
+
+#### signal
+
+```python signal(self, event: Event) -> Signal:```
+
+Event Signals.
+
+  Signals are connections to events. When an event such as a mouse 
+  click (Event.MOUSE_BUTTON_PRESS) or other event occurs, a signal is 
+  sent. The signal can be assigned a function to be executed when the 
+  signal is sent.
+
+  Use the 'events_available_for_signal()' method to see all available 
+  events.
+
+  :param event:
+   Event enumeration (Enum) corresponding to the requested event, 
+   such as Event.HOVER_ENTER. See: events_available_for_signal().
   
 
 

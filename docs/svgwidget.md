@@ -15,3 +15,13 @@ __init__(self, path: str = None, *args, **kwargs) -> None:
 ```
 
 Class constructor.
+
+
+### Properties
+
+
+#### state
+
+```python state(self) -> str:```
+
+...

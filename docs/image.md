@@ -44,3 +44,16 @@ Class constructor.
    It improves the appearance of scaled images, but the processing is 
    a little slower.
   
+
+
+### Properties
+
+
+#### path
+
+```python path(self) -> str:```
+
+Image path.
+
+  Pass a new path to update the Image.
+  

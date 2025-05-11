@@ -15,3 +15,19 @@ __init__(self, icon: str | Icon, *args, **kwargs) -> None:
 ```
 
 Class constructor.
+
+
+### Properties
+
+
+#### selectable
+
+```python selectable(self) -> bool:```
+
+...
+
+#### selected
+
+```python selected(self) -> bool:```
+
+...

@@ -15,3 +15,25 @@ __init__(self) -> None:
 ```
 
 Class constructor.
+
+
+### Methods
+
+
+#### position
+
+```python position(self) -> tuple:```
+
+Tuple with mouse cursor position.
+
+#### x
+
+```python x(self) -> int:```
+
+X mouse cursor position.
+
+#### y
+
+```python y(self) -> int:```
+
+Y mouse cursor position.

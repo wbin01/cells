@@ -19,3 +19,13 @@ Class constructor.
   
 **:param buttons:** List with all CheckButton's configured to display.
   
+
+
+### Properties
+
+
+#### buttons
+
+```python buttons(self) -> list:```
+
+List with all CheckButton's configured to display.

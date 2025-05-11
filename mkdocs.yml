@@ -5,7 +5,7 @@ nav:
     - Home: index.md
     - Align: align.md
     - Application: application.md
-    - Widget: box.md
+    - Box: box.md
     - Button: button.md
     - CheckButton: checkbutton.md
     - CheckGroup: checkgroup.md
