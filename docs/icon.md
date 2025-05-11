@@ -1,7 +1,15 @@
-# Icon
-Inherits from: object
+#  
+
+## <h2 style="color: #4d7c99;">class Icon</h2>
+
+
+**Inherits from: _object_**
+
 Icon.
-## Constructor signature
+
+
+### Signature
+
 ```python
 __init__(
             self,
@@ -11,6 +19,7 @@ __init__(
             height: int = 22,
             *args, **kwargs) -> None:
 ```
+
 Class constructor.
 
   The icon is rendered from the path of a passed file, or from the name 

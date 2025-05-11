@@ -3,28 +3,28 @@ site_url: https://wbin01.github.io/
 theme: readthedocs
 nav:
     - Home: index.md
+    - Align: align.md
+    - Application: application.md
+    - Widget: box.md
     - Button: button.md
-    - Cursor: cursor.md
+    - CheckButton: checkbutton.md
     - CheckGroup: checkgroup.md
+    - Cursor: cursor.md
+    - Event: event.md
+    - Flag: flag.md
+    - Frame: frame.md
+    - Icon: icon.md
+    - Image: image.md
+    - Label: label.md
+    - MainFrame: mainframe.md
+    - MoveFrame: moveframe.md
+    - Orientation: orientation.md
+    - RadioButton: radiobutton.md
     - RadioGroup: radiogroup.md
     - Signal: signal.md
-    - Frame: frame.md
-    - RadioButton: radiobutton.md
-    - Icon: icon.md
-    - Label: label.md
-    - Widget: box.md
-    - Image: image.md
-    - WidgetBase: widgetbase.md
-    - Application: application.md
-    - SwitchButton: switchbutton.md
     - SvgWidget: svgwidget.md
-    - MoveFrame: moveframe.md
+    - SwitchButton: switchbutton.md
     - SwitchGroup: switchgroup.md
-    - Align: align.md
-    - Orientation: orientation.md
-    - Flag: flag.md
-    - MainFrame: mainframe.md
-    - CheckButton: checkbutton.md
-    - Widget: widget.md
     - ToolButton: toolbutton.md
-    - Event: event.md
+    - Widget: widget.md
+    - WidgetBase: widgetbase.md

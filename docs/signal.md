@@ -1,10 +1,19 @@
-# Signal
-Inherits from: object
+#  
+
+## <h2 style="color: #4d7c99;">class Signal</h2>
+
+
+**Inherits from: _object_**
+
 Signal object.
-## Constructor signature
+
+
+### Signature
+
 ```python
 __init__(self):
 ```
+
 Class constructor.
 
   Signals an event:

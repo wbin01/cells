@@ -1,7 +1,15 @@
-# SwitchGroup
-Inherits from: CheckGroup
+#  
+
+## <h2 style="color: #4d7c99;">class SwitchGroup</h2>
+
+
+**Inherits from: _CheckGroup_**
+
 Switch Buttons Group Widget.
-## Constructor signature
+
+
+### Signature
+
 ```python
 __init__(self, *args, **kwargs) -> None:
 ```

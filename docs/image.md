@@ -1,7 +1,15 @@
-# Image
-Inherits from: Widget
+#  
+
+## <h2 style="color: #4d7c99;">class Image</h2>
+
+
+**Inherits from: _Widget_**
+
 Image Widget.
-## Constructor signature
+
+
+### Signature
+
 ```python
 __init__(
             self,
@@ -12,26 +20,27 @@ __init__(
             smooth: bool = False,
             *args, **kwargs) -> None:
 ```
+
 Class constructor.
 
   The Image is rendered from the path of a passed file.
 
   
-:param path: 
+**:param path:** 
    Image path or Icon() object.
   
-:param width: 
+**:param width:** 
    Integer with the value of the image width.
   
-:param height: 
+**:param height:** 
    Integer with the value of the image height.
   
-:param aspect_ratio: 
+**:param aspect_ratio:** 
    Flattening or stretching the image with width or height values not 
    equivalent to the original image. True will maintain the aspect 
    ratio without distorting or stretching.
   
-:param smooth: 
+**:param smooth:** 
    It improves the appearance of scaled images, but the processing is 
    a little slower.
   

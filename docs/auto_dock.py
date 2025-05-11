@@ -59,6 +59,7 @@ class FindFiles(object):
                 if item_file.suffix in self.__extensions:
                     if item_file.name not in self.__ignored_files:
                         self.__files.append(item_file)
+        self.__files.sort()
 
 
 class FileScopes(object):
@@ -217,7 +218,7 @@ class ClassParse():
     def __get_name_and_inheritance(self) -> str | None:
         name = re.findall(
             r'class ([^:]+):', self.__code_scope, re.DOTALL)[0].split('(')
-        inher = name[1].replace(')', '').strip() if len(name) > 1 else None
+        inher = name[1].replace(')', '') if len(name) > 1 else None
         self.__inheritance = inher if inher else None
 
         return name[0] if name else None
@@ -265,51 +266,42 @@ class MdFiles(object):
         self.__yml_path = pathlib.Path(mkdocs_yml_path)
 
     def create_docks(self):
-        index_files = []
+        doc_files = []
 
         for item_path in self.__files.file_paths():
             file_escopes = FileScopes(item_path)
 
-            
-            txt = ''
+            color = 'style="color: #4d7c99;'
+            txt = '#  '
             name = None
             for k, v in file_escopes.scopes().items():
                 if v.startswith('class'):
                     cl = ClassParse(v)
 
-                    # print('\nClass name:')
-                    # print(f'    {cl.name()}')
                     if cl.name():
-                        txt += f'# {cl.name()}\n'
+                        txt += f'\n\n## <h2 {color}">class {cl.name()}</h2>\n\n'
                         name = cl.name()
 
-                    # print('\nClass inheritance:')
-                    # print(f'    {cl.inheritance()}')
                     if cl.inheritance():
-                        txt += f'Inherits from: {cl.inheritance()}\n'
+                        txt += f'\n**Inherits from: _{cl.inheritance()}_**\n'
 
-                    # print('\nClass docstring:')
-                    # print(f'    {cl.docstring()}')
                     if cl.docstring():
-                        text = cl.docstring().replace('    ', ' '
-                            ).replace(':param ', '\n:param ')
-                        txt += f'{text}\n'
+                        txt += f'\n{cl.docstring().replace('    ', ' ')}\n'
 
-                    # print('\nClass constructor signature:')
-                    # print(f'    {cl.constructor_signature()}')
                     if cl.constructor_signature():
                         txt += (
-                            '## Constructor signature\n'
+                            '\n\n### Signature\n\n'
                             '```python\n'
                             f'{cl.constructor_signature()}\n'
                             '```\n')
                     
-                    # print('\nClass constructor docstring:')
-                    # print(f'    {cl.constructor_docstring()}')
                     if cl.constructor_docstring():
-                        text = cl.constructor_docstring().replace('    ', ' '
-                            ).replace(':param ', '\n:param ')
-                        txt += f'{text}\n'
+                        text = cl.constructor_docstring().replace('    ', ' ')
+
+                        for p in re.findall(r':param [^:]+:', text):
+                            text = re.sub(p, f'\n**{p}**', text)
+
+                        txt += f'\n{text}\n'
                     
                     # print('\nClass @property:')
                     # pprint.pprint(cl.properties())
@@ -327,29 +319,14 @@ class MdFiles(object):
             item_name = item_path.name.replace(item_path.suffix, '.md')
             dock_path = self.__documentation_path / item_name
 
+            # txt = txt.replace(
+            #     '**TITLE**', 'class ' + name if name else item_name)
+
             with open(dock_path,
                     'w', encoding='utf-8') as f:
                 f.write(txt)
 
-            index_files.append((item_name, name if name else item_name))
-
-        index_content = (
-            '# Welcome to MkDocs\n'
-            '\n'
-            'Full documentation [mkdocs.org](https://www.mkdocs.org).\n'
-            '\n'
-            '## Commands\n'
-            '\n'
-            '* `mkdocs new [dir-name]` - Create a new project.\n'
-            '* `mkdocs serve` - Start the live-reloading docs server.\n'
-            '* `mkdocs build` - Build the documentation site.\n'
-            '* `mkdocs -h` - Print help message and exit.\n'
-            '\n'
-            '## Project layout\n'
-            '\n'
-            '    mkdocs.yml    # The configuration file.\n'
-            '    docs/\n'
-            '        index.md  # The documentation homepage.\n')
+            doc_files.append((item_name, name if name else item_name))
 
         yml_content = (
             'site_name: Documentation\n'
@@ -358,13 +335,12 @@ class MdFiles(object):
             'nav:\n'
             '    - Home: index.md\n')
 
-        for item in index_files:
-            index_content += f'        {item[0]}\n'
+        for item in doc_files:
             yml_content += f'    - {item[1]}: {item[0]}\n'
 
         with open(self.__documentation_path / 'index.md', 'w',
                 encoding='utf-8') as f:
-            f.write(index_content)
+            f.write('# INDEX')
 
         with open(self.__yml_path, 'w', encoding='utf-8') as f:
             f.write(yml_content)
