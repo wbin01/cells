@@ -1,6 +1,6 @@
-# CheckButton
+# SwitchButton
 Inherits from: Widget
-Check Button Widget.
+Switch Button Widget.
 ## Constructor signature
 ```python
 __init__(
@@ -14,7 +14,7 @@ __init__(
 Class constructor.
   
   
-:param text: CheckButton text label.
+:param text: SwitchButton text label.
   
 :param selected: True to start already selected.
   

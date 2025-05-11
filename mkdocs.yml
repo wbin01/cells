@@ -1,22 +1,30 @@
-site_name: Cells Docs
-
-theme:
-  name: readthedocs
-
+site_name: Documentation
+site_url: https://wbin01.github.io/
+theme: readthedocs
 nav:
-  - Home: index.md
-  - Align: align.md
-  - Application: application.md
-  - Box: box.md
-  - Button: button.md
-  - CheckButton: checkbutton.md
-
-plugins:
-- search
-- mkdocstrings:
-    enabled: !ENV [ENABLE_MKDOCSTRINGS, true]
-    default_handler: python
-    handlers:
-      python:
-        options:
-          show_source: false
+    - Home: index.md
+    - Button: button.md
+    - Cursor: cursor.md
+    - CheckGroup: checkgroup.md
+    - RadioGroup: radiogroup.md
+    - Signal: signal.md
+    - Frame: frame.md
+    - RadioButton: radiobutton.md
+    - Icon: icon.md
+    - Label: label.md
+    - Widget: box.md
+    - Image: image.md
+    - WidgetBase: widgetbase.md
+    - Application: application.md
+    - SwitchButton: switchbutton.md
+    - SvgWidget: svgwidget.md
+    - MoveFrame: moveframe.md
+    - SwitchGroup: switchgroup.md
+    - Align: align.md
+    - Orientation: orientation.md
+    - Flag: flag.md
+    - MainFrame: mainframe.md
+    - CheckButton: checkbutton.md
+    - Widget: widget.md
+    - ToolButton: toolbutton.md
+    - Event: event.md

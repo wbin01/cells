@@ -1,6 +1,6 @@
-# CheckButton
+# RadioButton
 Inherits from: Widget
-Check Button Widget.
+Radio Button Widget.
 ## Constructor signature
 ```python
 __init__(
@@ -14,9 +14,9 @@ __init__(
 Class constructor.
   
   
-:param text: CheckButton text label.
-  
-:param selected: True to start already selected.
+:param text: RadioButton text label.
   
 :param value: Value of any type to capture as an identifier.
+  
+:param selected: True to start already selected.
   

@@ -1,13 +1,14 @@
-# Button
-Inherits from: Widget
-Button Widget.
+# Icon
+Inherits from: object
+Icon.
 ## Constructor signature
 ```python
 __init__(
             self,
-            text: str = None,
-            icon: str = None,
-            orientation: Orientation = Orientation.HORIZONTAL,
+            path: str = 'document-new',
+            fallback_path: str = 'document-new',
+            width: int = 22,
+            height: int = 22,
             *args, **kwargs) -> None:
 ```
 Class constructor.

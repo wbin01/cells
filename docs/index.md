@@ -1,6 +1,6 @@
 # Welcome to MkDocs
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Full documentation [mkdocs.org](https://www.mkdocs.org).
 
 ## Commands
 
@@ -14,4 +14,28 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
     mkdocs.yml    # The configuration file.
     docs/
         index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+        button.md
+        cursor.md
+        checkgroup.md
+        radiogroup.md
+        signal.md
+        frame.md
+        radiobutton.md
+        icon.md
+        label.md
+        box.md
+        image.md
+        widgetbase.md
+        application.md
+        switchbutton.md
+        svgwidget.md
+        moveframe.md
+        switchgroup.md
+        align.md
+        orientation.md
+        flag.md
+        mainframe.md
+        checkbutton.md
+        widget.md
+        toolbutton.md
+        event.md

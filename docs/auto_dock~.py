@@ -101,6 +101,7 @@ class FileScopes(object):
 
 class ClassParse():
     """Class parse"""
+
     def __init__(self, code_scope: str) -> None:
         """Class constructor"""
         self.__code_scope = code_scope
@@ -253,139 +254,46 @@ class ClassParse():
         return properties
 
 
-class MdFiles(object):
-    """..."""
-    def __init__(
-            self,
-            files: FindFiles, documentation_path: str, mkdocs_yml_path: str
-            ) -> None:
-        """..."""
-        self.__files = files
-        self.__documentation_path = pathlib.Path(documentation_path)
-        self.__yml_path = pathlib.Path(mkdocs_yml_path)
-
-    def create_docks(self):
-        index_files = []
-
-        for item_path in self.__files.file_paths():
-            file_escopes = FileScopes(item_path)
-
-            
-            txt = ''
-            name = None
-            for k, v in file_escopes.scopes().items():
-                if v.startswith('class'):
-                    cl = ClassParse(v)
-
-                    # print('\nClass name:')
-                    # print(f'    {cl.name()}')
-                    if cl.name():
-                        txt += f'# {cl.name()}\n'
-                        name = cl.name()
-
-                    # print('\nClass inheritance:')
-                    # print(f'    {cl.inheritance()}')
-                    if cl.inheritance():
-                        txt += f'Inherits from: {cl.inheritance()}\n'
-
-                    # print('\nClass docstring:')
-                    # print(f'    {cl.docstring()}')
-                    if cl.docstring():
-                        text = cl.docstring().replace('    ', ' '
-                            ).replace(':param ', '\n:param ')
-                        txt += f'{text}\n'
-
-                    # print('\nClass constructor signature:')
-                    # print(f'    {cl.constructor_signature()}')
-                    if cl.constructor_signature():
-                        txt += (
-                            '## Constructor signature\n'
-                            '```python\n'
-                            f'{cl.constructor_signature()}\n'
-                            '```\n')
-                    
-                    # print('\nClass constructor docstring:')
-                    # print(f'    {cl.constructor_docstring()}')
-                    if cl.constructor_docstring():
-                        text = cl.constructor_docstring().replace('    ', ' '
-                            ).replace(':param ', '\n:param ')
-                        txt += f'{text}\n'
-                    
-                    # print('\nClass @property:')
-                    # pprint.pprint(cl.properties())
-                    # if cl.properties():
-                    #     '## Properties\n'
-                    #     txt += f'{cl.properties()}\n'
-                    
-                    # print('\nClass metods:')
-                    # pprint.pprint(cl.methods())
-
-                else:
-                    pass
-                    
-            item_path = pathlib.Path(item_path)
-            item_name = item_path.name.replace(item_path.suffix, '.md')
-            dock_path = self.__documentation_path / item_name
-
-            with open(dock_path,
-                    'w', encoding='utf-8') as f:
-                f.write(txt)
-
-            index_files.append((item_name, name if name else item_name))
-
-        index_content = (
-            '# Welcome to MkDocs\n'
-            '\n'
-            'Full documentation [mkdocs.org](https://www.mkdocs.org).\n'
-            '\n'
-            '## Commands\n'
-            '\n'
-            '* `mkdocs new [dir-name]` - Create a new project.\n'
-            '* `mkdocs serve` - Start the live-reloading docs server.\n'
-            '* `mkdocs build` - Build the documentation site.\n'
-            '* `mkdocs -h` - Print help message and exit.\n'
-            '\n'
-            '## Project layout\n'
-            '\n'
-            '    mkdocs.yml    # The configuration file.\n'
-            '    docs/\n'
-            '        index.md  # The documentation homepage.\n')
-
-        yml_content = (
-            'site_name: Documentation\n'
-            'site_url: https://wbin01.github.io/\n'
-            'theme: readthedocs\n'
-            'nav:\n'
-            '    - Home: index.md\n')
-
-        for item in index_files:
-            index_content += f'        {item[0]}\n'
-            yml_content += f'    - {item[1]}: {item[0]}\n'
-
-        with open(self.__documentation_path / 'index.md', 'w',
-                encoding='utf-8') as f:
-            f.write(index_content)
-
-        with open(self.__yml_path, 'w', encoding='utf-8') as f:
-            f.write(yml_content)
-
-        # print(self.__documentation_path / 'index.md')
-        # print(index_content)
-        # print('----')
-        # print(self.__yml_path)
-        # print(yml_content)
-
-
 if __name__ == '__main__':
     import pprint
     BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 
-    md = MdFiles(
-        FindFiles(
-            [BASE_DIR / 'cells'],
-            ['py'],
-            ['__init__.py']),
-        BASE_DIR / 'docs',
-        BASE_DIR / 'mkdocs.yml'
-    )
-    md.create_docks()
+    find_files = FindFiles(
+        [BASE_DIR / 'cells'],
+        ['py'],
+        ['__init__.py'])
+    # for item_file in find_files.file_paths():
+    #     print(item_file)
+
+    file_escopes = FileScopes(BASE_DIR / 'docs' / 'auto_dock.py')
+    for k, v in file_escopes.scopes().items():
+        if v.startswith('class'):
+            cl = ClassParse(v)
+
+            print('\nClass name:')
+            print(f'    {cl.name()}')
+
+            print('\nClass inheritance:')
+            print(f'    {cl.inheritance()}')
+
+            print('\nClass docstring:')
+            print(f'    """{cl.docstring()}"""')
+
+            print('\nClass constructor signature:')
+            print(f'    {cl.constructor_signature()}')
+            
+            print('\nClass constructor docstring:')
+            print(f'    """{cl.constructor_docstring()}"""')
+            
+            print('\nClass @property:')
+            print('    ', end='')
+            pprint.pprint(cl.properties())
+            
+            print('\nClass metods:')
+            print('    ', end='')
+            pprint.pprint(cl.methods())
+
+        else:
+            pass
+            
+        print('---')
