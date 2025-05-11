@@ -109,6 +109,7 @@ class ClassParse():
         self.__constructor_signature = None
         self.__docstring = None
         self.__inheritance = None
+        self.__methods = None
         self.__name = None
         self.__properties = None
 
@@ -136,6 +137,11 @@ class ClassParse():
             self.__name = self.__get_name_and_inheritance()
         return self.__inheritance
 
+    def methods(self) -> str | None:
+        if not self.__methods:
+            self.__methods = self.__get_methods()
+        return self.__methods if self.__methods else None
+
     def name(self) -> str | None:
         """..."""
         if not self.__name:
@@ -146,7 +152,7 @@ class ClassParse():
         """..."""
         if not self.__properties:
             self.__properties = self.__get_properties()
-        return self.__properties
+        return self.__properties if self.__properties else None
 
     def __get_constructor_docstring(self) -> str | None:
         code = ' '.join(
@@ -158,7 +164,8 @@ class ClassParse():
         return init_doc[0][0] or init_doc[0][1] if init_doc else None
 
     def __get_constructor_signature(self) -> str | None:
-        init_sig = re.findall(r'__init__\([^\)]+\)[^:]+:',
+        # init_sig = re.findall(r'__init__\([^\)]+\)[^:]+:',
+        init_sig = re.findall(r'__init__\([^\)]+\)[^\:]*:',
             self.__code_scope, re.DOTALL)
 
         return init_sig[0] if init_sig else None
@@ -171,6 +178,42 @@ class ClassParse():
             code, re.DOTALL)
 
         return class_doc[0][0] or class_doc[0][1] if class_doc else None
+
+    def __get_methods(self) -> dict:
+        if not self.__properties:
+            self.__properties = self.__get_properties()
+
+        methods = {}
+
+        funcs = self.__code_scope.split('def ')
+        for meth in re.findall(
+                r'def [^\"]+\"\"\"[^\"]+\"\"\"',
+                self.__code_scope, re.DOTALL):
+
+            if meth.startswith('def __'):
+                continue
+
+            method_name = re.findall(r'def ([^\(]+)\(', meth)
+            method_sig = re.findall(r'def ([^\)]+\)[^\:]*:)', meth)
+
+            func = None
+            for f in funcs:
+                if f.startswith(method_name[0]):
+                    func = 'def ' + f
+                    break
+
+            method_doc = None
+            if func:
+                m_doc = re.findall(
+                    r'def [^\"]+\"\"\"([^\"]+)\"\"\"|'
+                    "def [^\']+\'\'\'([^\']+)\'\'\'", func, re.DOTALL)
+                method_doc = m_doc[0][0] or m_doc[0][1] if m_doc else None
+
+            methods[method_name[0]] = {
+                'signature': method_sig[0] if method_sig else None,
+                'docstring': method_doc if method_doc else None}
+
+        return methods
 
     def __get_name_and_inheritance(self) -> str | None:
         name = re.findall(
@@ -189,7 +232,7 @@ class ClassParse():
                 self.__code_scope, re.DOTALL):
 
             prop_name = re.findall(r'def ([^\(]+)\(', prop)
-            prop_sig = re.findall(r'def ([^\:]+:)', prop)
+            prop_sig = re.findall(r'def ([^\)]+\)[^\:]*:)', prop)
 
             func = None
             for f in funcs:
@@ -247,6 +290,9 @@ if __name__ == '__main__':
             pprint.pprint(cl.properties())
             
             print('\nClass metods:')
+            print('    ', end='')
+            pprint.pprint(cl.methods())
+
         else:
             pass
             
