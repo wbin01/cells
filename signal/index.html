@@ -203,21 +203,25 @@
     obj_signal = Signal()</p>
 <h3 id="properties">Properties</h3>
 <h4 id="_callback">_callback</h4>
-<p><code>python _callback(self) -&gt; callable:</code></p>
+<pre><code class="language-python">_callback(self) -&gt; callable:
+</code></pre>
 <h3 id="methods">Methods</h3>
 <h4 id="value">value</h4>
-<p><code>python value(self, value: any) -&gt; None:</code></p>
+<pre><code class="language-python">value(self, value: any) -&gt; None:
+</code></pre>
 <p>Signal value.</p>
 <p>my_signal = self.obj_signal
    signal_value = my_signal.value
    self.my_signal.connect(lambda: print(signal_value))</p>
 <h4 id="disconnect">disconnect</h4>
-<p><code>python disconnect(self, callback: callable = None) -&gt; None:</code></p>
+<pre><code class="language-python">disconnect(self, callback: callable = None) -&gt; None:
+</code></pre>
 <p>Function to be disconnected.</p>
 <p>my_obj.obj_signal.disconnect(self.my_function)</p>
 <p>:param callback: Function to be disconnect.</p>
 <h4 id="emit">emit</h4>
-<p><code>python emit(self) -&gt; None:</code></p>
+<pre><code class="language-python">emit(self) -&gt; None:
+</code></pre>
 <p>Send this signal.</p>
 <p>This method should be executed when you need to send the signal.</p>
               

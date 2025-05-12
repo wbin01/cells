@@ -319,7 +319,7 @@ class MdFiles(object):
                         for k, v in cl.properties().items():
                             txt += (
                                 f'\n#### {k}\n'
-                                f'\n```python {v['signature']}```\n')
+                                f'\n```python\n{v['signature']}\n```\n')
 
                             if v['docstring']:
                                 txt += f'\n{v['docstring'].replace(
@@ -331,7 +331,7 @@ class MdFiles(object):
                         for k, v in cl.methods().items():
                             txt += (
                                 f'\n#### {k}\n'
-                                f'\n```python {v['signature']}```\n')
+                                f'\n```python\n{v['signature']}\n```\n')
 
                             if v['docstring']:
                                 txt += f'\n{v['docstring'].replace(

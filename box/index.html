@@ -222,43 +222,51 @@
 <p><strong>:param orientation:</strong> Changes the orientation of the Box to horizontal</p>
 <h3 id="properties">Properties</h3>
 <h4 id="align">align</h4>
-<p><code>python align(self) -&gt; Align:</code></p>
+<pre><code class="language-python">align(self) -&gt; Align:
+</code></pre>
 <p>Align enum.</p>
 <p>Sets the Box alignment.</p>
 <h4 id="margin">margin</h4>
-<p><code>python margin(self) -&gt; tuple:</code></p>
+<pre><code class="language-python">margin(self) -&gt; tuple:
+</code></pre>
 <p>Box Margins</p>
 <h4 id="spacing">spacing</h4>
-<p><code>python spacing(self) -&gt; int:</code></p>
+<pre><code class="language-python">spacing(self) -&gt; int:
+</code></pre>
 <p>The space between widgets inside the box.</p>
 <p>This property takes precedence over the margins of the widgets that 
   are added (add_widgets), so if the Box is vertical, then only the side 
   margins of the widgets will be respected. The Box does not activate 
   the spacing with a single isolated widget.</p>
 <h4 id="_main_parent">_main_parent</h4>
-<p><code>python _main_parent(self) -&gt; Widget | Box:</code></p>
+<pre><code class="language-python">_main_parent(self) -&gt; Widget | Box:
+</code></pre>
 <p>Main frame of the application.</p>
 <p>Use only to access properties and methods of the Main Frame, defining a 
   new frame will break the application.</p>
 <h4 id="_obj">_obj</h4>
-<p><code>python _obj(self):</code></p>
+<pre><code class="language-python">_obj(self):
+</code></pre>
 <p>Direct access to Qt classes.</p>
 <p>Warning: Direct access is discouraged and may break the project. 
   This access is considered a hacking for complex Qt implementations, 
   and should only be used for testing and analysis purposes.</p>
 <h3 id="methods">Methods</h3>
 <h4 id="add">add</h4>
-<p><code>python add(self, item: Widget | Box, index: int = -1) -&gt; Widget | Box:</code></p>
+<pre><code class="language-python">add(self, item: Widget | Box, index: int = -1) -&gt; Widget | Box:
+</code></pre>
 <p>Inserts a Widget or a Box.</p>
 <p>Returns the reference to the added item.</p>
 <p>:param item: It can be a Widget (Widget, Label, Button...) or a Box.
   :param index: Index number where the item should be added 
    (Default is -1)</p>
 <h4 id="items">items</h4>
-<p><code>python items(self) -&gt; list:</code></p>
+<pre><code class="language-python">items(self) -&gt; list:
+</code></pre>
 <p>List with added widgets.</p>
 <h4 id="remove">remove</h4>
-<p><code>python remove(self, item: Widget | Box) -&gt; None:</code></p>
+<pre><code class="language-python">remove(self, item: Widget | Box) -&gt; None:
+</code></pre>
 <p>Removes a Widget or a Box.</p>
 <p>This only removes the widget, but does not delete it. The variable 
   referring to it still works and can be added again later. To 
@@ -266,7 +274,8 @@
   method.</p>
 <p>:param item: A Widget (Widget, Label, Button...) or a Box.</p>
 <h4 id="signal">signal</h4>
-<p><code>python signal(self, event: Event) -&gt; Signal:</code></p>
+<pre><code class="language-python">signal(self, event: Event) -&gt; Signal:
+</code></pre>
 <p>Event Signals.</p>
 <p>Signals are connections to events. When an event such as a mouse 
   click (Event.MOUSE_BUTTON_PRESS) or other event occurs, a signal is 

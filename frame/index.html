@@ -237,84 +237,100 @@
 <p>Class constructor.</p>
 <h3 id="properties">Properties</h3>
 <h4 id="align">align</h4>
-<p><code>python align(self) -&gt; Align:</code></p>
+<pre><code class="language-python">align(self) -&gt; Align:
+</code></pre>
 <p>Align enum.</p>
 <p>Sets the alignment of the Box.</p>
 <h4 id="flag">flag</h4>
-<p><code>python flag(self) -&gt; list:</code></p>
+<pre><code class="language-python">flag(self) -&gt; list:
+</code></pre>
 <p>Frame flags.</p>
 <p>They are used to configure the native behavior of the Frame.
   For example, the POPUP flag configures that the frame can appear on 
   the indicated position on the X and Y axes, and also that the Frame 
   closes by itself.</p>
 <h4 id="height">height</h4>
-<p><code>python height(self) -&gt; int:</code></p>
+<pre><code class="language-python">height(self) -&gt; int:
+</code></pre>
 <p>Returns the height of the Frame.</p>
 <p>Pass a new integer value to update the height.</p>
 <h4 id="icon">icon</h4>
-<p><code>python icon(self) -&gt; Icon:</code></p>
+<pre><code class="language-python">icon(self) -&gt; Icon:
+</code></pre>
 <p>Frame icon.</p>
 <p>Application Icon.</p>
 <h4 id="max_height">max_height</h4>
-<p><code>python max_height(self) -&gt; int:</code></p>
+<pre><code class="language-python">max_height(self) -&gt; int:
+</code></pre>
 <p>Returns the Frame maximum height.</p>
 <p>Pass a new integer value to update the maximum height the Frame can 
   have.</p>
 <h4 id="max_width">max_width</h4>
-<p><code>python max_width(self) -&gt; int:</code></p>
+<pre><code class="language-python">max_width(self) -&gt; int:
+</code></pre>
 <p>Returns the Frame maximum width.</p>
 <p>Pass a new integer value to update the maximum width the Frame can 
   have.</p>
 <h4 id="min_height">min_height</h4>
-<p><code>python min_height(self) -&gt; int:</code></p>
+<pre><code class="language-python">min_height(self) -&gt; int:
+</code></pre>
 <p>Returns the Frame minimum height.</p>
 <p>Pass a new integer value to update the minimum height the Frame can 
   have.</p>
 <h4 id="min_width">min_width</h4>
-<p><code>python min_width(self) -&gt; int:</code></p>
+<pre><code class="language-python">min_width(self) -&gt; int:
+</code></pre>
 <p>Returns the Frame minimum width.</p>
 <p>Pass a new integer value to update the minimum width the Frame can 
   have.</p>
 <h4 id="spacing">spacing</h4>
-<p><code>python spacing(self) -&gt; int:</code></p>
+<pre><code class="language-python">spacing(self) -&gt; int:
+</code></pre>
 <p>The space between widgets inside the Frame box.</p>
 <p>This property takes precedence over the margins of the widgets that 
   are added (add_widgets), so if the Box is vertical, then only the side 
   margins of the widgets will be respected. The Box does not activate 
   the spacing with a single isolated widget.</p>
 <h4 id="style">style</h4>
-<p><code>python style(self) -&gt; dict:</code></p>
+<pre><code class="language-python">style(self) -&gt; dict:
+</code></pre>
 <p>Style as dict.</p>
 <p>Get the style as a dictionary or submit a new dictionary style to 
   update it.</p>
 <h4 id="width">width</h4>
-<p><code>python width(self) -&gt; int:</code></p>
+<pre><code class="language-python">width(self) -&gt; int:
+</code></pre>
 <p>Returns the Frame width.</p>
 <p>Pass a new integer value to update the width.</p>
 <h4 id="_main_parent">_main_parent</h4>
-<p><code>python _main_parent(self):</code></p>
+<pre><code class="language-python">_main_parent(self):
+</code></pre>
 <p>Main frame of the application.</p>
 <p>Use only to access properties and methods of the Main Frame, defining a 
   new frame will break the application.</p>
 <h4 id="_obj">_obj</h4>
-<p><code>python _obj(self):</code></p>
+<pre><code class="language-python">_obj(self):
+</code></pre>
 <p>Direct access to Qt classes.</p>
 <p>Warning: Direct access is discouraged and may break the project. 
   This access is considered a hacking for complex Qt implementations, 
   and should only be used for testing and analysis purposes.</p>
 <h3 id="methods">Methods</h3>
 <h4 id="events_available_for_signal">events_available_for_signal</h4>
-<p><code>python events_available_for_signal(self) -&gt; str:</code></p>
+<pre><code class="language-python">events_available_for_signal(self) -&gt; str:
+</code></pre>
 <p>String with all available events.</p>
 <h4 id="add">add</h4>
-<p><code>python add(self, item: Widget | Box, index: int = -1) -&gt; Widget | Box:</code></p>
+<pre><code class="language-python">add(self, item: Widget | Box, index: int = -1) -&gt; Widget | Box:
+</code></pre>
 <p>Inserts a Widget or a Box.</p>
 <p>Returns the reference to the added item.</p>
 <p>:param item: It can be a Widget (Widget, Label, Button...) or a Box.
   :param index: Index number where the item should be added 
    (Default is -1)</p>
 <h4 id="remove">remove</h4>
-<p><code>python remove(self, item: Widget | Box) -&gt; None:</code></p>
+<pre><code class="language-python">remove(self, item: Widget | Box) -&gt; None:
+</code></pre>
 <p>Removes a Widget or a Box.</p>
 <p>This only removes the widget, but does not delete it. The variable 
   referring to it still works and can be added again later. To 
@@ -322,16 +338,19 @@
   method.</p>
 <p>:param item: A Widget (Widget, Label, Button...) or a Box.</p>
 <h4 id="move">move</h4>
-<p><code>python move(self, x: int, y: int) -&gt; None:</code></p>
+<pre><code class="language-python">move(self, x: int, y: int) -&gt; None:
+</code></pre>
 <p>Move the Frame.</p>
 <p>The X and Y positions are relative to the main parent.</p>
 <p>:param x: Horizontal position relative to the main parent.
   :param y: Vertical position relative to the main parent.</p>
 <h4 id="show">show</h4>
-<p><code>python show(self) -&gt; None:</code></p>
+<pre><code class="language-python">show(self) -&gt; None:
+</code></pre>
 <p>Renders and displays the Frame.</p>
 <h4 id="signal">signal</h4>
-<p><code>python signal(self, event: Event) -&gt; Signal:</code></p>
+<pre><code class="language-python">signal(self, event: Event) -&gt; Signal:
+</code></pre>
 <p>Event Signals.</p>
 <p>Signals are connections to events. When an event such as a mouse 
   click (Event.MOUSE_PRESS) or other event occurs, a signal is 
@@ -343,7 +362,8 @@
    Event enumeration (Enum) corresponding to the requested event, 
    such as Event.HOVER_ENTER. See: events_available_for_signal().</p>
 <h4 id="style_from_file">style_from_file</h4>
-<p><code>python style_from_file(self, path: str) -&gt; dict:</code></p>
+<pre><code class="language-python">style_from_file(self, path: str) -&gt; dict:
+</code></pre>
 <p>Convert the contents of a file into a valid dictionary style.</p>
               
             </div>
