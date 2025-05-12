@@ -22,7 +22,9 @@ Class constructor.
 
 #### text
 
-```python text(self) -> str:```
+```python
+text(self) -> str:
+```
 
 Label text.
   

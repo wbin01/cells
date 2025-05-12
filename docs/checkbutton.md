@@ -36,7 +36,9 @@ Class constructor.
 
 #### text
 
-```python text(self) -> str:```
+```python
+text(self) -> str:
+```
 
 Button text.
   
@@ -45,7 +47,9 @@ Button text.
 
 #### selected
 
-```python selected(self) -> bool:```
+```python
+selected(self) -> bool:
+```
 
 If Widget is selected.
 
@@ -54,7 +58,9 @@ If Widget is selected.
 
 #### value
 
-```python value(self) -> any:```
+```python
+value(self) -> any:
+```
 
 Button value.
   

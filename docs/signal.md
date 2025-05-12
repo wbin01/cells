@@ -29,7 +29,9 @@ Class constructor.
 
 #### _callback
 
-```python _callback(self) -> callable:```
+```python
+_callback(self) -> callable:
+```
 
 
 ### Methods
@@ -37,7 +39,9 @@ Class constructor.
 
 #### value
 
-```python value(self, value: any) -> None:```
+```python
+value(self, value: any) -> None:
+```
 
 Signal value.
 
@@ -48,7 +52,9 @@ Signal value.
 
 #### disconnect
 
-```python disconnect(self, callback: callable = None) -> None:```
+```python
+disconnect(self, callback: callable = None) -> None:
+```
 
 Function to be disconnected.
 
@@ -59,7 +65,9 @@ Function to be disconnected.
 
 #### emit
 
-```python emit(self) -> None:```
+```python
+emit(self) -> None:
+```
 
 Send this signal.
 

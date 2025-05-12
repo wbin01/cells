@@ -32,7 +32,9 @@ Class constructor.
 
 #### align
 
-```python align(self) -> Align:```
+```python
+align(self) -> Align:
+```
 
 Align enum.
 
@@ -41,13 +43,17 @@ Align enum.
 
 #### margin
 
-```python margin(self) -> tuple:```
+```python
+margin(self) -> tuple:
+```
 
 Box Margins
 
 #### spacing
 
-```python spacing(self) -> int:```
+```python
+spacing(self) -> int:
+```
 
 
   The space between widgets inside the box.
@@ -60,7 +66,9 @@ Box Margins
 
 #### _main_parent
 
-```python _main_parent(self) -> Widget | Box:```
+```python
+_main_parent(self) -> Widget | Box:
+```
 
 Main frame of the application.
 
@@ -70,7 +78,9 @@ Main frame of the application.
 
 #### _obj
 
-```python _obj(self):```
+```python
+_obj(self):
+```
 
 Direct access to Qt classes.
 
@@ -85,7 +95,9 @@ Direct access to Qt classes.
 
 #### add
 
-```python add(self, item: Widget | Box, index: int = -1) -> Widget | Box:```
+```python
+add(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+```
 
 Inserts a Widget or a Box.
 
@@ -98,13 +110,17 @@ Inserts a Widget or a Box.
 
 #### items
 
-```python items(self) -> list:```
+```python
+items(self) -> list:
+```
 
 List with added widgets.
 
 #### remove
 
-```python remove(self, item: Widget | Box) -> None:```
+```python
+remove(self, item: Widget | Box) -> None:
+```
 
 Removes a Widget or a Box.
 
@@ -118,7 +134,9 @@ Removes a Widget or a Box.
 
 #### signal
 
-```python signal(self, event: Event) -> Signal:```
+```python
+signal(self, event: Event) -> Signal:
+```
 
 Event Signals.
 

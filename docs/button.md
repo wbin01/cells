@@ -30,7 +30,9 @@ Class constructor.
 
 #### selectable
 
-```python selectable(self) -> bool:```
+```python
+selectable(self) -> bool:
+```
 
 If it is selectable.
 
@@ -39,7 +41,9 @@ If it is selectable.
 
 #### selected
 
-```python selected(self) -> bool:```
+```python
+selected(self) -> bool:
+```
 
 If Widget is selected.
 
@@ -49,7 +53,9 @@ If Widget is selected.
 
 #### text
 
-```python text(self) -> str:```
+```python
+text(self) -> str:
+```
 
 Button text.
   

@@ -22,6 +22,8 @@ Class constructor.
 
 #### state
 
-```python state(self) -> str:```
+```python
+state(self) -> str:
+```
 
 ...

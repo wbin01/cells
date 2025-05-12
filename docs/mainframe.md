@@ -28,7 +28,9 @@ Class constructor.
 
 #### align
 
-```python align(self) -> Align:```
+```python
+align(self) -> Align:
+```
 
 Alignment enum.
 
@@ -37,7 +39,9 @@ Alignment enum.
 
 #### flag
 
-```python flag(self) -> list:```
+```python
+flag(self) -> list:
+```
 
 Frame flags.
 
@@ -49,7 +53,9 @@ Frame flags.
 
 #### height
 
-```python height(self) -> int:```
+```python
+height(self) -> int:
+```
 
 Returns the height of the Frame.
 
@@ -58,7 +64,9 @@ Returns the height of the Frame.
 
 #### icon
 
-```python icon(self) -> Icon:```
+```python
+icon(self) -> Icon:
+```
 
 Frame icon.
   
@@ -67,7 +75,9 @@ Frame icon.
 
 #### fullscreen
 
-```python fullscreen(self) -> bool:```
+```python
+fullscreen(self) -> bool:
+```
 
 If the Frame is full screen.
 
@@ -76,7 +86,9 @@ If the Frame is full screen.
 
 #### maximized
 
-```python maximized(self) -> bool:```
+```python
+maximized(self) -> bool:
+```
 
 If the Frame is maximized.
 
@@ -85,7 +97,9 @@ If the Frame is maximized.
 
 #### minimized
 
-```python minimized(self) -> bool:```
+```python
+minimized(self) -> bool:
+```
 
 If the Frame is minimized.
 
@@ -94,7 +108,9 @@ If the Frame is minimized.
 
 #### max_height
 
-```python max_height(self) -> int:```
+```python
+max_height(self) -> int:
+```
 
 Returns the Frame maximum height.
 
@@ -104,7 +120,9 @@ Returns the Frame maximum height.
 
 #### max_width
 
-```python max_width(self) -> int:```
+```python
+max_width(self) -> int:
+```
 
 Returns the Frame maximum width.
 
@@ -114,7 +132,9 @@ Returns the Frame maximum width.
 
 #### min_height
 
-```python min_height(self) -> int:```
+```python
+min_height(self) -> int:
+```
 
 Returns the Frame minimum height.
 
@@ -124,7 +144,9 @@ Returns the Frame minimum height.
 
 #### min_width
 
-```python min_width(self) -> int:```
+```python
+min_width(self) -> int:
+```
 
 Returns the Frame minimum width.
 
@@ -134,7 +156,9 @@ Returns the Frame minimum width.
 
 #### spacing
 
-```python spacing(self) -> int:```
+```python
+spacing(self) -> int:
+```
 
 
   The space between widgets inside the Frame box.
@@ -147,7 +171,9 @@ Returns the Frame minimum width.
 
 #### style
 
-```python style(self) -> dict:```
+```python
+style(self) -> dict:
+```
 
 Style as dict.
 
@@ -157,7 +183,9 @@ Style as dict.
 
 #### title
 
-```python title(self) -> str:```
+```python
+title(self) -> str:
+```
 
 Returns the Frame title.
 
@@ -166,7 +194,9 @@ Returns the Frame title.
 
 #### width
 
-```python width(self) -> int:```
+```python
+width(self) -> int:
+```
 
 Returns the Frame width.
 
@@ -175,7 +205,9 @@ Returns the Frame width.
 
 #### _obj
 
-```python _obj(self):```
+```python
+_obj(self):
+```
 
 Direct access to Qt classes.
 
@@ -190,13 +222,17 @@ Direct access to Qt classes.
 
 #### events_available_for_signal
 
-```python events_available_for_signal(self) -> str:```
+```python
+events_available_for_signal(self) -> str:
+```
 
 String with all available events.
 
 #### add
 
-```python add(self, item: Widget | Box, index: int = -1) -> Widget | Box:```
+```python
+add(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+```
 
 Inserts a Widget or a Box.
 
@@ -209,7 +245,9 @@ Inserts a Widget or a Box.
 
 #### remove
 
-```python remove(self, item: Widget | Box) -> None:```
+```python
+remove(self, item: Widget | Box) -> None:
+```
 
 Removes a Widget or a Box.
 
@@ -223,13 +261,17 @@ Removes a Widget or a Box.
 
 #### show
 
-```python show(self) -> None:```
+```python
+show(self) -> None:
+```
 
 Show the frame.
 
 #### signal
 
-```python signal(self, event: Event) -> Signal:```
+```python
+signal(self, event: Event) -> Signal:
+```
 
 Event Signals.
 
@@ -248,6 +290,8 @@ Event Signals.
 
 #### style_from_file
 
-```python style_from_file(self, path: str) -> dict:```
+```python
+style_from_file(self, path: str) -> dict:
+```
 
 Convert the contents of a file into a valid dictionary style.

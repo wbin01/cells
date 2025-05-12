@@ -51,13 +51,17 @@ Class constructor.
 
 #### accent
 
-```python accent(self) -> str:```
+```python
+accent(self) -> str:
+```
 
 ...
 
 #### align
 
-```python align(self) -> Align:```
+```python
+align(self) -> Align:
+```
 
 Align enum.
 
@@ -66,7 +70,9 @@ Align enum.
 
 #### enabled
 
-```python enabled(self) -> bool:```
+```python
+enabled(self) -> bool:
+```
 
 Enables the Widget.
 
@@ -76,7 +82,9 @@ Enables the Widget.
 
 #### height
 
-```python height(self) -> int:```
+```python
+height(self) -> int:
+```
 
 Returns the height of the Widget.
 
@@ -85,7 +93,9 @@ Returns the height of the Widget.
 
 #### margin
 
-```python margin(self) -> tuple:```
+```python
+margin(self) -> tuple:
+```
 
 Utility to set widget margins using a simple int tuple.
 
@@ -100,7 +110,9 @@ Utility to set widget margins using a simple int tuple.
 
 #### max_height
 
-```python max_height(self) -> int:```
+```python
+max_height(self) -> int:
+```
 
 Returns the Widget maximum height.
 
@@ -110,7 +122,9 @@ Returns the Widget maximum height.
 
 #### max_width
 
-```python max_width(self) -> int:```
+```python
+max_width(self) -> int:
+```
 
 Returns the Widget maximum width.
 
@@ -120,7 +134,9 @@ Returns the Widget maximum width.
 
 #### min_height
 
-```python min_height(self) -> int:```
+```python
+min_height(self) -> int:
+```
 
 Returns the Widget minimum height.
 
@@ -130,7 +146,9 @@ Returns the Widget minimum height.
 
 #### min_width
 
-```python min_width(self) -> int:```
+```python
+min_width(self) -> int:
+```
 
 Returns the Widget minimum width.
 
@@ -140,7 +158,9 @@ Returns the Widget minimum width.
 
 #### spacing
 
-```python spacing(self) -> int:```
+```python
+spacing(self) -> int:
+```
 
 
   The space between widgets inside the Widget box.
@@ -153,13 +173,17 @@ Returns the Widget minimum width.
 
 #### state
 
-```python state(self) -> str:```
+```python
+state(self) -> str:
+```
 
 ...
 
 #### style
 
-```python style(self) -> str:```
+```python
+style(self) -> str:
+```
 
 Style as dict.
 
@@ -195,7 +219,9 @@ Style as dict.
 
 #### style_class
 
-```python style_class(self) -> str | None:```
+```python
+style_class(self) -> str | None:
+```
 
 Changes the style to that of the desired class.
   
@@ -212,7 +238,9 @@ Changes the style to that of the desired class.
 
 #### style_id
 
-```python style_id(self) -> str:```
+```python
+style_id(self) -> str:
+```
 
 Style ID.
 
@@ -224,7 +252,9 @@ Style ID.
 
 #### visible
 
-```python visible(self) -> bool:```
+```python
+visible(self) -> bool:
+```
 
 Widget Visibility.
 
@@ -235,7 +265,9 @@ Widget Visibility.
 
 #### width
 
-```python width(self) -> int:```
+```python
+width(self) -> int:
+```
 
 Returns the Widget width.
 
@@ -244,7 +276,9 @@ Returns the Widget width.
 
 #### _main_parent
 
-```python _main_parent(self):```
+```python
+_main_parent(self):
+```
 
 Main frame of the application.
 
@@ -254,7 +288,9 @@ Main frame of the application.
 
 #### _obj
 
-```python _obj(self):```
+```python
+_obj(self):
+```
 
 Direct access to Qt classes.
 
@@ -269,13 +305,17 @@ Direct access to Qt classes.
 
 #### events_available_for_signal
 
-```python events_available_for_signal(self) -> str:```
+```python
+events_available_for_signal(self) -> str:
+```
 
 String with all available events.
 
 #### add
 
-```python add(self, item: Widget | Box, index: int = -1) -> Widget | Box:```
+```python
+add(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+```
 
 Inserts a Widget or a Box.
 
@@ -288,13 +328,17 @@ Inserts a Widget or a Box.
 
 #### items
 
-```python items(self) -> list:```
+```python
+items(self) -> list:
+```
 
 List with added widgets.
 
 #### remove
 
-```python remove(self, item: Widget | Box) -> None:```
+```python
+remove(self, item: Widget | Box) -> None:
+```
 
 Removes a Widget or a Box.
 
@@ -308,7 +352,9 @@ Removes a Widget or a Box.
 
 #### move
 
-```python move(self, x: int, y: int) -> None:```
+```python
+move(self, x: int, y: int) -> None:
+```
 
 Move the Widget.
 
@@ -320,7 +366,9 @@ Move the Widget.
 
 #### signal
 
-```python signal(self, event: Event) -> Signal:```
+```python
+signal(self, event: Event) -> Signal:
+```
 
 Event Signals.
 

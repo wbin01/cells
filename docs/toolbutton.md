@@ -22,12 +22,16 @@ Class constructor.
 
 #### selectable
 
-```python selectable(self) -> bool:```
+```python
+selectable(self) -> bool:
+```
 
 ...
 
 #### selected
 
-```python selected(self) -> bool:```
+```python
+selected(self) -> bool:
+```
 
 ...

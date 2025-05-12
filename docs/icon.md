@@ -31,7 +31,9 @@ Class constructor.
 
 #### height
 
-```python height(self) -> int:```
+```python
+height(self) -> int:
+```
 
 Returns the height of the Icon.
 
@@ -40,7 +42,9 @@ Returns the height of the Icon.
 
 #### path
 
-```python path(self) -> str:```
+```python
+path(self) -> str:
+```
 
 Icon path.
 
@@ -49,7 +53,9 @@ Icon path.
 
 #### width
 
-```python width(self) -> int:```
+```python
+width(self) -> int:
+```
 
 Returns the Widget width.
 
@@ -58,7 +64,9 @@ Returns the Widget width.
 
 #### _obj
 
-```python _obj(self):```
+```python
+_obj(self):
+```
 
 Direct access to Qt classes.
 

@@ -25,7 +25,9 @@ Class constructor.
 
 #### frame
 
-```python frame(self) -> QtWidgets:```
+```python
+frame(self) -> QtWidgets:
+```
 
 Application frame.
   
@@ -34,7 +36,9 @@ Application frame.
 
 #### icon
 
-```python icon(self) -> str:```
+```python
+icon(self) -> str:
+```
 
 Frame icon path string.
 
@@ -43,7 +47,9 @@ Frame icon path string.
 
 #### frame_id
 
-```python frame_id(self) -> list:```
+```python
+frame_id(self) -> list:
+```
 
 Frame identity list.
 

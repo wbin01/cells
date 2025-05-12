@@ -51,7 +51,9 @@ Class constructor.
 
 #### path
 
-```python path(self) -> str:```
+```python
+path(self) -> str:
+```
 
 Image path.
 

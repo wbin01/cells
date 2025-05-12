@@ -22,18 +22,24 @@ Class constructor.
 
 #### position
 
-```python position(self) -> tuple:```
+```python
+position(self) -> tuple:
+```
 
 Tuple with mouse cursor position.
 
 #### x
 
-```python x(self) -> int:```
+```python
+x(self) -> int:
+```
 
 X mouse cursor position.
 
 #### y
 
-```python y(self) -> int:```
+```python
+y(self) -> int:
+```
 
 Y mouse cursor position.

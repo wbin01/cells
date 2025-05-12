@@ -26,6 +26,8 @@ Class constructor.
 
 #### buttons
 
-```python buttons(self) -> list:```
+```python
+buttons(self) -> list:
+```
 
 List with all CheckButton's configured to display.
