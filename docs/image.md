@@ -1,6 +1,6 @@
-#  
 
-## <h2 style="color: #4d7c99;">class Image</h2>
+
+## <h2 style="color: #4d7c99;">Image</h2>
 
 
 **Inherits from: _Widget_**

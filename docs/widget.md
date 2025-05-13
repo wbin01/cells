@@ -1,23 +1,6 @@
-#  
-
-## <h2 style="color: #4d7c99;">class CoreWidget</h2>
 
 
-**Inherits from: _QtWidgets.QFrame_**
-
-Core Widget.
-
-
-### Signature
-
-```python
-__init__(self, *args, **kwargs):
-```
-
-Class constructor.
-
-
-## <h2 style="color: #4d7c99;">class Widget</h2>
+## <h2 style="color: #4d7c99;">Widget</h2>
 
 
 **Inherits from: _object_**

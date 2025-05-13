@@ -1,6 +1,6 @@
-#  
 
-## <h2 style="color: #4d7c99;">class Box</h2>
+
+## <h2 style="color: #4d7c99;">Box</h2>
 
 
 **Inherits from: _object_**
@@ -152,20 +152,3 @@ Event Signals.
    Event enumeration (Enum) corresponding to the requested event, 
    such as Event.HOVER_ENTER. See: events_available_for_signal().
   
-
-
-## <h2 style="color: #4d7c99;">class Widget</h2>
-
-
-**Inherits from: _object_**
-
-Widget.
-
-
-### Signature
-
-```python
-__init__(self, *args, **kwargs) -> None:
-```
-
-Class constructor.

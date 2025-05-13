@@ -27,4 +27,3 @@ nav:
     - SwitchGroup: switchgroup.md
     - ToolButton: toolbutton.md
     - Widget: widget.md
-    - WidgetBase: widgetbase.md

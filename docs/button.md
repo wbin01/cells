@@ -1,6 +1,6 @@
-#  
 
-## <h2 style="color: #4d7c99;">class Button</h2>
+
+## <h2 style="color: #4d7c99;">Button</h2>
 
 
 **Inherits from: _Widget_**

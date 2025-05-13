@@ -1,6 +1,6 @@
-#  
 
-## <h2 style="color: #4d7c99;">class RadioGroup</h2>
+
+## <h2 style="color: #4d7c99;">RadioGroup</h2>
 
 
 **Inherits from: _Widget_**

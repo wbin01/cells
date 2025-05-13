@@ -9,13 +9,19 @@ from .signal import Signal
 
 
 class Box(object):
-    """Box layout"""
+    """Box layout
+
+    # Internal control!
+    """
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
 
 
 class Widget(object):
-    """Widget."""
+    """Widget.
+    
+    # Internal control!
+    """
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
 

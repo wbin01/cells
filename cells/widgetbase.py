@@ -8,7 +8,10 @@ from .signal import Signal
 
 
 class CoreWidgetBase(QtWidgets.QWidget):
-    """Core Widget base."""
+    """Core Widget base.
+
+    # Internal control!
+    """
     def __init__(self, *args, **kwargs):
         """Class constructor."""
         super().__init__(*args, **kwargs)

@@ -1,6 +1,6 @@
-#  
 
-## <h2 style="color: #4d7c99;">class SwitchGroup</h2>
+
+## <h2 style="color: #4d7c99;">SwitchGroup</h2>
 
 
 **Inherits from: _CheckGroup_**

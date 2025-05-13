@@ -13,7 +13,10 @@ from .signal import Signal
 
 
 class CoreWidget(QtWidgets.QFrame):
-    """Core Widget."""
+    """Core Widget.
+
+    # Internal control!
+    """
     def __init__(self, *args, **kwargs):
         """Class constructor."""
         super().__init__(*args, **kwargs)
@@ -71,7 +74,10 @@ class CoreWidget(QtWidgets.QFrame):
         return QtWidgets.QMainWindow.event_filter(self, watched, event)
 
 class Widget(object):
-    """Widget."""
+    """Widget.
+
+    # Internal control!
+    """
     def __init__(self, *args, **kwargs) -> None:
         """Class constructor."""
 
