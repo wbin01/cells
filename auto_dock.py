@@ -271,90 +271,48 @@ class MdFiles(object):
         self.__documentation_path = pathlib.Path(documentation_path)
         self.__yml_path = pathlib.Path(mkdocs_yml_path)
 
-    def create_docks(self):
-        doc_files = []
+    def create_docs(self):
+        yml_registry = []
 
-        for item_path in self.__files.file_paths():
-            file_escopes = FileScopes(item_path)
+        for file_path in self.__files.file_paths():
+            file_scope = FileScopes(file_path)
 
-            color = 'style="color: #4d7c99;'
-            txt = '#  '
-            name = None
-            scopes = 0
-            for k, v in file_escopes.scopes().items():
-                if v.startswith('class'):
-                    cl = ClassParse(v)
-                    if '# Internal control!' in cl.docstring():
+            doc_content = '#  '
+            scope_name = None
+            scopes_found = 0
+
+            for _, scope_content in file_scope.scopes().items():
+                if scope_content.startswith('class'):
+                    class_parse = ClassParse(scope_content)
+
+                    if '# Internal control!' in class_parse.docstring():
                         continue
-                    scopes += 1
 
-                    if cl.name():
-                        txt += f'\n\n## <h2 {color}">{cl.name()}</h2>\n\n'
-
-                        item_path_ = pathlib.Path(item_path) # <<<<<<<<<<<< repetido
-                        if cl.name().lower() == item_path_.name.replace(
-                                item_path_.suffix, ''):
-                            name = cl.name()
-
-                    if cl.inheritance():
-                        txt += f'\n**Inherits from: _{cl.inheritance()}_**\n'
-
-                    if cl.docstring():
-                        txt += f'\n{cl.docstring().replace('    ', ' ')}\n'
-
-                    if cl.constructor_signature():
-                        txt += (
-                            '\n\n### Signature\n\n'
-                            '```python\n'
-                            f'{cl.constructor_signature()}\n'
-                            '```\n')
-                    
-                    if cl.constructor_docstring():
-                        text = cl.constructor_docstring().replace('    ', ' ')
-
-                        for p in re.findall(r':param [^:]+:', text):
-                            text = re.sub(p, f'\n**{p}**', text)
-
-                        txt += f'\n{text}\n'
-
-                    if cl.properties():
-                        txt += '\n\n### Properties\n\n'
-
-                        for k, v in cl.properties().items():
-                            txt += (
-                                f'\n#### {k}\n'
-                                f'\n```python\n{v['signature']}\n```\n')
-
-                            if v['docstring']:
-                                txt += f'\n{v['docstring'].replace(
-                                    '    ', ' ')}\n'
-
-                    if cl.methods():
-                        txt += '\n\n### Methods\n\n'
-
-                        for k, v in cl.methods().items():
-                            txt += (
-                                f'\n#### {k}\n'
-                                f'\n```python\n{v['signature']}\n```\n')
-
-                            if v['docstring']:
-                                txt += f'\n{v['docstring'].replace(
-                                    '    ', ' ')}\n'
+                    scopes_found += 1
+                    scope_name, doc_content = self.__class_doc_content_parse(
+                        class_parse, file_path)
                 else:
+                    # func_parse = FuncParse(scope_content)
+
+                    # if '# Internal control!' in func_parse.docstring():
+                    #     continue
+
+                    # scopes_found += 1
+                    # scope_name, doc_content = self.__func_doc_content_parse(
+                    #     func_parse, file_path)
                     pass
 
-            if scopes == 1:
-                txt = txt.replace('#  ', '')
+            if scopes_found == 1:
+                doc_content = doc_content.replace('#  ', '')
 
-            item_path = pathlib.Path(item_path)
-            item_name = item_path.name.replace(item_path.suffix, '.md')
-            dock_path = self.__documentation_path / item_name
+            doc_file_name = file_path.name.replace(file_path.suffix, '.md')
 
-            with open(dock_path,
+            with open(self.__documentation_path / doc_file_name,
                     'w', encoding='utf-8') as f:
-                f.write(txt)
-
-            doc_files.append((item_name, name if name else item_name))
+                f.write(doc_content)
+            
+            yml_registry.append(
+                (scope_name if scope_name else doc_file_name, doc_file_name))
 
         yml_content = (
             'site_name: Documentation\n'
@@ -363,8 +321,8 @@ class MdFiles(object):
             'nav:\n'
             '    - Home: index.md\n')
 
-        for item in doc_files:
-            yml_content += f'    - {item[1]}: {item[0]}\n'
+        for item in yml_registry:
+            yml_content += f'    - {item[0]}: {item[1]}\n'
 
         with open(self.__documentation_path / 'index.md', 'w',
                 encoding='utf-8') as f:
@@ -372,6 +330,79 @@ class MdFiles(object):
 
         with open(self.__yml_path, 'w', encoding='utf-8') as f:
             f.write(yml_content)
+
+    @staticmethod
+    def __class_doc_content_parse(
+            class_parse: ClassParse, file_path: pathlib) -> tuple:
+        doc_content = '#  '
+        scope_name = None
+
+        if class_parse.name():
+            doc_content += (
+                '\n\n## <h2 style="color: #5697bf;">'
+                f'<u>{class_parse.name()}</u>'
+                '</h2>\n\n')
+
+            if class_parse.name().lower() == file_path.name.replace(
+                    file_path.suffix, ''):
+                scope_name = class_parse.name()
+
+        if class_parse.inheritance():
+            doc_content += (
+                '\n**Inherits from: '
+                f'_{class_parse.inheritance()}_**\n')
+
+        if class_parse.docstring():
+            doc_content += f'\n{class_parse.docstring().replace(
+                '    ', ' ')}\n'
+
+        if class_parse.constructor_signature():
+            doc_content += (
+                '\n\n### <h2 style="color: #5e5d84;">Signature</h2>\n\n'
+                '```python\n'
+                f'{class_parse.constructor_signature()}\n'
+                '```\n')
+        
+        if class_parse.constructor_docstring():
+            text = class_parse.constructor_docstring().replace(
+                '    ', ' ')
+
+            for p in re.findall(r':param [^:]+:', text):
+                text = re.sub(p, f'\n**{p}**', text)
+
+            doc_content += f'\n{text}\n'
+
+        if class_parse.properties():
+            doc_content += (
+                '\n\n### <h2 style="color: #5e5d84;">Properties</h2>\n\n')
+
+            for prop_name, prop_value in class_parse.properties().items():
+                doc_content += (
+                    f'\n#### {prop_name}\n'
+                    f'\n```python\n{prop_value['signature']}\n```\n')
+
+                if prop_value['docstring']:
+                    doc_content += f'\n{prop_value['docstring'].replace(
+                        '    ', ' ')}\n'
+
+        if class_parse.methods():
+            doc_content += (
+                '\n\n### <h2 style="color: #5e5d84;">Methods<h2>\n\n')
+
+            for meth_name, meth_value in class_parse.methods().items():
+                doc_content += (
+                    f'\n#### {meth_name}\n'
+                    f'\n```python\n{meth_value['signature']}\n```\n')
+
+                if meth_value['docstring']:
+                    doc_text = meth_value['docstring']
+                    for p in re.findall(r':param [^:]+:', doc_text):
+                        doc_text = re.sub(p, f'\n**{p}**', doc_text)
+
+                    doc_content += f'\n{doc_text.replace(
+                        '    ', ' ')}\n'
+
+        return scope_name, doc_content
 
 
 if __name__ == '__main__':
@@ -386,4 +417,4 @@ if __name__ == '__main__':
         BASE_DIR / 'docs',
         BASE_DIR / 'mkdocs.yml'
     )
-    md.create_docks()
+    md.create_docs()

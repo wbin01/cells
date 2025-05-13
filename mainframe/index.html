@@ -218,18 +218,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="mainframe"><h2 style="color: #4d7c99;">MainFrame</h2></h2>
+                <h2 id="mainframe"><h2 style="color: #5697bf;"><u>MainFrame</u></h2></h2>
 <p><strong>Inherits from: <em>object</em></strong></p>
 <p>Main frame.</p>
 <p>That is, the main application window.</p>
-<h3 id="signature">Signature</h3>
+<h3 id="signature"><h2 style="color: #5e5d84;">Signature</h2></h3>
 <pre><code class="language-python">__init__(
             self,
             orientation: Orientation = Orientation.VERTICAL,
             *args, **kwargs) -&gt; None:
 </code></pre>
 <p>Class constructor.</p>
-<h3 id="properties">Properties</h3>
+<h3 id="properties"><h2 style="color: #5e5d84;">Properties</h2></h3>
 <h4 id="align">align</h4>
 <pre><code class="language-python">align(self) -&gt; Align:
 </code></pre>
@@ -323,7 +323,7 @@
 <p>Warning: Direct access is discouraged and may break the project. 
   This access is considered a hacking for complex Qt implementations, 
   and should only be used for testing and analysis purposes.</p>
-<h3 id="methods">Methods</h3>
+<h3 id="methods"><h2 style="color: #5e5d84;">Methods<h2></h3>
 <h4 id="events_available_for_signal">events_available_for_signal</h4>
 <pre><code class="language-python">events_available_for_signal(self) -&gt; str:
 </code></pre>
@@ -333,8 +333,8 @@
 </code></pre>
 <p>Inserts a Widget or a Box.</p>
 <p>Returns the reference to the added item.</p>
-<p>:param item: It can be a Widget (Widget, Label, Button...) or a Box.
-  :param index: Index number where the item should be added 
+<p><strong>:param item:</strong> It can be a Widget (Widget, Label, Button...) or a Box.</p>
+<p><strong>:param index:</strong> Index number where the item should be added 
    (Default is -1)</p>
 <h4 id="remove">remove</h4>
 <pre><code class="language-python">remove(self, item: Widget | Box) -&gt; None:
@@ -344,7 +344,7 @@
   referring to it still works and can be added again later. To 
   completely delete the widget from the variable, use the 'delete()' 
   method.</p>
-<p>:param item: A Widget (Widget, Label, Button...) or a Box.</p>
+<p><strong>:param item:</strong> A Widget (Widget, Label, Button...) or a Box.</p>
 <h4 id="show">show</h4>
 <pre><code class="language-python">show(self) -&gt; None:
 </code></pre>
@@ -359,7 +359,7 @@
   signal is sent.</p>
 <p>Use the 'events_available_for_signal()' method to see all available 
   events.</p>
-<p>:param event:
+<p><strong>:param event:</strong>
    Event enumeration (Enum) corresponding to the requested event, 
    such as Event.HOVER_ENTER. See: events_available_for_signal().</p>
 <h4 id="style_from_file">style_from_file</h4>
