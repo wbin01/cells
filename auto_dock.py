@@ -280,14 +280,18 @@ class MdFiles(object):
             color = 'style="color: #4d7c99;'
             txt = '#  '
             name = None
+            scopes = 0
             for k, v in file_escopes.scopes().items():
                 if v.startswith('class'):
                     cl = ClassParse(v)
+                    if '# Internal control!' in cl.docstring():
+                        continue
+                    scopes += 1
 
                     if cl.name():
-                        txt += f'\n\n## <h2 {color}">class {cl.name()}</h2>\n\n'
+                        txt += f'\n\n## <h2 {color}">{cl.name()}</h2>\n\n'
 
-                        item_path_ = pathlib.Path(item_path)
+                        item_path_ = pathlib.Path(item_path) # <<<<<<<<<<<< repetido
                         if cl.name().lower() == item_path_.name.replace(
                                 item_path_.suffix, ''):
                             name = cl.name()
@@ -338,7 +342,10 @@ class MdFiles(object):
                                     '    ', ' ')}\n'
                 else:
                     pass
-                    
+
+            if scopes == 1:
+                txt = txt.replace('#  ', '')
+
             item_path = pathlib.Path(item_path)
             item_name = item_path.name.replace(item_path.suffix, '.md')
             dock_path = self.__documentation_path / item_name
@@ -375,7 +382,7 @@ if __name__ == '__main__':
         FindFiles(
             [BASE_DIR / 'cells'],
             ['py'],
-            ['__init__.py']),
+            ['__init__.py', 'widgetbase.py']),
         BASE_DIR / 'docs',
         BASE_DIR / 'mkdocs.yml'
     )
