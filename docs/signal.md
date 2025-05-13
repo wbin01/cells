@@ -1,6 +1,6 @@
 
 
-## <h2 style="color: #4d7c99;">Signal</h2>
+## <h2 style="color: #5697bf;"><u>Signal</u></h2>
 
 
 **Inherits from: _object_**
@@ -8,7 +8,7 @@
 Signal object.
 
 
-### Signature
+### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(self):
@@ -24,7 +24,7 @@ Class constructor.
     
 
 
-### Properties
+### <h2 style="color: #5e5d84;">Properties</h2>
 
 
 #### _callback
@@ -34,7 +34,7 @@ _callback(self) -> callable:
 ```
 
 
-### Methods
+### <h2 style="color: #5e5d84;">Methods<h2>
 
 
 #### value
@@ -60,7 +60,8 @@ Function to be disconnected.
 
    my_obj.obj_signal.disconnect(self.my_function)
 
-  :param callback: Function to be disconnect.
+  
+**:param callback:** Function to be disconnect.
   
 
 #### emit

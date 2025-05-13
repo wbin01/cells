@@ -1,6 +1,6 @@
 
 
-## <h2 style="color: #4d7c99;">Button</h2>
+## <h2 style="color: #5697bf;"><u>Button</u></h2>
 
 
 **Inherits from: _Widget_**
@@ -8,7 +8,7 @@
 Button Widget.
 
 
-### Signature
+### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(
@@ -25,7 +25,7 @@ Class constructor.
   of an icon in the current operating system, such as 
 
 
-### Properties
+### <h2 style="color: #5e5d84;">Properties</h2>
 
 
 #### selectable

@@ -1,6 +1,6 @@
 
 
-## <h2 style="color: #4d7c99;">Align</h2>
+## <h2 style="color: #5697bf;"><u>Align</u></h2>
 
 
 **Inherits from: _Enum_**

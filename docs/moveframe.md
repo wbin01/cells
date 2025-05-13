@@ -1,6 +1,6 @@
 
 
-## <h2 style="color: #4d7c99;">MoveFrame</h2>
+## <h2 style="color: #5697bf;"><u>MoveFrame</u></h2>
 
 
 **Inherits from: _Widget_**
@@ -8,7 +8,7 @@
 Move Frame Widget.
 
 
-### Signature
+### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(self, *args, **kwargs) -> None:

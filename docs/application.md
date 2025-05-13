@@ -1,6 +1,6 @@
 
 
-## <h2 style="color: #4d7c99;">Application</h2>
+## <h2 style="color: #5697bf;"><u>Application</u></h2>
 
 
 **Inherits from: _object_**
@@ -11,7 +11,7 @@ Application manager.
  
 
 
-### Signature
+### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(self, *args, **kwargs) -> None:
@@ -20,7 +20,7 @@ __init__(self, *args, **kwargs) -> None:
 Class constructor.
 
 
-### Properties
+### <h2 style="color: #5e5d84;">Properties</h2>
 
 
 #### frame

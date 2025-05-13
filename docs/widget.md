@@ -1,6 +1,6 @@
 
 
-## <h2 style="color: #4d7c99;">Widget</h2>
+## <h2 style="color: #5697bf;"><u>Widget</u></h2>
 
 
 **Inherits from: _object_**
@@ -13,7 +13,7 @@ Widget.
  
 
 
-### Signature
+### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(
@@ -29,7 +29,7 @@ Class constructor.
   
 
 
-### Properties
+### <h2 style="color: #5e5d84;">Properties</h2>
 
 
 #### accent
@@ -283,7 +283,7 @@ Direct access to Qt classes.
   
 
 
-### Methods
+### <h2 style="color: #5e5d84;">Methods<h2>
 
 
 #### events_available_for_signal
@@ -304,8 +304,10 @@ Inserts a Widget or a Box.
 
   Returns the reference to the added item.
   
-  :param item: It can be a Widget (Widget, Label, Button...) or a Box.
-  :param index: Index number where the item should be added 
+  
+**:param item:** It can be a Widget (Widget, Label, Button...) or a Box.
+  
+**:param index:** Index number where the item should be added 
    (Default is -1)
   
 
@@ -330,7 +332,8 @@ Removes a Widget or a Box.
   completely delete the widget from the variable, use the 'delete()' 
   method.
 
-  :param item: A Widget (Widget, Label, Button...) or a Box.
+  
+**:param item:** A Widget (Widget, Label, Button...) or a Box.
   
 
 #### move
@@ -343,8 +346,10 @@ Move the Widget.
 
   The X and Y positions are relative to the main parent.
   
-  :param x: Horizontal position relative to the main parent.
-  :param y: Vertical position relative to the main parent.
+  
+**:param x:** Horizontal position relative to the main parent.
+  
+**:param y:** Vertical position relative to the main parent.
   
 
 #### signal
@@ -363,7 +368,8 @@ Event Signals.
   Use the 'events_available_for_signal()' method to see all available 
   events.
 
-  :param event:
+  
+**:param event:**
    Event enumeration (Enum) corresponding to the requested event, 
    such as Event.HOVER_ENTER. See: events_available_for_signal().
   

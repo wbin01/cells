@@ -1,6 +1,6 @@
 
 
-## <h2 style="color: #4d7c99;">SvgWidget</h2>
+## <h2 style="color: #5697bf;"><u>SvgWidget</u></h2>
 
 
 **Inherits from: _Widget_**
@@ -8,7 +8,7 @@
 Svg Widget.
 
 
-### Signature
+### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(self, path: str = None, *args, **kwargs) -> None:
@@ -17,7 +17,7 @@ __init__(self, path: str = None, *args, **kwargs) -> None:
 Class constructor.
 
 
-### Properties
+### <h2 style="color: #5e5d84;">Properties</h2>
 
 
 #### state

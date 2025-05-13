@@ -1,6 +1,6 @@
 
 
-## <h2 style="color: #4d7c99;">Cursor</h2>
+## <h2 style="color: #5697bf;"><u>Cursor</u></h2>
 
 
 **Inherits from: _object_**
@@ -8,7 +8,7 @@
 Mouse cursor position.
 
 
-### Signature
+### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(self) -> None:
@@ -17,7 +17,7 @@ __init__(self) -> None:
 Class constructor.
 
 
-### Methods
+### <h2 style="color: #5e5d84;">Methods<h2>
 
 
 #### position
