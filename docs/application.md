@@ -2,6 +2,7 @@
 
 ## <h2 style="color: #5697bf;"><u>Application</u></h2>
 
+<span style="color: #AAA;">Class</span>
 
 **Inherits from: _object_**
 
@@ -64,3 +65,6 @@ Frame identity list.
 
   When set the list, all items are optional, but the order is mandatory.
   
+
+
+---

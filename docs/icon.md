@@ -2,6 +2,7 @@
 
 ## <h2 style="color: #5697bf;"><u>Icon</u></h2>
 
+<span style="color: #AAA;">Class</span>
 
 **Inherits from: _object_**
 
@@ -74,3 +75,6 @@ Direct access to Qt classes.
   This access is considered a hacking for complex Qt implementations, 
   and should only be used for testing and analysis purposes.
   
+
+
+---

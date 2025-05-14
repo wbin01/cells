@@ -2,6 +2,7 @@
 
 ## <h2 style="color: #5697bf;"><u>Signal</u></h2>
 
+<span style="color: #AAA;">Class</span>
 
 **Inherits from: _object_**
 
@@ -74,3 +75,6 @@ Send this signal.
 
   This method should be executed when you need to send the signal.
   
+
+
+---

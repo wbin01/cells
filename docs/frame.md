@@ -2,6 +2,7 @@
 
 ## <h2 style="color: #5697bf;"><u>Frame</u></h2>
 
+<span style="color: #AAA;">Class</span>
 
 **Inherits from: _object_**
 
@@ -284,3 +285,6 @@ style_from_file(self, path: str) -> dict:
 ```
 
 Convert the contents of a file into a valid dictionary style.
+
+
+---

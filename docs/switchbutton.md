@@ -2,6 +2,7 @@
 
 ## <h2 style="color: #5697bf;"><u>SwitchButton</u></h2>
 
+<span style="color: #AAA;">Class</span>
 
 **Inherits from: _Widget_**
 
@@ -66,3 +67,6 @@ Button value.
   
   Pass a new value to update.
   
+
+
+---

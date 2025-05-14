@@ -2,6 +2,7 @@
 
 ## <h2 style="color: #5697bf;"><u>Cursor</u></h2>
 
+<span style="color: #AAA;">Class</span>
 
 **Inherits from: _object_**
 
@@ -43,3 +44,6 @@ y(self) -> int:
 ```
 
 Y mouse cursor position.
+
+
+---

@@ -2,6 +2,7 @@
 
 ## <h2 style="color: #5697bf;"><u>Label</u></h2>
 
+<span style="color: #AAA;">Class</span>
 
 **Inherits from: _Widget_**
 
@@ -30,3 +31,6 @@ Label text.
   
   Pass a new string to update the text.
   
+
+
+---

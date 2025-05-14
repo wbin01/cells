@@ -2,6 +2,7 @@
 
 ## <h2 style="color: #5697bf;"><u>Widget</u></h2>
 
+<span style="color: #AAA;">Class</span>
 
 **Inherits from: _object_**
 
@@ -373,3 +374,6 @@ Event Signals.
    Event enumeration (Enum) corresponding to the requested event, 
    such as Event.HOVER_ENTER. See: events_available_for_signal().
   
+
+
+---

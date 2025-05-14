@@ -2,6 +2,7 @@
 
 ## <h2 style="color: #5697bf;"><u>ToolButton</u></h2>
 
+<span style="color: #AAA;">Class</span>
 
 **Inherits from: _Widget_**
 
@@ -35,3 +36,6 @@ selected(self) -> bool:
 ```
 
 ...
+
+
+---
