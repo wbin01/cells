@@ -100,7 +100,7 @@ class FileScopes(object):
                     ] = "\n".join(node_block)
 
 
-class ClassParse():
+class ClassParse(object):
     """Class parse"""
     def __init__(self, code_scope: str) -> None:
         """Class constructor"""
@@ -260,7 +260,58 @@ class ClassParse():
         return properties
 
 
-class MdFiles(object):
+class FuncParse(object):
+    """Function parse"""
+    def __init__(self, code_scope: str) -> None:
+        """Class constructor"""
+        self.__code_scope = code_scope
+        self.__docstring = None
+        self.__name = None
+        self.__signature = None
+
+    def docstring(self) -> str | None:
+        """..."""
+        if not self.__docstring:
+            self.__docstring = self.__get_docstring()
+
+        return self.__docstring
+
+    def name(self) -> str | None:
+        """..."""
+        if not self.__name:
+            self.__name = self.__get_name()
+
+        return self.__name
+
+    def signature(self) -> str | None:
+        """..."""
+        if not self.__signature:
+            self.__signature = self.__get_signature()
+
+        return self.__signature
+
+    def __get_name(self) -> str | None:
+        name = re.findall(r'^def ([^\(]+)\([^\)]*\)[^:]*:',
+            self.__code_scope, re.DOTALL)
+
+        return name[0] if name else None
+
+    def __get_signature(self) -> str | None:
+        signature = re.findall(r'^def ([^\(]+\([^\)]*\)[^:]*:)',
+            self.__code_scope, re.DOTALL)
+
+        return signature[0] if signature else None
+
+    def __get_docstring(self) -> str | None:
+        simple = r"^def [^\(]+\([^\)]*\)[^:]*:\s*\'\'\'([^\']*)"
+        double = r'^def [^\(]+\([^\)]*\)[^:]*:\s*\"\"\"([^\"]*)'
+        docstring = re.findall(simple + '|' + double,
+            self.__code_scope, re.DOTALL)
+
+        return docstring[0][0] or docstring[0][1] if docstring else None
+
+
+class MdDocFiles(object):
     """..."""
     def __init__(
             self,
@@ -277,7 +328,7 @@ class MdFiles(object):
         for file_path in self.__files.file_paths():
             file_scope = FileScopes(file_path)
 
-            doc_content = '#  '
+            doc_content = '\n#  \n\n'
             scope_name = None
             scopes_found = 0
 
@@ -285,34 +336,39 @@ class MdFiles(object):
                 if scope_content.startswith('class'):
                     class_parse = ClassParse(scope_content)
 
-                    if '# Internal control!' in class_parse.docstring():
-                        continue
+                    if class_parse.docstring():
+                        if ('# internal control!' in
+                                class_parse.docstring().lower()):
+                            continue
 
-                    scopes_found += 1
-                    scope_name, doc_content = self.__class_doc_content_parse(
+                    scope_name, doc_content_ = self.__class_doc_content_parse(
                         class_parse, file_path)
+                    doc_content += doc_content_
                 else:
-                    # func_parse = FuncParse(scope_content)
+                    func_parse = FuncParse(scope_content)
+                    if func_parse.docstring():
+                        if ('# internal control!'
+                                in func_parse.docstring().lower()):
+                            continue
 
-                    # if '# Internal control!' in func_parse.docstring():
-                    #     continue
+                    scope_name, doc_content_ = self.__func_doc_content_parse(
+                        func_parse, file_path)
+                    doc_content += doc_content_
 
-                    # scopes_found += 1
-                    # scope_name, doc_content = self.__func_doc_content_parse(
-                    #     func_parse, file_path)
-                    pass
+                scopes_found += 1
 
             if scopes_found == 1:
-                doc_content = doc_content.replace('#  ', '')
-
+                doc_content = doc_content.replace('\n#  \n\n', '')
+            
             doc_file_name = file_path.name.replace(file_path.suffix, '.md')
-
             with open(self.__documentation_path / doc_file_name,
                     'w', encoding='utf-8') as f:
                 f.write(doc_content)
             
-            yml_registry.append(
-                (scope_name if scope_name else doc_file_name, doc_file_name))
+            yml_registry.append((
+                scope_name if scope_name else file_path.name.replace(
+                    file_path.suffix, '').title(),
+                doc_file_name))
 
         yml_content = (
             'site_name: Documentation\n'
@@ -334,14 +390,14 @@ class MdFiles(object):
     @staticmethod
     def __class_doc_content_parse(
             class_parse: ClassParse, file_path: pathlib) -> tuple:
-        doc_content = '#  '
+        doc_content = ''
         scope_name = None
 
         if class_parse.name():
             doc_content += (
                 '\n\n## <h2 style="color: #5697bf;">'
-                f'<u>{class_parse.name()}</u>'
-                '</h2>\n\n')
+                f'<u>{class_parse.name()}</u></h2>\n\n'
+                '<span style="color: #AAA;">Class</span>\n')
 
             if class_parse.name().lower() == file_path.name.replace(
                     file_path.suffix, ''):
@@ -402,6 +458,42 @@ class MdFiles(object):
                     doc_content += f'\n{doc_text.replace(
                         '    ', ' ')}\n'
 
+        doc_content += '\n\n---'
+        return scope_name, doc_content
+
+    @staticmethod
+    def __func_doc_content_parse(
+            func_parse: FuncParse, file_path: pathlib) -> tuple:
+        doc_content = ''
+        scope_name = None
+
+        if func_parse.name():
+            doc_content += (
+                '\n\n## <h2 style="color: #5697bf;">'
+                f'<u>{func_parse.name()}</u> '
+                '</h2>\n\n'
+                '<span style="color: #888;">Function</span>\n')
+
+            if func_parse.name().lower() == file_path.name.replace(
+                    file_path.suffix, ''):
+                scope_name = func_parse.name()
+
+        if func_parse.signature():
+            doc_content += (
+                '\n\n### <h2 style="color: #5e5d84;">Signature</h2>\n\n'
+                '```python\n'
+                f'{func_parse.signature()}\n'
+                '```\n')
+        
+        if func_parse.docstring():
+            text = func_parse.docstring().replace('    ', ' ')
+
+            for p in re.findall(r':param [^:]+:', text):
+                text = re.sub(p, f'\n**{p}**', text)
+
+            doc_content += f'\n{text}\n'
+
+        doc_content += '\n\n---'
         return scope_name, doc_content
 
 
@@ -409,11 +501,11 @@ if __name__ == '__main__':
     import pprint
     BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 
-    md = MdFiles(
+    md = MdDocFiles(
         FindFiles(
             [BASE_DIR / 'cells'],
             ['py'],
-            ['__init__.py', 'widgetbase.py']),
+            ['__init__.py', 'widgetbase.py', 'test.py']),
         BASE_DIR / 'docs',
         BASE_DIR / 'mkdocs.yml'
     )
