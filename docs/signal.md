@@ -2,14 +2,11 @@
 
 ## <h2 style="color: #5697bf;"><u>Signal</u></h2>
 
-<span style="color: #AAA;">Class</span>
+<span style="color: #888;">Class</span>
 
 **Inherits from: _object_**
 
 Signal object.
-
-
-### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(self):
@@ -17,23 +14,18 @@ __init__(self):
 
 Class constructor.
 
-  Signals an event:
+Signals an event:
 
-   MyObj:
-    obj_signal = Signal()
+MyObj:
+obj_signal = Signal()
 
-    
 
 
 ### <h2 style="color: #5e5d84;">Properties</h2>
 
-
 #### _callback
 
-```python
-_callback(self) -> callable:
-```
-
+**_  callable_**
 
 ### <h2 style="color: #5e5d84;">Methods<h2>
 

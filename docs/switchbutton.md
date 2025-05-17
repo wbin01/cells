@@ -2,14 +2,11 @@
 
 ## <h2 style="color: #5697bf;"><u>SwitchButton</u></h2>
 
-<span style="color: #AAA;">Class</span>
+<span style="color: #888;">Class</span>
 
 **Inherits from: _Widget_**
 
 Switch Button Widget.
-
-
-### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(
@@ -22,51 +19,48 @@ __init__(
 ```
 
 Class constructor.
-  
-  
+
+
+
 **:param text:** SwitchButton text label.
-  
+
+
 **:param selected:** True to start already selected.
-  
+
+
 **:param value:** Value of any type to capture as an identifier.
-  
 
 
 ### <h2 style="color: #5e5d84;">Properties</h2>
 
-
 #### text
 
-```python
-text(self) -> str:
-```
+**_  str_**
 
 Button text.
-  
-  Pass a new string to update the text.
-  
+
+Pass a new string to update the text.
+
+
 
 #### selected
 
-```python
-selected(self) -> bool:
-```
+**_  bool_**
 
 If Widget is selected.
 
-  Use True or False to select or deselect the widget.
-  
+Use True or False to select or deselect the widget.
+
+
 
 #### value
 
-```python
-value(self) -> any:
-```
+**_  any_**
 
 Button value.
-  
-  Pass a new value to update.
-  
+
+Pass a new value to update.
+
 
 
 ---

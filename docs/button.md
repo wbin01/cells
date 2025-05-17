@@ -2,14 +2,11 @@
 
 ## <h2 style="color: #5697bf;"><u>Button</u></h2>
 
-<span style="color: #AAA;">Class</span>
+<span style="color: #888;">Class</span>
 
 **Inherits from: _Widget_**
 
 Button Widget.
-
-
-### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(
@@ -22,46 +19,40 @@ __init__(
 
 Class constructor.
 
-  The icon is rendered from the path of a passed file, or from the name 
-  of an icon in the current operating system, such as 
-
+The icon is rendered from the path of a passed file, or from the name 
+of an icon in the current operating system, such as 
 
 ### <h2 style="color: #5e5d84;">Properties</h2>
 
-
 #### selectable
 
-```python
-selectable(self) -> bool:
-```
+**_  bool_**
 
 If it is selectable.
 
-  Whether the widget is selectable as a toggle button.
-  
+Whether the widget is selectable as a toggle button.
+
+
 
 #### selected
 
-```python
-selected(self) -> bool:
-```
+**_  bool_**
 
 If Widget is selected.
 
-  Only works if the 'selectable' property is True.
-  Use True or False to select or deselect the widget.
-  
+Only works if the 'selectable' property is True.
+Use True or False to select or deselect the widget.
+
+
 
 #### text
 
-```python
-text(self) -> str:
-```
+**_  str_**
 
 Button text.
-  
-  Pass a new string to update the text.
-  
+
+Pass a new string to update the text.
+
 
 
 ---

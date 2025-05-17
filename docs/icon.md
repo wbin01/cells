@@ -2,14 +2,11 @@
 
 ## <h2 style="color: #5697bf;"><u>Icon</u></h2>
 
-<span style="color: #AAA;">Class</span>
+<span style="color: #888;">Class</span>
 
 **Inherits from: _object_**
 
 Icon.
-
-
-### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(
@@ -23,58 +20,51 @@ __init__(
 
 Class constructor.
 
-  The icon is rendered from the path of a passed file, or from the name 
-  of an icon in the current operating system, such as 
-
+The icon is rendered from the path of a passed file, or from the name 
+of an icon in the current operating system, such as 
 
 ### <h2 style="color: #5e5d84;">Properties</h2>
 
-
 #### height
 
-```python
-height(self) -> int:
-```
+**_  int_**
 
 Returns the height of the Icon.
 
-  Pass a new integer value to update the height.
-  
+Pass a new integer value to update the height.
+
+
 
 #### path
 
-```python
-path(self) -> str:
-```
+**_  str_**
 
 Icon path.
 
-  Pass a new path to update the icon image.
-  
+Pass a new path to update the icon image.
+
+
 
 #### width
 
-```python
-width(self) -> int:
-```
+**_  int_**
 
 Returns the Widget width.
 
-  Pass a new integer value to update the width.
-  
+Pass a new integer value to update the width.
+
+
 
 #### _obj
 
-```python
-_obj(self):
-```
+**__**
 
 Direct access to Qt classes.
 
-  Warning: Direct access is discouraged and may break the project. 
-  This access is considered a hacking for complex Qt implementations, 
-  and should only be used for testing and analysis purposes.
-  
+Warning: Direct access is discouraged and may break the project. 
+This access is considered a hacking for complex Qt implementations, 
+and should only be used for testing and analysis purposes.
+
 
 
 ---

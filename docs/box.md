@@ -2,14 +2,11 @@
 
 ## <h2 style="color: #5697bf;"><u>Box</u></h2>
 
-<span style="color: #AAA;">Class</span>
+<span style="color: #888;">Class</span>
 
 **Inherits from: _object_**
 
 Box layout
-
-
-### <h2 style="color: #5e5d84;">Signature</h2>
 
 ```python
 __init__(
@@ -20,75 +17,68 @@ __init__(
 
 Class constructor.
 
-  By default the Box orientation is vertical. Use the horizontal 
-  parameter to change it.
+By default the Box orientation is vertical. Use the horizontal 
+parameter to change it.
 
-  
+
+
 **:param orientation:** Changes the orientation of the Box to horizontal
-  
 
 
 ### <h2 style="color: #5e5d84;">Properties</h2>
 
-
 #### align
 
-```python
-align(self) -> Align:
-```
+**_  Align_**
 
 Align enum.
 
-  Sets the Box alignment.
-  
+Sets the Box alignment.
+
+
 
 #### margin
 
-```python
-margin(self) -> tuple:
-```
+**_  tuple_**
 
 Box Margins
 
+
 #### spacing
 
-```python
-spacing(self) -> int:
-```
+**_  int_**
 
 
-  The space between widgets inside the box.
+The space between widgets inside the box.
 
-  This property takes precedence over the margins of the widgets that 
-  are added (add_widgets), so if the Box is vertical, then only the side 
-  margins of the widgets will be respected. The Box does not activate 
-  the spacing with a single isolated widget.
-  
+This property takes precedence over the margins of the widgets that 
+are added (add_widgets), so if the Box is vertical, then only the side 
+margins of the widgets will be respected. The Box does not activate 
+the spacing with a single isolated widget.
+
+
 
 #### _main_parent
 
-```python
-_main_parent(self) -> Widget | Box:
-```
+**_  Widget | Box_**
 
 Main frame of the application.
 
-  Use only to access properties and methods of the Main Frame, defining a 
-  new frame will break the application.
-  
+Use only to access properties and methods of the Main Frame, defining a 
+new frame will break the application.
+
+
 
 #### _obj
 
-```python
-_obj(self):
-```
+**_  QtWidgets_**
 
 Direct access to Qt classes.
 
-  Warning: Direct access is discouraged and may break the project. 
-  This access is considered a hacking for complex Qt implementations, 
-  and should only be used for testing and analysis purposes.
-  
+Warning: Direct access is discouraged and may break the project. 
+This access is considered a hacking for complex Qt implementations, 
+and should only be used for testing and analysis purposes.
+
 
 
 ### <h2 style="color: #5e5d84;">Methods<h2>

@@ -18,12 +18,12 @@ class Box(object):
 
 
 class Widget(object):
-    """Widget.
+    """Widget. xxx
     
     # Internal control!
     """
     def __init__(self, *args, **kwargs) -> None:
-        """Class constructor."""
+        """Class constructor. xxx"""
 
 
 class Box(Box):
@@ -114,7 +114,7 @@ class Box(Box):
                 item._main_parent = parent
 
     @property
-    def _obj(self):
+    def _obj(self) -> QtWidgets:
         """Direct access to Qt classes.
 
         Warning: Direct access is discouraged and may break the project. 
