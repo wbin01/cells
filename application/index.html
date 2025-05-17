@@ -50,8 +50,6 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Application</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#signature">Signature</a>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#frame">frame</a>
@@ -177,36 +175,32 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="application"><h2 style="color: #5697bf;"><u>Application</u></h2></h2>
-<p><span style="color: #AAA;">Class</span></p>
+<p><span style="color: #888;">Class</span></p>
 <p><strong>Inherits from: <em>object</em></strong></p>
 <p>Application manager.</p>
 <p>Configures parameters and events external to the application.</p>
-<h3 id="signature"><h2 style="color: #5e5d84;">Signature</h2></h3>
 <pre><code class="language-python">__init__(self, *args, **kwargs) -&gt; None:
 </code></pre>
 <p>Class constructor.</p>
 <h3 id="properties"><h2 style="color: #5e5d84;">Properties</h2></h3>
 <h4 id="frame">frame</h4>
-<pre><code class="language-python">frame(self) -&gt; QtWidgets:
-</code></pre>
+<p><strong><em>  QtWidgets</em></strong></p>
 <p>Application frame.</p>
 <p>That is, the main application window.</p>
 <h4 id="icon">icon</h4>
-<pre><code class="language-python">icon(self) -&gt; str:
-</code></pre>
+<p><strong><em>  str</em></strong></p>
 <p>Frame icon path string.</p>
 <p>Application Icon.</p>
 <h4 id="frame_id">frame_id</h4>
-<pre><code class="language-python">frame_id(self) -&gt; list:
-</code></pre>
+<p><strong><em>  list</em></strong></p>
 <p>Frame identity list.</p>
 <p>List containing app identity information.
-  The first item is the main file, <strong>file</strong>, followed by an ID
-  Example:
-   [<strong>file</strong>, 'app_id', 'App Name']</p>
+The first item is the main file, <strong>file</strong>, followed by an ID
+Example:
+[<strong>file</strong>, 'app_id', 'App Name']</p>
 <p>ID name must be 3 characters or more, and can only contain lowercase 
-  letters, numbers or underscores '_', such as:
-   [<strong>file</strong>, 'app_4_me', 'App 4 me' ]</p>
+letters, numbers or underscores '_', such as:
+[<strong>file</strong>, 'app_4_me', 'App 4 me' ]</p>
 <p>When set the list, all items are optional, but the order is mandatory.</p>
 <hr />
               

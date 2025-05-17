@@ -105,6 +105,8 @@ class ClassParse(object):
     def __init__(self, code_scope: str) -> None:
         """Class constructor"""
         self.__code_scope = code_scope
+
+        self.__attributes = None
         self.__constructor_docstring = None
         self.__constructor_signature = None
         self.__docstring = None
@@ -112,6 +114,12 @@ class ClassParse(object):
         self.__methods = None
         self.__name = None
         self.__properties = None
+
+    def attributes(self) -> str | None:
+        """..."""
+        if not self.__attributes:
+            self.__attributes = self.__get_attributes()
+        return self.__attributes
 
     def constructor_docstring(self) -> str | None:
         """..."""
@@ -154,6 +162,31 @@ class ClassParse(object):
             self.__properties = self.__get_properties()
         return self.__properties if self.__properties else None
 
+    def __get_attributes(self) -> dict:
+        attributes = {}
+        scope_lines = self.__code_scope.split('def ')[0].split('\n')
+        for line in scope_lines:
+            var = None
+            value = None
+            typ = None
+
+            if '=' in line:
+                var, value = line.split('=')
+                var = var.strip()
+                value = value.strip()
+
+                if ':' in var:
+                    var, typ = var.split(':')
+                    var = var.strip().split(' ')[0]
+                    typ = typ.strip().split(' ')[0]
+
+                if '#' in value:
+                    value = value.split('#')[0].strip()
+
+                attributes[var] = {'value': value, 'type': typ}
+
+        return attributes
+
     def __get_constructor_docstring(self) -> str | None:
         code = ' '.join(
             [x for x in self.__code_scope.split('def ') if '__init__' in x])
@@ -169,6 +202,15 @@ class ClassParse(object):
             self.__code_scope, re.DOTALL)
 
         return init_sig[0] if init_sig else None
+
+    # def __get_docstring(self) -> str | None:
+    #     code =  ' '.join(
+    #         [x for x in self.__code_scope.split('def ') if 'class ' in x])
+    #     class_doc = re.findall(
+    #         r'class [^\"]+\"\"\"([^\"]+)|' "class [^\']+\'\'\'([^\']+)",
+    #         code, re.DOTALL)
+
+    #     return class_doc[0][0] or class_doc[0][1] if class_doc else None
 
     def __get_docstring(self) -> str | None:
         code =  ' '.join(
@@ -238,7 +280,8 @@ class ClassParse(object):
                 self.__code_scope, re.DOTALL):
 
             prop_name = re.findall(r'def ([^\(]+)\(', prop)
-            prop_sig = re.findall(r'def ([^\)]+\)[^\:]*:)', prop)
+            prop_sig = re.findall(r'def [^\)]+\)([^\:]*):', prop)
+            # prop_sig = re.findall(r'def ([^\)]+\)[^\:]*:)', prop)
 
             func = None
             for f in funcs:
@@ -341,7 +384,7 @@ class MdDocFiles(object):
                                 class_parse.docstring().lower()):
                             continue
 
-                    scope_name, doc_content_ = self.__class_doc_content_parse(
+                    scope_name, doc_content_ = self.__format_class_to_md_doc(
                         class_parse, file_path)
                     doc_content += doc_content_
                 else:
@@ -351,7 +394,7 @@ class MdDocFiles(object):
                                 in func_parse.docstring().lower()):
                             continue
 
-                    scope_name, doc_content_ = self.__func_doc_content_parse(
+                    scope_name, doc_content_ = self.__format_func_to_md_doc(
                         func_parse, file_path)
                     doc_content += doc_content_
 
@@ -388,58 +431,70 @@ class MdDocFiles(object):
             f.write(yml_content)
 
     @staticmethod
-    def __class_doc_content_parse(
+    def __format_class_to_md_doc(
             class_parse: ClassParse, file_path: pathlib) -> tuple:
         doc_content = ''
         scope_name = None
 
         if class_parse.name():
-            doc_content += (
-                '\n\n## <h2 style="color: #5697bf;">'
-                f'<u>{class_parse.name()}</u></h2>\n\n'
-                '<span style="color: #AAA;">Class</span>\n')
+            if class_parse.inheritance() != 'Enum':
+                doc_content += (
+                    '\n\n## <h2 style="color: #5697bf;"><u>{}</u></h2>'
+                    '\n\n<span style="color: #888;">Class</span>').format(
+                    class_parse.name())
+            else:
+                doc_content += (
+                    '\n\n## <h2 style="color: #5697bf;"><u>{}</u></h2>'
+                    '\n\n<span style="color: #888;">Enum</span>'
+                    ).format(class_parse.name())
 
             if class_parse.name().lower() == file_path.name.replace(
                     file_path.suffix, ''):
                 scope_name = class_parse.name()
 
-        if class_parse.inheritance():
+        if class_parse.inheritance() and class_parse.inheritance() != 'Enum':
             doc_content += (
-                '\n**Inherits from: '
-                f'_{class_parse.inheritance()}_**\n')
+                f'\n\n**Inherits from: _{class_parse.inheritance()}_**')
 
         if class_parse.docstring():
-            doc_content += f'\n{class_parse.docstring().replace(
-                '    ', ' ')}\n'
+            doc_content += f'\n\n{class_parse.docstring().replace(' '*4, ' ')}'
 
         if class_parse.constructor_signature():
             doc_content += (
-                '\n\n### <h2 style="color: #5e5d84;">Signature</h2>\n\n'
-                '```python\n'
-                f'{class_parse.constructor_signature()}\n'
-                '```\n')
+                # '\n\n### <h2 style="color: #5e5d84;">Signature</h2>'
+                '\n\n```python\n{}\n```').format(
+                class_parse.constructor_signature())
         
         if class_parse.constructor_docstring():
-            text = class_parse.constructor_docstring().replace(
-                '    ', ' ')
+            text = class_parse.constructor_docstring().replace('    ', '')
 
-            for p in re.findall(r':param [^:]+:', text):
-                text = re.sub(p, f'\n**{p}**', text)
+            for param in re.findall(r':param [^:]+:', text):
+                text = re.sub(param, f'\n\n**{param}**', text)
 
-            doc_content += f'\n{text}\n'
+            doc_content += f'\n\n{text}'
 
-        if class_parse.properties():
+        if class_parse.inheritance() != 'Enum' and class_parse.properties():
             doc_content += (
-                '\n\n### <h2 style="color: #5e5d84;">Properties</h2>\n\n')
+                '\n\n### <h2 style="color: #5e5d84;">Properties</h2>')
 
             for prop_name, prop_value in class_parse.properties().items():
                 doc_content += (
-                    f'\n#### {prop_name}\n'
-                    f'\n```python\n{prop_value['signature']}\n```\n')
+                f'\n\n#### {prop_name}'
+                f'\n\n**_{prop_value["signature"]}_**'.replace('->', ''))
+                # f'\n\n```python\n{prop_value["signature"]}\n```')
 
                 if prop_value['docstring']:
-                    doc_content += f'\n{prop_value['docstring'].replace(
-                        '    ', ' ')}\n'
+                    doc_content += f'\n\n{prop_value['docstring'].replace(
+                        '    ', '')}\n'
+
+        elif class_parse.inheritance() == 'Enum':
+            doc_content += (
+                '\n\n### <h2 style="color: #5e5d84;">Properties</h2>')
+
+            for attr_name, attr_value in class_parse.attributes().items():
+                doc_content += (
+                f'\n\n#### {attr_name}'
+                f'\n\nValue is equivalent to: **_{attr_value["value"]}_**')
 
         if class_parse.methods():
             doc_content += (
@@ -462,17 +517,16 @@ class MdDocFiles(object):
         return scope_name, doc_content
 
     @staticmethod
-    def __func_doc_content_parse(
+    def __format_func_to_md_doc(
             func_parse: FuncParse, file_path: pathlib) -> tuple:
         doc_content = ''
         scope_name = None
 
         if func_parse.name():
             doc_content += (
-                '\n\n## <h2 style="color: #5697bf;">'
-                f'<u>{func_parse.name()}</u> '
-                '</h2>\n\n'
-                '<span style="color: #888;">Function</span>\n')
+                '\n\n## <h2 style="color: #5697bf;"><u>{}</u></h2>'
+                '\n\n<span style="color: #888;">Function</span>').format(
+                func_parse.name())
 
             if func_parse.name().lower() == file_path.name.replace(
                     file_path.suffix, ''):

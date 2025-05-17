@@ -82,8 +82,6 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Frame</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#signature">Signature</a>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#align">align</a>
@@ -215,11 +213,10 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="frame"><h2 style="color: #5697bf;"><u>Frame</u></h2></h2>
-<p><span style="color: #AAA;">Class</span></p>
+<p><span style="color: #888;">Class</span></p>
 <p><strong>Inherits from: <em>object</em></strong></p>
 <p>Main frame.</p>
 <p>That is, the main application window.</p>
-<h3 id="signature"><h2 style="color: #5e5d84;">Signature</h2></h3>
 <pre><code class="language-python">__init__(
         self,
         main_parent = None,
@@ -229,84 +226,71 @@
 <p>Class constructor.</p>
 <h3 id="properties"><h2 style="color: #5e5d84;">Properties</h2></h3>
 <h4 id="align">align</h4>
-<pre><code class="language-python">align(self) -&gt; Align:
-</code></pre>
+<p><strong><em>  Align</em></strong></p>
 <p>Align enum.</p>
 <p>Sets the alignment of the Box.</p>
 <h4 id="flag">flag</h4>
-<pre><code class="language-python">flag(self) -&gt; list:
-</code></pre>
+<p><strong><em>  list</em></strong></p>
 <p>Frame flags.</p>
 <p>They are used to configure the native behavior of the Frame.
-  For example, the POPUP flag configures that the frame can appear on 
-  the indicated position on the X and Y axes, and also that the Frame 
-  closes by itself.</p>
+For example, the POPUP flag configures that the frame can appear on 
+the indicated position on the X and Y axes, and also that the Frame 
+closes by itself.</p>
 <h4 id="height">height</h4>
-<pre><code class="language-python">height(self) -&gt; int:
-</code></pre>
+<p><strong><em>  int</em></strong></p>
 <p>Returns the height of the Frame.</p>
 <p>Pass a new integer value to update the height.</p>
 <h4 id="icon">icon</h4>
-<pre><code class="language-python">icon(self) -&gt; Icon:
-</code></pre>
+<p><strong><em>  Icon</em></strong></p>
 <p>Frame icon.</p>
 <p>Application Icon.</p>
 <h4 id="max_height">max_height</h4>
-<pre><code class="language-python">max_height(self) -&gt; int:
-</code></pre>
+<p><strong><em>  int</em></strong></p>
 <p>Returns the Frame maximum height.</p>
 <p>Pass a new integer value to update the maximum height the Frame can 
-  have.</p>
+have.</p>
 <h4 id="max_width">max_width</h4>
-<pre><code class="language-python">max_width(self) -&gt; int:
-</code></pre>
+<p><strong><em>  int</em></strong></p>
 <p>Returns the Frame maximum width.</p>
 <p>Pass a new integer value to update the maximum width the Frame can 
-  have.</p>
+have.</p>
 <h4 id="min_height">min_height</h4>
-<pre><code class="language-python">min_height(self) -&gt; int:
-</code></pre>
+<p><strong><em>  int</em></strong></p>
 <p>Returns the Frame minimum height.</p>
 <p>Pass a new integer value to update the minimum height the Frame can 
-  have.</p>
+have.</p>
 <h4 id="min_width">min_width</h4>
-<pre><code class="language-python">min_width(self) -&gt; int:
-</code></pre>
+<p><strong><em>  int</em></strong></p>
 <p>Returns the Frame minimum width.</p>
 <p>Pass a new integer value to update the minimum width the Frame can 
-  have.</p>
+have.</p>
 <h4 id="spacing">spacing</h4>
-<pre><code class="language-python">spacing(self) -&gt; int:
-</code></pre>
+<p><strong><em>  int</em></strong></p>
 <p>The space between widgets inside the Frame box.</p>
 <p>This property takes precedence over the margins of the widgets that 
-  are added (add_widgets), so if the Box is vertical, then only the side 
-  margins of the widgets will be respected. The Box does not activate 
-  the spacing with a single isolated widget.</p>
+are added (add_widgets), so if the Box is vertical, then only the side 
+margins of the widgets will be respected. The Box does not activate 
+the spacing with a single isolated widget.</p>
 <h4 id="style">style</h4>
-<pre><code class="language-python">style(self) -&gt; dict:
-</code></pre>
+<p><strong><em>  dict</em></strong></p>
 <p>Style as dict.</p>
 <p>Get the style as a dictionary or submit a new dictionary style to 
-  update it.</p>
+update it.</p>
 <h4 id="width">width</h4>
-<pre><code class="language-python">width(self) -&gt; int:
-</code></pre>
+<p><strong><em>  int</em></strong></p>
 <p>Returns the Frame width.</p>
 <p>Pass a new integer value to update the width.</p>
 <h4 id="_main_parent">_main_parent</h4>
-<pre><code class="language-python">_main_parent(self):
-</code></pre>
+<p><strong>__</strong></p>
 <p>Main frame of the application.</p>
 <p>Use only to access properties and methods of the Main Frame, defining a 
-  new frame will break the application.</p>
+new frame will break the application.</p>
 <h4 id="_obj">_obj</h4>
-<pre><code class="language-python">_obj(self):
-</code></pre>
+<p><strong>__</strong></p>
 <p>Direct access to Qt classes.</p>
 <p>Warning: Direct access is discouraged and may break the project. 
-  This access is considered a hacking for complex Qt implementations, 
-  and should only be used for testing and analysis purposes.</p>
+This access is considered a hacking for complex Qt implementations, 
+and should only be used for testing and analysis purposes.</p>
 <h3 id="methods"><h2 style="color: #5e5d84;">Methods<h2></h3>
 <h4 id="events_available_for_signal">events_available_for_signal</h4>
 <pre><code class="language-python">events_available_for_signal(self) -&gt; str:

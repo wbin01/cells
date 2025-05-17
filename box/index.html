@@ -54,8 +54,6 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Box</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#signature">Signature</a>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#align">align</a>
@@ -193,10 +191,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="box"><h2 style="color: #5697bf;"><u>Box</u></h2></h2>
-<p><span style="color: #AAA;">Class</span></p>
+<p><span style="color: #888;">Class</span></p>
 <p><strong>Inherits from: <em>object</em></strong></p>
 <p>Box layout</p>
-<h3 id="signature"><h2 style="color: #5e5d84;">Signature</h2></h3>
 <pre><code class="language-python">__init__(
             self,
             orientation: Orientation = Orientation.VERTICAL,
@@ -204,39 +201,34 @@
 </code></pre>
 <p>Class constructor.</p>
 <p>By default the Box orientation is vertical. Use the horizontal 
-  parameter to change it.</p>
+parameter to change it.</p>
 <p><strong>:param orientation:</strong> Changes the orientation of the Box to horizontal</p>
 <h3 id="properties"><h2 style="color: #5e5d84;">Properties</h2></h3>
 <h4 id="align">align</h4>
-<pre><code class="language-python">align(self) -&gt; Align:
-</code></pre>
+<p><strong><em>  Align</em></strong></p>
 <p>Align enum.</p>
 <p>Sets the Box alignment.</p>
 <h4 id="margin">margin</h4>
-<pre><code class="language-python">margin(self) -&gt; tuple:
-</code></pre>
+<p><strong><em>  tuple</em></strong></p>
 <p>Box Margins</p>
 <h4 id="spacing">spacing</h4>
-<pre><code class="language-python">spacing(self) -&gt; int:
-</code></pre>
+<p><strong><em>  int</em></strong></p>
 <p>The space between widgets inside the box.</p>
 <p>This property takes precedence over the margins of the widgets that 
-  are added (add_widgets), so if the Box is vertical, then only the side 
-  margins of the widgets will be respected. The Box does not activate 
-  the spacing with a single isolated widget.</p>
+are added (add_widgets), so if the Box is vertical, then only the side 
+margins of the widgets will be respected. The Box does not activate 
+the spacing with a single isolated widget.</p>
 <h4 id="_main_parent">_main_parent</h4>
-<pre><code class="language-python">_main_parent(self) -&gt; Widget | Box:
-</code></pre>
+<p><strong><em>  Widget | Box</em></strong></p>
 <p>Main frame of the application.</p>
 <p>Use only to access properties and methods of the Main Frame, defining a 
-  new frame will break the application.</p>
+new frame will break the application.</p>
 <h4 id="_obj">_obj</h4>
-<pre><code class="language-python">_obj(self):
-</code></pre>
+<p><strong><em>  QtWidgets</em></strong></p>
 <p>Direct access to Qt classes.</p>
 <p>Warning: Direct access is discouraged and may break the project. 
-  This access is considered a hacking for complex Qt implementations, 
-  and should only be used for testing and analysis purposes.</p>
+This access is considered a hacking for complex Qt implementations, 
+and should only be used for testing and analysis purposes.</p>
 <h3 id="methods"><h2 style="color: #5e5d84;">Methods<h2></h3>
 <h4 id="add">add</h4>
 <pre><code class="language-python">add(self, item: Widget | Box, index: int = -1) -&gt; Widget | Box:

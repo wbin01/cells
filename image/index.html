@@ -90,8 +90,6 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="#">Image</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#signature">Signature</a>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#properties">Properties</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#path">path</a>
@@ -173,10 +171,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="image"><h2 style="color: #5697bf;"><u>Image</u></h2></h2>
-<p><span style="color: #AAA;">Class</span></p>
+<p><span style="color: #888;">Class</span></p>
 <p><strong>Inherits from: <em>Widget</em></strong></p>
 <p>Image Widget.</p>
-<h3 id="signature"><h2 style="color: #5e5d84;">Signature</h2></h3>
 <pre><code class="language-python">__init__(
             self,
             path: str = None,
@@ -189,22 +186,21 @@
 <p>Class constructor.</p>
 <p>The Image is rendered from the path of a passed file.</p>
 <p><strong>:param path:</strong> 
-   Image path or Icon() object.</p>
+Image path or Icon() object.</p>
 <p><strong>:param width:</strong> 
-   Integer with the value of the image width.</p>
+Integer with the value of the image width.</p>
 <p><strong>:param height:</strong> 
-   Integer with the value of the image height.</p>
+Integer with the value of the image height.</p>
 <p><strong>:param aspect_ratio:</strong> 
-   Flattening or stretching the image with width or height values not 
-   equivalent to the original image. True will maintain the aspect 
-   ratio without distorting or stretching.</p>
+Flattening or stretching the image with width or height values not 
+equivalent to the original image. True will maintain the aspect 
+ratio without distorting or stretching.</p>
 <p><strong>:param smooth:</strong> 
-   It improves the appearance of scaled images, but the processing is 
-   a little slower.</p>
+It improves the appearance of scaled images, but the processing is 
+a little slower.</p>
 <h3 id="properties"><h2 style="color: #5e5d84;">Properties</h2></h3>
 <h4 id="path">path</h4>
-<pre><code class="language-python">path(self) -&gt; str:
-</code></pre>
+<p><strong><em>  str</em></strong></p>
 <p>Image path.</p>
 <p>Pass a new path to update the Image.</p>
 <hr />
