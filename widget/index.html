@@ -237,23 +237,23 @@
 <p>:main_parent: MainFrame object</p>
 <h3 id="properties"><h2 style="color: #5e5d84;">Properties</h2></h3>
 <h4 id="accent">accent</h4>
-<p><strong><em>  str</em></strong></p>
+<p><strong><em>str</em></strong></p>
 <p>...</p>
 <h4 id="align">align</h4>
-<p><strong><em>  Align</em></strong></p>
+<p><strong><em>Align</em></strong></p>
 <p>Align enum.</p>
 <p>Sets the Box alignment.</p>
 <h4 id="enabled">enabled</h4>
-<p><strong><em>  bool</em></strong></p>
+<p><strong><em>bool</em></strong></p>
 <p>Enables the Widget.</p>
 <p>When False, the Widget is inactive both in appearance and in the 
 Event.MOUSE_PRESS and Event.MOUSE_RELEASE events.</p>
 <h4 id="height">height</h4>
-<p><strong><em>  int</em></strong></p>
+<p><strong><em>int</em></strong></p>
 <p>Returns the height of the Widget.</p>
 <p>Pass a new integer value to update the height.</p>
 <h4 id="margin">margin</h4>
-<p><strong><em>  tuple</em></strong></p>
+<p><strong><em>tuple</em></strong></p>
 <p>Utility to set widget margins using a simple int tuple.</p>
 <p>Will affect all widget states, such as pressed, hover and inactive.</p>
 <p>Note: The Box's 'spacing' property takes precedence over the widget's 
@@ -262,37 +262,37 @@ the Box is vertical, then only the side margins of the widgets will be
 respected. The Box does not activate the spacing with a single 
 isolated widget.</p>
 <h4 id="max_height">max_height</h4>
-<p><strong><em>  int</em></strong></p>
+<p><strong><em>int</em></strong></p>
 <p>Returns the Widget maximum height.</p>
 <p>Pass a new integer value to update the maximum height the Widget can 
 have.</p>
 <h4 id="max_width">max_width</h4>
-<p><strong><em>  int</em></strong></p>
+<p><strong><em>int</em></strong></p>
 <p>Returns the Widget maximum width.</p>
 <p>Pass a new integer value to update the maximum width the Widget can 
 have.</p>
 <h4 id="min_height">min_height</h4>
-<p><strong><em>  int</em></strong></p>
+<p><strong><em>int</em></strong></p>
 <p>Returns the Widget minimum height.</p>
 <p>Pass a new integer value to update the minimum height the Widget can 
 have.</p>
 <h4 id="min_width">min_width</h4>
-<p><strong><em>  int</em></strong></p>
+<p><strong><em>int</em></strong></p>
 <p>Returns the Widget minimum width.</p>
 <p>Pass a new integer value to update the minimum width the Widget can 
 have.</p>
 <h4 id="spacing">spacing</h4>
-<p><strong><em>  int</em></strong></p>
+<p><strong><em>int</em></strong></p>
 <p>The space between widgets inside the Widget box.</p>
 <p>This property takes precedence over the margins of the widgets that 
 are added (add_widgets), so if the Box is vertical, then only the side 
 margins of the widgets will be respected. The Box does not activate 
 the spacing with a single isolated widget.</p>
 <h4 id="state">state</h4>
-<p><strong><em>  str</em></strong></p>
+<p><strong><em>str</em></strong></p>
 <p>...</p>
 <h4 id="style">style</h4>
-<p><strong><em>  str</em></strong></p>
+<p><strong><em>str</em></strong></p>
 <p>Style as dict.</p>
 <p>The style is a 'dict' that goes back to the style INI file. The 
 contents of this file are something like:</p>
@@ -315,7 +315,7 @@ my_widget.style = my_widget.style</p>
 <p>Note: The Box's 'spacing' property takes precedence over the widget's 
 margins, unless the widget is the only one isolated within a Box.</p>
 <h4 id="style_class">style_class</h4>
-<p><strong><em>  str | None</em></strong></p>
+<p><strong><em>str | None</em></strong></p>
 <p>Changes the style to that of the desired class.</p>
 <p>Use appropriate generic classes, such as 'Success', 'Danger', 
 'Warning' and 'Accent'.</p>
@@ -324,28 +324,26 @@ margins, unless the widget is the only one isolated within a Box.</p>
 <p>The style class will only be changed if the Widget already contains a 
 _main_parent (The 'add' method automatically sets the _main_parent).</p>
 <h4 id="style_id">style_id</h4>
-<p><strong><em>  str</em></strong></p>
+<p><strong><em>str</em></strong></p>
 <p>Style ID.</p>
 <p>An ID allows you to define a unique style that does not distort 
 parent objects of the same type that inherit from the class.</p>
 <p>Send a string with a unique ID to set the style for this Widget only.</p>
 <h4 id="visible">visible</h4>
-<p><strong><em>  bool</em></strong></p>
+<p><strong><em>bool</em></strong></p>
 <p>Widget Visibility.</p>
 <p>Qt has minor issues when calculating pixels to render areas that are 
 repeatedly hidden and visible, so clearly define the sizes and spacing 
 to avoid minor visual discomforts.</p>
 <h4 id="width">width</h4>
-<p><strong><em>  int</em></strong></p>
+<p><strong><em>int</em></strong></p>
 <p>Returns the Widget width.</p>
 <p>Pass a new integer value to update the width.</p>
 <h4 id="_main_parent">_main_parent</h4>
-<p><strong>__</strong></p>
 <p>Main frame of the application.</p>
 <p>Use only to access properties and methods of the Main Frame, defining 
 a new frame will break the application.</p>
 <h4 id="_obj">_obj</h4>
-<p><strong>__</strong></p>
 <p>Direct access to Qt classes.</p>
 <p>Warning: Direct access is discouraged and may break the project. 
 This access is considered a hacking for complex Qt implementations, 
