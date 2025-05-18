@@ -30,24 +30,22 @@ Class constructor.
 
 #### accent
 
-**_  str_**
+**_str_**
 
 ...
 
-
 #### align
 
-**_  Align_**
+**_Align_**
 
 Align enum.
 
 Sets the Box alignment.
 
 
-
 #### enabled
 
-**_  bool_**
+**_bool_**
 
 Enables the Widget.
 
@@ -55,20 +53,18 @@ When False, the Widget is inactive both in appearance and in the
 Event.MOUSE_PRESS and Event.MOUSE_RELEASE events.
 
 
-
 #### height
 
-**_  int_**
+**_int_**
 
 Returns the height of the Widget.
 
 Pass a new integer value to update the height.
 
 
-
 #### margin
 
-**_  tuple_**
+**_tuple_**
 
 Utility to set widget margins using a simple int tuple.
 
@@ -81,10 +77,9 @@ respected. The Box does not activate the spacing with a single
 isolated widget.
 
 
-
 #### max_height
 
-**_  int_**
+**_int_**
 
 Returns the Widget maximum height.
 
@@ -92,10 +87,9 @@ Pass a new integer value to update the maximum height the Widget can
 have.
 
 
-
 #### max_width
 
-**_  int_**
+**_int_**
 
 Returns the Widget maximum width.
 
@@ -103,10 +97,9 @@ Pass a new integer value to update the maximum width the Widget can
 have.
 
 
-
 #### min_height
 
-**_  int_**
+**_int_**
 
 Returns the Widget minimum height.
 
@@ -114,10 +107,9 @@ Pass a new integer value to update the minimum height the Widget can
 have.
 
 
-
 #### min_width
 
-**_  int_**
+**_int_**
 
 Returns the Widget minimum width.
 
@@ -125,10 +117,9 @@ Pass a new integer value to update the minimum width the Widget can
 have.
 
 
-
 #### spacing
 
-**_  int_**
+**_int_**
 
 
 The space between widgets inside the Widget box.
@@ -139,17 +130,15 @@ margins of the widgets will be respected. The Box does not activate
 the spacing with a single isolated widget.
 
 
-
 #### state
 
-**_  str_**
+**_str_**
 
 ...
 
-
 #### style
 
-**_  str_**
+**_str_**
 
 Style as dict.
 
@@ -183,10 +172,9 @@ Note: The Box's 'spacing' property takes precedence over the widget's
 margins, unless the widget is the only one isolated within a Box.
 
 
-
 #### style_class
 
-**_  str | None_**
+**_str | None_**
 
 Changes the style to that of the desired class.
 
@@ -201,10 +189,9 @@ The style class will only be changed if the Widget already contains a
 _main_parent (The 'add' method automatically sets the _main_parent).
 
 
-
 #### style_id
 
-**_  str_**
+**_str_**
 
 Style ID.
 
@@ -214,10 +201,9 @@ parent objects of the same type that inherit from the class.
 Send a string with a unique ID to set the style for this Widget only.
 
 
-
 #### visible
 
-**_  bool_**
+**_bool_**
 
 Widget Visibility.
 
@@ -226,20 +212,16 @@ repeatedly hidden and visible, so clearly define the sizes and spacing
 to avoid minor visual discomforts.
 
 
-
 #### width
 
-**_  int_**
+**_int_**
 
 Returns the Widget width.
 
 Pass a new integer value to update the width.
 
 
-
 #### _main_parent
-
-**__**
 
 Main frame of the application.
 
@@ -247,17 +229,13 @@ Use only to access properties and methods of the Main Frame, defining
 a new frame will break the application.
 
 
-
 #### _obj
-
-**__**
 
 Direct access to Qt classes.
 
 Warning: Direct access is discouraged and may break the project. 
 This access is considered a hacking for complex Qt implementations, 
 and should only be used for testing and analysis purposes.
-
 
 
 ### <h2 style="color: #5e5d84;">Methods<h2>

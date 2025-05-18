@@ -25,17 +25,16 @@ Class constructor.
 
 #### align
 
-**_  Align_**
+**_Align_**
 
 Align enum.
 
 Sets the alignment of the Box.
 
 
-
 #### flag
 
-**_  list_**
+**_list_**
 
 Frame flags.
 
@@ -45,30 +44,27 @@ the indicated position on the X and Y axes, and also that the Frame
 closes by itself.
 
 
-
 #### height
 
-**_  int_**
+**_int_**
 
 Returns the height of the Frame.
 
 Pass a new integer value to update the height.
 
 
-
 #### icon
 
-**_  Icon_**
+**_Icon_**
 
 Frame icon.
 
 Application Icon.
 
 
-
 #### max_height
 
-**_  int_**
+**_int_**
 
 Returns the Frame maximum height.
 
@@ -76,10 +72,9 @@ Pass a new integer value to update the maximum height the Frame can
 have.
 
 
-
 #### max_width
 
-**_  int_**
+**_int_**
 
 Returns the Frame maximum width.
 
@@ -87,10 +82,9 @@ Pass a new integer value to update the maximum width the Frame can
 have.
 
 
-
 #### min_height
 
-**_  int_**
+**_int_**
 
 Returns the Frame minimum height.
 
@@ -98,10 +92,9 @@ Pass a new integer value to update the minimum height the Frame can
 have.
 
 
-
 #### min_width
 
-**_  int_**
+**_int_**
 
 Returns the Frame minimum width.
 
@@ -109,10 +102,9 @@ Pass a new integer value to update the minimum width the Frame can
 have.
 
 
-
 #### spacing
 
-**_  int_**
+**_int_**
 
 
 The space between widgets inside the Frame box.
@@ -123,10 +115,9 @@ margins of the widgets will be respected. The Box does not activate
 the spacing with a single isolated widget.
 
 
-
 #### style
 
-**_  dict_**
+**_dict_**
 
 Style as dict.
 
@@ -134,20 +125,16 @@ Get the style as a dictionary or submit a new dictionary style to
 update it.
 
 
-
 #### width
 
-**_  int_**
+**_int_**
 
 Returns the Frame width.
 
 Pass a new integer value to update the width.
 
 
-
 #### _main_parent
-
-**__**
 
 Main frame of the application.
 
@@ -155,17 +142,13 @@ Use only to access properties and methods of the Main Frame, defining a
 new frame will break the application.
 
 
-
 #### _obj
-
-**__**
 
 Direct access to Qt classes.
 
 Warning: Direct access is discouraged and may break the project. 
 This access is considered a hacking for complex Qt implementations, 
 and should only be used for testing and analysis purposes.
-
 
 
 ### <h2 style="color: #5e5d84;">Methods<h2>

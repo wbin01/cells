@@ -25,7 +25,7 @@ obj_signal = Signal()
 
 #### _callback
 
-**_  callable_**
+**_callable_**
 
 ### <h2 style="color: #5e5d84;">Methods<h2>
 

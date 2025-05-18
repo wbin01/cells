@@ -29,24 +29,22 @@ parameter to change it.
 
 #### align
 
-**_  Align_**
+**_Align_**
 
 Align enum.
 
 Sets the Box alignment.
 
 
-
 #### margin
 
-**_  tuple_**
+**_tuple_**
 
 Box Margins
 
-
 #### spacing
 
-**_  int_**
+**_int_**
 
 
 The space between widgets inside the box.
@@ -57,10 +55,7 @@ margins of the widgets will be respected. The Box does not activate
 the spacing with a single isolated widget.
 
 
-
 #### _main_parent
-
-**_  Widget | Box_**
 
 Main frame of the application.
 
@@ -68,17 +63,13 @@ Use only to access properties and methods of the Main Frame, defining a
 new frame will break the application.
 
 
-
 #### _obj
-
-**_  QtWidgets_**
 
 Direct access to Qt classes.
 
 Warning: Direct access is discouraged and may break the project. 
 This access is considered a hacking for complex Qt implementations, 
 and should only be used for testing and analysis purposes.
-
 
 
 ### <h2 style="color: #5e5d84;">Methods<h2>

@@ -52,12 +52,11 @@ a little slower.
 
 #### path
 
-**_  str_**
+**_str_**
 
 Image path.
 
 Pass a new path to update the Image.
-
 
 
 ---

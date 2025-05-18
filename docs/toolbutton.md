@@ -18,16 +18,14 @@ Class constructor.
 
 #### selectable
 
-**_  bool_**
+**_bool_**
 
 ...
-
 
 #### selected
 
-**_  bool_**
+**_bool_**
 
 ...
-
 
 ---

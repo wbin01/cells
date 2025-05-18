@@ -23,9 +23,8 @@ Class constructor.
 
 #### buttons
 
-**_  list_**
+**_list_**
 
 List with all CheckButton's configured to display.
-
 
 ---

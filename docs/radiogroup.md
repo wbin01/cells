@@ -23,9 +23,8 @@ Class constructor.
 
 #### buttons
 
-**_  list_**
+**_list_**
 
 List with all RadioButton's configured to display.
-
 
 ---

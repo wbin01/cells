@@ -18,12 +18,11 @@ Class constructor.
 
 #### text
 
-**_  str_**
+**_str_**
 
 Label text.
 
 Pass a new string to update the text.
-
 
 
 ---

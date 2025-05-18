@@ -18,9 +18,8 @@ Class constructor.
 
 #### state
 
-**_  str_**
+**_str_**
 
 ...
-
 
 ---

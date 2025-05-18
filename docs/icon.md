@@ -27,44 +27,38 @@ of an icon in the current operating system, such as
 
 #### height
 
-**_  int_**
+**_int_**
 
 Returns the height of the Icon.
 
 Pass a new integer value to update the height.
 
 
-
 #### path
 
-**_  str_**
+**_str_**
 
 Icon path.
 
 Pass a new path to update the icon image.
 
 
-
 #### width
 
-**_  int_**
+**_int_**
 
 Returns the Widget width.
 
 Pass a new integer value to update the width.
 
 
-
 #### _obj
-
-**__**
 
 Direct access to Qt classes.
 
 Warning: Direct access is discouraged and may break the project. 
 This access is considered a hacking for complex Qt implementations, 
 and should only be used for testing and analysis purposes.
-
 
 
 ---

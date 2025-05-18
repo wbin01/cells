@@ -35,32 +35,29 @@ Class constructor.
 
 #### text
 
-**_  str_**
+**_str_**
 
 Button text.
 
 Pass a new string to update the text.
 
 
-
 #### selected
 
-**_  bool_**
+**_bool_**
 
 If Widget is selected.
 
 Use True or False to select or deselect the widget.
 
 
-
 #### value
 
-**_  any_**
+**_any_**
 
 Button value.
 
 Pass a new value to update.
-
 
 
 ---

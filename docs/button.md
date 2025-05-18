@@ -26,17 +26,16 @@ of an icon in the current operating system, such as
 
 #### selectable
 
-**_  bool_**
+**_bool_**
 
 If it is selectable.
 
 Whether the widget is selectable as a toggle button.
 
 
-
 #### selected
 
-**_  bool_**
+**_bool_**
 
 If Widget is selected.
 
@@ -44,15 +43,13 @@ Only works if the 'selectable' property is True.
 Use True or False to select or deselect the widget.
 
 
-
 #### text
 
-**_  str_**
+**_str_**
 
 Button text.
 
 Pass a new string to update the text.
-
 
 
 ---

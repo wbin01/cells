@@ -98,7 +98,7 @@ class Box(Box):
         self.__box.set_spacing(spacing)
 
     @property
-    def _main_parent(self) -> Widget | Box:
+    def _main_parent(self):
         """Main frame of the application.
 
         Use only to access properties and methods of the Main Frame, defining a 
@@ -114,7 +114,7 @@ class Box(Box):
                 item._main_parent = parent
 
     @property
-    def _obj(self) -> QtWidgets:
+    def _obj(self):
         """Direct access to Qt classes.
 
         Warning: Direct access is discouraged and may break the project. 

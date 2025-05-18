@@ -21,27 +21,25 @@ Class constructor.
 
 #### frame
 
-**_  QtWidgets_**
+**_QtWidgets_**
 
 Application frame.
 
 That is, the main application window.
 
 
-
 #### icon
 
-**_  str_**
+**_str_**
 
 Frame icon path string.
 
 Application Icon.
 
 
-
 #### frame_id
 
-**_  list_**
+**_list_**
 
 Frame identity list.
 
@@ -55,7 +53,6 @@ letters, numbers or underscores '_', such as:
 [__file__, 'app_4_me', 'App 4 me' ]
 
 When set the list, all items are optional, but the order is mandatory.
-
 
 
 ---

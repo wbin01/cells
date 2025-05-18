@@ -280,8 +280,8 @@ class ClassParse(object):
                 self.__code_scope, re.DOTALL):
 
             prop_name = re.findall(r'def ([^\(]+)\(', prop)
-            prop_sig = re.findall(r'def [^\)]+\)([^\:]*):', prop)
-            # prop_sig = re.findall(r'def ([^\)]+\)[^\:]*:)', prop)
+            # prop_sig = re.findall(r'def [^\)]+\)([^\:]*):', prop)
+            prop_sig = re.findall(r'def ([^\)]+\)[^\:]*:)', prop)
 
             func = None
             for f in funcs:
@@ -478,14 +478,17 @@ class MdDocFiles(object):
                 '\n\n### <h2 style="color: #5e5d84;">Properties</h2>')
 
             for prop_name, prop_value in class_parse.properties().items():
-                doc_content += (
-                f'\n\n#### {prop_name}'
-                f'\n\n**_{prop_value["signature"]}_**'.replace('->', ''))
-                # f'\n\n```python\n{prop_value["signature"]}\n```')
+                signature = prop_value["signature"].split(':')[0].split(')')[1]
+
+                doc_content += f'\n\n#### {prop_name}'
+
+                if signature:
+                    doc_content += '\n\n**_{}_**'.format(
+                        signature.replace('->', '').strip())
 
                 if prop_value['docstring']:
-                    doc_content += f'\n\n{prop_value['docstring'].replace(
-                        '    ', '')}\n'
+                    doc_content += '\n\n{}'.format(
+                        prop_value['docstring'].replace('    ', ''))
 
         elif class_parse.inheritance() == 'Enum':
             doc_content += (
