@@ -5,11 +5,7 @@ import os
 import sys
 import pprint
 
-from cells import (
-    Application, Cursor, Flag, Signal, Event,
-    MainFrame, Frame, MoveFrame, Box, Orientation, Align,
-    Widget, Button, ToolButton, Label, Image, Icon, RadioButton, RadioGroup,
-    CheckButton, CheckGroup, SwitchButton, SwitchGroup)
+from cells import *
 
 
 class MyApp(MainFrame):

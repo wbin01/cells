@@ -1,97 +1,134 @@
-# from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QRadioButton, QButtonGroup, QLabel
+# from PySide6.QtWidgets import (
+#     QApplication, QGraphicsView, QGraphicsScene,
+#     QGraphicsProxyWidget, QPushButton
+# )
+# from PySide6.QtCore import Qt
 
 
-# class RadioButtonExample(QMainWindow):
-#     def __init__(self):
-#         super().__init__()
-#         self.setWindowTitle("Exemplo de Botões de Rádio")
+# class MyGraphicsView(QGraphicsView):
+#     def __init__(self, parent=None):
+#         super().__init__(parent)
 
-#         # Layout principal
-#         central_widget = QWidget()
-#         self.setCentralWidget(central_widget)
-#         layout = QVBoxLayout(central_widget)
+#         # Cena grande o suficiente para rolar
+#         scene = QGraphicsScene(self)
+#         scene.setSceneRect(0, 0, 800, 600)
 
-#         # Label para exibir a opção selecionada
-#         self.label = QLabel("Nenhuma opção selecionada")
-#         layout.addWidget(self.label)
+#         # Criar botão normal
+#         button = QPushButton("Clique aqui")
+#         button.clicked.connect(lambda: print("Botão clicado!"))
 
-#         # Grupo de botões de rádio
-#         self.button_group = QButtonGroup(self)
-#         self.button_group.buttonToggled.connect(self.on_button_toggled)
+#         # Colocar botão dentro da cena
+#         proxy = QGraphicsProxyWidget()
+#         proxy.setWidget(button)
+#         proxy.setPos(100, 100)  # posição do botão
+#         scene.addItem(proxy)
 
-#         # Cria os botões de rádio
-#         radio_button1 = QRadioButton("Opção 1")
-#         radio_button2 = QRadioButton("Opção 2")
-#         radio_button3 = QRadioButton("Opção 3")
+#         # Adicionar outros itens para demonstrar rolagem
+#         for i in range(5):
+#             another = QPushButton(f"Outro {i+1}")
+#             another.setMinimumWidth(150)
 
-#         # Adiciona os botões ao grupo
-#         self.button_group.addButton(radio_button1)
-#         self.button_group.addButton(radio_button2)
-#         self.button_group.addButton(radio_button3)
+#             proxy_other = QGraphicsProxyWidget()
+#             proxy_other.setWidget(another)
+#             proxy_other.setPos(100, 200 + i * 70)
+#             scene.addItem(proxy_other)
 
-#         # Adiciona os botões ao layout
-#         layout.addWidget(radio_button1)
-#         layout.addWidget(radio_button2)
-#         layout.addWidget(radio_button3)
-
-#     def on_button_toggled(self, button, checked):
-#         if checked:
-#             self.label.setText(f"Selecionado: {button.text()}")
-
-
-# # Inicializa a aplicação
-# def main():
-#     app = QApplication([])
-#     window = RadioButtonExample()
-#     window.show()
-#     app.exec()
+#         # Configurar a view
+#         self.setScene(scene)
+#         # self.setRenderHint(self.RenderHint.Antialiasing)
+#         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+#         self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+#         self.setFocusPolicy(Qt.StrongFocus)
 
 
 # if __name__ == "__main__":
-#     main()
+#     app = QApplication([])
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QSlider, QWidget
-class MainWindow(QMainWindow):
+#     view = MyGraphicsView()
+#     view.setWindowTitle("QGraphicsScene com QPushButton")
+#     view.resize(400, 300)
+#     view.show()
+
+#     app.exec()
+
+
+from PySide6.QtWidgets import (
+    QApplication, QGraphicsView, QGraphicsScene,
+    QGraphicsProxyWidget, QPushButton, QLineEdit,
+    QCheckBox, QComboBox, QSlider, QLabel
+)
+from PySide6.QtCore import Qt
+
+
+class WidgetSceneDemo(QGraphicsView):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My App")
+        self.scene = QGraphicsScene(self)
+        self.scene.setSceneRect(0, 0, 800, 1000)  # Dimensões grandes para permitir rolagem
 
-        slider = QSlider()
+        y = 20  # posição inicial vertical
 
-        slider.setMinimum(-10)
-        slider.setMaximum(3)
-        # Or: widget.setRange(-10,3)
+        # 1. QLabel
+        label = QLabel("Digite algo:")
+        self.add_widget(label, 50, y)
+        y += 40
 
-        slider.setSingleStep(3)
+        # 2. QLineEdit
+        line_edit = QLineEdit()
+        self.add_widget(line_edit, 50, y)
+        y += 60
 
-        slider.valueChanged.connect(self.value_changed)
-        slider.sliderMoved.connect(self.slider_position)
-        slider.sliderPressed.connect(self.slider_pressed)
-        slider.sliderReleased.connect(self.slider_released)
+        # 3. QCheckBox
+        checkbox = QCheckBox("Ativar opção")
+        self.add_widget(checkbox, 50, y)
+        y += 60
 
-        self.setCentralWidget(slider)
+        # 4. QComboBox
+        combo = QComboBox()
+        combo.addItems(["Opção 1", "Opção 2", "Opção 3"])
+        self.add_widget(combo, 50, y)
+        y += 60
 
-    def value_changed(self, value):
-        print(value)
+        # 5. QSlider
+        slider = QSlider(Qt.Horizontal)
+        slider.setMinimum(0)
+        slider.setMaximum(100)
+        self.add_widget(slider, 50, y)
+        y += 60
 
-    def slider_position(self, position):
-        print("position", position)
+        # 6. QPushButton
+        button = QPushButton("Enviar")
+        button.clicked.connect(lambda: print("Botão clicado!"))
+        self.add_widget(button, 50, y)
+        y += 60
 
-    def slider_pressed(self):
-        print("Pressed!")
+        # 7. Vários outros para demonstrar rolagem
+        for i in range(10):
+            more_button = QPushButton(f"Extra {i+1}")
+            self.add_widget(more_button, 50, y)
+            y += 50
 
-    def slider_released(self):
-        print("Released")
+        # View settings
+        self.setScene(self.scene)
+        # self.setRenderHint(self.RenderHint.Antialiasing)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.setFocusPolicy(Qt.StrongFocus)
 
-
-# Inicializa a aplicação
-def main():
-    app = QApplication([])
-    window = MainWindow()
-    window.show()
-    app.exec()
+    def add_widget(self, widget, x, y):
+        proxy = QGraphicsProxyWidget()
+        proxy.setWidget(widget)
+        proxy.setPos(x, y)
+        self.scene.addItem(proxy)
 
 
 if __name__ == "__main__":
-    main()
+    app = QApplication([])
+
+    window = WidgetSceneDemo()
+    window.setWindowTitle("QGraphicsScene com vários widgets")
+    window.resize(400, 400)
+    window.show()
+
+    app.exec()

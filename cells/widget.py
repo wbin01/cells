@@ -20,6 +20,7 @@ class CoreWidget(QtWidgets.QFrame):
     def __init__(self, *args, **kwargs):
         """Class constructor."""
         super().__init__(*args, **kwargs)
+        # self.set_mouse_tracking(True)
         self.set_object_name('Widget')
         self.mouse_press_signal = Signal()
         self.mouse_release_signal = Signal()
@@ -508,7 +509,21 @@ class Widget(Widget):
         a new frame will break the application.
         """
         return self.__main_parent
-    
+
+    # @property
+    # def _box(self) -> Box:
+    #     """Direct access to Box Layout of this widget.
+    #
+    #     Warning: Direct access is discouraged and may break the project. 
+    #     This access is considered a hacking for complex Qt implementations, 
+    #     and should only be used for testing and analysis purposes.
+    #     """
+    #     return self.__box
+    #
+    # @_box.setter
+    # def _box(self, box: Box) -> None:
+    #     self.__box = box
+    #
     @_main_parent.setter
     def _main_parent(self, parent) -> None:
         if parent:
@@ -538,6 +553,19 @@ class Widget(Widget):
     def _obj(self, obj: QtWidgets) -> None:
         self.__widget = obj
 
+    def add(self, item: Widget | Box, index: int = -1) -> Widget | Box:
+        """Inserts a Widget or a Box.
+
+        Returns the reference to the added item.
+        
+        :param item: It can be a Widget (Widget, Label, Button...) or a Box.
+        :param index: Index number where the item should be added 
+            (Default is -1)
+        """
+        item._main_parent = self._main_parent
+        self.__box.add(item)
+        return item
+
     def delete(self, item: Widget | Box) -> None:
         """Delete a Widget or a Box.
 
@@ -553,22 +581,19 @@ class Widget(Widget):
         """String with all available events."""
         return ', '.join([f'Event.{x.value}' for x in self.__signals.keys()])
 
-    def add(self, item: Widget | Box, index: int = -1) -> Widget | Box:
-        """Inserts a Widget or a Box.
-
-        Returns the reference to the added item.
-        
-        :param item: It can be a Widget (Widget, Label, Button...) or a Box.
-        :param index: Index number where the item should be added 
-            (Default is -1)
-        """
-        item._main_parent = self._main_parent
-        self.__box.add(item)
-        return item
-
     def items(self) -> list:
         """List with added widgets."""
         return self.__box.items
+
+    def move(self, x: int, y: int) -> None:
+        """Move the Widget.
+
+        The X and Y positions are relative to the main parent.
+        
+        :param x: Horizontal position relative to the main parent.
+        :param y: Vertical position relative to the main parent.
+        """
+        self.__widget.move(x, y)
 
     def remove(self, item: Widget | Box) -> None:
         """Removes a Widget or a Box.
@@ -581,16 +606,6 @@ class Widget(Widget):
         :param item: A Widget (Widget, Label, Button...) or a Box.
         """
         self.__box.remove(item)
-
-    def move(self, x: int, y: int) -> None:
-        """Move the Widget.
-
-        The X and Y positions are relative to the main parent.
-        
-        :param x: Horizontal position relative to the main parent.
-        :param y: Vertical position relative to the main parent.
-        """
-        self.__widget.move(x, y)
 
     def signal(self, event: Event) -> Signal:
         """Event Signals.
